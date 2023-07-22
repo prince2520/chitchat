@@ -1,0 +1,114 @@
+:root {
+  --background: #222831;
+  --container: rgba(57, 62, 70, 0.7);
+  --white: #ffff;
+  --input: #E8F0FE;
+  --text: #D4CFCF;
+  --primary: #EE4C74;
+  --link: #8AB4F8;
+  --border: #61656B;
+  --error: #830B0B;
+  --success: #12670c;
+}
+
+.App {
+  height: 100vh;
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+p{
+  margin: 0;
+}
+
+.authentication-page,
+.chat-page{
+  background-color: var(--container);
+  width: 70%;
+  padding: 2rem 5rem;
+  max-width: 40rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-page{
+  padding: 0;
+}
+
+.border{
+  border: 2px solid var(--border);
+}
+
+.box-shadow{
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.email-container,
+.password-container,
+.username-container,
+.confirm-password-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  position: relative;
+}
+
+
+label{
+  color: var(--text);
+}
+
+
+.authentication-page input,
+.login-input{
+  background-color: var(--input);
+  border: none;
+  padding: 0.65rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  outline: none;
+}
+
+
+
+.image-edit-container{
+  position: relative;
+}
+
+.image-edit-container .edit-btn{
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 1rem;
+
+  border: 1px solid var(--text);
+
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--white);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+@media screen and (max-width: 800px) {
+  .authentication-page,
+  .chat-page{
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+}
+
+
+h3,p {
+  margin: 0;
+}

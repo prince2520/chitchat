@@ -1,0 +1,30 @@
+.create-group-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 1rem;
+    min-height: 50%;
+}
+
+.create-group-container .heading{
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--white);
+}
+
+.create-group-container .image-container{
+    width: 10rem;
+    height: 10rem;
+}
+
+.create-group-container .create-group-btn{
+    width: 50%;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.create-group-container .email-container{
+    width: 80%;
+}
+

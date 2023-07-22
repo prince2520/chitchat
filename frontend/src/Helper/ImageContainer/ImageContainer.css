@@ -1,0 +1,24 @@
+
+
+.image-container{
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+    position: relative;
+    background-color: black;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    border: 3px solid var(--white);
+}
+
+.image-container img{
+    object-fit: contain;
+    height: 100%;
+}

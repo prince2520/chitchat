@@ -1,0 +1,103 @@
+.chat-page{
+    height: 80%;
+    width: 95%;
+    max-width: 70rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: normal;
+    align-items: center;
+}
+
+.chat-page .chat-tab-container{
+    width: 35%;
+    height: 100%;
+}
+
+.chat-tab {
+    height: 100%;
+    width: 100%;
+    border-right: 2px solid var(--border);
+    z-index: 700;
+}
+
+.image-container{
+    width: 4rem;
+    height: 4rem;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    border: 3px solid var(--white);
+}
+
+.image-container img{
+    object-fit: contain;
+    height: 100%;
+}
+
+
+.input-icon{
+    position: absolute;
+    bottom: 0.4rem;
+    right: 1rem;
+}
+
+@media screen and (max-width: 800px) {
+    form .login-heading{
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--white);
+    }
+
+    .chat-page{
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .chat-page .chat-tab-container{
+        display: none;
+    }
+}
+
+.my-profile-container .menu-container{
+    bottom: -11.5rem;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.75rem;
+}
+
+
+.my-profile-container .menu-container,
+.search-result-container{
+    z-index: 600;
+    background-color: var(--container);
+    position: absolute;
+    width: 100%;
+    left: 0;
+    padding: 0.5rem 1rem;
+
+    backdrop-filter: blur(5px);
+    color: var(--white);
+}
+
+
+::-webkit-scrollbar{
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb{
+    border-radius: 0.25rem;
+    background-color: grey;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background-color: var(--text);
+}

@@ -1,0 +1,15 @@
+.chat-box{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    height: 100%;
+    width: 70%;
+    padding: 0.5rem 1rem;
+}
+
+@media screen and (max-width: 800px) {
+    .chat-box{
+        width: 100%;
+        padding: 0.5rem 0.25rem;
+    }
+}

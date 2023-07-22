@@ -1,0 +1,51 @@
+.search-result-container{
+    position: absolute;
+    width: 100%;
+    column-gap: 0.5rem;
+
+    bottom: -7rem;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    padding: 1.25rem 1rem 1rem;
+}
+
+.search-result-container .search-result-join-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    bottom: -0.5rem;
+}
+
+.search-result-container .search-result-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: left;
+    align-items: center;
+}
+
+.search-result-description span{
+    width: 100%;
+}
+
+.search-result-description .username{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.search-result-description .status{
+    font-size: 0.8rem;
+    color: var(--text);
+}
+
+.search-result-container .close-btn{
+    position: absolute;
+    top: 0.25rem;
+    right: 0.5rem;
+
+    font-size: 2rem;
+}

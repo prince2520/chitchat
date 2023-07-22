@@ -1,0 +1,7 @@
+.category-btn{
+    color: var(--text);
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border: 2px solid var(--text);
+    border-radius: 0.5rem;
+}

@@ -1,0 +1,5 @@
+@media screen and (min-width: 800px) {
+    .sidebar_container{
+        display: none;
+    }
+}

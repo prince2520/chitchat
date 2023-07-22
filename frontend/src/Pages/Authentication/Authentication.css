@@ -1,0 +1,57 @@
+.authentication-page form {
+    width: 80%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+form .login-heading{
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.login-form p{
+    color: var(--text);
+    font-weight: 400;
+}
+
+form .link-container{
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    column-gap: 0.5rem;
+    flex-wrap: wrap;
+    color: var(--text);
+}
+
+.link-container .link{
+    color: var(--link);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.login-btn-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+
+@media screen and (max-width: 800px) {
+    form .login-heading{
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--white);
+    }
+
+    .login-form{
+        position: relative;
+        top: -5rem;
+    }
+}

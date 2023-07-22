@@ -1,0 +1,31 @@
+.chat-box-bottom{
+    width: 100%;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.chat-box-bottom input{
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    width: 80%;
+}
+
+::placeholder {
+    color: var(--text);
+}
+
+.icon-container{
+    display: flex;
+    column-gap: 1rem;
+}
+
+.icon-container button{
+    background: none;
+    border: none;
+}

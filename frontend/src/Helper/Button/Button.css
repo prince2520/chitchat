@@ -1,0 +1,21 @@
+.button-container{
+    background-color: var(--primary);
+    width: 100%;
+    max-width: 15rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.35rem;
+    border-radius: 0.5rem;
+    color: white;
+
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    border: none;
+
+}
