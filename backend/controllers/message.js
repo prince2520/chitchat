@@ -21,8 +21,8 @@ exports.createMessage = (req,res,next) => {
                     user: user._id
                 })
                 newMessage.save().then(done => {
-                    user.messages.push(newMessage._id)
-                    group.messages.push(newMessage._id)
+                    user?.messages.push(newMessage._id)
+                    group?.messages.push(newMessage._id)
                     group.lastMessage = message
                     group.save();
                     user.save();

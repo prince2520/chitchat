@@ -60,14 +60,16 @@ exports.fetchPrivateUser = async (req, res, next) => {
 exports.createPersonalMessage = async (req, res, next) => {
     const senderId = mongoose.Types.ObjectId(req.body.senderId);
     const receiverId = mongoose.Types.ObjectId(req.body.receiverId);
-    const message = req.body.message
+    const message = req.body.message;
+    const isOpenAIMsg = req.body.isOpenAIMsg;
 
     const privateUser = await PrivateChat.findOne({user: {$all: [senderId, receiverId]}});
 
     if (privateUser) {
         const newMessage = new Message({
             message: message,
-            user: senderId
+            user: senderId,
+            isOpenAIMsg: isOpenAIMsg
         })
 
         newMessage.save().then(done => {
@@ -93,7 +95,8 @@ exports.fetchPrivateMessage = async (req, res, next) => {
             messageId: message._id,
             username: message.user.userName,
             message: message.message,
-            profileImageUrl: message.user.profileImageUrl
+            profileImageUrl: message.user.profileImageUrl,
+            isOpenAIMsg: message.isOpenAIMsg
         }));
 
         return res.status(200).json({
@@ -104,5 +107,4 @@ exports.fetchPrivateMessage = async (req, res, next) => {
         success: false,
         message: 'Something goes wrong!'
     }));
-
 }

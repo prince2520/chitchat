@@ -12,8 +12,8 @@ exports.createUser = async(req,res,next) => {
     const roomFound = await Room.findOne({roomName: roomName})
 
     if(userFound){
-        roomFound.user.push(userFound._id)
-        roomFound.save()
+        roomFound?.user.push(userFound._id)
+        roomFound?.save()
         return res.status(200).json({message: 'User already exist!'})
     }else {
             const newUser = new User({

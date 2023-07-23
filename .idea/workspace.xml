@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/CustomEmoji/CustomEmoji.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/CustomEmoji/CustomEmoji.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBox.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBox.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/GroupPrivateList/GroupPrivateList.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/GroupPrivateList/GroupPrivateList.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/message.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/private.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/private.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/message.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +57,7 @@
       <workItem from="1690017492424" duration="1187000" />
       <workItem from="1690020814255" duration="675000" />
       <workItem from="1690023489363" duration="4330000" />
-      <workItem from="1690100049019" duration="5970000" />
+      <workItem from="1690100049019" duration="21456000" />
     </task>
     <servers />
   </component>

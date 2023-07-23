@@ -7,6 +7,11 @@ const messageSchema = new Schema({
         type: String,
         required: false
     },
+    isOpenAIMsg: {
+        type: Boolean,
+        default: false,
+        required: false
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref:'User',
