@@ -1,12 +1,13 @@
 import './ChatBoxBottom.css';
 import {Icon} from "@iconify/react";
-import {useContext, useRef} from "react";
+import {useContext, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {categoryState} from "../../../../common";
 import {ChatActions} from "../../../../store/chat";
-import {sendGroupMessageHandler, sendPrivateMessage, sendPrivateMessageHandler} from "../../../../api";
+import {sendGroupMessageHandler, sendPrivateMessageHandler} from "../../../../api";
 import AuthContext from "../../../../Context/auth";
 import {sendChatMessageHandler} from "../../../../socket";
+import CustomEmoji from "./CustomEmoji/CustomEmoji";
 
 const ChatBoxBottom = () => {
     const inputRef = useRef(null);
@@ -17,6 +18,7 @@ const ChatBoxBottom = () => {
     const authCtx = useContext(AuthContext);
 
     const dispatch = useDispatch();
+    const [showEmojis, setShowEmojis] = useState(false);
 
     const sendMessageHandler = (message, users, chatId , cb) => {
         let data;
@@ -47,7 +49,7 @@ const ChatBoxBottom = () => {
         let message = inputRef.current.value;
 
         if (chat.type === categoryState[0]) {
-            sendGroupMessageHandler(authCtx.token, message, chat.name, user.username)
+            sendGroupMessageHandler(authCtx?.token, message, chat.name, user.username)
                 .then(()=>{
                     let users = chat.users;
 
@@ -55,10 +57,10 @@ const ChatBoxBottom = () => {
                 })
                 .catch(err=>console.log(err));
         }else {
-            sendPrivateMessageHandler(authCtx.token, authCtx.userId, chat._id, message)
+            sendPrivateMessageHandler(authCtx?.token, authCtx?.userId, chat._id, message)
                 .then(()=>{
-                    let users = [authCtx.userId, chat._id];
-                    sendMessageHandler(message, users, authCtx.userId,sendChatMessageHandler);
+                    let users = [authCtx?.userId, chat._id];
+                    sendMessageHandler(message, users, authCtx?.userId,sendChatMessageHandler);
                 }).catch(err=>console.log(err));
         }
 
@@ -71,12 +73,16 @@ const ChatBoxBottom = () => {
               className='chat-box-bottom border'>
             <input ref={inputRef} type="text" placeholder={'Type Something ...'}/>
             <div className='icon-container'>
-                <Icon icon="uil:smile" style={{color: 'var(--white)', fontSize: '2rem'}}/>
+                <Icon
+                    onClick={()=>{setShowEmojis(!showEmojis)}}
+                    icon="uil:smile"
+                    style={{color: 'var(--white)', fontSize: '2rem'}}/>
                 <button>
                     <Icon
                         icon="mingcute:send-line" style={{color: 'var(--white)', fontSize: '2rem'}}/>
                 </button>
             </div>
+            {showEmojis && <CustomEmoji/>}
         </form>
     );
 };

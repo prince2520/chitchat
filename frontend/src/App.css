@@ -1,6 +1,9 @@
 :root {
-  --background: #222831;
-  --container: rgba(57, 62, 70, 0.7);
+  /*--background: #222831;*/
+  /*--container: rgba(57, 62, 70, 0.7);*/
+  --background: black;
+  --container: rgba(40, 40, 42, 0.7);
+
   --white: #ffff;
   --input: #E8F0FE;
   --text: #D4CFCF;
