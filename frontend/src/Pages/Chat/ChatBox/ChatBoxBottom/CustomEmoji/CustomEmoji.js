@@ -7,6 +7,7 @@ const CustomEmoji = () => {
     return (
         <div className='emoji-container'>
             <Picker
+                theme={'dark'}
                 data={data}
                 onEmojiSelect={console.log} />
         </div>

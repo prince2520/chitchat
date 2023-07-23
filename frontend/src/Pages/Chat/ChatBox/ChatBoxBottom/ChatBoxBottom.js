@@ -8,6 +8,8 @@ import {sendGroupMessageHandler, sendPrivateMessageHandler} from "../../../../ap
 import AuthContext from "../../../../Context/auth";
 import {sendChatMessageHandler} from "../../../../socket";
 import CustomEmoji from "./CustomEmoji/CustomEmoji";
+import SpeechToText from "./SpeechToText/SpeechToText";
+import OpenAI from "./OpenAI/OpenAI";
 
 const ChatBoxBottom = () => {
     const inputRef = useRef(null);
@@ -19,9 +21,10 @@ const ChatBoxBottom = () => {
 
     const dispatch = useDispatch();
     const [showEmojis, setShowEmojis] = useState(false);
+    const [isOpenAIMsg, setIsOpenAIMsg] = useState(false);
 
-    const sendMessageHandler = (message, users, chatId , cb) => {
-        let data;
+    const sendMessageHandler = (message, users, chatId , cb, isOpenAIMsg = false) => {
+        let data, messageData;
 
         data = {
             sender_id : authCtx?.userId,
@@ -31,14 +34,17 @@ const ChatBoxBottom = () => {
                 chatId: chatId,
                 username: user.username,
                 message: message,
-                profileImageUrl: user.profileImageUrl
+                profileImageUrl: user.profileImageUrl,
+                isOpenAIMsg: isOpenAIMsg
             }
         }
+
         dispatch(ChatActions.saveChatMessage({
             chatId: chat._id,
             username: user.username,
             message: message,
-            profileImageUrl: user.profileImageUrl
+            profileImageUrl: user.profileImageUrl,
+            isOpenAIMsg: isOpenAIMsg
         }));
 
         cb(data);
@@ -57,29 +63,35 @@ const ChatBoxBottom = () => {
                 })
                 .catch(err=>console.log(err));
         }else {
-            sendPrivateMessageHandler(authCtx?.token, authCtx?.userId, chat._id, message)
+            sendPrivateMessageHandler(authCtx?.token, authCtx?.userId, chat._id, message, isOpenAIMsg)
                 .then(()=>{
                     let users = [authCtx?.userId, chat._id];
-                    sendMessageHandler(message, users, authCtx?.userId,sendChatMessageHandler);
+                    sendMessageHandler(message, users, authCtx?.userId, sendChatMessageHandler, isOpenAIMsg);
                 }).catch(err=>console.log(err));
         }
 
         inputRef.current.value = '';
     };
 
+    const addSpeechText = (transcript) => console.log(transcript);
+
+    const isOpenAIHandler = (openAICond) => {
+        setIsOpenAIMsg(openAICond);
+    }
+
 
     return (
         <form onSubmit={(event) => sendMessage(event)}
               className='chat-box-bottom border'>
+            <OpenAI isOpenAIHandler={isOpenAIHandler}/>
             <input ref={inputRef} type="text" placeholder={'Type Something ...'}/>
             <div className='icon-container'>
                 <Icon
                     onClick={()=>{setShowEmojis(!showEmojis)}}
-                    icon="uil:smile"
-                    style={{color: 'var(--white)', fontSize: '2rem'}}/>
+                    icon="uil:smile"/>
                 <button>
                     <Icon
-                        icon="mingcute:send-line" style={{color: 'var(--white)', fontSize: '2rem'}}/>
+                        icon="mingcute:send-line"/>
                 </button>
             </div>
             {showEmojis && <CustomEmoji/>}

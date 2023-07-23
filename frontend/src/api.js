@@ -169,7 +169,7 @@ export const fetchPrivateMessage = async (senderId, receiverId, token) => {
     return fetchMessage.json();
 };
 
-export const sendPrivateMessageHandler = async (token, senderId, receiverId, message) => {
+export const sendPrivateMessageHandler = async (token, senderId, receiverId, message, isOpenAIMsg) => {
     let result =  await fetch(`${process.env.REACT_APP_SERVER_URL}/private/sendPrivateMessage`, {
         method: 'POST',
         headers: {
@@ -179,7 +179,8 @@ export const sendPrivateMessageHandler = async (token, senderId, receiverId, mes
         body: JSON.stringify({
             senderId: senderId,
             receiverId: receiverId,
-            message: message
+            message: message,
+            isOpenAIMsg: isOpenAIMsg
         })
     });
 

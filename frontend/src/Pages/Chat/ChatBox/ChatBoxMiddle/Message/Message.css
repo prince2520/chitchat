@@ -40,3 +40,18 @@
     font-weight: 500;
     text-align: left;
 }
+
+.open-ai-icon{
+    background-color: #10A37F;
+    padding: 0.1rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.open-ai-msg-box .msg{
+    background-color: white;
+    color: black;
+}

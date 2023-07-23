@@ -1,0 +1,23 @@
+.open-ai-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.15rem;
+
+    border-radius: 50%;
+
+    font-size: 1.5rem;
+
+    color: var(--border);
+    border: 1px solid var(--border);
+
+    cursor: pointer;
+
+    margin-right: 0.5rem;
+}
+
+.open-ai-selected{
+    background-color: #10A37F;
+    color: white;
+    border-color: white;
+}

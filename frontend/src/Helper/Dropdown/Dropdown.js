@@ -18,7 +18,7 @@ const Dropdown = () => {
     };
 
     return (
-        <div className={'menu-container border box-shadow'}>
+        <div className={'menu-container box-shadow'}>
             <div className={'menu-close'}>
                 <Icon onClick={() => dispatch(HelperActions.dropDownHandler(false))} icon="iconamoon:close-fill"/>
             </div>

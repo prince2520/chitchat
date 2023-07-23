@@ -11,10 +11,9 @@ const ChatBoxMiddle = () => {
         <div className='chat-box-middle border'>
             {messages.map(res =>
                 <Message
-                    username={res.username}
-                    profileImgUrl={res.profileImageUrl}
+                    messageDetail={res}
                     myMsg={(res.username === username)}
-                    message={res.message}/>)}
+                    />)}
         </div>
     );
 };

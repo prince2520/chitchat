@@ -25,6 +25,12 @@
     display: flex;
     column-gap: 1rem;
 }
+.icon-container svg,
+.text-to-speech-container{
+    color: var(--white);
+    font-size: 2rem;
+    cursor: pointer;
+}
 
 .icon-container button{
     background: none;
