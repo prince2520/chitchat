@@ -3,13 +3,13 @@ import Picker from '@emoji-mart/react';
 
 import './CustomEmoji.css';
 
-const CustomEmoji = () => {
+const CustomEmoji = ({inputRef}) => {
     return (
         <div className='emoji-container'>
             <Picker
                 theme={'dark'}
                 data={data}
-                onEmojiSelect={console.log} />
+                onEmojiSelect={(event)=>inputRef.current.value += event.native} />
         </div>
     )
 };

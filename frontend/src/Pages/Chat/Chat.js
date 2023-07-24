@@ -34,7 +34,8 @@ const Chat = () => {
                 chatId: messageData.chatId,
                 username: messageData.username,
                 message: messageData.message,
-                profileImageUrl: messageData.profileImageUrl
+                profileImageUrl: messageData.profileImageUrl,
+                isOpenAIMsg: messageData.isOpenAIMsg
             };
             saveMessage(data);
         });

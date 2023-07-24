@@ -132,7 +132,7 @@ export const joinGroupHandler = async (token, group_name, userId) => {
     return result.json();
 }
 
-export const sendGroupMessageHandler = async (token, message, roomName, username ) => {
+export const sendGroupMessageHandler = async (token, message, roomName, username, isOpenAIMsg ) => {
     let result = await fetch(`${process.env.REACT_APP_SERVER_URL}/message/createMessage`, {
         method: 'POST',
         headers: {
@@ -142,7 +142,8 @@ export const sendGroupMessageHandler = async (token, message, roomName, username
         body: JSON.stringify({
             message: message,
             roomName: roomName,
-            userName: username
+            userName: username,
+            isOpenAIMsg: isOpenAIMsg
         })
     });
 

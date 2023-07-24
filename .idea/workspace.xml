@@ -5,11 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/openai.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/group.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/group.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/message.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/private.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/private.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/message.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/CustomEmoji/CustomEmoji.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/CustomEmoji/CustomEmoji.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/Message.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/Message.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +64,9 @@
       <workItem from="1690017492424" duration="1187000" />
       <workItem from="1690020814255" duration="675000" />
       <workItem from="1690023489363" duration="4330000" />
-      <workItem from="1690100049019" duration="21456000" />
+      <workItem from="1690100049019" duration="22377000" />
+      <workItem from="1690182507174" duration="1204000" />
+      <workItem from="1690207063837" duration="4000" />
     </task>
     <servers />
   </component>

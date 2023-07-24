@@ -5,6 +5,7 @@ const {validationResult} = require("express-validator");
 
 exports.createMessage = (req,res,next) => {
     const message = req.body.message;
+    const isOpenAIMsg = req.body.isOpenAIMsg;
     const roomName = req.body.roomName;
     const userName = req.body.userName;
 
@@ -18,7 +19,8 @@ exports.createMessage = (req,res,next) => {
                 const newMessage = new Message({
                     message: message,
                     room: group._id,
-                    user: user._id
+                    user: user._id,
+                    isOpenAIMsg: isOpenAIMsg
                 })
                 newMessage.save().then(done => {
                     user?.messages.push(newMessage._id)

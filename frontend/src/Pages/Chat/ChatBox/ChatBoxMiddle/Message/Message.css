@@ -12,11 +12,14 @@
 }
 
 .message-container .msg{
-    height: fit-content;
+    width: 100%;
+    max-width: 40rem;
+
     padding: 0.25rem 1rem;
     border: 2px solid var(--border);
     color: var(--text);
     border-radius: 0.25rem;
+    word-wrap: break-word;
 }
 
 .my-message{

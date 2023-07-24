@@ -70,7 +70,7 @@ exports.createPersonalMessage = async (req, res, next) => {
             message: message,
             user: senderId,
             isOpenAIMsg: isOpenAIMsg
-        })
+        });
 
         newMessage.save().then(done => {
             privateUser?.privateMessages.push(done._id);

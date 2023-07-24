@@ -10,6 +10,7 @@ import {sendChatMessageHandler} from "../../../../socket";
 import CustomEmoji from "./CustomEmoji/CustomEmoji";
 import SpeechToText from "./SpeechToText/SpeechToText";
 import OpenAI from "./OpenAI/OpenAI";
+import {openAIAnswer} from "../../../../openai";
 
 const ChatBoxBottom = () => {
     const inputRef = useRef(null);
@@ -50,34 +51,51 @@ const ChatBoxBottom = () => {
         cb(data);
     }
 
+    const privateMessageHandler = (message) => {
+        sendPrivateMessageHandler(authCtx?.token, authCtx?.userId, chat._id, message, isOpenAIMsg)
+            .then(()=>{
+                let users = [authCtx?.userId, chat._id];
+                sendMessageHandler(message, users, authCtx?.userId, sendChatMessageHandler, isOpenAIMsg);
+            }).catch(err=>console.log(err));
+    }
+
+    const groupMessageHandler = (message) => {
+        sendGroupMessageHandler(authCtx?.token, message, chat.name, user.username, isOpenAIMsg)
+            .then(()=>{
+                let users = chat.users;
+                sendMessageHandler(message, users, chat._id ,sendChatMessageHandler, isOpenAIMsg);
+            })
+            .catch(err=>console.log(err));
+    }
+
+    const sendOpenAIAnswer = (message, cb) => {
+        if(isOpenAIMsg){
+            openAIAnswer(message).then(answer=>{
+                cb(answer);
+            }).catch(err=>console.log(err))
+        };
+    }
+
     const sendMessage = (event) => {
-        event.preventDefault();
+        event.preventDefault()
+
         let message = inputRef.current.value;
 
-        if (chat.type === categoryState[0]) {
-            sendGroupMessageHandler(authCtx?.token, message, chat.name, user.username)
-                .then(()=>{
-                    let users = chat.users;
+        if(message==='')
+            return
 
-                    sendMessageHandler(message, users, chat._id ,sendChatMessageHandler);
-                })
-                .catch(err=>console.log(err));
+        if (chat.type === categoryState[0]) {
+            groupMessageHandler(message);
+            sendOpenAIAnswer(message, groupMessageHandler)
         }else {
-            sendPrivateMessageHandler(authCtx?.token, authCtx?.userId, chat._id, message, isOpenAIMsg)
-                .then(()=>{
-                    let users = [authCtx?.userId, chat._id];
-                    sendMessageHandler(message, users, authCtx?.userId, sendChatMessageHandler, isOpenAIMsg);
-                }).catch(err=>console.log(err));
+            privateMessageHandler(message);
+            sendOpenAIAnswer(message, privateMessageHandler)
         }
 
         inputRef.current.value = '';
     };
 
-    const addSpeechText = (transcript) => console.log(transcript);
-
-    const isOpenAIHandler = (openAICond) => {
-        setIsOpenAIMsg(openAICond);
-    }
+    const isOpenAIHandler = (openAICond) => setIsOpenAIMsg(openAICond);
 
 
     return (
@@ -88,13 +106,13 @@ const ChatBoxBottom = () => {
             <div className='icon-container'>
                 <Icon
                     onClick={()=>{setShowEmojis(!showEmojis)}}
-                    icon="uil:smile"/>
+                    icon="emojione:winking-face"/>
                 <button>
                     <Icon
                         icon="mingcute:send-line"/>
                 </button>
             </div>
-            {showEmojis && <CustomEmoji/>}
+            {showEmojis && <CustomEmoji inputRef={inputRef}/>}
         </form>
     );
 };
