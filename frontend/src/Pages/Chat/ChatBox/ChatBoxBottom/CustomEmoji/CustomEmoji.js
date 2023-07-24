@@ -7,6 +7,9 @@ const CustomEmoji = ({inputRef}) => {
     return (
         <div className='emoji-container'>
             <Picker
+                previewPosition={'none'}
+                dynamicWidth={true}
+                className={'emoji-box'}
                 theme={'dark'}
                 data={data}
                 onEmojiSelect={(event)=>inputRef.current.value += event.native} />

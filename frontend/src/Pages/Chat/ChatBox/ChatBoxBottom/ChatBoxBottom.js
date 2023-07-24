@@ -112,7 +112,7 @@ const ChatBoxBottom = () => {
                         icon="mingcute:send-line"/>
                 </button>
             </div>
-            {showEmojis && <CustomEmoji inputRef={inputRef}/>}
+            {showEmojis && <CustomEmoji setShowEmojis={setShowEmojis} inputRef={inputRef}/>}
         </form>
     );
 };
