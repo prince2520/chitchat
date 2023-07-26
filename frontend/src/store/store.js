@@ -5,6 +5,7 @@ import alertReducer from "./alert";
 import helperReducer from './helper';
 import userReducer from './user';
 import chatReducer from './chat';
+import dragAndDropReducer from "./dragAndDrop";
 
 const store = configureStore({
     reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
         helper: helperReducer,
         alert: alertReducer,
         user: userReducer,
-        chat: chatReducer
+        chat: chatReducer,
+        dragAndDrop: dragAndDropReducer
     }
 });
 

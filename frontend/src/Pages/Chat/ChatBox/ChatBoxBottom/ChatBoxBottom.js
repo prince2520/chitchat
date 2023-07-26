@@ -8,9 +8,10 @@ import {sendGroupMessageHandler, sendPrivateMessageHandler} from "../../../../ap
 import AuthContext from "../../../../Context/auth";
 import {sendChatMessageHandler} from "../../../../socket";
 import CustomEmoji from "./CustomEmoji/CustomEmoji";
-import SpeechToText from "./SpeechToText/SpeechToText";
 import OpenAI from "./OpenAI/OpenAI";
 import {openAIAnswer} from "../../../../openai";
+import {DragAndDropActions} from "../../../../store/dragAndDrop";
+import {messageHandler} from "../../sendMessage";
 
 const ChatBoxBottom = () => {
     const inputRef = useRef(null);
@@ -25,7 +26,7 @@ const ChatBoxBottom = () => {
     const [isOpenAIMsg, setIsOpenAIMsg] = useState(false);
 
     const sendMessageHandler = (message, users, chatId , cb, isOpenAIMsg = false) => {
-        let data, messageData;
+        let data;
 
         data = {
             sender_id : authCtx?.userId,
@@ -51,30 +52,30 @@ const ChatBoxBottom = () => {
         cb(data);
     }
 
-    const privateMessageHandler = (message) => {
-        sendPrivateMessageHandler(authCtx?.token, authCtx?.userId, chat._id, message, isOpenAIMsg)
-            .then(()=>{
-                let users = [authCtx?.userId, chat._id];
-                sendMessageHandler(message, users, authCtx?.userId, sendChatMessageHandler, isOpenAIMsg);
-            }).catch(err=>console.log(err));
-    }
-
-    const groupMessageHandler = (message) => {
-        sendGroupMessageHandler(authCtx?.token, message, chat.name, user.username, isOpenAIMsg)
-            .then(()=>{
-                let users = chat.users;
-                sendMessageHandler(message, users, chat._id ,sendChatMessageHandler, isOpenAIMsg);
-            })
-            .catch(err=>console.log(err));
-    }
-
-    const sendOpenAIAnswer = (message, cb) => {
-        if(isOpenAIMsg){
-            openAIAnswer(message).then(answer=>{
-                cb(answer);
-            }).catch(err=>console.log(err))
-        };
-    }
+    // const privateMessageHandler = (message) => {
+    //     sendPrivateMessageHandler(authCtx?.token, authCtx?.userId, chat._id, message, isOpenAIMsg)
+    //         .then(()=>{
+    //             let users = [authCtx?.userId, chat._id];
+    //             sendMessageHandler(message, users, authCtx?.userId, sendChatMessageHandler, isOpenAIMsg);
+    //         }).catch(err=>console.log(err));
+    // }
+    //
+    // const groupMessageHandler = (message) => {
+    //     sendGroupMessageHandler(authCtx?.token, message, chat.name, user.username, isOpenAIMsg)
+    //         .then(()=>{
+    //             let users = chat.users;
+    //             sendMessageHandler(message, users, chat._id ,sendChatMessageHandler, isOpenAIMsg);
+    //         })
+    //         .catch(err=>console.log(err));
+    // }
+    //
+    // const sendOpenAIAnswer = (message, cb) => {
+    //     if(isOpenAIMsg){
+    //         openAIAnswer(message).then(answer=>{
+    //             cb(answer);
+    //         }).catch(err=>console.log(err))
+    //     };
+    // }
 
     const sendMessage = (event) => {
         event.preventDefault()
@@ -84,23 +85,24 @@ const ChatBoxBottom = () => {
         if(message==='')
             return
 
-        if (chat.type === categoryState[0]) {
-            groupMessageHandler(message);
-            sendOpenAIAnswer(message, groupMessageHandler)
-        }else {
-            privateMessageHandler(message);
-            sendOpenAIAnswer(message, privateMessageHandler)
-        }
+        // if (chat.type === categoryState[0]) {
+        //     groupMessageHandler(message);
+        //     sendOpenAIAnswer(message, groupMessageHandler)
+        // }else {
+        //     privateMessageHandler(message);
+        //     sendOpenAIAnswer(message, privateMessageHandler)
+        // }
+        messageHandler(message, authCtx, chat,isOpenAIMsg,sendMessageHandler,user);
 
         inputRef.current.value = '';
     };
 
     const isOpenAIHandler = (openAICond) => setIsOpenAIMsg(openAICond);
 
-
     return (
         <form onSubmit={(event) => sendMessage(event)}
               className='chat-box-bottom border'>
+            <Icon  className={'files-icon'} onClick={()=>dispatch(DragAndDropActions.showDragAndDrop())} icon="tabler:files" />
             <OpenAI isOpenAIHandler={isOpenAIHandler}/>
             <input ref={inputRef} type="text" placeholder={'Type Something ...'}/>
             <div className='icon-container'>

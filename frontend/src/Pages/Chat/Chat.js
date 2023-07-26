@@ -9,10 +9,12 @@ import {disconnectSocket, getGroupMessage, initiateSocket} from "../../socket";
 import {useContext, useEffect} from "react";
 import AuthContext from "../../Context/auth";
 import {ChatActions} from "../../store/chat";
+import DragAndDrop from "../../Helper/DragAndDrop/DragAndDrop";
 const Chat = () => {
     const showOverlay = useSelector(state => state.overlay?.showOverlay);
     const selectedChatBox = useSelector(state => state.chat.selected);
     const authCtx = useContext(AuthContext);
+    const showDropAndDrag = useSelector(state => state.dragAndDrop.showDragAndDrop);
 
     const dispatch = useDispatch();
 
@@ -29,7 +31,6 @@ const Chat = () => {
 
     useEffect(() => {
         getGroupMessage((err, {messageData}) => {
-            console.log(messageData);
             let data = {
                 chatId: messageData.chatId,
                 username: messageData.username,
@@ -46,6 +47,7 @@ const Chat = () => {
     return (
         <div className="chat-page box-shadow border">
             {showOverlay && <Overlay/>}
+            {showDropAndDrag && <DragAndDrop/>}
             <div className={'chat-tab-container'}>
                 <ChatTab/>
             </div>

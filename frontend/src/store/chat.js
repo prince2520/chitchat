@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {categoryState} from "../common";
 
 const initialChatState = {
     selected: false,

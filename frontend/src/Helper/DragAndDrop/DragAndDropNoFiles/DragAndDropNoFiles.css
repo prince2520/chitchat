@@ -1,0 +1,11 @@
+.drag-and-drop-no-files{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+    row-gap: 1rem;
+}

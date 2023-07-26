@@ -1,0 +1,58 @@
+.drag-and-drop-files{
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+
+    padding-bottom: 0.5rem;
+
+    border-bottom: 1px solid var(--border);
+    font-size: 0.75rem;
+}
+
+.drag-and-drop-files-icon{
+    width: 20%;
+}
+
+.drag-and-drop-files-icon img{
+    height: 4rem;
+    width: 3rem;
+    border: 2px solid var(--white);
+}
+
+.drag-and-drop-files-type{
+    width: 15%;
+}
+
+.drag-and-drop-files-name{
+    width: 35%;
+    word-break: break-word;
+    justify-self: flex-start;
+}
+
+.drag-and-drop-files-size{
+    width: 15%;
+}
+
+.drag-and-drop-files-delete{
+    width: 15%;
+    font-size: 1.75rem;
+    color: white;
+
+    cursor: pointer;
+}
+
+.drag-and-drop-files-icon,
+.drag-and-drop-files-name,
+.drag-and-drop-files-size,
+.drag-and-drop-files-delete,
+.drag-and-drop-files-type{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drag-and-drop-files-icon svg{
+    font-size: 3rem;
+}
