@@ -2,14 +2,10 @@ import './ChatBoxBottom.css';
 import {Icon} from "@iconify/react";
 import {useContext, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {categoryState} from "../../../../common";
 import {ChatActions} from "../../../../store/chat";
-import {sendGroupMessageHandler, sendPrivateMessageHandler} from "../../../../api";
 import AuthContext from "../../../../Context/auth";
-import {sendChatMessageHandler} from "../../../../socket";
 import CustomEmoji from "./CustomEmoji/CustomEmoji";
 import OpenAI from "./OpenAI/OpenAI";
-import {openAIAnswer} from "../../../../openai";
 import {DragAndDropActions} from "../../../../store/dragAndDrop";
 import {messageHandler} from "../../sendMessage";
 
@@ -22,10 +18,11 @@ const ChatBoxBottom = () => {
     const authCtx = useContext(AuthContext);
 
     const dispatch = useDispatch();
+
     const [showEmojis, setShowEmojis] = useState(false);
     const [isOpenAIMsg, setIsOpenAIMsg] = useState(false);
 
-    const sendMessageHandler = (message, users, chatId , cb, isOpenAIMsg = false) => {
+    const sendMessageHandler = (message, users, chatId , cb, isOpenAIMsg = false, messageType) => {
         let data;
 
         data = {
@@ -37,7 +34,8 @@ const ChatBoxBottom = () => {
                 username: user.username,
                 message: message,
                 profileImageUrl: user.profileImageUrl,
-                isOpenAIMsg: isOpenAIMsg
+                isOpenAIMsg: isOpenAIMsg,
+                messageType : messageType
             }
         }
 
@@ -46,53 +44,22 @@ const ChatBoxBottom = () => {
             username: user.username,
             message: message,
             profileImageUrl: user.profileImageUrl,
-            isOpenAIMsg: isOpenAIMsg
+            isOpenAIMsg: isOpenAIMsg,
+            messageType: messageType
         }));
 
         cb(data);
     }
-
-    // const privateMessageHandler = (message) => {
-    //     sendPrivateMessageHandler(authCtx?.token, authCtx?.userId, chat._id, message, isOpenAIMsg)
-    //         .then(()=>{
-    //             let users = [authCtx?.userId, chat._id];
-    //             sendMessageHandler(message, users, authCtx?.userId, sendChatMessageHandler, isOpenAIMsg);
-    //         }).catch(err=>console.log(err));
-    // }
-    //
-    // const groupMessageHandler = (message) => {
-    //     sendGroupMessageHandler(authCtx?.token, message, chat.name, user.username, isOpenAIMsg)
-    //         .then(()=>{
-    //             let users = chat.users;
-    //             sendMessageHandler(message, users, chat._id ,sendChatMessageHandler, isOpenAIMsg);
-    //         })
-    //         .catch(err=>console.log(err));
-    // }
-    //
-    // const sendOpenAIAnswer = (message, cb) => {
-    //     if(isOpenAIMsg){
-    //         openAIAnswer(message).then(answer=>{
-    //             cb(answer);
-    //         }).catch(err=>console.log(err))
-    //     };
-    // }
 
     const sendMessage = (event) => {
         event.preventDefault()
 
         let message = inputRef.current.value;
 
-        if(message==='')
+        if(message === '')
             return
 
-        // if (chat.type === categoryState[0]) {
-        //     groupMessageHandler(message);
-        //     sendOpenAIAnswer(message, groupMessageHandler)
-        // }else {
-        //     privateMessageHandler(message);
-        //     sendOpenAIAnswer(message, privateMessageHandler)
-        // }
-        messageHandler(message, authCtx, chat,isOpenAIMsg,sendMessageHandler,user);
+        messageHandler( message, authCtx, chat, isOpenAIMsg, sendMessageHandler, user, 'string');
 
         inputRef.current.value = '';
     };

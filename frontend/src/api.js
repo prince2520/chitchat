@@ -132,7 +132,7 @@ export const joinGroupHandler = async (token, group_name, userId) => {
     return result.json();
 }
 
-export const sendGroupMessageHandler = async (token, message, roomName, username, isOpenAIMsg ) => {
+export const sendGroupMessageHandler = async (token, message, roomName, username, isOpenAIMsg, messageType ) => {
     let result = await fetch(`${process.env.REACT_APP_SERVER_URL}/message/createMessage`, {
         method: 'POST',
         headers: {
@@ -143,7 +143,8 @@ export const sendGroupMessageHandler = async (token, message, roomName, username
             message: message,
             roomName: roomName,
             userName: username,
-            isOpenAIMsg: isOpenAIMsg
+            isOpenAIMsg: isOpenAIMsg,
+            messageType: messageType
         })
     });
 
@@ -170,7 +171,7 @@ export const fetchPrivateMessage = async (senderId, receiverId, token) => {
     return fetchMessage.json();
 };
 
-export const sendPrivateMessageHandler = async (token, senderId, receiverId, message, isOpenAIMsg) => {
+export const sendPrivateMessageHandler = async (token, senderId, receiverId, message, isOpenAIMsg, messageType) => {
     let result =  await fetch(`${process.env.REACT_APP_SERVER_URL}/private/sendPrivateMessage`, {
         method: 'POST',
         headers: {
@@ -181,7 +182,8 @@ export const sendPrivateMessageHandler = async (token, senderId, receiverId, mes
             senderId: senderId,
             receiverId: receiverId,
             message: message,
-            isOpenAIMsg: isOpenAIMsg
+            isOpenAIMsg: isOpenAIMsg,
+            messageType: messageType
         })
     });
 

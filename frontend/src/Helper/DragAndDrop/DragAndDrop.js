@@ -51,7 +51,7 @@ const DragAndDrop = () => {
             fileData: fileData
         };
 
-        if(!files.find(file=>file.name === name) &&
+        if(!files.find(file => file.name === name) &&
             files.length <= 2 &&
             data.size <= 20 &&
             type
@@ -59,7 +59,7 @@ const DragAndDrop = () => {
             dispatch(DragAndDropActions.addFileHandler(data));
     };
 
-    const sendMessageHandler = (message, users, chatId , cb, isOpenAIMsg = false) => {
+    const sendMessageHandler = (message, users, chatId , cb, isOpenAIMsg = false, messageType) => {
         let data;
 
         data = {
@@ -71,7 +71,8 @@ const DragAndDrop = () => {
                 username: user.username,
                 message: message,
                 profileImageUrl: user.profileImageUrl,
-                isOpenAIMsg: isOpenAIMsg
+                isOpenAIMsg: isOpenAIMsg,
+                messageType: messageType
             }
         }
 
@@ -80,7 +81,8 @@ const DragAndDrop = () => {
             username: user.username,
             message: message,
             profileImageUrl: user.profileImageUrl,
-            isOpenAIMsg: isOpenAIMsg
+            isOpenAIMsg: isOpenAIMsg,
+            messageType: messageType
         }));
 
         cb(data);
@@ -92,10 +94,11 @@ const DragAndDrop = () => {
         files.map((file) => {
             saveImageIntoFirebase(file.fileData)
                 .then((url)=>{
-                    messageHandler(url, authCtx, chat, false, sendMessageHandler, user)
+                    messageHandler(url, authCtx, chat, false, sendMessageHandler, user, file.type);
+                    dispatch(DragAndDropActions.removeSingleFile(file));
                 })
                 .catch(err=>console.log(err));
-        })
+        });
     };
 
 
