@@ -12,6 +12,11 @@ const messageSchema = new Schema({
         default: false,
         required: false
     },
+    messageType:{
+        type: String,
+        default: 'string',
+        required: false
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref:'User',

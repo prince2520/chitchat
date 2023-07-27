@@ -62,6 +62,7 @@ exports.createPersonalMessage = async (req, res, next) => {
     const receiverId = mongoose.Types.ObjectId(req.body.receiverId);
     const message = req.body.message;
     const isOpenAIMsg = req.body.isOpenAIMsg;
+    const messageType = req.body.messageType;
 
     const privateUser = await PrivateChat.findOne({user: {$all: [senderId, receiverId]}});
 
@@ -69,7 +70,8 @@ exports.createPersonalMessage = async (req, res, next) => {
         const newMessage = new Message({
             message: message,
             user: senderId,
-            isOpenAIMsg: isOpenAIMsg
+            isOpenAIMsg: isOpenAIMsg,
+            messageType: messageType
         });
 
         newMessage.save().then(done => {
@@ -96,7 +98,8 @@ exports.fetchPrivateMessage = async (req, res, next) => {
             username: message.user.userName,
             message: message.message,
             profileImageUrl: message.user.profileImageUrl,
-            isOpenAIMsg: message.isOpenAIMsg
+            isOpenAIMsg: message.isOpenAIMsg,
+            messageType: message.messageType
         }));
 
         return res.status(200).json({
