@@ -48,7 +48,7 @@ const DragAndDrop = () => {
             size: size,
             type: type,
             location: location,
-            fileData: fileData
+            fileData: fileData,
         };
 
         if(!files.find(file => file.name === name) &&
@@ -59,7 +59,7 @@ const DragAndDrop = () => {
             dispatch(DragAndDropActions.addFileHandler(data));
     };
 
-    const sendMessageHandler = (message, users, chatId , cb, isOpenAIMsg = false, messageType) => {
+    const sendMessageHandler = (message, users, chatId , cb, isOpenAIMsg = false, messageType, size, url) => {
         let data;
 
         data = {
@@ -72,7 +72,9 @@ const DragAndDrop = () => {
                 message: message,
                 profileImageUrl: user.profileImageUrl,
                 isOpenAIMsg: isOpenAIMsg,
-                messageType: messageType
+                messageType: messageType,
+                size: size,
+                url: url
             }
         }
 
@@ -82,7 +84,9 @@ const DragAndDrop = () => {
             message: message,
             profileImageUrl: user.profileImageUrl,
             isOpenAIMsg: isOpenAIMsg,
-            messageType: messageType
+            messageType: messageType,
+            size: size,
+            url: url
         }));
 
         cb(data);
@@ -94,7 +98,17 @@ const DragAndDrop = () => {
         files.map((file) => {
             saveImageIntoFirebase(file.fileData)
                 .then((url)=>{
-                    messageHandler(url, authCtx, chat, false, sendMessageHandler, user, file.type);
+                    messageHandler(
+                        file.name,
+                        authCtx,
+                        chat,
+                        false,
+                        sendMessageHandler,
+                        user,
+                        file.type,
+                        file.size,
+                        url
+                    );
                     dispatch(DragAndDropActions.removeSingleFile(file));
                 })
                 .catch(err=>console.log(err));

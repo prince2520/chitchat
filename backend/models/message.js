@@ -12,6 +12,16 @@ const messageSchema = new Schema({
         default: false,
         required: false
     },
+    url:{
+        type: String,
+        required: false,
+        default: ''
+    },
+    size:{
+        type: Number,
+        required: false,
+        default: 0
+    },
     messageType:{
         type: String,
         default: 'string',
@@ -26,7 +36,7 @@ const messageSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref:'Room',
         required: false
-    },
+    }
 },{timestamps:true})
 
 

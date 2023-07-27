@@ -63,6 +63,8 @@ exports.createPersonalMessage = async (req, res, next) => {
     const message = req.body.message;
     const isOpenAIMsg = req.body.isOpenAIMsg;
     const messageType = req.body.messageType;
+    const url = req.body.url ? req.body.url : '';
+    const size = req.body.size ? req.body.size : 0;
 
     const privateUser = await PrivateChat.findOne({user: {$all: [senderId, receiverId]}});
 
@@ -71,12 +73,14 @@ exports.createPersonalMessage = async (req, res, next) => {
             message: message,
             user: senderId,
             isOpenAIMsg: isOpenAIMsg,
-            messageType: messageType
+            messageType: messageType,
+            url: url,
+            size: size
         });
 
         newMessage.save().then(done => {
             privateUser?.privateMessages.push(done._id);
-            privateUser.save().then(() => {
+            privateUser?.save().then(() => {
                 return res.status(200).json({success: true, message: 'Message saved Successfully!'})
             }).catch(() => {
                 return res.status(404).json({success: true, message: 'Something goes wrong!'})
@@ -99,7 +103,9 @@ exports.fetchPrivateMessage = async (req, res, next) => {
             message: message.message,
             profileImageUrl: message.user.profileImageUrl,
             isOpenAIMsg: message.isOpenAIMsg,
-            messageType: message.messageType
+            messageType: message.messageType,
+            url: message.url,
+            size: message.size
         }));
 
         return res.status(200).json({

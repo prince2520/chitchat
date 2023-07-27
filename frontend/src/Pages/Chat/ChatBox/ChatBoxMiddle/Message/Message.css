@@ -34,6 +34,7 @@
 .message-container .message-box{
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     flex-direction: column;
 }
 
@@ -60,11 +61,12 @@
 }
 
 .message-box .send-img{
-    max-width: 100%;
-    width: 10rem;
-    height: 15rem;
-    border: 3px solid var(--border);
-    padding: 0.25rem;
+    max-width: 80%;
+    width: 15rem;
+    height: 20rem;
+    border: 1px solid var(--border);
+    padding: 0.05rem;
+    align-self: flex-end;
 }
 
 

@@ -7,6 +7,8 @@ exports.createMessage = (req,res,next) => {
     const message = req.body.message;
     const isOpenAIMsg = req.body.isOpenAIMsg;
     const messageType = req.body.messageType;
+    const url = req.body.url ? req.body.url : '';
+    const size = req.body.size ? req.body.size : 0;
     const roomName = req.body.roomName;
     const userName = req.body.userName;
 
@@ -22,7 +24,9 @@ exports.createMessage = (req,res,next) => {
                     room: group._id,
                     user: user._id,
                     isOpenAIMsg: isOpenAIMsg,
-                    messageType: messageType
+                    messageType: messageType,
+                    url : url,
+                    size: size
                 })
                 newMessage.save().then(done => {
                     user?.messages.push(newMessage._id)

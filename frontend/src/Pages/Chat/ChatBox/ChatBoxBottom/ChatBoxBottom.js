@@ -35,7 +35,7 @@ const ChatBoxBottom = () => {
                 message: message,
                 profileImageUrl: user.profileImageUrl,
                 isOpenAIMsg: isOpenAIMsg,
-                messageType : messageType
+                messageType : messageType,
             }
         }
 
@@ -45,7 +45,7 @@ const ChatBoxBottom = () => {
             message: message,
             profileImageUrl: user.profileImageUrl,
             isOpenAIMsg: isOpenAIMsg,
-            messageType: messageType
+            messageType: messageType,
         }));
 
         cb(data);
@@ -59,7 +59,7 @@ const ChatBoxBottom = () => {
         if(message === '')
             return
 
-        messageHandler( message, authCtx, chat, isOpenAIMsg, sendMessageHandler, user, 'string');
+        messageHandler( message, authCtx, chat, isOpenAIMsg, sendMessageHandler, user, 'string', 0, '');
 
         inputRef.current.value = '';
     };

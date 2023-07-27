@@ -71,7 +71,9 @@ exports.fetchRoomMessages = async (req, res, next) => {
         message: message.message,
         profileImageUrl: message.user.profileImageUrl,
         isOpenAIMsg: message.isOpenAIMsg,
-        messageType: message.messageType
+        messageType: message.messageType,
+        url: message.url,
+        size: message.size
     }));
 
     if (result) {

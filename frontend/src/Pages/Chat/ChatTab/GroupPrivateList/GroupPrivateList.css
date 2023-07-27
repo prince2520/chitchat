@@ -14,8 +14,6 @@
     padding: 0.35rem 0.75rem;
     border-radius: 0.5rem;
     cursor: pointer;
-
-    margin: 0 0.5rem 0 0;
 }
 
 .group-private-item-right .group-name{
@@ -39,8 +37,8 @@
 }
 
 .group-selected{
-    background-color: var(--primary);
-    border: 2px solid white;
+    background-color: var(--background);
+    border: 1px solid white;
 }
 
 .group-selected .group-name,

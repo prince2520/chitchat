@@ -23,6 +23,7 @@ const ChatBox = () => {
         if (chat?.type === categoryState[0]) {
             fetchGroupMessages(chat.name, authCtx?.token)
                 .then((res) => {
+                    console.log(res.messages)
                     if(res.success){
                         dispatch(ChatActions.saveFetchChatMessage(res.messages));
                     }
@@ -31,6 +32,7 @@ const ChatBox = () => {
         }else {
             fetchPrivateMessage(authCtx?.userId, chat._id, authCtx?.token)
                 .then((res) => {
+                    console.log(res.messages)
                     if(res.success){
                         dispatch(ChatActions.saveFetchChatMessage(res.messages));
                     }

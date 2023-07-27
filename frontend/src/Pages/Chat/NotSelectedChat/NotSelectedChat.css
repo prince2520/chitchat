@@ -1,6 +1,7 @@
 .not_selected_chat_container{
     height: 100%;
     width: 70%;
+    max-width: 100%;
 
     padding: 1.25rem 1rem;
 

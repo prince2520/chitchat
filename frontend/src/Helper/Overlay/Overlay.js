@@ -10,7 +10,12 @@ const Overlay = () => {
         <div className={'overlay-page'}>
             <div className={'overlay-container'} onClick={()=>dispatch(OverlayActions.closeOverlayHandler())}/>
             <Model/>
-            <Icon onClick={()=>dispatch(OverlayActions.closeOverlayHandler())} className={'close-btn'} icon="iconamoon:close-bold" color={'var(--white)'} fontSize={'3rem'} />
+            <Icon
+                onClick={()=>dispatch(OverlayActions.closeOverlayHandler())}
+                className={'close-btn'}
+                icon="iconamoon:close-bold"
+                color={'var(--white)'}
+                fontSize={'3rem'} />
         </div>
     );
 };
