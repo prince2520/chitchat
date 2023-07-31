@@ -1,0 +1,8 @@
+.video-message{
+    max-width: 30rem;
+    width: 90%;
+}
+
+video {
+    border: 3px solid var(--white);
+}

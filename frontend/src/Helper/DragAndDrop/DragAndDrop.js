@@ -1,7 +1,7 @@
 import './DragAndDrop.css';
 import {Icon} from "@iconify/react";
 import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useRef} from "react";
 import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 import {useDispatch, useSelector} from "react-redux";
 import {DragAndDropActions} from "../../store/dragAndDrop";

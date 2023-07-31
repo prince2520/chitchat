@@ -1,15 +1,19 @@
-import './CreateGroup.css';
+import {Icon} from "@iconify/react";
+import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useContext, useEffect, useRef, useState} from "react";
+
 import Button from "../../../../Helper/Button/Button";
 import ImageContainer from "../../../../Helper/ImageContainer/ImageContainer";
-import {Icon} from "@iconify/react";
 import CustomInput from "../../../../Helper/CustomInput/CustomInput";
-import {compressImageHandler, saveImageIntoFirebase} from "../../common_function";
-import {useContext, useEffect, useRef, useState} from "react";
-import {createGroup} from "../../../../api";
-import AuthContext from "../../../../Context/auth";
-import {useDispatch, useSelector} from "react-redux";
+
+import {createGroup} from "../../../../api/api";
 import {UserActions} from "../../../../store/user";
-import {useNavigate} from "react-router-dom";
+import {compressImageHandler, saveImageIntoFirebase} from "../../common_function";
+
+import AuthContext from "../../../../Context/auth";
+
+import './CreateGroup.css';
 
 const CreateGroup = () => {
     const imageRef = useRef();

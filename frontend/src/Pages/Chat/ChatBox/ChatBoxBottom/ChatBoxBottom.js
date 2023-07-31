@@ -1,13 +1,17 @@
-import './ChatBoxBottom.css';
 import {Icon} from "@iconify/react";
 import {useContext, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {ChatActions} from "../../../../store/chat";
-import AuthContext from "../../../../Context/auth";
+
 import CustomEmoji from "./CustomEmoji/CustomEmoji";
 import OpenAI from "./OpenAI/OpenAI";
-import {DragAndDropActions} from "../../../../store/dragAndDrop";
+
 import {messageHandler} from "../../sendMessage";
+import {ChatActions} from "../../../../store/chat";
+import {DragAndDropActions} from "../../../../store/dragAndDrop";
+
+import AuthContext from "../../../../Context/auth";
+
+import './ChatBoxBottom.css';
 
 const ChatBoxBottom = () => {
     const inputRef = useRef(null);

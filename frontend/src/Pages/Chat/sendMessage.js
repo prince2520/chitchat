@@ -1,7 +1,7 @@
-import {categoryState} from "../../common";
-import {sendGroupMessageHandler, sendPrivateMessageHandler} from "../../api";
-import {sendChatMessageHandler} from "../../socket";
 import {openAIAnswer} from "../../openai";
+import {categoryState} from "../../common";
+import {sendChatMessageHandler} from "../../socket";
+import {sendGroupMessageHandler, sendPrivateMessageHandler} from "../../api/api";
 
 const privateMessageHandler = (message, authCtx, chat, isOpenAIMsg, sendMessageHandler, user=null, messageType, size, url) => {
     sendPrivateMessageHandler(authCtx?.token, authCtx?.userId, chat._id, message, isOpenAIMsg, messageType, size, url)
@@ -27,7 +27,6 @@ const sendOpenAIAnswer = (message, cb, authCtx, chat, isOpenAIMsg, sendMessageHa
         }).catch(err=>console.log(err))
     };
 }
-
 
 export const messageHandler = (message, authCtx, chat, isOpenAIMsg, sendMessageHandler, user, messageType, size, url) => {
     if (chat.type === categoryState[0]) {

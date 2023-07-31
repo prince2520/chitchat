@@ -1,10 +1,9 @@
+import {useState} from "react";
 import {Icon} from "@iconify/react";
-
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
-
 import './SpeechToText.css';
-import {useEffect, useState} from "react";
+
 const SpeechToText = ({addSpeechText}) => {
 
     const [listenCond, setListenCond] = useState(false);

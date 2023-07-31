@@ -1,9 +1,12 @@
-import './MyProfile.css';
 import {Icon} from "@iconify/react";
+import {useDispatch, useSelector} from "react-redux";
+
 import ImageContainer from "../../../../Helper/ImageContainer/ImageContainer";
 import Dropdown from "../../../../Helper/Dropdown/Dropdown";
-import {useDispatch, useSelector} from "react-redux";
+
 import {HelperActions} from "../../../../store/helper";
+
+import './MyProfile.css';
 
 const MyProfile = () => {
     const showDropdown = useSelector(state => state.helper.showDropdown);

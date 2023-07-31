@@ -1,7 +1,10 @@
-import ImageContainer from "../../../../../../Helper/ImageContainer/ImageContainer";
 import {useDispatch, useSelector} from "react-redux";
+
+import ImageContainer from "../../../../../../Helper/ImageContainer/ImageContainer";
+
 import {ChatActions} from "../../../../../../store/chat";
 import {categoryState} from "../../../../../../common";
+
 const GroupListItem = ({result}) => {
     const dispatch =useDispatch();
     const chat = useSelector(state => state.chat);

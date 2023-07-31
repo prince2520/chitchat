@@ -1,15 +1,18 @@
-import './EditProfile.css';
-import ImageContainer from "../../../../Helper/ImageContainer/ImageContainer";
-import CustomInput from "../../../../Helper/CustomInput/CustomInput";
-import Button from "../../../../Helper/Button/Button";
 import {Icon} from "@iconify/react";
 import {useDispatch, useSelector} from "react-redux";
 import {useContext, useEffect, useRef, useState} from "react";
-import AuthContext from "../../../../Context/auth";
+
+import Button from "../../../../Helper/Button/Button";
+import CustomInput from "../../../../Helper/CustomInput/CustomInput";
+import ImageContainer from "../../../../Helper/ImageContainer/ImageContainer";
+
+import {saveProfile} from "../../../../api/api";
 import {UserActions} from "../../../../store/user";
-import {saveProfile} from "../../../../api";
 import {compressImageHandler, saveImageIntoFirebase} from "../../common_function";
 
+import AuthContext from "../../../../Context/auth";
+
+import './EditProfile.css';
 
 const EditProfile = () => {
     const authData = useSelector(state => state.user);

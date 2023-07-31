@@ -1,17 +1,19 @@
+import React, {useContext, useEffect} from "react";
+
+import {useDispatch, useSelector} from "react-redux";
+
+import NoMessage from "./NoMessage/NoMessage";
 import ChatBoxTop from "./ChatBoxTop/ChatBoxTop";
 import ChatBoxBottom from "./ChatBoxBottom/ChatBoxBottom";
+import ChatBoxMiddle from "./ChatBoxMiddle/ChatBoxMiddle";
 
-import React from "react";
+import {categoryState} from "../../../common";
+import {ChatActions} from "../../../store/chat";
+import {fetchGroupMessages, fetchPrivateMessage} from "../../../api/api";
+
+import AuthContext from "../../../Context/auth";
 
 import './ChatBox.css';
-import NoMessage from "./NoMessage/NoMessage";
-import {useDispatch, useSelector} from "react-redux";
-import {useContext, useEffect} from "react";
-import {ChatActions} from "../../../store/chat";
-import ChatBoxMiddle from "./ChatBoxMiddle/ChatBoxMiddle";
-import AuthContext from "../../../Context/auth";
-import {fetchGroupMessages, fetchPrivateMessage} from "../../../api";
-import {categoryState} from "../../../common";
 
 const ChatBox = () => {
     const chat = useSelector(state => state.chat);
@@ -23,7 +25,6 @@ const ChatBox = () => {
         if (chat?.type === categoryState[0]) {
             fetchGroupMessages(chat.name, authCtx?.token)
                 .then((res) => {
-                    console.log(res.messages)
                     if(res.success){
                         dispatch(ChatActions.saveFetchChatMessage(res.messages));
                     }
@@ -32,7 +33,6 @@ const ChatBox = () => {
         }else {
             fetchPrivateMessage(authCtx?.userId, chat._id, authCtx?.token)
                 .then((res) => {
-                    console.log(res.messages)
                     if(res.success){
                         dispatch(ChatActions.saveFetchChatMessage(res.messages));
                     }

@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import { useNavigate} from "react-router-dom";
-import {fetchUser, login, signup} from "../api";
+import {fetchUser, login, signup} from "../api/api";
 import {useDispatch} from "react-redux";
 import {AlertBoxActions} from "../store/alert";
 import {UserActions} from "../store/user";

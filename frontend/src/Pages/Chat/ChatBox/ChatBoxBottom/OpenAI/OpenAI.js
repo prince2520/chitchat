@@ -1,7 +1,8 @@
+import {useState} from "react";
 import {Icon} from "@iconify/react";
 
 import './OpenAI.css';
-import {useState} from "react";
+
 const OpenAI = ({isOpenAIHandler}) => {
     const [selectedOpenAI, setSelectedOpenAI] = useState(false);
 

@@ -1,6 +1,6 @@
 import './SearchBar.css';
 import {Icon} from "@iconify/react";
-import {searchUserHandler} from "../../api";
+import {searchUserHandler} from "../../api/api";
 import {useContext, useRef, useState} from "react";
 import AuthContext from "../../Context/auth";
 import SearchResult from "./SearchResult/SearchResult";

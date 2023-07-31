@@ -1,8 +1,9 @@
-import ImageContainer from "../../../../../../Helper/ImageContainer/ImageContainer";
 import {useDispatch, useSelector} from "react-redux";
-import {ChatActions} from "../../../../../../store/chat";
-import {categoryState} from "../../../../../../common";
 
+import ImageContainer from "../../../../../../Helper/ImageContainer/ImageContainer";
+
+import {categoryState} from "../../../../../../common";
+import {ChatActions} from "../../../../../../store/chat";
 
 const PrivateListItem = ({result}) => {
     const dispatch =useDispatch();

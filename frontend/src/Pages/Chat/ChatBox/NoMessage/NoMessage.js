@@ -1,4 +1,5 @@
-import './NoMessage.css'
+import './NoMessage.css';
+
 const NoMessage = () => {
     return(
         <div className='noMessage_box'>

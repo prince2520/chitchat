@@ -1,7 +1,7 @@
 import './SearchResult.css';
 import {Icon} from "@iconify/react";
 import ImageContainer from "../../ImageContainer/ImageContainer";
-import {addUserInPrivateChat} from "../../../api";
+import {addUserInPrivateChat} from "../../../api/api";
 import {useContext} from "react";
 import AuthContext from "../../../Context/auth";
 const SearchResult = ({searchResult, setShowResult}) => {

@@ -14,7 +14,7 @@ const CustomEmoji = ({inputRef}) => {
                 data={data}
                 onEmojiSelect={(event)=>inputRef.current.value += event.native} />
         </div>
-    )
+    );
 };
 
 export default CustomEmoji;

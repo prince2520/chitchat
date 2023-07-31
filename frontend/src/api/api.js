@@ -191,5 +191,5 @@ export const sendPrivateMessageHandler = async (token, senderId, receiverId, mes
         })
     });
 
-    return result.json();
+    return result.json()
 }

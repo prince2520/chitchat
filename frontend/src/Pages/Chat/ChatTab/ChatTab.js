@@ -1,4 +1,5 @@
 import MyProfile from "./MyProfile/MyProfile";
+
 import {Outlet} from "react-router-dom";
 
 import './ChatTab.css';

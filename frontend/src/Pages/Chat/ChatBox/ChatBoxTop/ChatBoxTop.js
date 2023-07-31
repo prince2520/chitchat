@@ -1,8 +1,10 @@
-import './ChatBoxTop.css';
+import { useSelector} from "react-redux";
+
+import SideBar from "../../../../Helper/SideBar/SideBar";
 import Category from "../../../../Helper/Category/Category";
 import ImageContainer from "../../../../Helper/ImageContainer/ImageContainer";
-import { useSelector} from "react-redux";
-import SideBar from "../../../../Helper/SideBar/SideBar";
+
+import './ChatBoxTop.css';
 
 const ChatBoxTop = () => {
     const chat = useSelector(state => state.chat);

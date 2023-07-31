@@ -1,6 +1,6 @@
-import GroupListItem from "./GroupListItem/GroupListItem";
-
 import {useSelector} from "react-redux";
+
+import GroupListItem from "./GroupListItem/GroupListItem";
 
 import '../GroupPrivateList.css'
 
