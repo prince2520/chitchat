@@ -25,6 +25,9 @@
 .my-message{
     justify-content: flex-end;
 }
+
+
+
 .my-message .msg{
     background-color: var(--primary);
     border: none;
@@ -36,6 +39,10 @@
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
+}
+
+.my-message .message-box{
+    justify-self: flex-end;
 }
 
 .message-box .username{

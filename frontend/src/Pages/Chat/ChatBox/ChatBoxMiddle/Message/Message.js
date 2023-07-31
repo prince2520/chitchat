@@ -35,7 +35,8 @@ const Message = ({myMsg, messageDetail}) => {
     }
 
     return (
-        <div className={`message-container ${myMsg && 'my-message'}`}>
+        <div
+            className={`message-container ${myMsg && 'my-message'}`}>
             {!myMsg && <div className={`message-img-container`}>
                 <ImageContainer src={messageDetail.profileImageUrl}/>
             </div>}

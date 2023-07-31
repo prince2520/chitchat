@@ -87,12 +87,12 @@ label{
   cursor: pointer;
   position: absolute;
   bottom: 0;
-  right: 1rem;
+  right: 1.5rem;
 
   border: 1px solid var(--text);
 
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   background-color: var(--white);
 
   display: flex;
