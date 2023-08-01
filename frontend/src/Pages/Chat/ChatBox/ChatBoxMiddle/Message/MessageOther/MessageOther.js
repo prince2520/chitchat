@@ -18,7 +18,7 @@ const MessageOther = ({messageDetail}) => {
               </div>
           </div>
           <div className={'message-other-size'}>
-              {messageDetail.size} MB
+              {messageDetail.size.toFixed(4)} MB
           </div>
           <div className={'message-other-download'}>
               <a download href={messageDetail.url}><Icon icon="ic:round-download" /></a>

@@ -17,10 +17,11 @@
     justify-content: space-around;
     width: 100%;
     height: 100%;
+    font-weight: 500;
 }
 
 .chat-description .chat-name{
-    font-size: 1.15rem;
+    font-size: 1.5rem;
     color: var(--white);
     font-weight: 600;
 }
@@ -33,7 +34,7 @@
 
 @media screen and (max-width: 800px) {
     .chat-description .chat-name{
-        font-size: 0.9rem;
+        font-size: 1.25rem;
     }
 
     .chat-description .chat-created{
