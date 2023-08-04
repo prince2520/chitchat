@@ -5,30 +5,39 @@
     object-fit: cover;
     border: 1px solid var(--border);
 
+}
+.send-img{
     position: relative;
 }
 
-.send-img .image-bottom{
-    width: 100%;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.image-bottom svg{
-    color: white;
-    font-size: 1.5rem;
-}
 
 .send-img .image-fullscreen{
     position: absolute;
+    top: 1rem;
+    right: 1rem;
 
-    font-size: 15rem;
+    font-size: 1.5rem;
     color: white;
     z-index: 1000;
+
+    width: 2.5rem;
+    height: 2.5rem;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
 }
 
-.send-img .msg-time{
-    align-self: center;
+.image-fullscreen svg{
+    color: black;
+}
+
+.image-fullscreen{
+    position: absolute;
+    top: 0;
+    bottom: 0;
 }

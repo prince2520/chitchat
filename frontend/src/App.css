@@ -7,7 +7,7 @@
   --white: #ffff;
   --input: #E8F0FE;
   --text: #D4CFCF;
-  --primary: #E32D37;
+  --primary: #EA5455;
   --link: #8AB4F8;
   --border: #61656B;
   --error: #830B0B;
@@ -43,6 +43,7 @@ p{
 }
 
 .border{
+  border-radius: 0.5rem;
   border: 2px solid var(--border);
 }
 
@@ -114,4 +115,8 @@ label{
 
 h3,p {
   margin: 0;
+}
+
+.cursor-btn{
+  cursor: pointer;
 }

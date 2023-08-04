@@ -72,15 +72,20 @@ const ChatBoxBottom = () => {
 
     return (
         <form onSubmit={(event) => sendMessage(event)}
-              className='chat-box-bottom border'>
-            <Icon  className={'files-icon'} onClick={()=>dispatch(DragAndDropActions.showDragAndDrop())} icon="tabler:files" />
-            <OpenAI isOpenAIHandler={isOpenAIHandler}/>
-            <input ref={inputRef} type="text" placeholder={'Type Something ...'}/>
-            <div className='icon-container'>
+              className='chat-box-bottom '>
+            <div className={'chat-box-bottom-left'}>
                 <Icon
+                    className={'smile-icon cursor-btn'}
                     onClick={()=>{setShowEmojis(!showEmojis)}}
                     icon="emojione:winking-face"/>
-                <button>
+                <Icon  className={'files-icon'} onClick={()=>dispatch(DragAndDropActions.showDragAndDrop())} icon="tabler:files" />
+                <OpenAI isOpenAIHandler={isOpenAIHandler}/>
+            </div>
+            <div className={'chat-box-bottom-middle border'}>
+                <input ref={inputRef} type="text" placeholder={'Type Something ...'}/>
+            </div>
+            <div className='chat-box-bottom-right  align-center icon-container'>
+                <button className={'send-msg-button cursor-btn align-center'}>
                     <Icon
                         icon="mingcute:send-line"/>
                 </button>

@@ -99,3 +99,24 @@
 .my-message .msg-time{
     color: var(--white);
 }
+
+.video-message .image-bottom,
+.send-img .image-bottom{
+    width: 100%;
+    padding: 0 0.5rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image-bottom svg{
+    color: white;
+    font-size: 1.5rem;
+}
+
+
+.send-img .msg-time,
+.video-message  .msg-time{
+    align-self: center;
+}

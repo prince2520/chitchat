@@ -2,6 +2,7 @@ import React, {useCallback, useState} from "react";
 import ReactPlayer from 'react-player';
 
 import './MessageVideo.css';
+import {Icon} from "@iconify/react";
 
 const MessageVideo = ({url, time}) => {
     const [showControls, setShowControls] = useState(false);
@@ -24,7 +25,10 @@ const MessageVideo = ({url, time}) => {
                 height={"100%"}
                 url={url}
                 controls={showControls}/>
-            <span>{time}</span>
+            <div className={'image-bottom'}>
+                <Icon icon="akar-icons:video" />
+                <span className={'msg-time'}>{time}</span>
+            </div>
         </div>
     );
 };

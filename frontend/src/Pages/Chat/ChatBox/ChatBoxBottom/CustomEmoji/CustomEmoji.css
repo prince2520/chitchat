@@ -1,6 +1,7 @@
 .emoji-container{
     position: absolute;
-    bottom: 4rem;
+    bottom: 4.1rem;
+    left: -0.03rem;
     width: 100%;
 }
 

@@ -38,7 +38,7 @@
 
 .group-selected{
     background-color: var(--background);
-    border: 2px solid white;
+    border: 1px solid white;
 }
 
 .group-selected .group-name,

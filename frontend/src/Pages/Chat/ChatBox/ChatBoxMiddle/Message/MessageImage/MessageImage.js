@@ -11,7 +11,10 @@ const MessageImage = ({myMsg, imageSrc, time}) => {
                 borderColor: myMsg && 'var(--white)',
                 alignSelf: !myMsg && 'flex-start'
             }}>
-            <Icon className={'image-fullscreen'} icon="mingcute:fullscreen-fill"/>
+            <div className={'image-fullscreen cursor-btn'}>
+                <Icon icon="iconamoon:screen-full" />
+            </div>
+
             <img alt={'send-message'} src={imageSrc}/>
             <div className={'image-bottom'}>
                 <Icon icon="typcn:image"/>

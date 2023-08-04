@@ -1,11 +1,17 @@
 .chat-box{
     display: flex;
     flex-direction: column;
-    row-gap: 1rem;
+    row-gap: 0.5rem;
     height: 100%;
     width: 70%;
     max-width: 100%;
     padding: 0.5rem 1rem;
+}
+
+.align-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media screen and (max-width: 800px) {

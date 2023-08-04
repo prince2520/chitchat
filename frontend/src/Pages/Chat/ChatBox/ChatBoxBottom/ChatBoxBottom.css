@@ -1,14 +1,29 @@
 .chat-box-bottom{
     width: 100%;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.5rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    column-gap: 0.5rem;
     position: relative;
 }
 
+.chat-box-bottom .chat-box-bottom-left{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    column-gap: 0.25rem;
+
+    background-color: var(--background);
+
+    padding: 0.5rem 0.75rem;
+    border-radius: 2rem;
+}
+
 form .files-icon{
-    font-size: 2.75rem;
+    font-size: 2rem;
     color: var(--text);
     margin-right: 0.5rem;
 
@@ -29,18 +44,36 @@ form .files-icon{
     color: var(--text);
 }
 
-.icon-container{
-    display: flex;
-    column-gap: 1rem;
-}
-.icon-container svg,
-.text-to-speech-container{
-    color: var(--white);
-    font-size: 2rem;
-    cursor: pointer;
-}
-
 .icon-container button{
     background: none;
     border: none;
+}
+
+.send-msg-button{
+    font-size: 2rem;
+    color: white;
+}
+
+.chat-box-bottom-right {
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--primary);
+    border-radius: 50%;
+
+    border: 1px solid var(--white);
+}
+
+.chat-box-bottom-left .smile-icon {
+    font-size: 2rem;
+}
+
+.chat-box-bottom-middle{
+    width: 100%;
+    height: 90%;
+    padding: 0.1rem 1rem;
+    border-radius: 2rem;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }

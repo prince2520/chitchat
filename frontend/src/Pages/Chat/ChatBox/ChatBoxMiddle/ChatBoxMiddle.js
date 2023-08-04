@@ -3,6 +3,7 @@ import { useSelector} from "react-redux";
 import Message from "./Message/Message";
 
 import './ChatBoxMiddle.css';
+import DateLine from "./DateLine/DateLine";
 
 const ChatBoxMiddle = () => {
     const messages = useSelector(state => state.chat.messages);
@@ -16,6 +17,7 @@ const ChatBoxMiddle = () => {
                     messageDetail={res}
                     myMsg={(res.username === username)}
                     />)}
+
         </div>
     );
 };
