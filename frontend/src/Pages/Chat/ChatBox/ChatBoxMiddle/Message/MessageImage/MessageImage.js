@@ -1,14 +1,24 @@
-const MessageImage = ({myMsg, imageSrc}) => {
+import React from "react";
+
+import './MessageImage.css';
+import {Icon} from "@iconify/react";
+
+const MessageImage = ({myMsg, imageSrc, time}) => {
     return (
         <div
-            className={'send-img'}
+            className={'send-img chat-msg-background media-container'}
             style={{
                 borderColor: myMsg && 'var(--white)',
                 alignSelf: !myMsg && 'flex-start'
-        }}>
+            }}>
+            <Icon className={'image-fullscreen'} icon="mingcute:fullscreen-fill"/>
             <img alt={'send-message'} src={imageSrc}/>
+            <div className={'image-bottom'}>
+                <Icon icon="typcn:image"/>
+                <span className={'msg-time'}>{time}</span>
+            </div>
         </div>
     );
 };
 
-export default MessageImage;
+export default React.memo(MessageImage);

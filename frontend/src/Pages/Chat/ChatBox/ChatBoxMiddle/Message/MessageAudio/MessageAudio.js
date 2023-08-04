@@ -1,3 +1,5 @@
+import React from "react";
+
 import './MessageAudio.css';
 const MessageAudio = ({url}) => {
     return (
@@ -7,4 +9,4 @@ const MessageAudio = ({url}) => {
     );
 };
 
-export default MessageAudio;
+export default React.memo(MessageAudio);

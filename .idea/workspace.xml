@@ -5,18 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/openai.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/group.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/group.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/message.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/private.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/private.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/CustomEmoji/CustomEmoji.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/CustomEmoji/CustomEmoji.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/Message.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/Message.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageVideo/MessageVideo.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageVideo/MessageVideo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/NotSelectedChat/NotSelectedChat.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/NotSelectedChat/NotSelectedChat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +39,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/chitchat",
+    "last_opened_file_path": "D:/chitchat/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -67,6 +64,8 @@
       <workItem from="1690100049019" duration="22377000" />
       <workItem from="1690182507174" duration="1204000" />
       <workItem from="1690207063837" duration="4000" />
+      <workItem from="1690986391366" duration="2701000" />
+      <workItem from="1691072651213" duration="2529000" />
     </task>
     <servers />
   </component>

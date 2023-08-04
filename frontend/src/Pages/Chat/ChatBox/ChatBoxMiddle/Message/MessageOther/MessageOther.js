@@ -1,3 +1,5 @@
+import React from "react";
+
 import {Icon} from "@iconify/react";
 
 import './MessageOther.css';
@@ -27,4 +29,4 @@ const MessageOther = ({messageDetail}) => {
     );
 };
 
-export default MessageOther;
+export default React.memo(MessageOther);

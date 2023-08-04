@@ -15,7 +15,7 @@
     width: 100%;
     max-width: 40rem;
 
-    padding: 0.25rem 1rem;
+    padding: 0.25rem 0.5rem 0.25rem 1rem;
     border: 2px solid var(--border);
     color: var(--text);
     border-radius: 0.25rem;
@@ -69,16 +69,33 @@
 
 .message-box .send-img{
     max-width: 80%;
-    width: 15rem;
-    height: 20rem;
-    border: 1px solid var(--border);
-    padding: 0.05rem;
+    width: 20rem;
     align-self: flex-end;
 }
 
+.msg-time {
+    font-size: 0.65rem;
+    color: gray;
+    font-weight: 500;
+    align-self: flex-end;
 
-.send-img img{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+
+}
+
+.chat-msg-background{
+    background-color: var(--background);
+    padding: 0.25rem 0.25rem 0.5rem 0.25rem ;
+    border-radius: 0.25rem;
+}
+
+.media-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    row-gap: 0.25rem;
+}
+
+.my-message .msg-time{
+    color: var(--white);
 }

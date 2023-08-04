@@ -17,8 +17,8 @@
 }
 
 .not_selected_chat_container .not_selected_chat__img_container{
-    width: 15rem;
-    height: 15rem;
+    width: 20rem;
+    height: 20rem;
 
     border-radius: 50%;
     overflow: hidden;

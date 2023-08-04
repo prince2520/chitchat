@@ -10,8 +10,9 @@ const ChatBoxMiddle = () => {
 
     return (
         <div className='chat-box-middle border'>
-            {messages.map(res =>
+            {messages.map((res, idx) =>
                 <Message
+                    id={idx}
                     messageDetail={res}
                     myMsg={(res.username === username)}
                     />)}

@@ -1,4 +1,7 @@
+import React from "react";
 import {Icon} from "@iconify/react";
+
+import date from 'date-and-time';
 
 import MessageImage from "./MessageImage/MessageImage";
 import MessageString from "./MessageString/MessageString";
@@ -9,23 +12,27 @@ import ImageContainer from "../../../../../Helper/ImageContainer/ImageContainer"
 
 import './Message.css'
 
-const Message = ({myMsg, messageDetail}) => {
+const Message = ({myMsg, messageDetail, id}) => {
 
     const printHandler = (messageDetail) => {
-        let message;
+        let message, createdTime, time;
+
+        createdTime = new Date(messageDetail.createdAt);
+
+        time = date.format(createdTime, 'h:mm A');
 
         switch (messageDetail.messageType){
             case "string":
-                message = (<MessageString message={messageDetail.message}/>) ;
+                message = (<MessageString message={messageDetail.message} time={time}/>) ;
                 break;
             case "audio":
                 message = (<MessageAudio url={messageDetail.url}/>);
                 break;
             case "image":
-                message = (<MessageImage myMsg={myMsg} imageSrc={messageDetail.url}/>);
+                message = (<MessageImage time={time} myMsg={myMsg} imageSrc={messageDetail.url}/>);
                 break;
             case "video":
-                message = (<MessageVideo url={messageDetail.url}/>);
+                message = (<MessageVideo url={messageDetail.url} time={time}/>);
                 break;
             default:
                 message = (<MessageOther myMsg={myMsg} messageDetail={messageDetail}/>);
@@ -36,6 +43,7 @@ const Message = ({myMsg, messageDetail}) => {
 
     return (
         <div
+            id={id}
             className={`message-container ${myMsg && 'my-message'}`}>
             {!myMsg && <div className={`message-img-container`}>
                 <ImageContainer src={messageDetail.profileImageUrl}/>
@@ -53,4 +61,4 @@ const Message = ({myMsg, messageDetail}) => {
     );
 };
 
-export default Message;
+export default React.memo(Message);

@@ -7,7 +7,7 @@
   --white: #ffff;
   --input: #E8F0FE;
   --text: #D4CFCF;
-  --primary: #EE4C74;
+  --primary: #E32D37;
   --link: #8AB4F8;
   --border: #61656B;
   --error: #830B0B;
@@ -28,7 +28,7 @@ p{
 
 .authentication-page,
 .chat-page{
-  background-color: var(--container);
+  background: var(--container);
   width: 70%;
   padding: 2rem 5rem;
   max-width: 40rem;

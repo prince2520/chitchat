@@ -1,10 +1,20 @@
 .video-message{
     max-width: 25rem;
     width: 100%;
+
+    color: var(--border);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+
+
+.video-message span{
+    margin-top: 0.1rem;
 }
 
 video {
-    border: 3px solid var(--white);
+    border: 1px solid var(--border);
 }
 
 
@@ -14,6 +24,5 @@ video {
         max-width: 20rem;
         width: 100%;
     }
-
 
 }

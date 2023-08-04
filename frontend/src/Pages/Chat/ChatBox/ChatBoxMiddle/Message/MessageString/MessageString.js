@@ -1,7 +1,16 @@
-const MessageString = ({message}) => {
+import React from "react";
+
+import './MessageString.css'
+
+const MessageString = ({message, time}) => {
     return (
-        <span className={'msg'}>{message}</span>
+        <>
+            <div className={'msg'}>
+                <span className={'msg-txt'}>{message}</span>
+                <span className={'msg-time'}>{time}</span>
+            </div>
+        </>
     );
 };
 
-export default MessageString;
+export default React.memo(MessageString);
