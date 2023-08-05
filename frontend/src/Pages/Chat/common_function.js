@@ -1,6 +1,8 @@
 import Resizer from "react-image-file-resizer";
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import {storage} from "../../firebase";
+import {useCallback} from "react";
+import date from "date-and-time";
 
 export const compressImageHandler = (event, setImg) => {
     const file = event.target.files[0];
@@ -68,3 +70,11 @@ export const saveImageIntoFirebase = async (image) => {
     }
 };
 
+
+export const getFormatDate = (createdAt)=>{
+    let createdAtToDate, formatDate;
+    createdAtToDate = new Date(createdAt);
+
+    formatDate = date.format(createdAtToDate, 'ddd, DD-MMM-YYYY');
+    return formatDate;
+}

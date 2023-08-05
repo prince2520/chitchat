@@ -12,7 +12,7 @@ import ImageContainer from "../../../../../Helper/ImageContainer/ImageContainer"
 
 import './Message.css'
 
-const Message = ({myMsg, messageDetail, id}) => {
+const Message = ({myMsg, messageDetail}) => {
 
     const printHandler = (messageDetail) => {
         let message, createdTime, time;
@@ -21,9 +21,9 @@ const Message = ({myMsg, messageDetail, id}) => {
 
         time = date.format(createdTime, 'h:mm A');
 
-        switch (messageDetail.messageType){
+        switch (messageDetail.messageType) {
             case "string":
-                message = (<MessageString message={messageDetail.message} time={time}/>) ;
+                message = (<MessageString message={messageDetail.message} time={time}/>);
                 break;
             case "audio":
                 message = (<MessageAudio url={messageDetail.url}/>);
@@ -36,28 +36,31 @@ const Message = ({myMsg, messageDetail, id}) => {
                 break;
             default:
                 message = (<MessageOther myMsg={myMsg} messageDetail={messageDetail}/>);
-        };
+        }
+        ;
 
         return message;
     }
 
     return (
-        <div
-            id={id}
-            className={`message-container ${myMsg && 'my-message'}`}>
-            {!myMsg && <div className={`message-img-container`}>
-                <ImageContainer src={messageDetail.profileImageUrl}/>
-            </div>}
+        <>
             <div
-                className={`message-box ${messageDetail.isOpenAIMsg && 'open-ai-msg-box'}`}>
-                {!myMsg && <span className={'username'}>{messageDetail.username}</span>}
-                {printHandler(messageDetail)}
-            </div>
-            {messageDetail.isOpenAIMsg &&
-                <div className={'open-ai-icon'}>
-                    <Icon icon="ri:openai-fill"/>
+                className={`message-container ${myMsg && 'my-message'}`}>
+                {!myMsg && <div className={`message-img-container`}>
+                    <ImageContainer src={messageDetail.profileImageUrl}/>
                 </div>}
-        </div>
+                <div
+                    className={`message-box ${messageDetail.isOpenAIMsg && 'open-ai-msg-box'}`}>
+                    {!myMsg && <span className={'username'}>{messageDetail.username}</span>}
+                    {printHandler(messageDetail)}
+                </div>
+                {messageDetail.isOpenAIMsg &&
+                    <div className={'open-ai-icon'}>
+                        <Icon icon="ri:openai-fill"/>
+                    </div>}
+            </div>
+        </>
+
     );
 };
 

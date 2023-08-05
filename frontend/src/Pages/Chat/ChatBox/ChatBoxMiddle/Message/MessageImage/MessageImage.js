@@ -11,10 +11,9 @@ const MessageImage = ({myMsg, imageSrc, time}) => {
                 borderColor: myMsg && 'var(--white)',
                 alignSelf: !myMsg && 'flex-start'
             }}>
-            <div className={'image-fullscreen cursor-btn'}>
+            <div className={'image-fullscreen cursor-btn box-shadow'}>
                 <Icon icon="iconamoon:screen-full" />
             </div>
-
             <img alt={'send-message'} src={imageSrc}/>
             <div className={'image-bottom'}>
                 <Icon icon="typcn:image"/>

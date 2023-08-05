@@ -105,7 +105,8 @@ exports.fetchPrivateMessage = async (req, res, next) => {
             isOpenAIMsg: message.isOpenAIMsg,
             messageType: message.messageType,
             url: message.url,
-            size: message.size
+            size: message.size,
+            createdAt: message.createdAt
         }));
 
         return res.status(200).json({

@@ -28,12 +28,12 @@ const ChatSlice = createSlice({
             state.selected = true;
         },
         saveChatMessage(state, action) {
-            if (state._id === action.payload.chatId) {
-                state.messages = [action.payload, ...state.messages]
+            if ((state._id === action.payload.chatId)) {
+                state.messages = [...state.messages, action.payload]
             }
         },
         saveFetchChatMessage(state, action) {
-            state.messages = action.payload.reverse()
+            state.messages = action.payload
         }
     }
 });

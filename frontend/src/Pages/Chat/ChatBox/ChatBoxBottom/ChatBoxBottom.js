@@ -12,6 +12,7 @@ import {DragAndDropActions} from "../../../../store/dragAndDrop";
 import AuthContext from "../../../../Context/auth";
 
 import './ChatBoxBottom.css';
+import {categoryState} from "../../../../common";
 
 const ChatBoxBottom = () => {
     const inputRef = useRef(null);
@@ -27,30 +28,29 @@ const ChatBoxBottom = () => {
     const [isOpenAIMsg, setIsOpenAIMsg] = useState(false);
 
     const sendMessageHandler = (message, users, chatId , cb, isOpenAIMsg = false, messageType) => {
-        let data;
-
-        data = {
-            sender_id : authCtx?.userId,
-            users: users,
-
-            messageData: {
-                chatId: chatId,
-                username: user.username,
-                message: message,
-                profileImageUrl: user.profileImageUrl,
-                isOpenAIMsg: isOpenAIMsg,
-                messageType : messageType,
-            }
-        }
-
-        dispatch(ChatActions.saveChatMessage({
-            chatId: chat._id,
+        let data, messageData;
+        messageData = {
+            chatId: chatId,
             username: user.username,
             message: message,
             profileImageUrl: user.profileImageUrl,
             isOpenAIMsg: isOpenAIMsg,
-            messageType: messageType,
-        }));
+            messageType : messageType,
+            createdAt: (new Date()).toISOString()
+        }
+
+        data = {
+            sender_id : authCtx?.userId,
+            users: users,
+        }
+
+        data['messageData'] = {...messageData};
+
+        if(chat.type===categoryState[1]){
+            messageData['chatId'] = chat._id;
+        }
+
+        dispatch(ChatActions.saveChatMessage(messageData));
 
         cb(data);
     }

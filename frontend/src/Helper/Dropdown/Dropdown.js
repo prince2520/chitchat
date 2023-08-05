@@ -19,7 +19,7 @@ const Dropdown = () => {
 
     return (
         <div className={'menu-container box-shadow'}>
-            <div className={'menu-close'}>
+            <div className={'menu-close cursor-btn'}>
                 <Icon onClick={() => dispatch(HelperActions.dropDownHandler(false))} icon="iconamoon:close-fill"/>
             </div>
             <div className={'menu-option'} onClick={() => navigateHandler('chat')}>

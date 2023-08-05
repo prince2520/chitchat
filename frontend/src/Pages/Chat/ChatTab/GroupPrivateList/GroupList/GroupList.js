@@ -9,8 +9,9 @@ const GroupList = () => {
 
     return (
         <div className="group-private-list">
-            {groupList.map(result =>
+            {groupList.map((result, idx) =>
                 <GroupListItem
+                    key={idx}
                     result={result}/>)}
         </div>
     );

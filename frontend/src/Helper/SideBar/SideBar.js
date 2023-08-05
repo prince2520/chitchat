@@ -8,7 +8,7 @@ const SideBarIcon = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className={'sidebar_container'}>
+        <div className={'sidebar_container cursor-btn'}>
             <Icon
                 onClick={()=>dispatch(OverlayActions.openOverlayHandler())}
                 icon="ic:round-menu"

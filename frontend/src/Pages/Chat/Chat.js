@@ -35,17 +35,8 @@ const Chat = () => {
 
     useEffect(() => {
         getGroupMessage((err, {messageData}) => {
-            let data = {
-                chatId: messageData.chatId,
-                username: messageData.username,
-                message: messageData.message,
-                profileImageUrl: messageData.profileImageUrl,
-                isOpenAIMsg: messageData.isOpenAIMsg,
-                messageType: messageData.messageType,
-                size: messageData.size,
-                url: messageData.url
-            };
-            saveMessage(data);
+            console.log(messageData)
+            saveMessage(messageData);
         });
     },[]);
 

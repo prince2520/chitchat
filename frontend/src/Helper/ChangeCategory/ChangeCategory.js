@@ -8,8 +8,9 @@ const ChangeCategory = ({setPrivateChatSelected}) => {
 
     return (
         <div className="change-category border">
-            {categoryState.map(name=>
+            {categoryState.map((name, idx)=>
                 <span
+                    key={idx}
                     onClick={()=> {
                         if(name===categoryState[0]){
                             setSelectedChat(name);

@@ -2,6 +2,8 @@
     height: 100%;
     width: 100%;
 
+    min-height: 10rem;
+
     object-fit: cover;
     border: 1px solid var(--border);
 
@@ -10,7 +12,6 @@
     position: relative;
 }
 
-
 .send-img .image-fullscreen{
     position: absolute;
     top: 1rem;
@@ -18,7 +19,7 @@
 
     font-size: 1.5rem;
     color: white;
-    z-index: 1000;
+    z-index: 400;
 
     width: 2.5rem;
     height: 2.5rem;
@@ -30,6 +31,7 @@
     align-items: center;
 
     background-color: white;
+    border: 1px solid black;
 }
 
 .image-fullscreen svg{

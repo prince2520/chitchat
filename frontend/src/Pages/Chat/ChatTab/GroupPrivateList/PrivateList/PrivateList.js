@@ -7,7 +7,7 @@ const PrivateList = () => {
 
     return (
         <div className="group-private-list">
-            {privateList.map(result => <PrivateListItem result={result}/>)}
+            {privateList.map((result, idx) => <PrivateListItem key={idx} result={result}/>)}
         </div>
     );
 };

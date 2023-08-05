@@ -1,9 +1,11 @@
 import './DateLine.css';
-const DateLine = () => {
+import {getFormatDate} from "../../../common_function";
+
+const DateLine = ({createdAt}) => {
     return (
-        <div className={'date-line-bar'}>
+        <div className={'date-line-bar align-center'}>
             <div className={'date-line-bar-line'}/>
-            <span>Fri, 24 Aug 2023</span>
+            <span>{getFormatDate(createdAt)}</span>
         </div>
 
     );
