@@ -10,6 +10,7 @@ import {saveImageIntoFirebase} from "../../Pages/Chat/common_function";
 import {messageHandler} from "../../Pages/Chat/sendMessage";
 import AuthContext from "../../Context/auth";
 import {ChatActions} from "../../store/chat";
+import {categoryState} from "../../common";
 
 const DragAndDrop = () => {
     const dispatch = useDispatch();
@@ -70,7 +71,8 @@ const DragAndDrop = () => {
             isOpenAIMsg: isOpenAIMsg,
             messageType: messageType,
             size: size,
-            url: url
+            url: url,
+            createdAt: (new Date()).toISOString()
         }
 
         data = {
@@ -78,7 +80,12 @@ const DragAndDrop = () => {
             users: users,
         }
 
-        data['messageData'] = messageData;
+        data['messageData'] = {...messageData};
+
+        if(chat.type===categoryState[1]){
+            messageData['chatId'] = chat._id;
+        }
+
 
         dispatch(ChatActions.saveChatMessage(messageData));
 
