@@ -8,6 +8,7 @@
 }
 
 .not_selected_chat_container .not_selected_chat_context{
+    height: 70%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,7 +35,7 @@
 }
 
 .not_selected_chat_context h1{
-    color: var(--primary);
+    color: var(--white);
 }
 
 .not_selected_chat_context p{
