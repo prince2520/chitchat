@@ -1,8 +1,8 @@
-import Button from "../../../Helper/Button/Button";
-import CustomInput from "../../../Helper/CustomInput/CustomInput";
+import Button from "../../../../Helper/Button/Button";
+import CustomInput from "../../../../Helper/CustomInput/CustomInput";
 import {Link} from "react-router-dom";
 import {useContext} from "react";
-import AuthContext from "../../../Context/auth";
+import AuthContext from "../../../../Context/auth";
 
 
 const SignUp = () => {

@@ -1,0 +1,9 @@
+.authentication-intro-features {
+    width: 100%;
+
+    flex-direction: column;
+    row-gap: 0.5rem;
+
+    align-items: flex-start;
+
+}
