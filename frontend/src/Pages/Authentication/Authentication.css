@@ -41,7 +41,7 @@
 
 
 .authentication-page form {
-    width: 100%;
+    width: 80%;
     max-width: 30rem;
     display: flex;
     justify-content: flex-start;
@@ -96,5 +96,19 @@ form .link-container{
     .login-form{
         position: relative;
         top: -5rem;
+    }
+
+    .authentication-page .authentication-page-right{
+        display: none;
+    }
+
+    .authentication-page .authentication-page-left{
+        width: 100%;
+    }
+
+    .authentication-page-left .authentication-page-left-logo{
+        top: 1.5rem;
+        left: 3rem;
+
     }
 }

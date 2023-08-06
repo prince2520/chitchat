@@ -5,26 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/Helper/Logo/Logo.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Helper/Logo/Logo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntro.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntro.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeature/AuthenticationIntroFeature.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeature/AuthenticationIntroFeature.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeatures.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeatures.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/authenticationfeatures.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/animations/ChitChat.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/animations/Group.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/animations/Message.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/animations/Video.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/LoginSignUp/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/SignUp/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/LoginSignUp/SignUp/SignUp.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +70,7 @@
       <workItem from="1691072651213" duration="2529000" />
       <workItem from="1691244072006" duration="404000" />
       <workItem from="1691245930469" duration="2755000" />
-      <workItem from="1691302995037" duration="25243000" />
+      <workItem from="1691302995037" duration="25772000" />
     </task>
     <servers />
   </component>
