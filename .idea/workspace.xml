@@ -5,15 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Helper/Logo/Logo.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Helper/Logo/Logo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntro.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntro.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeature/AuthenticationIntroFeature.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeature/AuthenticationIntroFeature.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeatures.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeatures.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/authenticationfeatures.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/animations/ChitChat.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/animations/Group.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/animations/Message.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/animations/Video.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/group.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/group.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageVideo/MessageVideo.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageVideo/MessageVideo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/NotSelectedChat/NotSelectedChat.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/NotSelectedChat/NotSelectedChat.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/LoginSignUp/Login/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/SignUp/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/LoginSignUp/SignUp/SignUp.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +50,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/chitchat/backend",
+    "last_opened_file_path": "D:/chitchat/frontend/src/animations",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -48,6 +59,15 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\chitchat\frontend\src\animations" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\chitchat\frontend\src\Pages\Authentication\LoginSignUp" />
+      <recent name="D:\chitchat\frontend\src\animations" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -66,6 +86,9 @@
       <workItem from="1690207063837" duration="4000" />
       <workItem from="1690986391366" duration="2701000" />
       <workItem from="1691072651213" duration="2529000" />
+      <workItem from="1691244072006" duration="404000" />
+      <workItem from="1691245930469" duration="2755000" />
+      <workItem from="1691302995037" duration="25243000" />
     </task>
     <servers />
   </component>
