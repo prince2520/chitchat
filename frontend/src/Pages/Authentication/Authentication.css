@@ -5,7 +5,8 @@
     flex-direction: row;
     row-gap: 1rem;
 
-    overflow-x: hidden;
+    overflow: hidden;
+
 }
 
 .authentication-page .authentication-page-left{
@@ -14,9 +15,12 @@
     height: 100%;
     padding: 2rem 3rem;
 
+    justify-content: flex-start;
+
+    row-gap: 5rem;
+
     flex-direction: column;
 
-    position: relative;
 }
 
 .authentication-page .authentication-page-right{
@@ -33,9 +37,7 @@
 }
 
 .authentication-page-left .authentication-page-left-logo{
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
+    width: 100%;
 
 }
 
@@ -93,10 +95,6 @@ form .link-container{
         color: var(--white);
     }
 
-    .login-form{
-        position: relative;
-        top: -5rem;
-    }
 
     .authentication-page .authentication-page-right{
         display: none;
@@ -104,11 +102,9 @@ form .link-container{
 
     .authentication-page .authentication-page-left{
         width: 100%;
+        padding: 2rem 4rem;
     }
 
-    .authentication-page-left .authentication-page-left-logo{
-        top: 1.5rem;
-        left: 3rem;
 
-    }
+
 }

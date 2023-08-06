@@ -1,4 +1,6 @@
-
+.logo-container{
+    justify-content: flex-start;
+}
 .logo-img{
     width: 5rem;
 }
