@@ -17,16 +17,15 @@
 }
 
 .not_selected_chat_container .not_selected_chat__img_container{
-    width: 20rem;
-    height: 20rem;
+    max-width: 30rem;
 
-    border-radius: 50%;
+    width: 80%;
+
     overflow: hidden;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 5px solid white;
 }
 
 .not_selected_chat__img_container img{

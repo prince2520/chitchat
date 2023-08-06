@@ -2,7 +2,7 @@
     height: 100%;
     width: 100%;
 
-    min-height: 10rem;
+    min-height: 15rem;
 
     object-fit: cover;
     border: 1px solid var(--border);

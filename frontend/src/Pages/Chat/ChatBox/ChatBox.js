@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 
@@ -14,37 +14,38 @@ import {fetchGroupMessages, fetchPrivateMessage} from "../../../api/api";
 import AuthContext from "../../../Context/auth";
 
 import './ChatBox.css';
+import Loading from "../../../Helper/Loading/Loading";
 
 const ChatBox = () => {
     const chat = useSelector(state => state.chat);
     const dispatch = useDispatch();
     const authCtx = useContext(AuthContext);
+    const [showLoading, setShowLoading] = useState(false);
 
 
     useEffect(() => {
-        if (chat?.type === categoryState[0]) {
-            fetchGroupMessages(chat.name, authCtx?.token)
+        setShowLoading(true);
+
+        ((chat?.type === categoryState[0]) ? fetchGroupMessages(chat.name, authCtx?.token) :
+                fetchPrivateMessage(authCtx?.userId, chat._id, authCtx?.token))
                 .then((res) => {
                     if(res.success){
                         dispatch(ChatActions.saveFetchChatMessage(res.messages));
+                        setShowLoading(false)
                     }
                 })
-                .catch(err => console.log(err));
-        }else {
-            fetchPrivateMessage(authCtx?.userId, chat._id, authCtx?.token)
-                .then((res) => {
-                    if(res.success){
-                        dispatch(ChatActions.saveFetchChatMessage(res.messages));
-                    }
-                })
-                .catch(err => console.log(err));
-        }
+                .catch(err => {
+                    setShowLoading(false)
+                });
+
     }, [chat._id])
 
     return (
         <div className="chat-box">
             <ChatBoxTop/>
-            {(chat.messages.length !== 0) ? <ChatBoxMiddle/> : <NoMessage/>}
+            {showLoading ? <div className={'loading-container align-center'}>
+                <Loading/>
+            </div> : ((chat.messages.length !== 0) ? <ChatBoxMiddle/> : <NoMessage/>)}
             <ChatBoxBottom/>
         </div>
     );

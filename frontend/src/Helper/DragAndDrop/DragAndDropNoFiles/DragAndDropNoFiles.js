@@ -1,22 +1,29 @@
 import Button from "../../Button/Button";
 
-import {useRef} from "react";
+import {useCallback, useRef} from "react";
 
 import './DragAndDropNoFiles.css';
+
 const DragAndDropNoFiles = () => {
-    const  inputRef = useRef();
+    const  uploadRef = useRef(null);
+
+    const uploadHandler = useCallback((event)=>{
+        event.preventDefault();
+    },[])
 
     return (
-        <div className={'drag-and-drop-no-files'}>
+        <form className={'drag-and-drop-no-files'} onSubmit={(event)=>uploadHandler(event)}>
             <input
+                ref={uploadRef}
+                type="file"
+                style={{display: "none"}}
                 onChange={(event) => {
-                    console.log(event)
+                    console.log(event.target.files[0]);
                 }}
-                ref={inputRef}
                 hidden/>
             <p>Drag and drop single and multiple files such as images </p>
-            <Button type={'click'} title={'Upload'}/>
-        </div>
+            <Button type={'submit'} title={'Upload'}/>
+        </form>
     );
 };
 

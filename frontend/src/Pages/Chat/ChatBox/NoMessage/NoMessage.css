@@ -13,15 +13,5 @@
 }
 
 .noMessage_box-imageContainer{
-    width: 12.5rem ;
-    height: 12.5rem;
-    border-radius: 50%;
-
-}
-
-.noMessage_box-imageContainer img{
-    width: 100% ;
-    height: 100%;
-    border-radius:50%
-
+    width: 20rem ;
 }

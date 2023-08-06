@@ -18,8 +18,6 @@ const Login = () => {
         password = event.target[1].value;
 
         authCtx?.loginHandler(email, password);
-        console.log(email)
-
     }
 
     return(

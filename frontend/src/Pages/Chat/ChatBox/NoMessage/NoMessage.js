@@ -1,12 +1,17 @@
 import './NoMessage.css';
 
+import Lottie from "lottie-react";
+
+import NoMessageAnimation from "../../../../animations/Circle.json"
+
+
 const NoMessage = () => {
     return(
         <div className='noMessage_box'>
             <div className='noMessage_box-imageContainer'>
-                <img src="https://i.imgur.com/SYbQZXR.jpg" alt="noMessage_image"/>
+                <Lottie animationData={NoMessageAnimation} loop={true} />
+                {/*<img src="https://i.imgur.com/SYbQZXR.jpg" alt="noMessage_image"/>*/}
             </div>
-            <p>No Message</p>
         </div>
     )
 }

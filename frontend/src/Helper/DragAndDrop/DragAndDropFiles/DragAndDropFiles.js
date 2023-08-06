@@ -2,9 +2,11 @@ import './DragAndDropFiles.css';
 import {Icon} from "@iconify/react";
 import {useDispatch} from "react-redux";
 import {DragAndDropActions} from "../../../store/dragAndDrop";
+
 const DragAndDropFiles = ({data}) => {
 
     const dispatch = useDispatch();
+
 
     return (
         <div className={'drag-and-drop-files'}>
