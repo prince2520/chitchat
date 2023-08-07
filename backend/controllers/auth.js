@@ -11,8 +11,7 @@ exports.signUp = async (req, res, next) => {
     const invalidInput = validationResult(req);
 
     if(!invalidInput.isEmpty()){
-        console.log(invalidInput);
-        return res.status(422).json({success: false, message:invalidInput})
+        return res.status(422).json({success: false, message:invalidInput?.errors[0].msg})
     }else {
         const foundUser = await User.findOne({email:email});
 

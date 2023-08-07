@@ -21,3 +21,12 @@
     color: white;
     border-color: white;
 }
+
+
+@media screen and (max-width: 800px) {
+    .open-ai-container{
+        font-size: 1rem;
+    }
+
+
+}

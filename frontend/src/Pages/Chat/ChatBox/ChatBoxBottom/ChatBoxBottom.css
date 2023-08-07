@@ -77,3 +77,24 @@ form .files-icon{
     justify-content: flex-start;
     align-items: center;
 }
+
+
+@media screen and (max-width: 800px) {
+    .chat-box-bottom-left .smile-icon {
+        font-size: 1.5rem;
+    }
+
+    form .files-icon{
+        font-size: 1.5rem;
+    }
+
+    .send-msg-button{
+        font-size: 1.5rem;
+    }
+
+    .chat-box-bottom-right {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+}

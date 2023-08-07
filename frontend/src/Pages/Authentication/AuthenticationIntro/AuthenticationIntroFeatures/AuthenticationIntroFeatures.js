@@ -7,8 +7,8 @@ const AuthenticationIntroFeatures = () => {
     return (
         <div className={'authentication-intro-features align-center'}>
             {chatFeatures
-                .map(feature =>
-                    <AuthenticationIntroFeature feature={feature}/>)}
+                .map((feature,index) =>
+                    <AuthenticationIntroFeature key={index} feature={feature}/>)}
 
         </div>
     )
