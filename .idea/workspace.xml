@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/animations/Error.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/animations/Success.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Helper/AlertBox/AlertBox.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Helper/AlertBox/AlertBox.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Helper/AlertBox/AlertBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Helper/AlertBox/AlertBox.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Helper/Logo/Logo.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Helper/Logo/Logo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +73,7 @@
       <workItem from="1691244072006" duration="404000" />
       <workItem from="1691245930469" duration="2755000" />
       <workItem from="1691302995037" duration="27320000" />
-      <workItem from="1691403110875" duration="13315000" />
+      <workItem from="1691403110875" duration="13468000" />
     </task>
     <servers />
   </component>

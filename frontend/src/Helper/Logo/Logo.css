@@ -24,14 +24,12 @@
 
 @media screen and (max-width: 800px) {
     .logo-img{
-        width: 3rem;
+        width: 4rem;
     }
 
 
-    .logo-name{
+    .logo-name {
         font-size: 1rem;
     }
-
-
 
 }
