@@ -4,6 +4,7 @@ import ImageContainer from "../../../../../../Helper/ImageContainer/ImageContain
 
 import {ChatActions} from "../../../../../../store/chat";
 import {categoryState} from "../../../../../../common";
+import {getFormatDate} from "../../../../common_function";
 
 const GroupListItem = ({result}) => {
     const dispatch =useDispatch();
@@ -33,7 +34,7 @@ const GroupListItem = ({result}) => {
                     {result.groupName}
                 </div>
                 <div className='group-created'>
-                    Created At -  Aug, 2021
+                    Created At - {getFormatDate(result.createdAt).slice(5)}
                 </div>
             </div>
         </div>

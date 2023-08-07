@@ -6,7 +6,7 @@ const initialUserState = {
     status: '',
     profileImageUrl: '',
     groupList: [],
-    privateList: []
+    privateList: [],
 };
 
 const UserSlice = createSlice({
@@ -20,6 +20,7 @@ const UserSlice = createSlice({
             state.profileImageUrl = action.payload.profileImageUrl ? action.payload.profileImageUrl : state.profileImageUrl ;
             state.groupList = action.payload.groupList ? action.payload.groupList : state.groupList ;
             state.privateList = action.payload.privateList ? action.payload.privateList : state.privateList;
+            state.createdAt = action.payload.createdAt ? action.payload.createdAt : state.createdAt;
         },
         addGroupHandler(state, action){
             state.groupList = [...state.groupList, action.payload];

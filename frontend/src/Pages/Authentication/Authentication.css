@@ -17,10 +17,9 @@
 
     justify-content: flex-start;
 
-    row-gap: 5rem;
 
+    row-gap: 2rem;
     flex-direction: column;
-
 }
 
 .authentication-page .authentication-page-right{
@@ -78,6 +77,12 @@ form .link-container{
     text-decoration: none;
     cursor: pointer;
 }
+
+.link-container .link:hover{
+    color: #b5c5f3;
+
+}
+
 
 .login-btn-container{
     width: 100%;

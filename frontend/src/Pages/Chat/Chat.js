@@ -38,7 +38,6 @@ const Chat = () => {
 
     useEffect(() => {
         getGroupMessage((err, {messageData}) => {
-            console.log(messageData)
             saveMessage(messageData);
         });
     },[]);

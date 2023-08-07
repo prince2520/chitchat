@@ -17,5 +17,12 @@
     text-decoration: none;
 
     border: none;
+    font-size: 1rem;
+    font-weight: 600;
+}
 
+.button-container:hover,
+.button-container:active{
+    background-color: white;
+    color: var(--primary);
 }

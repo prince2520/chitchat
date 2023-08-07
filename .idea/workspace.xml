@@ -5,10 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/public/ChitChat.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/favicon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/group.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/group.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/private.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/private.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Helper/Button/Button.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Helper/Button/Button.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/DateLine/DateLine.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/DateLine/DateLine.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/GroupPrivateList/GroupList/GroupListItem/GroupListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/GroupPrivateList/GroupList/GroupListItem/GroupListItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/NotSelectedChat/NotSelectedChat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/NotSelectedChat/NotSelectedChat.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/store/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/store/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,25 +40,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/chitchat/frontend/src/animations&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/chitchat/frontend/public",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\chitchat\frontend\public" />
       <recent name="D:\chitchat\frontend\src\animations" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\chitchat\frontend\public" />
       <recent name="D:\chitchat\frontend\src\Pages\Authentication\LoginSignUp" />
       <recent name="D:\chitchat\frontend\src\animations" />
     </key>
@@ -73,7 +86,7 @@
       <workItem from="1691244072006" duration="404000" />
       <workItem from="1691245930469" duration="2755000" />
       <workItem from="1691302995037" duration="27320000" />
-      <workItem from="1691403110875" duration="1987000" />
+      <workItem from="1691403110875" duration="7309000" />
     </task>
     <servers />
   </component>

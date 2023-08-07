@@ -13,7 +13,6 @@ const NotSelectedChat = () => {
             <div className={'not_selected_chat_context'}>
                 <div className={'not_selected_chat__img_container '}>
                     <Lottie animationData={NoChatSelectedAnimation} loop={true} />
-                    {/*<img src="https://i.imgur.com/MOS6l7X.png" alt="welcome_page"/>*/}
                 </div>
                 <h1>Welcome To ChatApp</h1>
                 <p>Time to be Social, Go Social</p>
