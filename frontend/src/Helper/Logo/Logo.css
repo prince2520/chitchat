@@ -20,3 +20,18 @@
     position: relative;
     bottom: -0.5rem;
 }
+
+
+@media screen and (max-width: 800px) {
+    .logo-img{
+        width: 3rem;
+    }
+
+
+    .logo-name{
+        font-size: 1rem;
+    }
+
+
+
+}
