@@ -13,6 +13,7 @@ import {ChatActions} from "../../store/chat";
 import AuthContext from "../../Context/auth";
 
 import  './Chat.css';
+import {HelperActions} from "../../store/helper";
 
 const Chat = () => {
     const showOverlay = useSelector(state => state.overlay?.showOverlay);
@@ -25,6 +26,8 @@ const Chat = () => {
     useEffect(()=>{
         initiateSocket(authCtx?.userId);
         return ()=>{
+            dispatch(HelperActions.dropDownHandler(false));
+            dispatch(ChatActions.clearSelectedChat());
             disconnectSocket(authCtx?.userId)
         }
     },[authCtx?.userId])

@@ -34,6 +34,10 @@ const ChatSlice = createSlice({
         },
         saveFetchChatMessage(state, action) {
             state.messages = action.payload
+        },
+        clearSelectedChat(state){
+            state.selected = false;
+            state._id = '';
         }
     }
 });

@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Helper/Logo/Logo.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Helper/Logo/Logo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/DateLine/DateLine.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/DateLine/DateLine.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/store/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/chat.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,20 +29,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/chitchat/frontend/src/animations",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/chitchat/frontend/src/animations&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\chitchat\frontend\src\animations" />
@@ -71,7 +72,8 @@
       <workItem from="1691072651213" duration="2529000" />
       <workItem from="1691244072006" duration="404000" />
       <workItem from="1691245930469" duration="2755000" />
-      <workItem from="1691302995037" duration="26972000" />
+      <workItem from="1691302995037" duration="27320000" />
+      <workItem from="1691403110875" duration="1987000" />
     </task>
     <servers />
   </component>
