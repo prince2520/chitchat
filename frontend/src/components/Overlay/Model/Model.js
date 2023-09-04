@@ -12,8 +12,8 @@ const Model = () => {
             {(overlay.showSideMobileBar) && <div className={'model-container model-container-chat-tab box-shadow'}>
                 <ChatTab/>
             </div>}
-            {(overlay.showDragDrop) && <div className={'model-container flex-center'} onClick={()=>dispatch(OverlayActions.closeOverlayHandler())}>
-                <div className={'model-container-background'}/>
+            {(overlay.showDragDrop) && <div className={'model-container flex-center'} >
+                <div className={'model-container-background'} onClick={()=>dispatch(OverlayActions.closeOverlayHandler())}/>
                 <DragAndDrop/>
             </div>}
         </React.Fragment>

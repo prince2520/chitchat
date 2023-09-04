@@ -6,19 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/ChatTab.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/ChatTab.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/DragAndDrop/DragAndDrop.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DragAndDrop/DragAndDrop.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/DragAndDrop/DragAndDrop.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DragAndDrop/DragAndDrop.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Overlay/Model/Model.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Overlay/Model/Model.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Overlay/Model/Model.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Overlay/Model/Model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Overlay/Overlay.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Overlay/Overlay.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Overlay/Overlay.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Overlay/Overlay.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SideBar/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/store/dragAndDrop.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/dragAndDrop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/store/overlay.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/store/overlay.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +81,7 @@
       <workItem from="1692770013016" duration="1386000" />
       <workItem from="1693285269747" duration="33000" />
       <workItem from="1693329626298" duration="1534000" />
-      <workItem from="1693830939383" duration="9688000" />
+      <workItem from="1693830939383" duration="9924000" />
     </task>
     <servers />
   </component>
