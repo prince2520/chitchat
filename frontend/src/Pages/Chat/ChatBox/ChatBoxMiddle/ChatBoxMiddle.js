@@ -1,4 +1,6 @@
+import React from "react";
 import { useSelector} from "react-redux";
+import {useCallback, useEffect, useRef} from "react";
 
 import Message from "./Message/Message";
 import DateLine from "./DateLine/DateLine";
@@ -6,9 +8,6 @@ import DateLine from "./DateLine/DateLine";
 import {getFormatDate} from "../../common_function";
 
 import './ChatBoxMiddle.css';
-import {useCallback, useEffect, useRef} from "react";
-
-import React from "react";
 
 const ChatBoxMiddle = () => {
     const messages = useSelector(state => state.chat.messages);
