@@ -11,10 +11,10 @@ import {categoryState} from "../../../common";
 import {ChatActions} from "../../../store/chat";
 import {fetchGroupMessages, fetchPrivateMessage} from "../../../api/api";
 
-import AuthContext from "../../../Context/auth";
+import AuthContext from "../../../context/auth";
 
 import './ChatBox.css';
-import Loading from "../../../Helper/Loading/Loading";
+import Loading from "../../../components/Loading/Loading";
 
 const ChatBox = () => {
     const chat = useSelector(state => state.chat);

@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 
-import ImageContainer from "../../../../../../Helper/ImageContainer/ImageContainer";
+import ImageContainer from "../../../../../../components/ImageContainer/ImageContainer";
 
 import {categoryState} from "../../../../../../common";
 import {ChatActions} from "../../../../../../store/chat";

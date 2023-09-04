@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {HelperActions} from "../../store/helper";
 import {useContext} from "react";
-import AuthContext from "../../Context/auth";
+import AuthContext from "../../context/auth";
 
 const Dropdown = () => {
     const dispatch = useDispatch();

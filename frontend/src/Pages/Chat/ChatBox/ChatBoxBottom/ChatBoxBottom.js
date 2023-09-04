@@ -9,7 +9,7 @@ import {messageHandler} from "../../sendMessage";
 import {ChatActions} from "../../../../store/chat";
 import {DragAndDropActions} from "../../../../store/dragAndDrop";
 
-import AuthContext from "../../../../Context/auth";
+import AuthContext from "../../../../context/auth";
 
 import './ChatBoxBottom.css';
 import {categoryState} from "../../../../common";

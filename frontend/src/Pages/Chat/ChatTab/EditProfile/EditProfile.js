@@ -2,15 +2,15 @@ import {Icon} from "@iconify/react";
 import {useDispatch, useSelector} from "react-redux";
 import {useContext, useEffect, useRef, useState} from "react";
 
-import Button from "../../../../Helper/Button/Button";
-import CustomInput from "../../../../Helper/CustomInput/CustomInput";
-import ImageContainer from "../../../../Helper/ImageContainer/ImageContainer";
+import Button from "../../../../components/Button/Button";
+import CustomInput from "../../../../components/CustomInput/CustomInput";
+import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
 import {saveProfile} from "../../../../api/api";
 import {UserActions} from "../../../../store/user";
 import {compressImageHandler, saveImageIntoFirebase} from "../../common_function";
 
-import AuthContext from "../../../../Context/auth";
+import AuthContext from "../../../../context/auth";
 
 import './EditProfile.css';
 

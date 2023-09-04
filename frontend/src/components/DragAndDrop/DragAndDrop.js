@@ -8,7 +8,7 @@ import {DragAndDropActions} from "../../store/dragAndDrop";
 import Button from "../Button/Button";
 import {saveImageIntoFirebase} from "../../Pages/Chat/common_function";
 import {messageHandler} from "../../Pages/Chat/sendMessage";
-import AuthContext from "../../Context/auth";
+import AuthContext from "../../context/auth";
 import {ChatActions} from "../../store/chat";
 import {categoryState} from "../../common";
 

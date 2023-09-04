@@ -1,4 +1,4 @@
-import SideBar from "../../../Helper/SideBar/SideBar";
+import SideBar from "../../../components/SideBar/SideBar";
 
 import Lottie from "lottie-react";
 

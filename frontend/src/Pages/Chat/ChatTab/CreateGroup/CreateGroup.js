@@ -3,15 +3,15 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useContext, useEffect, useRef, useState} from "react";
 
-import Button from "../../../../Helper/Button/Button";
-import ImageContainer from "../../../../Helper/ImageContainer/ImageContainer";
-import CustomInput from "../../../../Helper/CustomInput/CustomInput";
+import Button from "../../../../components/Button/Button";
+import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
+import CustomInput from "../../../../components/CustomInput/CustomInput";
 
 import {createGroup} from "../../../../api/api";
 import {UserActions} from "../../../../store/user";
 import {compressImageHandler, saveImageIntoFirebase} from "../../common_function";
 
-import AuthContext from "../../../../Context/auth";
+import AuthContext from "../../../../context/auth";
 
 import './CreateGroup.css';
 

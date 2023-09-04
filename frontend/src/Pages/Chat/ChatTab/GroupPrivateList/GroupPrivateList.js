@@ -2,8 +2,8 @@ import {useState} from "react";
 
 import GroupList from "./GroupList/GroupList";
 import PrivateList from "./PrivateList/PrivateList";
-import SearchBar from "../../../../Helper/SearchBar/SearchBar";
-import ChangeCategory from "../../../../Helper/ChangeCategory/ChangeCategory";
+import SearchBar from "../../../../components/SearchBar/SearchBar";
+import ChangeCategory from "../../../../components/ChangeCategory/ChangeCategory";
 
 import './GroupPrivateList.css';
 

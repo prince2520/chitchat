@@ -1,7 +1,7 @@
 import './App.css';
 import Chat from "./Pages/Chat/Chat";
 import {Navigate, Route, Routes} from "react-router-dom";
-import AuthContext from "./Context/auth";
+import AuthContext from "./context/auth";
 import React, {useContext} from "react";
 import Authentication from "./Pages/Authentication/Authentication";
 import Login from "./Pages/Authentication/LoginSignUp/Login/Login";
@@ -10,7 +10,7 @@ import GroupList from "./Pages/Chat/ChatTab/GroupPrivateList/GroupList/GroupList
 import EditProfile from "./Pages/Chat/ChatTab/EditProfile/EditProfile";
 import JoinGroup from "./Pages/Chat/ChatTab/JoinGroup/JoinGroup";
 import CreateGroup from "./Pages/Chat/ChatTab/CreateGroup/CreateGroup";
-import AlertBox from "./Helper/AlertBox/AlertBox";
+import AlertBox from "./components/AlertBox/AlertBox";
 import {useSelector} from "react-redux";
 import PrivateList from "./Pages/Chat/ChatTab/GroupPrivateList/PrivateList/PrivateList";
 import GroupPrivateList from "./Pages/Chat/ChatTab/GroupPrivateList/GroupPrivateList";

@@ -3,14 +3,14 @@ import {useDispatch, useSelector} from "react-redux";
 
 import ChatTab from "./ChatTab/ChatTab";
 import ChatBox from "./ChatBox/ChatBox";
-import Overlay from "../../Helper/Overlay/Overlay";
-import DragAndDrop from "../../Helper/DragAndDrop/DragAndDrop";
+import Overlay from "../../components/Overlay/Overlay";
+import DragAndDrop from "../../components/DragAndDrop/DragAndDrop";
 import NotSelectedChat from "./NotSelectedChat/NotSelectedChat";
 
 import {disconnectSocket, getGroupMessage, initiateSocket} from "../../socket";
 import {ChatActions} from "../../store/chat";
 
-import AuthContext from "../../Context/auth";
+import AuthContext from "../../context/auth";
 
 import  './Chat.css';
 import {HelperActions} from "../../store/helper";

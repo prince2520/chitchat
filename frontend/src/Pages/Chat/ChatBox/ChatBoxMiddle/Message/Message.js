@@ -8,7 +8,7 @@ import MessageString from "./MessageString/MessageString";
 import MessageOther from "./MessageOther/MessageOther";
 import MessageAudio from "./MessageAudio/MessageAudio";
 import MessageVideo from "./MessageVideo/MessageVideo";
-import ImageContainer from "../../../../../Helper/ImageContainer/ImageContainer";
+import ImageContainer from "../../../../../components/ImageContainer/ImageContainer";
 
 import './Message.css'
 

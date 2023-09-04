@@ -3,7 +3,7 @@ import {Icon} from "@iconify/react";
 import ImageContainer from "../../ImageContainer/ImageContainer";
 import {addUserInPrivateChat} from "../../../api/api";
 import {useContext} from "react";
-import AuthContext from "../../../Context/auth";
+import AuthContext from "../../../context/auth";
 const SearchResult = ({searchResult, setShowResult}) => {
     const authCtx = useContext(AuthContext);
     const addPrivateUserHandler = () => {

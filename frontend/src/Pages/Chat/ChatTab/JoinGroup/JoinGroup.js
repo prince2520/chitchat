@@ -2,14 +2,14 @@ import {useContext} from "react";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
-import ImageContainer from "../../../../Helper/ImageContainer/ImageContainer";
-import Button from "../../../../Helper/Button/Button";
-import CustomInput from "../../../../Helper/CustomInput/CustomInput";
+import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
+import Button from "../../../../components/Button/Button";
+import CustomInput from "../../../../components/CustomInput/CustomInput";
 
 import {joinGroupHandler} from "../../../../api/api";
 import {UserActions} from "../../../../store/user";
 
-import AuthContext from "../../../../Context/auth";
+import AuthContext from "../../../../context/auth";
 
 const JoinGroup = () => {
     const authCtx = useContext(AuthContext);

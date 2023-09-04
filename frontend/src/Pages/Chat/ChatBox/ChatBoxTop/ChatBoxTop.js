@@ -1,8 +1,8 @@
 import { useSelector} from "react-redux";
 
-import SideBar from "../../../../Helper/SideBar/SideBar";
-import Category from "../../../../Helper/Category/Category";
-import ImageContainer from "../../../../Helper/ImageContainer/ImageContainer";
+import SideBar from "../../../../components/SideBar/SideBar";
+import Category from "../../../../components/Category/Category";
+import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
 import './ChatBoxTop.css';
 
