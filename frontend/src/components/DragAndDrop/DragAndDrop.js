@@ -1,16 +1,20 @@
-import './DragAndDrop.css';
 import {Icon} from "@iconify/react";
-import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
-import {useContext, useEffect, useRef} from "react";
-import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
+import {useContext, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {DragAndDropActions} from "../../store/dragAndDrop";
+
 import Button from "../Button/Button";
-import {saveImageIntoFirebase} from "../../Pages/Chat/common_function";
-import {messageHandler} from "../../Pages/Chat/sendMessage";
-import AuthContext from "../../context/auth";
+import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
+import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
+
 import {ChatActions} from "../../store/chat";
 import {categoryState} from "../../common";
+import {DragAndDropActions} from "../../store/dragAndDrop";
+import {messageHandler} from "../../Pages/Chat/sendMessage";
+import {getDragAndDropData, saveImageIntoFirebase} from "../../Pages/Chat/common_function";
+
+import AuthContext from "../../context/auth";
+
+import './DragAndDrop.css';
 
 const DragAndDrop = () => {
     const dispatch = useDispatch();
@@ -32,32 +36,20 @@ const DragAndDrop = () => {
         event.preventDefault();
     };
 
-    const handleDrop = (event) => {
-        event.preventDefault();
+    const handleDropHelper = (dragFile) => {
+        let data = getDragAndDropData(dragFile);
 
-        let data, name, size, type, location, fileData;
-
-        name = event.dataTransfer.files[0].name;
-        size = event.dataTransfer.files[0].size / (1000 * 1000);
-        type = event.dataTransfer.files[0].type.split('/')[0];
-        fileData = event.dataTransfer.files[0];
-
-        location = URL.createObjectURL(event.dataTransfer.files[0]);
-
-        data = {
-            name: name,
-            size: size,
-            type: type,
-            location: location,
-            fileData: fileData,
-        };
-
-        if (!files.find(file => file.name === name) &&
+        if (!files.find(file => file.name === data.name) &&
             files.length <= 2 &&
             data.size <= 20 &&
-            type
+            data.type
         )
             dispatch(DragAndDropActions.addFileHandler(data));
+    }
+
+    const handleDrop = (event) => {
+        event.preventDefault();
+        handleDropHelper(event.dataTransfer.files[0]);
     };
 
     const sendMessageHandler = (message, users, chatId, cb, isOpenAIMsg = false, messageType, size, url) => {
@@ -85,7 +77,6 @@ const DragAndDrop = () => {
         if(chat.type===categoryState[1]){
             messageData['chatId'] = chat._id;
         }
-
 
         dispatch(ChatActions.saveChatMessage(messageData));
 
@@ -134,7 +125,7 @@ const DragAndDrop = () => {
                     onDragOver={handleDragOver}
                     onDrop={handleDrop}
                     className={'drag-and-drop-box-upload'}>
-                    {files.length === 0 && <DragAndDropNoFiles/>}
+                    {files.length === 0 && <DragAndDropNoFiles handleDropHelper={handleDropHelper}/>}
                     {files.map(data => <DragAndDropFiles data={data}/>)}
                 </div>
                 {files.length > 0 && <Button title={'SEND'}/>}
