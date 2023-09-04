@@ -1,8 +1,37 @@
 .model-container{
-    position: absolute;
-    width: 85%;
+    position: relative;
+    z-index: 900;
+    width: 100%;
     height: 100%;
+}
+
+.model-container-chat-tab{
+    width: 80%;
 
     background: var(--container);
-    z-index: 800;
+}
+
+.model-container-drag-and-drop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 125%;
+    height: 100%;
+}
+
+.model-container.full-width-model{
+    width: 100%;
+}
+
+.model-container-background{
+    width: 100%;
+    height: 100%;
+}
+
+
+@media screen and (min-width: 800px) {
+    .model-container-chat-tab{
+        display: none;
+    }
 }

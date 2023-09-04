@@ -10,7 +10,7 @@ const SideBarIcon = () => {
     return (
         <div className={'sidebar_container cursor-btn'}>
             <Icon
-                onClick={()=>dispatch(OverlayActions.openOverlayHandler())}
+                onClick={()=>dispatch(OverlayActions.openSideMobileBarHandler())}
                 icon="ic:round-menu"
                 color={'var(--text)'}
                 fontSize={'2rem'}/>

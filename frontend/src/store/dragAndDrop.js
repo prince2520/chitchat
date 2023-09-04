@@ -9,12 +9,6 @@ const DragAndDropSlice = createSlice({
     name: 'dragAndDrop',
     initialState: initialDragAndDropState,
     reducers: {
-        showDragAndDrop(state) {
-            state.showDragAndDrop = true;
-        },
-        closeDragAndDrop(state) {
-            state.showDragAndDrop = false;
-        },
         addFileHandler(state, action){
             state.files = [...state.files, action.payload]
         },

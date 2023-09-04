@@ -15,6 +15,7 @@ import {getDragAndDropData, saveImageIntoFirebase} from "../../Pages/Chat/common
 import AuthContext from "../../context/auth";
 
 import './DragAndDrop.css';
+import {OverlayActions} from "../../store/overlay";
 
 const DragAndDrop = () => {
     const dispatch = useDispatch();
@@ -74,7 +75,7 @@ const DragAndDrop = () => {
 
         data['messageData'] = {...messageData};
 
-        if(chat.type===categoryState[1]){
+        if (chat.type === categoryState[1]) {
             messageData['chatId'] = chat._id;
         }
 
@@ -108,28 +109,25 @@ const DragAndDrop = () => {
 
 
     return (
-        <form className={'drag-and-drop-container'} onSubmit={(event) => uploadHandler(event)}>
-            <div className='drag-and-drop-overlay' onClick={() => dispatch(DragAndDropActions.closeDragAndDrop())}/>
-            <div className={'drag-and-drop-box border box-shadow'}>
-                <div className={'close-btn'}>
-                    <Icon icon="mingcute:close-fill" onClick={() => dispatch(DragAndDropActions.closeDragAndDrop())}/>
-                </div>
-                <h1>
-                    Uploads
-                </h1>
-                <div className={'drag-and-drop-box-condition'}>
-                    <span>Max Size: 20MB</span>
-                    <span>Max Files: 3</span>
-                </div>
-                <div
-                    onDragOver={handleDragOver}
-                    onDrop={handleDrop}
-                    className={'drag-and-drop-box-upload'}>
-                    {files.length === 0 && <DragAndDropNoFiles handleDropHelper={handleDropHelper}/>}
-                    {files.map(data => <DragAndDropFiles data={data}/>)}
-                </div>
-                {files.length > 0 && <Button title={'SEND'}/>}
+        <form className={'drag-and-drop-box border box-shadow'} onSubmit={(event) => uploadHandler(event)}>
+            <div className={'close-btn'}>
+                <Icon icon="mingcute:close-fill" onClick={() => dispatch(OverlayActions.closeOverlayHandler())}/>
             </div>
+            <h1>
+                Uploads
+            </h1>
+            <div className={'drag-and-drop-box-condition'}>
+                <span>Max Size: 20MB</span>
+                <span>Max Files: 3</span>
+            </div>
+            <div
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                className={'drag-and-drop-box-upload'}>
+                {files.length === 0 && <DragAndDropNoFiles handleDropHelper={handleDropHelper}/>}
+                {files.map(data => <DragAndDropFiles data={data}/>)}
+            </div>
+            {files.length > 0 && <Button title={'SEND'}/>}
         </form>
     );
 };

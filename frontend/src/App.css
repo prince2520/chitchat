@@ -122,3 +122,9 @@ h3,p {
 .cursor-btn{
   cursor: pointer;
 }
+
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

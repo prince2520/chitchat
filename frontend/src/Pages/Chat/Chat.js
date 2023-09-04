@@ -19,7 +19,6 @@ const Chat = () => {
     const showOverlay = useSelector(state => state.overlay?.showOverlay);
     const selectedChatBox = useSelector(state => state.chat.selected);
     const authCtx = useContext(AuthContext);
-    const showDropAndDrag = useSelector(state => state.dragAndDrop.showDragAndDrop);
 
     const dispatch = useDispatch();
 
@@ -47,7 +46,6 @@ const Chat = () => {
     return (
         <div className="chat-page box-shadow border">
             {showOverlay && <Overlay/>}
-            {showDropAndDrag && <DragAndDrop/>}
             <div className={'chat-tab-container'}>
                 <ChatTab/>
             </div>

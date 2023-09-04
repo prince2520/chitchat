@@ -7,12 +7,12 @@ import OpenAI from "./OpenAI/OpenAI";
 
 import {messageHandler} from "../../sendMessage";
 import {ChatActions} from "../../../../store/chat";
-import {DragAndDropActions} from "../../../../store/dragAndDrop";
 
 import AuthContext from "../../../../context/auth";
 
 import './ChatBoxBottom.css';
 import {categoryState} from "../../../../common";
+import {OverlayActions} from "../../../../store/overlay";
 
 const ChatBoxBottom = () => {
     const inputRef = useRef(null);
@@ -78,7 +78,7 @@ const ChatBoxBottom = () => {
                     className={'smile-icon cursor-btn'}
                     onClick={()=>{setShowEmojis(!showEmojis)}}
                     icon="emojione:winking-face"/>
-                <Icon  className={'files-icon'} onClick={()=>dispatch(DragAndDropActions.showDragAndDrop())} icon="tabler:files" />
+                <Icon  className={'files-icon'} onClick={()=>dispatch(OverlayActions.openDragDropHandler())} icon="tabler:files" />
                 <OpenAI isOpenAIHandler={isOpenAIHandler}/>
             </div>
             <div className={'chat-box-bottom-middle border'}>

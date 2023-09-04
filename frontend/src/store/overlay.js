@@ -2,6 +2,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialOverlayState = {
     showOverlay: false,
+    showDragDrop: false,
+    showSideMobileBar:false
 };
 
 const OverlaySlice = createSlice({
@@ -9,9 +11,16 @@ const OverlaySlice = createSlice({
     initialState: initialOverlayState,
     reducers: {
         closeOverlayHandler(state) {
+            state.showSideMobileBar = false;
+            state.showDragDrop = false;
             state.showOverlay = false;
         },
-        openOverlayHandler(state){
+        openSideMobileBarHandler(state){
+            state.showSideMobileBar = true;
+            state.showOverlay = true;
+        },
+        openDragDropHandler(state){
+            state.showDragDrop = true;
             state.showOverlay = true;
         }
     }

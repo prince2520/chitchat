@@ -7,7 +7,7 @@ const Overlay = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className={'overlay-page'}>
+        <div className={'overlay-page '}>
             <div className={'overlay-container'} onClick={()=>dispatch(OverlayActions.closeOverlayHandler())}/>
             <Model/>
             <Icon
