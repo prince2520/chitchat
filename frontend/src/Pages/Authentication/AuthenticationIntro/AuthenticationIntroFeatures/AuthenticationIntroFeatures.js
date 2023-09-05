@@ -1,6 +1,9 @@
-import './AuthenticationIntroFeatures.css';
-import {chatFeatures} from "./authenticationfeatures";
 import AuthenticationIntroFeature from "./AuthenticationIntroFeature/AuthenticationIntroFeature";
+
+import {chatFeatures} from "./authenticationfeatures";
+
+import './AuthenticationIntroFeatures.css';
+
 
 const AuthenticationIntroFeatures = () => {
 

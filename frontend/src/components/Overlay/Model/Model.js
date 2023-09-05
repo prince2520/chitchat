@@ -1,9 +1,14 @@
-import './Model.css';
-import ChatTab from "../../../Pages/Chat/ChatTab/ChatTab";
-import {useDispatch, useSelector} from "react-redux";
-import DragAndDrop from "../../DragAndDrop/DragAndDrop";
-import {OverlayActions} from "../../../store/overlay";
 import React from "react";
+
+import {useDispatch, useSelector} from "react-redux";
+
+import ChatTab from "../../../Pages/Chat/ChatTab/ChatTab";
+import DragAndDrop from "../../DragAndDrop/DragAndDrop";
+
+import {OverlayActions} from "../../../store/overlay";
+
+import './Model.css';
+
 const Model = () => {
     const overlay = useSelector(state => state.overlay);
     const dispatch = useDispatch();

@@ -1,6 +1,6 @@
-import Button from "../../Button/Button";
-
 import {useRef} from "react";
+
+import Button from "../../Button/Button";
 
 import './DragAndDropNoFiles.css';
 

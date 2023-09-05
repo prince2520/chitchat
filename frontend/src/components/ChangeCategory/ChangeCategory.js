@@ -1,13 +1,14 @@
 import {useState} from "react";
 
-import './ChangeCategory.css';
 import {categoryState} from "../../common";
+
+import './ChangeCategory.css';
 
 const ChangeCategory = ({setPrivateChatSelected}) => {
     const [selectedChat, setSelectedChat] = useState(categoryState[0]);
 
     return (
-        <div className="change-category border">
+        <div className="change-category">
             {categoryState.map((name, idx)=>
                 <span
                     key={idx}

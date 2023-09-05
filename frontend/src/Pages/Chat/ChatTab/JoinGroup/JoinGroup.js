@@ -2,9 +2,9 @@ import {useContext} from "react";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
-import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 import Button from "../../../../components/Button/Button";
 import CustomInput from "../../../../components/CustomInput/CustomInput";
+import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
 import {joinGroupHandler} from "../../../../api/api";
 import {UserActions} from "../../../../store/user";

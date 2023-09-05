@@ -1,8 +1,8 @@
 import {Icon} from "@iconify/react";
 import {useDispatch, useSelector} from "react-redux";
 
-import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 import Dropdown from "../../../../components/Dropdown/Dropdown";
+import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
 import {HelperActions} from "../../../../store/helper";
 

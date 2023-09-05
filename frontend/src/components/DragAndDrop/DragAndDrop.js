@@ -6,8 +6,9 @@ import Button from "../Button/Button";
 import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
 import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 
-import {ChatActions} from "../../store/chat";
 import {categoryState} from "../../common";
+import {ChatActions} from "../../store/chat";
+import {OverlayActions} from "../../store/overlay";
 import {DragAndDropActions} from "../../store/dragAndDrop";
 import {messageHandler} from "../../Pages/Chat/sendMessage";
 import {getDragAndDropData, saveImageIntoFirebase} from "../../Pages/Chat/common_function";
@@ -15,7 +16,6 @@ import {getDragAndDropData, saveImageIntoFirebase} from "../../Pages/Chat/common
 import AuthContext from "../../context/auth";
 
 import './DragAndDrop.css';
-import {OverlayActions} from "../../store/overlay";
 
 const DragAndDrop = () => {
     const dispatch = useDispatch();

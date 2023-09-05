@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 
@@ -6,6 +6,7 @@ import NoMessage from "./NoMessage/NoMessage";
 import ChatBoxTop from "./ChatBoxTop/ChatBoxTop";
 import ChatBoxBottom from "./ChatBoxBottom/ChatBoxBottom";
 import ChatBoxMiddle from "./ChatBoxMiddle/ChatBoxMiddle";
+import Loading from "../../../components/Loading/Loading";
 
 import {categoryState} from "../../../common";
 import {ChatActions} from "../../../store/chat";
@@ -14,7 +15,6 @@ import {fetchGroupMessages, fetchPrivateMessage} from "../../../api/api";
 import AuthContext from "../../../context/auth";
 
 import './ChatBox.css';
-import Loading from "../../../components/Loading/Loading";
 
 const ChatBox = () => {
     const chat = useSelector(state => state.chat);

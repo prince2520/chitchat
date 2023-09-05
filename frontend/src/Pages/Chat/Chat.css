@@ -1,13 +1,20 @@
+
 .chat-page{
     height: 90%;
     width: 95%;
     max-width: 95%;
+
+    padding: 2rem 5rem;
+
+    background: var(--container);
 
     display: flex;
     flex-direction: row;
     justify-content: normal;
     align-items: center;
 }
+
+
 
 .chat-page .chat-tab-container{
     min-width: 20rem;

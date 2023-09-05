@@ -1,8 +1,9 @@
 import {Outlet} from "react-router-dom";
 
-import './Authentication.css';
-import AuthenticationIntro from "./AuthenticationIntro/AuthenticationIntro";
 import Logo from "../../components/Logo/Logo";
+import AuthenticationIntro from "./AuthenticationIntro/AuthenticationIntro";
+
+import './Authentication.css';
 
 const Authentication = () => {
     return (

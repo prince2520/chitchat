@@ -1,5 +1,7 @@
-import './CustomInput.css';
 import {Icon} from "@iconify/react";
+
+import './CustomInput.css';
+
 const CustomInput = (props) => {
     return (
         <div className='email-container'>

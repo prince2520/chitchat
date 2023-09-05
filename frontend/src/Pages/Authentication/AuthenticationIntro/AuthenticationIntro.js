@@ -1,9 +1,10 @@
 import Lottie from "lottie-react";
-import HomepageAnimation from "../../../animations/Homepage.json";
 
+import HomepageAnimation from "../../../animations/Homepage.json";
+import AuthenticationIntroFeatures from "./AuthenticationIntroFeatures/AuthenticationIntroFeatures";
 
 import './AuthenticationIntro.css'
-import AuthenticationIntroFeatures from "./AuthenticationIntroFeatures/AuthenticationIntroFeatures";
+
 const AuthenticationIntro = () => {
     return (
         <div className={'authentication-intro align-center'}>

@@ -1,20 +1,21 @@
-import './App.css';
-import Chat from "./Pages/Chat/Chat";
-import {Navigate, Route, Routes} from "react-router-dom";
-import AuthContext from "./context/auth";
 import React, {useContext} from "react";
+import {useSelector} from "react-redux";
+import {Navigate, Route, Routes} from "react-router-dom";
+
+import Chat from "./Pages/Chat/Chat";
+import AlertBox from "./components/AlertBox/AlertBox";
+import JoinGroup from "./Pages/Chat/ChatTab/JoinGroup/JoinGroup";
 import Authentication from "./Pages/Authentication/Authentication";
 import Login from "./Pages/Authentication/LoginSignUp/Login/Login";
 import SignUp from "./Pages/Authentication/LoginSignUp/SignUp/SignUp";
-import GroupList from "./Pages/Chat/ChatTab/GroupPrivateList/GroupList/GroupList";
 import EditProfile from "./Pages/Chat/ChatTab/EditProfile/EditProfile";
-import JoinGroup from "./Pages/Chat/ChatTab/JoinGroup/JoinGroup";
 import CreateGroup from "./Pages/Chat/ChatTab/CreateGroup/CreateGroup";
-import AlertBox from "./components/AlertBox/AlertBox";
-import {useSelector} from "react-redux";
 import PrivateList from "./Pages/Chat/ChatTab/GroupPrivateList/PrivateList/PrivateList";
 import GroupPrivateList from "./Pages/Chat/ChatTab/GroupPrivateList/GroupPrivateList";
 
+import AuthContext from "./context/auth";
+
+import './App.css';
 
 function App() {
     const authCtx = useContext(AuthContext);

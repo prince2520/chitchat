@@ -1,9 +1,14 @@
-import './SearchResult.css';
-import {Icon} from "@iconify/react";
-import ImageContainer from "../../ImageContainer/ImageContainer";
-import {addUserInPrivateChat} from "../../../api/api";
 import {useContext} from "react";
+import {Icon} from "@iconify/react";
+
+import ImageContainer from "../../ImageContainer/ImageContainer";
+
+import {addUserInPrivateChat} from "../../../api/api";
+
 import AuthContext from "../../../context/auth";
+
+import './SearchResult.css';
+
 const SearchResult = ({searchResult, setShowResult}) => {
     const authCtx = useContext(AuthContext);
     const addPrivateUserHandler = () => {

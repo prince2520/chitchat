@@ -1,11 +1,13 @@
+import {useContext} from "react";
 import {Icon} from "@iconify/react";
-
-import './Dropdown.css';
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
+
 import {HelperActions} from "../../store/helper";
-import {useContext} from "react";
+
 import AuthContext from "../../context/auth";
+
+import './Dropdown.css';
 
 const Dropdown = () => {
     const dispatch = useDispatch();

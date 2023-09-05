@@ -1,8 +1,12 @@
-import './Overlay.css';
-import Model from "./Model/Model";
 import {Icon} from "@iconify/react";
 import {useDispatch} from "react-redux";
+
+import Model from "./Model/Model";
+
 import {OverlayActions} from "../../store/overlay";
+
+import './Overlay.css';
+
 const Overlay = () => {
     const dispatch = useDispatch();
 

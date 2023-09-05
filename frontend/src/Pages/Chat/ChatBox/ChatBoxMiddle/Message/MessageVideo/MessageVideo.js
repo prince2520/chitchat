@@ -1,8 +1,8 @@
-import React, {useCallback, useState} from "react";
+import {Icon} from "@iconify/react";
 import ReactPlayer from 'react-player';
+import React, {useCallback, useState} from "react";
 
 import './MessageVideo.css';
-import {Icon} from "@iconify/react";
 
 const MessageVideo = ({url, time}) => {
     const [showControls, setShowControls] = useState(false);

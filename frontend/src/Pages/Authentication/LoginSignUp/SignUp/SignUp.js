@@ -1,9 +1,10 @@
+import {useContext} from "react";
+import {Link} from "react-router-dom";
+
 import Button from "../../../../components/Button/Button";
 import CustomInput from "../../../../components/CustomInput/CustomInput";
-import {Link} from "react-router-dom";
-import {useContext} from "react";
-import AuthContext from "../../../../context/auth";
 
+import AuthContext from "../../../../context/auth";
 
 const SignUp = () => {
     const authCtx = useContext(AuthContext);

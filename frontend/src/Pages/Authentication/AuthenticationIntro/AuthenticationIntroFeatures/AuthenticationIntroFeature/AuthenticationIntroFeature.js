@@ -1,5 +1,6 @@
-import './AuthenticationIntroFeature.css';
 import Lottie from "lottie-react";
+
+import './AuthenticationIntroFeature.css';
 const AuthenticationIntroFeature = ({feature}) => {
 
     return (

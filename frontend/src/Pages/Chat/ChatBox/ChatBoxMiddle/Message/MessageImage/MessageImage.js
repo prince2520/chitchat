@@ -1,7 +1,7 @@
 import React from "react";
+import {Icon} from "@iconify/react";
 
 import './MessageImage.css';
-import {Icon} from "@iconify/react";
 
 const MessageImage = ({myMsg, imageSrc, time}) => {
     return (

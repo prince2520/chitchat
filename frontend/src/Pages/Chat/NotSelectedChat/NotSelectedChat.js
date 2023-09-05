@@ -1,7 +1,6 @@
-import SideBar from "../../../components/SideBar/SideBar";
-
 import Lottie from "lottie-react";
 
+import SideBar from "../../../components/SideBar/SideBar";
 import NoChatSelectedAnimation from "../../../animations/NoChatSelected.json"
 
 import './NotSelectedChat.css'

@@ -1,5 +1,6 @@
-import './DateLine.css';
 import {getFormatDate} from "../../../common_function";
+
+import './DateLine.css';
 
 const DateLine = ({createdAt}) => {
     return (
