@@ -13,6 +13,7 @@ import {compressImageHandler, saveImageIntoFirebase} from "../../common_function
 import AuthContext from "../../../../context/auth";
 
 import './EditProfile.css';
+import {AlertBoxActions} from "../../../../store/alert";
 
 const EditProfile = () => {
     const authData = useSelector(state => state.user);
@@ -50,7 +51,8 @@ const EditProfile = () => {
     const saveProfileDetail = async (username, status) => {
         let firebaseUrl = await saveImageIntoFirebase(profileImage)
 
-        saveProfileBackend(username, status, firebaseUrl).then(() => {
+        saveProfileBackend(username, status, firebaseUrl).then((result) => {
+            dispatch(AlertBoxActions.showAlertBoxHandler(result));
             dispatch(UserActions.saveUserData({
                 username: username,
                 status: status,

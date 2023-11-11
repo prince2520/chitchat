@@ -73,9 +73,9 @@ exports.saveProfile = async (req,res,next)=>{
         userFound.save().then(result=>{
             return res.status(200).json({
                 success: true,
-                message: 'Profile Edited!'
+                message: 'Profile Updated!'
             })
-        })
+        });
     }else {
         return res.status(404).json({success: false, message:'No User Found!'})
     }

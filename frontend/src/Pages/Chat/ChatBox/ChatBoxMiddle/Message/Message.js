@@ -1,16 +1,21 @@
 import React from "react";
 import {Icon} from "@iconify/react";
+import { lazy } from 'react';
+
 
 import date from 'date-and-time';
 
-import MessageImage from "./MessageImage/MessageImage";
 import MessageString from "./MessageString/MessageString";
 import MessageOther from "./MessageOther/MessageOther";
-import MessageAudio from "./MessageAudio/MessageAudio";
-import MessageVideo from "./MessageVideo/MessageVideo";
 import ImageContainer from "../../../../../components/ImageContainer/ImageContainer";
 
-import './Message.css'
+
+import './Message.css';
+
+const MessageImage = lazy(() => import("./MessageImage/MessageImage"));
+const MessageAudio = lazy(() => import("./MessageAudio/MessageAudio"));
+const MessageVideo = lazy(() => import("./MessageVideo/MessageVideo"));
+
 
 const Message = ({myMsg, messageDetail}) => {
 

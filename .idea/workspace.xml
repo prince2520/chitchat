@@ -6,40 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/Authentication.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntro.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntro.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeature/AuthenticationIntroFeature.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeature/AuthenticationIntroFeature.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeatures.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/AuthenticationIntro/AuthenticationIntroFeatures/AuthenticationIntroFeatures.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Authentication/LoginSignUp/SignUp/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Authentication/LoginSignUp/SignUp/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxBottom/ChatBoxBottom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/DateLine/DateLine.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/DateLine/DateLine.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/Message.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/Message.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageImage/MessageImage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageImage/MessageImage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageVideo/MessageVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageVideo/MessageVideo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/NoMessage/NoMessage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/NoMessage/NoMessage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/ChatTab.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/ChatTab.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/JoinGroup/JoinGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/JoinGroup/JoinGroup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/MyProfile/MyProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/MyProfile/MyProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/NotSelectedChat/NotSelectedChat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/NotSelectedChat/NotSelectedChat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/AlertBox/AlertBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AlertBox/AlertBox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ChangeCategory/ChangeCategory.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ChangeCategory/ChangeCategory.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ChangeCategory/ChangeCategory.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ChangeCategory/ChangeCategory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/CustomInput/CustomInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/CustomInput/CustomInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/DragAndDrop/DragAndDrop.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DragAndDrop/DragAndDrop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/DragAndDrop/DragAndDropFiles/DragAndDropFiles.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DragAndDrop/DragAndDropFiles/DragAndDropFiles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/DragAndDrop/DragAndDropNoFiles/DragAndDropNoFiles.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DragAndDrop/DragAndDropNoFiles/DragAndDropNoFiles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Dropdown/Dropdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Dropdown/Dropdown.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Loading/Loading.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Loading/Loading.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Logo/Logo.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Logo/Logo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Overlay/Model/Model.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Overlay/Model/Model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Overlay/Overlay.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Overlay/Overlay.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SearchBar/SearchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SearchBar/SearchBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SearchBar/SearchResult/SearchResult.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SearchBar/SearchResult/SearchResult.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SideBar/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/EditProfile/EditProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/EditProfile/EditProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Overlay/Model/Model.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Overlay/Model/Model.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/context/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/context/auth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +28,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2Sv0fJCDg073rRiXugILcNb7gI7" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -65,7 +44,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/chitchat&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Project/chitchat&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -116,7 +95,13 @@
       <workItem from="1693830939383" duration="10931000" />
       <workItem from="1693845784277" duration="1452000" />
       <workItem from="1693891708340" duration="2349000" />
-      <workItem from="1693894227528" duration="726000" />
+      <workItem from="1693894227528" duration="4161000" />
+      <workItem from="1693908352205" duration="1056000" />
+      <workItem from="1694012422676" duration="121000" />
+      <workItem from="1697005532274" duration="4614000" />
+      <workItem from="1699446093689" duration="300000" />
+      <workItem from="1699458784627" duration="936000" />
+      <workItem from="1699686864451" duration="323000" />
     </task>
     <servers />
   </component>

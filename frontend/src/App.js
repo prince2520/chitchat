@@ -1,5 +1,5 @@
-import React, {useContext} from "react";
-import {useSelector} from "react-redux";
+import React, {useContext, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {Navigate, Route, Routes} from "react-router-dom";
 
 import Chat from "./Pages/Chat/Chat";
@@ -13,13 +13,29 @@ import CreateGroup from "./Pages/Chat/ChatTab/CreateGroup/CreateGroup";
 import PrivateList from "./Pages/Chat/ChatTab/GroupPrivateList/PrivateList/PrivateList";
 import GroupPrivateList from "./Pages/Chat/ChatTab/GroupPrivateList/GroupPrivateList";
 
+import {AlertBoxActions} from "./store/alert";
+
 import AuthContext from "./context/auth";
 
 import './App.css';
 
+let time = null;
+
 function App() {
     const authCtx = useContext(AuthContext);
+    const dispatch = useDispatch();
     const showAlertBox = useSelector(state=>state.alert.showAlertBox);
+    const alertBoxData = useSelector(state => state.alert.message)
+
+
+    useEffect(() => {
+        clearTimeout(time);
+        if (showAlertBox) {
+            time = setTimeout(() => {
+                dispatch(AlertBoxActions.closeAlertBoxHandler());
+            }, [3000]);
+        }
+    }, [dispatch, showAlertBox, alertBoxData]);
 
     return (
         <div className="App">
