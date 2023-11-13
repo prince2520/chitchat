@@ -13,6 +13,8 @@ import {OverlayActions} from "../../../../store/overlay";
 import AuthContext from "../../../../context/auth";
 
 import './ChatBoxBottom.css';
+import {HelperActions} from "../../../../store/helper";
+import {useDetectClickOutside} from "react-detect-click-outside";
 
 const ChatBoxBottom = () => {
     const inputRef = useRef(null);
@@ -56,7 +58,8 @@ const ChatBoxBottom = () => {
     }
 
     const sendMessage = (event) => {
-        event.preventDefault()
+        event.preventDefault();
+        setShowEmojis(false);
 
         let message = inputRef.current.value;
 
@@ -70,8 +73,15 @@ const ChatBoxBottom = () => {
 
     const isOpenAIHandler = (openAICond) => setIsOpenAIMsg(openAICond);
 
+    const closeEmojiHandler = () => {
+        setShowEmojis(!showEmojis);
+    }
+
+    const ref = useDetectClickOutside({ onTriggered: closeEmojiHandler});
+
+
     return (
-        <form onSubmit={(event) => sendMessage(event)}
+        <form ref={ref} onSubmit={(event) => sendMessage(event)}
               className='chat-box-bottom '>
             <div className={'chat-box-bottom-left'}>
                 <Icon

@@ -45,7 +45,7 @@ const ChatBox = () => {
             <ChatBoxTop/>
             {showLoading ? <div className={'loading-container align-center'}>
                 <Loading/>
-            </div> : ((chat.messages.length !== 0) ? <ChatBoxMiddle/> : <NoMessage/>)}
+            </div> : ((chat?.messages.length !== 0) ? <ChatBoxMiddle/> : <NoMessage/>)}
             <ChatBoxBottom/>
         </div>
     );
