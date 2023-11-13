@@ -1,7 +1,4 @@
 .send-img img{
-    height: 100%;
-    width: 100%;
-
     min-height: 15rem;
 
     object-fit: cover;
