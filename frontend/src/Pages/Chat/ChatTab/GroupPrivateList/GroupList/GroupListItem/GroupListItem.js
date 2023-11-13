@@ -11,6 +11,11 @@ const GroupListItem = ({result}) => {
     const chat = useSelector(state => state.chat);
 
     const selectedGroup = () => {
+
+        if(chat._id === result._id){
+            return;
+        }
+
         let data = {
             type: categoryState[0],
             _id: result._id,

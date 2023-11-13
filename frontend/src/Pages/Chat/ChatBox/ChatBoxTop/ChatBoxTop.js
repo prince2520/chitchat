@@ -5,6 +5,7 @@ import Category from "../../../../components/Category/Category";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
 import './ChatBoxTop.css';
+import {Icon} from "@iconify/react";
 
 const ChatBoxTop = () => {
     const chat = useSelector(state => state.chat);
@@ -18,6 +19,8 @@ const ChatBoxTop = () => {
                 <span className='chat-created'>{chat.status ? chat.status : chat.createdBy}</span>
             </div>
             <Category title={chat.type}/>
+            <Icon icon="gg:more-vertical-o" style={{color:'var(--text)', fontSize:'2.5rem', cursor:'pointer'}}/>
+
         </div>
     );
 };

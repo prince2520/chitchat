@@ -8,8 +8,14 @@ import {ChatActions} from "../../../../../../store/chat";
 const PrivateListItem = ({result}) => {
     const dispatch =useDispatch();
     const userId = useSelector(state => state.chat._id);
+    const chat = useSelector(state => state.chat);
+
 
     const selectedPrivateUser = () => {
+        if(chat._id === result._id){
+            return;
+        }
+
         dispatch(ChatActions.selectedChatBox({
             type: categoryState[1],
             _id: result._id,

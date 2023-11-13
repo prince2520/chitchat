@@ -22,10 +22,10 @@ const MyProfile = () => {
     const ref = useDetectClickOutside({ onTriggered: closeDropDownHandler});
 
     return (
-        <div ref={ref} className={'my-profile-container border'}>
+        <div className={'my-profile-container border'}>
             <ImageContainer src={profileImageUrl}/>
             <span onClick={()=>dispatch(HelperActions.dropDownHandler(!showDropdown))}>
-                <Icon icon="gridicons:dropdown" style={{color:'var(--text)', fontSize:'3rem', cursor:'pointer'}}/>
+                <Icon ref={ref} icon="gridicons:dropdown" style={{color:'var(--text)', fontSize:'3rem', cursor:'pointer'}}/>
             </span>
             {showDropdown && <Dropdown/>}
         </div>
