@@ -74,7 +74,7 @@ const ChatBoxBottom = () => {
     const isOpenAIHandler = (openAICond) => setIsOpenAIMsg(openAICond);
 
     const closeEmojiHandler = () => {
-        setShowEmojis(!showEmojis);
+        setShowEmojis(false);
     }
 
     const ref = useDetectClickOutside({ onTriggered: closeEmojiHandler});
