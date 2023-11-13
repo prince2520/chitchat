@@ -40,7 +40,6 @@ const Chat = () => {
     },[]);
 
 
-
     return (
         <div className="chat-page box-shadow border">
             {showOverlay && <Overlay/>}

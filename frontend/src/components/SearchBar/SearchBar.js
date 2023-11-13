@@ -15,7 +15,8 @@ const SearchBar = () => {
     const [showResult, setShowResult] = useState(false);
     const [searchResult, setSearchResult] = useState({})
 
-    const submitHandler = () => {
+    const submitHandler = (event) => {
+        event.preventDefault();
         searchUserHandler(authCtx?.token, searchUserRef.current?.value)
             .then(result=>{
                 setShowResult(result.success);
@@ -25,14 +26,15 @@ const SearchBar = () => {
     };
 
     return(
-        <div className="search-bar-container border">
+        <form onClick={(event)=>submitHandler(event)} className="search-bar-container border">
             <input ref={searchUserRef} placeholder={'Search by email ...'}/>
-            <Icon
-                onClick={()=>submitHandler()}
-                icon="material-symbols:search"
-                style={{color:'var(--text)', fontSize:'2rem'}}/>
+            <button>
+                <Icon
+                    icon="material-symbols:search"
+                    style={{color:'var(--text)', fontSize:'2rem'}}/>
+            </button>
             {showResult && <SearchResult setShowResult={setShowResult} searchResult={searchResult}/>}
-        </div>
+        </form>
     );
 };
 

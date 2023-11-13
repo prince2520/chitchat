@@ -56,6 +56,18 @@
     right: 1rem;
 }
 
+.popup-content {
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.popup-arrow {
+    display: none;
+}
+
 @media screen and (max-width: 800px) {
     form .login-heading{
         font-size: 1.8rem;
@@ -74,7 +86,7 @@
     }
 }
 
-.my-profile-container .menu-container{
+.menu-container{
     bottom: -11.5rem;
 
     display: flex;
@@ -83,7 +95,7 @@
 }
 
 
-.my-profile-container .menu-container,
+.menu-container,
 .search-result-container{
     z-index: 600;
     border-radius: 0.5rem;

@@ -10,6 +10,11 @@
     font-weight: 500;
 }
 
+.search-bar-container button{
+    background: none;
+    border: none;
+}
+
 .search-bar-container{
     display: flex;
     flex-direction:row;

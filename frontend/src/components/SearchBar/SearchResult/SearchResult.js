@@ -1,8 +1,9 @@
 import {useContext} from "react";
 import {Icon} from "@iconify/react";
 
-import ImageContainer from "../../ImageContainer/ImageContainer";
+import {useDetectClickOutside} from "react-detect-click-outside";
 
+import ImageContainer from "../../ImageContainer/ImageContainer";
 import {addUserInPrivateChat} from "../../../api/api";
 
 import AuthContext from "../../../context/auth";
@@ -17,8 +18,14 @@ const SearchResult = ({searchResult, setShowResult}) => {
             .catch(err=>console.log(err));
     }
 
+    const closeSearchHandler = () => {
+        setShowResult(false);
+    }
+
+    const ref = useDetectClickOutside({ onTriggered: closeSearchHandler});
+
     return (
-        <div className={'search-result-container border box-shadow'}>
+        <div ref={ref} className={'search-result-container border box-shadow'}>
             <div className={'close-btn'}>
                 <Icon
                     onClick={()=>setShowResult(false)}

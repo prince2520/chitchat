@@ -6,16 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/Message.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/Message.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageImage/MessageImage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageImage/MessageImage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageVideo/MessageVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageVideo/MessageVideo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/EditProfile/EditProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/EditProfile/EditProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Overlay/Model/Model.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Overlay/Model/Model.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/context/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/context/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/MyProfile/MyProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/MyProfile/MyProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/MyProfile/MyProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/MyProfile/MyProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Dropdown/Dropdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Dropdown/Dropdown.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/SearchBar/SearchBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SearchBar/SearchBar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/SearchBar/SearchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SearchBar/SearchBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/SearchBar/SearchResult/SearchResult.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SearchBar/SearchResult/SearchResult.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +101,8 @@
       <workItem from="1697005532274" duration="4614000" />
       <workItem from="1699446093689" duration="300000" />
       <workItem from="1699458784627" duration="936000" />
-      <workItem from="1699686864451" duration="323000" />
+      <workItem from="1699686864451" duration="2109000" />
+      <workItem from="1699859665766" duration="8380000" />
     </task>
     <servers />
   </component>
