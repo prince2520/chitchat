@@ -26,7 +26,6 @@ const ChatBox = () => {
     useEffect(() => {
         setShowLoading(true);
 
-        console.log(chat._id);
         ((chat?.type === categoryState[0]) ? fetchGroupMessages(chat.name, authCtx?.token) :
                 fetchPrivateMessage(authCtx?.userId, chat._id, authCtx?.token))
                 .then((res) => {

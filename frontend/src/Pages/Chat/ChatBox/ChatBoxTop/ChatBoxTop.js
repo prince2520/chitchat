@@ -1,26 +1,41 @@
-import { useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {useState} from "react";
 
+import Setting from "./Setting/Setting";
 import SideBar from "../../../../components/SideBar/SideBar";
 import Category from "../../../../components/Category/Category";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
-import './ChatBoxTop.css';
 import {Icon} from "@iconify/react";
+import {useDetectClickOutside} from "react-detect-click-outside";
+import {categoryState} from "../../../../common";
+
+import './ChatBoxTop.css';
+import MediaCommunication from "./MediaCommunication/MediaCommunication";
 
 const ChatBoxTop = () => {
     const chat = useSelector(state => state.chat);
 
-    return(
+    const [showSetting , setShowSetting] = useState(false);
+
+    const closeSettingHandler = () => {
+        setShowSetting(false);
+    }
+
+    const ref = useDetectClickOutside({ onTriggered: closeSettingHandler});
+
+    return (
         <div className='chat-box-top border'>
             <SideBar/>
-            <ImageContainer  src={chat.photo}/>
+            <ImageContainer src={chat.photo}/>
             <div className='chat-description'>
                 <span className='chat-name'>{chat.name}</span>
                 <span className='chat-created'>{chat.status ? chat.status : chat.createdBy}</span>
             </div>
             <Category title={chat.type}/>
-            <Icon icon="gg:more-vertical-o" style={{color:'var(--text)', fontSize:'2.5rem', cursor:'pointer'}}/>
-
+            {chat.type === categoryState[1] && <MediaCommunication/>}
+            <Icon onClick={()=>setShowSetting(prevState => !prevState)} ref={ref} icon="gg:more-vertical-o" style={{color: 'var(--text)', fontSize: '2.5rem', cursor: 'pointer'}}/>
+            {showSetting && <Setting/>}
         </div>
     );
 };

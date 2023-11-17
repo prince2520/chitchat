@@ -1,4 +1,5 @@
 .chat-box-top{
+    position:  relative;
     padding: 0.35rem 1.5rem;
     display: flex;
     flex-direction: row;

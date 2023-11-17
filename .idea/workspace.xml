@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e504a7ac-ad66-49d2-9da9-61734aba35a7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxTop/MediaCommunication/MediaCommunication.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxTop/Setting/Setting.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxTop/Setting/Setting.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/Chat.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageVideo/MessageVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxMiddle/Message/MessageVideo/MessageVideo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxTop/ChatBoxTop.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxTop/ChatBoxTop.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxTop/ChatBoxTop.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatBox/ChatBoxTop/ChatBoxTop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/GroupPrivateList/GroupList/GroupListItem/GroupListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/GroupPrivateList/GroupList/GroupListItem/GroupListItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/GroupPrivateList/PrivateList/PrivateListItem/PrivateListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/GroupPrivateList/PrivateList/PrivateListItem/PrivateListItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/MyProfile/MyProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Pages/Chat/ChatTab/MyProfile/MyProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Category/Category.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Category/Category.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/common.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,20 +38,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Project/chitchat&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/Project/chitchat",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\chitchat\frontend\src\animations" />
@@ -98,7 +101,14 @@
       <workItem from="1699446093689" duration="300000" />
       <workItem from="1699458784627" duration="936000" />
       <workItem from="1699686864451" duration="2109000" />
-      <workItem from="1699859665766" duration="15935000" />
+      <workItem from="1699859665766" duration="17180000" />
+      <workItem from="1699889920392" duration="4353000" />
+      <workItem from="1699954758347" duration="1213000" />
+      <workItem from="1700034186415" duration="5714000" />
+      <workItem from="1700059997580" duration="616000" />
+      <workItem from="1700120183878" duration="619000" />
+      <workItem from="1700138638232" duration="601000" />
+      <workItem from="1700207923407" duration="7700000" />
     </task>
     <servers />
   </component>

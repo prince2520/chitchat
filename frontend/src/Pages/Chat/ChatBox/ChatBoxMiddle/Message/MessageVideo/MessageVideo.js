@@ -1,14 +1,15 @@
 import {Icon} from "@iconify/react";
 import ReactPlayer from 'react-player';
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 
 import './MessageVideo.css';
 import {useInView} from "react-intersection-observer";
 
 const MessageVideo = ({url, time}) => {
 
+    const [play, setPlay] = useState(false);
 
-    const [blurImg, setBlurImg] = useState(false);
+
 
     const {ref, inView} = useInView({
         threshold: 0.1,
@@ -16,7 +17,9 @@ const MessageVideo = ({url, time}) => {
     });
 
     useEffect(() => {
-        setBlurImg(!inView);
+        if(!inView){
+            setPlay(false);
+        }
     }, [inView]);
 
 
@@ -38,7 +41,7 @@ const MessageVideo = ({url, time}) => {
              onMouseOver={()=>showControlsHandler()}
              onMouseLeave={()=>dontShowControlsHandler()}>
             <ReactPlayer
-                style={{filter: `blur(${blurImg? 5: 0 }px)`}}
+                playing={play}
                 width={"100%"}
                 height={"100%"}
                 url={url}
