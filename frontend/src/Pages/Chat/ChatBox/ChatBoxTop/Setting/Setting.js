@@ -5,7 +5,7 @@ import './Setting.css'
 
 const Setting = () => {
     return (
-        <div className='setting box-shadow border'>
+        <div className='setting flex-center box-shadow border'>
             {settingOption.map(option =>
                 <div className={'setting-option cursor-btn flex-center'}>
                     <Icon icon={option.icon}/>

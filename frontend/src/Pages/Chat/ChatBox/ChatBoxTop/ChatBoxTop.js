@@ -10,8 +10,9 @@ import {Icon} from "@iconify/react";
 import {useDetectClickOutside} from "react-detect-click-outside";
 import {categoryState} from "../../../../common";
 
-import './ChatBoxTop.css';
 import MediaCommunication from "./MediaCommunication/MediaCommunication";
+
+import './ChatBoxTop.css';
 
 const ChatBoxTop = () => {
     const chat = useSelector(state => state.chat);

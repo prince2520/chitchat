@@ -1,10 +1,15 @@
 .setting{
-    width: fit-content;
-    left: auto;
+    width: fit-content!important;
+    left: auto!important;
     right: 0.75rem;
     bottom: -3.5rem;
 
-    font-size: 1.15rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: 1.1rem;
+
+    column-gap: 0.5rem;
+    padding: 0 5rem;
 }
 
 .setting .setting-option{

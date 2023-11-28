@@ -2,18 +2,17 @@ import {Icon} from "@iconify/react";
 import {useDispatch, useSelector} from "react-redux";
 
 import Lottie from "lottie-react";
-
 import ErrorAnimation from '../../animations/Error.json';
 import SuccessAnimation from '../../animations/Success.json';
 
 import {AlertBoxActions} from "../../store/alert";
 
-import './AlertBox.css'
+import './AlertBox.css';
 
 const AlertBox = () => {
-    const alertBoxData = useSelector(state => state.alert);
-
     const dispatch = useDispatch();
+
+    const alertBoxData = useSelector(state => state.alert);
 
     return (
         <div className={'alert-box-page'}>

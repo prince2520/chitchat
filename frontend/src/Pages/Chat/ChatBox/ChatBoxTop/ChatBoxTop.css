@@ -22,13 +22,13 @@
 }
 
 .chat-description .chat-name{
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: var(--white);
     font-weight: 600;
 }
 
 .chat-description .chat-created{
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--text);
 }
 
