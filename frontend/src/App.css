@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Borel&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Borel&display=swap");
 
 :root {
   /*--background: #222831;*/
@@ -8,77 +7,63 @@
   --container: rgba(40, 40, 42);
 
   --white: #ffff;
-  --input: #E8F0FE;
-  --text: #D4CFCF;
-  --primary: #EA5455;
-  --link: #8AB4F8;
-  --border: #61656B;
-  --error: #EB5757;
-  --success: #2BD994;
+  --input: #ffff;
+  --primary: #ea5455;
+
+  --text: #ffffff;
+  --text-light: #aba5a5;
+  --text-extra-light: #636262;
+  --text-secondary: #dadada;
+  --text-primary: var(--primary);
+
+  --border: var(--text-extra-light);  
+  --error: #eb5757;
+  --success: #2bd994;
+
+  --link: #6598ea;
+  --link-hover: #85b3fe;
 }
 
 .App {
   height: 100vh;
   background-color: var(--background);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-p{
+p {
   margin: 0;
 }
 
-.chat-page{
+.chat-page {
   padding: 0;
 }
 
-.border{
-  border-radius: 0.5rem;
-  border: 2px solid var(--border);
+.border {
+  border-radius: 0.25rem;
+  border: 1px solid var(--border);
 }
 
-.box-shadow{
+.box-shadow {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.email-container,
-.password-container,
-.username-container,
-.confirm-password-container{
+input{
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  row-gap: 0.5rem;
-  position: relative;
-}
-
-
-label{
-  color: var(--text);
-}
-
-
-.authentication-page input,
-.login-input{
-  background-color: var(--input);
   border: none;
-  padding: 0.65rem 1rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
   outline: none;
+  font-weight: 550;
+  padding: 0 0 0 0.75rem;
+  border-radius: 0.25rem;
+  padding: 0 0.5rem 0 0 !important;
 }
 
-
-
-.image-edit-container{
+.image-edit-container {
   position: relative;
 }
 
-.image-edit-container .edit-btn{
+.image-edit-container .edit-btn {
+  bottom: 0;
   cursor: pointer;
   position: absolute;
-  bottom: 0;
   right: 1.5rem;
 
   border: 1px solid var(--text);
@@ -95,26 +80,11 @@ label{
 
 @media screen and (max-width: 800px) {
   .authentication-page,
-  .chat-page{
+  .chat-page {
     width: 100%;
     max-width: 100%;
     height: 100%;
     padding: 0;
     border: none;
   }
-}
-
-
-h3,p {
-  margin: 0;
-}
-
-.cursor-btn{
-  cursor: pointer;
-}
-
-.flex-center{
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

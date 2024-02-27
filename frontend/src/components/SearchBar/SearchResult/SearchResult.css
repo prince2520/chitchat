@@ -13,33 +13,19 @@
 }
 
 .search-result-container .search-result-join-btn{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
     bottom: -0.5rem;
 }
 
 .search-result-container .search-result-description{
-    display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: flex-start;
     text-align: left;
-    align-items: center;
 }
 
 .search-result-description span{
     width: 100%;
-}
-
-.search-result-description .username{
-    font-size: 1.25rem;
-    font-weight: 600;
-}
-
-.search-result-description .status{
-    font-size: 0.8rem;
-    color: var(--text);
 }
 
 .search-result-container .close-btn{

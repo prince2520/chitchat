@@ -1,115 +1,69 @@
-.authentication-page  {
-    height: 100%;
-    width: 100%;
-
-    flex-direction: row;
-    row-gap: 1rem;
-
-    overflow: hidden;
-
+.authentication-page {
+  flex-direction: row;
+  overflow: hidden;
+  justify-content: space-evenly!important;
 }
 
-.authentication-page .authentication-page-left{
-    width: 50%;
-    min-width: 30rem;
-    height: 100%;
-    padding: 2rem 3rem;
+.authentication-page .authentication-page-left {
+  width: 50%;
+  height: 100%;
+  max-width: 40rem;
+  padding: 2rem 1.5rem;
 
-    justify-content: flex-start;
-
-
-    row-gap: 2rem;
-    flex-direction: column;
+  row-gap: 2rem;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-.authentication-page .authentication-page-right{
-    width: 50%;
-    height: 95%;
-
-    border-radius: 1rem;
-    position: relative;
-
-    right: -1rem;
-
-    background-color: var(--container);
-
+.authentication-page-left .authentication-page-left-logo {
+  width: 100%;
 }
-
-.authentication-page-left .authentication-page-left-logo{
-    width: 100%;
-
-}
-
 
 .authentication-page form {
-    width: 80%;
-    max-width: 30rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    row-gap: 1rem;
+  width: 100%;
+  row-gap: 1rem;
+  max-width: 30rem;
+  flex-direction: column;
 }
 
-form .login-heading{
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: var(--white);
-}
-
-.login-form p{
-    color: var(--text);
-    font-weight: 400;
-}
-
-form .link-container{
-    font-size: 0.9rem;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    column-gap: 0.5rem;
-    flex-wrap: wrap;
-    color: var(--text);
-}
-
-.link-container .link{
-    color: var(--link);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.link-container .link:hover{
-    color: #b5c5f3;
-
+.authentication-page .authentication-page-right {
+  width: 50%;
+  height: 95%;
+  border-radius: 1rem;
+  background-color: var(--container);
 }
 
 
-.login-btn-container{
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .authentication-page .authentication-page-right {
+    display: none;
+  }
+
+  .authentication-page .authentication-page-left {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
+  }
 }
 
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .authentication-page .authentication-page-right {
+    display: none;
+  }
 
-@media screen and (max-width: 800px) {
-    form .login-heading{
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: var(--white);
-    }
+  .authentication-page .authentication-page-left {
+    width: 100%;
+  }
+}
 
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .authentication-page .authentication-page-right {
+    display: none;
+  }
 
-    .authentication-page .authentication-page-right{
-        display: none;
-    }
-
-    .authentication-page .authentication-page-left{
-        width: 100%;
-        padding: 2rem 4rem;
-    }
-
-
-
+  .authentication-page .authentication-page-left {
+    width: 100%;
+  }  
 }

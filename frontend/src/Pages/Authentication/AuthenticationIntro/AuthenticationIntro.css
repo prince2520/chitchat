@@ -1,19 +1,16 @@
 .authentication-intro {
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    padding: 1rem 2rem;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 2rem;
+  flex-direction: column;
 }
 
-.authentication-intro h2{
-    font-family: 'Borel', cursive;
-    word-spacing: 0.25rem;
-    color: var(--white);
+.authentication-intro h3 {
+  font-family: "Borel", cursive;
+  word-spacing: 0.25rem;
 }
 
-.authentication-intro .authentication-into-img{
-    width: 80%;
-
-    max-width: 27rem;
-
+.authentication-intro .authentication-into-img {
+  width: 80%;
+  max-width: 27rem;
 }

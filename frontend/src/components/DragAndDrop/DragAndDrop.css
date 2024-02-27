@@ -1,36 +1,12 @@
-.drag-and-drop-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100vw;
-    position: absolute;
-
-}
-
-.drag-and-drop-overlay{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-
-    height: 100%;
-    width: 100%;
-
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(2px);
-    z-index: 300;
-}
-
 .drag-and-drop-box{
-    width: 95%;
+    width: 100%;
     height: 20rem;
 
-    max-width: 35rem;
-    position: absolute;
+    position: relative;
     background-color: var(--background);
     z-index: 500;
 
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
 
     padding: 1rem;
 
@@ -40,22 +16,12 @@
     row-gap: 0.75rem;
 }
 
-.drag-and-drop-box h1{
-    margin: 0;
-    color: var(--white);
-    text-align: center;
-}
-
 .drag-and-drop-box-upload{
     padding: 0.75rem 1rem;
     background-color: var(--container);
     width: 100%;
     height: 80%;
-
-    color: var(--text);
-
-    font-weight: 500;
-
+    
     display: flex;
     align-items: center;
 
@@ -67,16 +33,11 @@
     overflow: auto;
 }
 
-.drag-and-drop-box-upload .button-container{
-    font-size: 1.25rem;
-    font-weight: 600;
-}
 
 .drag-and-drop-box-condition{
     width: 100%;
     display: flex;
     justify-content: space-between;
-    color: var(--text);
 }
 
 .drag-and-drop-box .close-btn{
@@ -86,9 +47,4 @@
     font-size: 2rem;
     color: var(--white);
     cursor: pointer;
-}
-
-.drag-and-drop-box .button-container{
-    font-size: 1rem;
-    font-weight: 600;
 }

@@ -1,135 +1,159 @@
-import {Icon} from "@iconify/react";
-import {useContext, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import { Icon } from "@iconify/react";
+import { useContext, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../Button/Button";
 import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
 import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 
-import {categoryState} from "../../common";
-import {ChatActions} from "../../store/chat";
-import {OverlayActions} from "../../store/overlay";
-import {DragAndDropActions} from "../../store/dragAndDrop";
-import {messageHandler} from "../../Pages/Chat/sendMessage";
-import {getDragAndDropData, saveImageIntoFirebase} from "../../Pages/Chat/common_function";
+import { categoryState } from "../../common";
+import { ChatActions } from "../../store/chat";
+import { OverlayActions } from "../../store/overlay";
+import { DragAndDropActions } from "../../store/dragAndDrop";
+import { messageHandler } from "../../Pages/Chat/sendMessage";
+import {
+  getDragAndDropData,
+  saveImageIntoFirebase,
+} from "../../Pages/Chat/common_function";
 
-import AuthContext from "../../context/auth";
+import AuthContext from "../../context/authContext";
 
-import './DragAndDrop.css';
+import "./DragAndDrop.css";
 
 const DragAndDrop = () => {
-    const dispatch = useDispatch();
-    const authCtx = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const authCtx = useContext(AuthContext);
 
-    const chat = useSelector(state => state.chat);
-    const user = useSelector(state => state.user);
+  const chat = useSelector((state) => state.chat);
+  const user = useSelector((state) => state.user);
 
+  const files = useSelector((state) => state.dragAndDrop.files);
 
-    const files = useSelector(state => state.dragAndDrop.files);
+  useEffect(() => {
+    return () => {
+      dispatch(DragAndDropActions.removeAllFiles());
+    };
+  }, []);
 
-    useEffect(() => {
-        return () => {
-            dispatch(DragAndDropActions.removeAllFiles());
-        }
-    }, [])
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
 
-    const handleDragOver = (event) => {
-        event.preventDefault();
+  const handleDropHelper = (dragFile) => {
+    let data = getDragAndDropData(dragFile);
+
+    if (
+      !files.find((file) => file.name === data.name) &&
+      files.length <= 2 &&
+      data.size <= 20 &&
+      data.type
+    )
+      dispatch(DragAndDropActions.addFileHandler(data));
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    handleDropHelper(event.dataTransfer.files[0]);
+  };
+
+  const sendMessageHandler = (
+    message,
+    users,
+    chatId,
+    cb,
+    isOpenAIMsg = false,
+    messageType,
+    size,
+    url
+  ) => {
+    let data, messageData;
+
+    messageData = {
+      chatId: chatId,
+      username: user.username,
+      message: message,
+      profileImageUrl: user.profileImageUrl,
+      isOpenAIMsg: isOpenAIMsg,
+      messageType: messageType,
+      size: size,
+      url: url,
+      createdAt: new Date().toISOString(),
     };
 
-    const handleDropHelper = (dragFile) => {
-        let data = getDragAndDropData(dragFile);
+    data = {
+      sender_id: authCtx?.userId,
+      users: users,
+    };
 
-        if (!files.find(file => file.name === data.name) &&
-            files.length <= 2 &&
-            data.size <= 20 &&
-            data.type
-        )
-            dispatch(DragAndDropActions.addFileHandler(data));
+    data["messageData"] = { ...messageData };
+
+    if (chat.type === categoryState[1]) {
+      messageData["chatId"] = chat._id;
     }
 
-    const handleDrop = (event) => {
-        event.preventDefault();
-        handleDropHelper(event.dataTransfer.files[0]);
-    };
+    dispatch(ChatActions.saveChatMessage(messageData));
 
-    const sendMessageHandler = (message, users, chatId, cb, isOpenAIMsg = false, messageType, size, url) => {
-        let data, messageData;
+    cb(data);
+  };
 
-        messageData = {
-            chatId: chatId,
-            username: user.username,
-            message: message,
-            profileImageUrl: user.profileImageUrl,
-            isOpenAIMsg: isOpenAIMsg,
-            messageType: messageType,
-            size: size,
-            url: url,
-            createdAt: (new Date()).toISOString()
-        }
+  const uploadHandler = (event) => {
+    event.preventDefault();
 
-        data = {
-            sender_id: authCtx?.userId,
-            users: users,
-        }
+    files.map((file) => {
+      saveImageIntoFirebase(file.fileData)
+        .then((url) => {
+          messageHandler(
+            file.name,
+            authCtx,
+            chat,
+            false,
+            sendMessageHandler,
+            user,
+            file.type,
+            file.size,
+            url
+          );
+          dispatch(DragAndDropActions.removeSingleFile(file));
+        })
+        .catch((err) => console.log(err));
+    });
+  };
 
-        data['messageData'] = {...messageData};
-
-        if (chat.type === categoryState[1]) {
-            messageData['chatId'] = chat._id;
-        }
-
-        dispatch(ChatActions.saveChatMessage(messageData));
-
-        cb(data);
-    }
-
-    const uploadHandler = (event) => {
-        event.preventDefault();
-
-        files.map((file) => {
-            saveImageIntoFirebase(file.fileData)
-                .then((url) => {
-                    messageHandler(
-                        file.name,
-                        authCtx,
-                        chat,
-                        false,
-                        sendMessageHandler,
-                        user,
-                        file.type,
-                        file.size,
-                        url
-                    );
-                    dispatch(DragAndDropActions.removeSingleFile(file));
-                })
-                .catch(err => console.log(err));
-        });
-    };
-
-
-    return (
-        <form className={'drag-and-drop-box border box-shadow'} onSubmit={(event) => uploadHandler(event)}>
-            <div className={'close-btn'}>
-                <Icon icon="mingcute:close-fill" onClick={() => dispatch(OverlayActions.closeOverlayHandler())}/>
-            </div>
-            <h1>
-                Uploads
-            </h1>
-            <div className={'drag-and-drop-box-condition'}>
-                <span>Max Size: 20MB</span>
-                <span>Max Files: 3</span>
-            </div>
-            <div
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-                className={'drag-and-drop-box-upload'}>
-                {files.length === 0 && <DragAndDropNoFiles handleDropHelper={handleDropHelper}/>}
-                {files.map(data => <DragAndDropFiles data={data}/>)}
-            </div>
-            {files.length > 0 && <Button title={'SEND'}/>}
-        </form>
-    );
+  return (
+    <form
+      className={"drag-and-drop-box border box-shadow"}
+      onSubmit={(event) => uploadHandler(event)}
+    >
+      <div className={"close-btn"}>
+        <Icon
+          icon="mingcute:close-fill"
+          onClick={() => dispatch(OverlayActions.closeOverlayHandler())}
+        />
+      </div>
+      <h2>Uploads</h2>
+      <div className={"drag-and-drop-box-condition"}>
+        <p>Max Size: 20MB</p>
+        <p>Max Files: 3</p>
+      </div>
+      <div
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        className={"drag-and-drop-box-upload"}
+      >
+        {files.length === 0 && (
+          <DragAndDropNoFiles handleDropHelper={handleDropHelper} />
+        )}
+        {files.map((data) => (
+          <DragAndDropFiles data={data} />
+        ))}
+      </div>
+      {files.length > 0 && (
+        <Button backgroundColor={"var(--primary)"} width={"50%"}>
+          <h5 className="color-text">Send</h5>
+        </Button>
+      )}
+    </form>
+  );
 };
 
 export default DragAndDrop;

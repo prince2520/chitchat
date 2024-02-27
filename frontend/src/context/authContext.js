@@ -15,6 +15,7 @@ const AuthContext = React.createContext({
     },
     token: '',
     userId: '',
+    userName: '',
     isAuth: false,
 });
 
@@ -49,7 +50,6 @@ export const AuthContextProvider = (props) => {
             logoutHandler();
             return
         }
-        ;
 
         fetchUser(localUserId, localToken).then(result => {
             saveUserData(result.user);

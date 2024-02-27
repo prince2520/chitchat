@@ -3,10 +3,7 @@
     width: 100%;
 
     color: var(--border);
-    font-size: 0.75rem;
-    font-weight: 500;
 }
-
 
 
 .video-message span{
@@ -17,12 +14,9 @@ video {
     border: 1px solid var(--border);
 }
 
-
-
 @media screen and (max-width: 800px) {
     .video-message{
         max-width: 20rem;
         width: 100%;
     }
-
 }

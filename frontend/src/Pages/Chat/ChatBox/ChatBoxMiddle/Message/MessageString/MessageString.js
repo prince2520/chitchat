@@ -1,13 +1,12 @@
 import React from "react";
 
-import './MessageString.css'
 
 const MessageString = ({message, time}) => {
     return (
         <>
-            <div className={'msg'}>
-                <span className={'msg-txt'}>{message}</span>
-                <span className={'msg-time'}>{time}</span>
+            <div className={'flex-center msg'} style={{columnGap : '0.5rem'}}>
+                <p>{message}</p>
+                <h6>{time}</h6>
             </div>
         </>
     );

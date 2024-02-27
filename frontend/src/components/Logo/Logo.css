@@ -1,34 +1,27 @@
-.logo-container{
-    justify-content: flex-start;
-}
-.logo-img{
-    width: 5rem;
+.logo-container {
+  justify-content: flex-start;
 }
 
-.logo-name{
-    font-size: 1.5rem;
-    font-weight: 600;
-
-    color: var(--white);
-
-    font-family: 'Borel', cursive;
-    text-underline: var(--primary);
-
-    flex-direction: row;
-    row-gap: 0.5rem;
-
-    position: relative;
-    bottom: -0.5rem;
+.logo-img {
+  width: 4rem;
 }
 
+.logo-name {
+  font-family: "Borel", cursive;
+
+  flex-direction: row;
+  row-gap: 0.5rem;
+
+  position: relative;
+  bottom: -0.5rem;
+}
 
 @media screen and (max-width: 800px) {
-    .logo-img{
-        width: 4rem;
-    }
+  .logo-img {
+    width: 4rem;
+  }
 
-    .logo-name {
-        font-size: 1.25rem;
-    }
-
+  .logo-name {
+    font-size: 1.25rem;
+  }
 }

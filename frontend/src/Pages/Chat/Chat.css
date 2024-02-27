@@ -1,126 +1,137 @@
+.chat-page {
+  height: 90%;
+  width: 95%;
+  max-width: 95%;
+  padding: 2rem 5rem;
 
-.chat-page{
-    height: 90%;
-    width: 95%;
-    max-width: 95%;
+  background: var(--container);
 
-    padding: 2rem 5rem;
-
-    background: var(--container);
-
-    display: flex;
-    flex-direction: row;
-    justify-content: normal;
-    align-items: center;
+  flex-direction: row;
+  justify-content: normal;
 }
 
-
-
-.chat-page .chat-tab-container{
-    min-width: 20rem;
-    width: 30%;
-    height: 100%;
+.chat-page .chat-tab-container {
+  min-width: 20rem;
+  width: 30%;
+  height: 100%;
 }
 
 .chat-tab {
-    height: 100%;
-    width: 100%;
-    border-right: 2px solid var(--border);
-    z-index: 700;
+  height: 100%;
+  width: 100%;
+  border-right: 1px solid var(--border);
+  z-index: 700;
 }
 
-.image-container{
-    width: 4rem;
-    height: 4rem;
+.image-container {
+  width: 4rem;
+  height: 4rem;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    overflow: hidden;
+  overflow: hidden;
 
-    border: 3px solid var(--white);
+  border: 3px solid var(--white);
 }
 
-.image-container img{
-    object-fit: contain;
-    height: 100%;
+.image-container img {
+  object-fit: contain;
+  height: 100%;
 }
 
-
-.input-icon{
-    position: absolute;
-    bottom: 0.4rem;
-    right: 1rem;
+.input-icon {
+  position: absolute;
+  bottom: 0.4rem;
+  right: 1rem;
 }
 
 .popup-content {
-    margin: 0;
-    width: 100%;
-    padding: 0;
-    border: 0;
-    background: transparent;
+  margin: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .popup-arrow {
-    display: none;
+  display: none;
 }
 
-@media screen and (max-width: 800px) {
-    form .login-heading{
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: var(--white);
-    }
+.menu-container {
+  bottom: -11.5rem;
 
-    .chat-page{
-        height: 100%;
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .chat-page .chat-tab-container{
-        display: none;
-    }
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.75rem;
 }
-
-.menu-container{
-    bottom: -11.5rem;
-
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.75rem;
-}
-
 
 .menu-container,
 .search-result-container,
-.setting{
-    z-index: 600;
-    border-radius: 0.5rem;
+.setting {
+  z-index: 600;
+  border-radius: 0.25rem;
+  position: absolute;
+  width: 105%;
+  left: -0.5rem;
+  padding: 0.5rem 1rem;
 
-    position: absolute;
-    width: 105%;
-    left: -0.5rem;
-    padding: 0.5rem 1rem;
-
-    background-color: var(--background);
-    backdrop-filter: blur(5px);
-    color: var(--white);
+  background-color: var(--background);
+  backdrop-filter: blur(5px);
+  color: var(--white);
 }
 
-
-::-webkit-scrollbar{
-    width: 0.5rem;
+::-webkit-scrollbar {
+  width: 0.5rem;
 }
 
-::-webkit-scrollbar-thumb{
-    border-radius: 0.25rem;
-    background-color: grey;
+::-webkit-scrollbar-thumb {
+  border-radius: 0.25rem;
+  background-color: grey;
 }
 
-::-webkit-scrollbar-thumb:hover{
-    background-color: var(--text);
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text);
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .chat-page {
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .chat-page .chat-tab-container {
+    display: none;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .chat-page {
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .chat-page .chat-tab-container {
+    display: none;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .chat-page {
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .chat-page .chat-tab-container {
+    display: none;
+  }
 }

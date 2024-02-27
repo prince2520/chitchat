@@ -1,0 +1,12 @@
+.video-chat-container{   
+    background-color: var(--background); 
+    padding: 1.5rem 2.5rem;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+}
+
+.video-chat-container video{
+    border: none;
+}

@@ -6,7 +6,7 @@ const DateLine = ({createdAt}) => {
     return (
         <div className={'date-line-bar align-center'}>
             <div className={'date-line-bar-line'}/>
-            <span>{getFormatDate(createdAt)}</span>
+            <h6>{getFormatDate(createdAt)}</h6>
         </div>
 
     );

@@ -1,15 +1,12 @@
 import {Icon} from "@iconify/react";
 import ReactPlayer from 'react-player';
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import {useInView} from "react-intersection-observer";
+import React, {useCallback, useEffect, useState} from "react";
 
 import './MessageVideo.css';
-import {useInView} from "react-intersection-observer";
 
 const MessageVideo = ({url, time}) => {
-
     const [play, setPlay] = useState(false);
-
-
 
     const {ref, inView} = useInView({
         threshold: 0.1,
@@ -48,7 +45,7 @@ const MessageVideo = ({url, time}) => {
                 controls={showControls}/>
             <div className={'image-bottom'}>
                 <Icon icon="akar-icons:video" />
-                <span className={'msg-time'}>{time}</span>
+                <h6>{time}</h6>
             </div>
         </div>
     );

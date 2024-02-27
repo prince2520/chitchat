@@ -1,32 +1,26 @@
 import React from "react";
 
-import {Icon} from "@iconify/react";
+import { Icon } from "@iconify/react";
 
-import './MessageOther.css';
+import "./MessageOther.css";
 
-const MessageOther = ({messageDetail}) => {
-    return (
-      <div className={'message-other'} style={{backgroundColor: 'var(--background)'}}>
-          <div className={'message-other-icon'}>
-              <Icon icon="solar:folder-with-files-bold" />
-          </div>
-          <div className="message-other-content">
-              <div className='message-other-content-name'>
-                  {messageDetail.message}
-              </div>
-              <div className='message-other-content-type'>
-                  <span>Type: </span>
-                  <span>{messageDetail.messageType.toUpperCase()}</span>
-              </div>
-          </div>
-          <div className={'message-other-size'}>
-              {messageDetail.size.toFixed(4)} MB
-          </div>
-          <div className={'message-other-download'}>
-              <a download href={messageDetail.url}><Icon icon="ic:round-download" /></a>
-          </div>
+const MessageOther = ({ messageDetail }) => {
+  return (
+    <div
+      className={"message-other rounded-corner"}
+      style={{ backgroundColor: "var(--background)" }}
+    >
+      <Icon icon="solar:folder-with-files-bold"  fontSize={"2.5rem"} />
+      <div className="message-other-content">
+        <h5>{messageDetail.message}</h5>
+        <p>Type: {messageDetail.messageType.toUpperCase()}</p>
       </div>
-    );
+      <h6>{messageDetail.size.toFixed(3)} MB</h6>
+      <a  target="_blank" href={messageDetail.url}>
+        <Icon fontSize={"1.75rem"} icon="ic:round-download" />
+      </a>
+    </div>
+  );
 };
 
 export default React.memo(MessageOther);

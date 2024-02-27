@@ -10,7 +10,7 @@ import {categoryState} from "../../../../common";
 import {ChatActions} from "../../../../store/chat";
 import {OverlayActions} from "../../../../store/overlay";
 
-import AuthContext from "../../../../context/auth";
+import AuthContext from "../../../../context/authContext";
 
 import './ChatBoxBottom.css';
 import {HelperActions} from "../../../../store/helper";

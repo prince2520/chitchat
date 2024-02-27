@@ -5,6 +5,8 @@
   "dependencies": {
     "@emoji-mart/data": "^1.1.2",
     "@emoji-mart/react": "^1.1.1",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -27,7 +29,9 @@
     "react-scripts": "5.0.1",
     "react-speech-recognition": "^3.10.0",
     "reactjs-popup": "^2.0.6",
+    "simple-peer": "^9.11.1",
     "socket.io-client": "^4.6.2",
+    "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -14,12 +14,12 @@ const messageRoute = require('./router/message')
 const authRoute = require('./router/auth');
 const userRoute = require('./router/user');
 const privateRoute = require('./router/private')
+const {use} = require("bcrypt/promises");
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.json());
 
 let users = [];
-
 
 app.use(helmet());
 
@@ -40,7 +40,7 @@ app.use('/user',userRoute)
 app.use('/auth', authRoute);
 app.use('/',(req,res,next)=>{
     res.status(200).json({message:'Server is Working...'});
-    next()
+    next();
 })
 
 io.on('connection',function (socket){
@@ -67,6 +67,14 @@ io.on('connection',function (socket){
 
             socket.in(user_id).emit("received_message", {messageData});
         });
+    });
+
+    socket.on("callUser", ({ userToCall, signalData, from, name }) => {
+        socket.in(userToCall).emit("callUser", { signal: signalData, from, name });
+    });
+
+    socket.on("answerCall", (data) => {
+        socket.in(data.to).emit("callAccepted", data.signal)
     });
 
     // Leave Group

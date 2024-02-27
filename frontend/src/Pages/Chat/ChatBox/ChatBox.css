@@ -1,27 +1,36 @@
-.chat-box{
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.5rem;
-    height: 100%;
-    width: 70%;
-    max-width: 100%;
-    padding: 0.5rem 1rem;
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  height: 100%;
+  width: 70%;
+  max-width: 100%;
+  padding: 0.5rem 1rem;
 }
 
-.loading-container{
+.loading-container {
+  width: 100%;
+  height: 100%;
+}
+
+.align-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .chat-box {
     width: 100%;
-    height: 100%;
+    padding: 0.5rem 0.25rem;
+  }
 }
 
-.align-center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-@media screen and (max-width: 800px) {
-    .chat-box{
-        width: 100%;
-        padding: 0.5rem 0.25rem;
-    }
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .chat-box {
+    width: 100%;
+    padding: 0.5rem 0.25rem;
+  }
 }

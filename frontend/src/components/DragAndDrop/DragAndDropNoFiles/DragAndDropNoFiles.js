@@ -18,7 +18,9 @@ const DragAndDropNoFiles = ({handleDropHelper}) => {
                 }}
                 hidden/>
             <p>Drag and drop single and multiple files such as images </p>
-            <Button type={'click'} title={'Upload'} onClick={()=>uploadRef?.current.click()}/>
+            <Button width={'50%'} backgroundColor="var(--primary)" onClick={()=>uploadRef?.current.click()}>
+                <h5 className="color-text">Upload</h5>
+            </Button>
         </div>
     );
 };

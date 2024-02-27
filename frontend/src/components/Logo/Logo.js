@@ -10,7 +10,7 @@ const Logo = () => {
             <span className={'logo-img'}>
                 <Lottie animationData={ChitChatAnimation} loop={false}/>
             </span>
-            <span className={'logo-name'}>ChitChat</span>
+            <h4 className={'logo-name'}>ChitChat</h4>
         </div>
     );
 };

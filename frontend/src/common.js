@@ -1,4 +1,5 @@
 export const categoryState = ['Group', 'Private'];
+
 export const settingOption = [
     {
         icon: 'pepicons-pop:leave-circle-filled',

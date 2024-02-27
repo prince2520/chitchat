@@ -31,12 +31,12 @@ const PrivateListItem = ({result}) => {
                 <ImageContainer src={result.profileImageUrl}/>
             </div>
             <div className='group-private-item-right'>
-                <div className='group-name'>
+                <h5>
                     {result.userName}
-                </div>
-                <div className='group-created'>
+                </h5>
+                <p>
                     {result.Status}
-                </div>
+                </p>
             </div>
         </div>
     );

@@ -1,28 +1,29 @@
 import React from "react";
 
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
-import ChatTab from "../../../Pages/Chat/ChatTab/ChatTab";
+import VideoChat from "../../VideoChat/VideoChat";
 import DragAndDrop from "../../DragAndDrop/DragAndDrop";
+import ChatTab from "../../../Pages/Chat/ChatTab/ChatTab";
 
-import {OverlayActions} from "../../../store/overlay";
-
-import './Model.css';
+import "./Model.css";
 
 const Model = () => {
-    const overlay = useSelector(state => state.overlay);
-    const dispatch = useDispatch();
-    return (
-        <React.Fragment>
-            {(overlay.showSideMobileBar) && <div className={'model-container model-container-chat-tab box-shadow'}>
-                <ChatTab/>
-            </div>}
-            {(overlay.showDragDrop) && <div className={'model-container flex-center'} >
-                <div className={'model-container-background'} onClick={()=>dispatch(OverlayActions.closeOverlayHandler())}/>
-                <DragAndDrop/>
-            </div>}
-        </React.Fragment>
-    );
+  const overlay = useSelector((state) => state.overlay);
+  return (
+    <div
+      className="model"
+      style={{ width: overlay.showSideMobileBar ? "80%" : "100%" }}
+    >
+      {overlay.showSideMobileBar && (
+        <div className={"model-chat-tab"}>
+          <ChatTab />
+        </div>
+      )}
+      {overlay.showDragDrop && <DragAndDrop />}
+      {overlay.showVideoChat && <VideoChat />}
+    </div>
+  );
 };
 
 export default Model;

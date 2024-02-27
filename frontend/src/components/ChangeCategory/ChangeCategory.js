@@ -1,29 +1,33 @@
-import {useState} from "react";
+import { useState } from "react";
 
-import {categoryState} from "../../common";
+import { categoryState } from "../../common";
 
-import './ChangeCategory.css';
+import "./ChangeCategory.css";
 
-const ChangeCategory = ({setPrivateChatSelected}) => {
-    const [selectedChat, setSelectedChat] = useState(categoryState[0]);
+const ChangeCategory = ({ setPrivateChatSelected }) => {
+  const [selectedChat, setSelectedChat] = useState(categoryState[0]);
 
-    return (
-        <div className="change-category">
-            {categoryState.map((name, idx)=>
-                <span
-                    key={idx}
-                    onClick={()=> {
-                        if(name===categoryState[0]){
-                            setSelectedChat(name);
-                            setPrivateChatSelected(false)
-                        } else {
-                            setSelectedChat(name);
-                            setPrivateChatSelected(true)
-                        }
-                    }}
-                    className={`${selectedChat === name && 'selected'}`}>{name}</span>)}
-        </div>
-    );
+  return (
+    <div className="flex-center change-category">
+      {categoryState.map((name, idx) => (
+        <p
+          key={idx}
+          onClick={() => {
+            if (name === categoryState[0]) {
+              setSelectedChat(name);
+              setPrivateChatSelected(false);
+            } else {
+              setSelectedChat(name);
+              setPrivateChatSelected(true);
+            }
+          }}
+          className={`cursor-btn ${selectedChat === name && "selected"}`}
+        >
+          {name}
+        </p>
+      ))}
+    </div>
+  );
 };
 
-export default  ChangeCategory;
+export default ChangeCategory;
