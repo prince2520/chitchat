@@ -13,8 +13,7 @@ import MediaCommunication from "./MediaCommunication/MediaCommunication";
 
 import "./ChatBoxTop.css";
 
-const ChatBoxTop = () => {
-  const chat = useSelector((state) => state.chat);
+const ChatBoxTop = ({data}) => {
 
   const [showSetting, setShowSetting] = useState(false);
 
@@ -27,12 +26,12 @@ const ChatBoxTop = () => {
   return (
     <div className="chat-box-top border">
       <SideBar />
-      <ImageContainer src={chat.photo} />
+      <ImageContainer src={data.groupImageUrl} />
       <div className="chat-description">
-        <h5>{chat.name}</h5>
-        <p>{chat.status ? chat.status : chat.createdBy}</p>
+        <h5>{data.name}</h5>
+        <p>{data.status ? data.status : data.createdBy}</p>
       </div>
-      {chat.type === categoryState[1] && <MediaCommunication />}
+      {data.type === categoryState[1] && <MediaCommunication />}
       <Icon
         onClick={() => setShowSetting((prevState) => !prevState)}
         ref={ref}

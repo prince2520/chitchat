@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { categoryState } from "../common";
 const initialUserState = {
-  username: "",
+  name: "",
   email: "",
   status: "",
   profileImageUrl: "",
-  groupList: [],
-  privateList: [],
+  groups: [],
+  privates: [],
+
+  selectedId: "",
+  selectedType: "",
+  isSelected: false,
 };
 
 const UserSlice = createSlice({
@@ -14,29 +18,28 @@ const UserSlice = createSlice({
   initialState: initialUserState,
   reducers: {
     saveUserData(state, action) {
-      state.username = action.payload.username
-        ? action.payload.username
-        : state.username;
-      state.email = action.payload.email ? action.payload.email : state.email;
-      state.status = action.payload.status
-        ? action.payload.status
-        : state.status;
-      state.profileImageUrl = action.payload.profileImageUrl
-        ? action.payload.profileImageUrl
-        : state.profileImageUrl;
-      state.groupList = action.payload.groupList
-        ? action.payload.groupList
-        : state.groupList;
-      state.privateList = action.payload.privateList
-        ? action.payload.privateList
-        : state.privateList;
-      state.createdAt = action.payload.createdAt
-        ? action.payload.createdAt
-        : state.createdAt;
+      state.name = action.payload.name;
+      state.email = action.payload.email;
+      state.status = action.payload.status;
+      state.groups = action.payload.groups;
+      state.privates = action.payload.privates;
+      state.profileImageUrl = action.payload.profileImageUrl;
+      console.log(state.groups);
     },
-    addGroupHandler(state, action) {
-      state.groupList = [...state.groupList, action.payload];
+    addGroup(state, action) {
+      console.log(action.payload);
+      state.groups = [...state.groups, action.payload];
     },
+    selectedChat(state, action) {
+      state.isSelected = true;
+      state.selectedId = action.payload.selectedId;
+      state.selectedType = action.payload.selectedType;
+    },
+    saveMessage(state, action) {
+      console.log(action.payload)
+      if (action.payload.selectedType === categoryState[0]) {
+      }
+    }
   },
 });
 

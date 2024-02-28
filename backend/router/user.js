@@ -1,8 +1,6 @@
 const express = require('express');
 
-
 const {createUser, fetchUser, fetchAuthUser, saveProfile} = require("../controllers/user");
-
 
 const router = express.Router();
 

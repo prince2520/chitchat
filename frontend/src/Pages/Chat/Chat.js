@@ -11,7 +11,7 @@ import "./Chat.css";
 
 const Chat = () => {
   const showOverlay = useSelector((state) => state.overlay?.showOverlay);
-  const selectedChatBox = useSelector((state) => state.chat.selected);
+  const isSelected = useSelector((state) => state.user.isSelected);
 
   return (
     <SocketContextProvider>
@@ -20,7 +20,7 @@ const Chat = () => {
         <div className={"chat-tab-container"}>
           <ChatTab />
         </div>
-        {selectedChatBox ? <ChatBox /> : <NotSelectedChat />}
+        {isSelected ? <ChatBox /> : <NotSelectedChat />}
       </div>
     </SocketContextProvider>
   );

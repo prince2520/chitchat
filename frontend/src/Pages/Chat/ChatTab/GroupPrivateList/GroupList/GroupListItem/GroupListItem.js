@@ -2,35 +2,33 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ImageContainer from "../../../../../../components/ImageContainer/ImageContainer";
 
-import { ChatActions } from "../../../../../../store/chat";
+import { UserActions } from "../../../../../../store/user";
 import { categoryState } from "../../../../../../common";
 import { getFormatDate } from "../../../../common_function";
 
 const GroupListItem = ({ result }) => {
   const dispatch = useDispatch();
-  const chat = useSelector((state) => state.chat);
+  const user = useSelector((state) => state.user);
 
   const selectedGroup = () => {
-    if (chat._id === result._id) {
+    if (user.selectedId === result._id) {
       return;
     }
 
     let data = {
-      type: categoryState[0],
-      _id: result._id,
-      photo: result.groupImageUrl,
-      name: result.groupName,
-      users: result.user,
+      selectedType: categoryState[0],
+      selectedId: result._id,
     };
+
     if (result) {
-      dispatch(ChatActions.selectedChatBox(data));
+      dispatch(UserActions.selectedChat(data));
     }
   };
 
   return (
     <div
       className={`group-private-item ${
-        result._id === chat._id && "group-selected"
+        result._id === user.selectedId && "group-selected"
       } border`}
       onClick={() => {
         selectedGroup();
@@ -40,7 +38,7 @@ const GroupListItem = ({ result }) => {
         <ImageContainer src={result.groupImageUrl} />
       </div>
       <div className="group-private-item-right">
-        <h5>{result.groupName}</h5>
+        <h5>{result.name}</h5>
         <p>
           Created At - {getFormatDate(result.createdAt).slice(5)}
         </p>

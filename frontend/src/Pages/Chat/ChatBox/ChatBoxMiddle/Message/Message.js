@@ -22,7 +22,7 @@ const Message = ({ myMsg, messageDetail }) => {
 
     time = date.format(createdTime, "h:mm A");
 
-    switch (messageDetail.messageType) {
+    switch (messageDetail.type) {
       case "string":
         message = <MessageString message={messageDetail.message} time={time} />;
         break;
@@ -51,7 +51,7 @@ const Message = ({ myMsg, messageDetail }) => {
     <div className={`message-container ${myMsg && "my-message"}`}>
       {!myMsg && (
         <div className={`message-img-container`}>
-          <ImageContainer src={messageDetail.profileImageUrl} />
+          <ImageContainer src={messageDetail.user.profileImageUrl} />
         </div>
       )}
       <div
@@ -59,7 +59,7 @@ const Message = ({ myMsg, messageDetail }) => {
           messageDetail.isOpenAIMsg && "open-ai-msg-box"
         }`}
       >
-        {!myMsg && <span className={"username"}>{messageDetail.username}</span>}
+        {!myMsg && <span className={"username"}>{messageDetail.user.name}</span>}
         {printHandler(messageDetail)}
       </div>
       {messageDetail.isOpenAIMsg && (

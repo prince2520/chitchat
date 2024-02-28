@@ -1,6 +1,6 @@
 import { openAIAnswer } from "../../openai";
 import { categoryState } from "../../common";
-import { sendChatMessageHandler } from "../../socket";
+import { socketSendMessage } from "../../socket";
 import {
   sendGroupMessageHandler,
   sendPrivateMessageHandler,
@@ -33,7 +33,7 @@ const privateMessageHandler = (
         message,
         users,
         authCtx.userId,
-        sendChatMessageHandler,
+        socketSendMessage,
         isOpenAIMsg,
         messageType,
         size,
@@ -43,40 +43,13 @@ const privateMessageHandler = (
     .catch((err) => console.log(err));
 };
 
-const groupMessageHandler = (
-  message,
-  authCtx,
-  chat,
-  isOpenAIMsg,
-  sendMessageHandler,
-  user,
-  messageType,
-  size,
-  url
-) => {
-  sendGroupMessageHandler(
-    authCtx?.token,
-    message,
-    chat.name,
-    user.username,
-    isOpenAIMsg,
-    messageType,
-    size,
-    url
-  )
+const groupMessageHandler = (msgData) => {
+  sendGroupMessageHandler(msgData)
     .then((res) => {
-      let users = chat.users;
-      sendMessageHandler(
-        message,
-        users,
-        chat._id,
-        sendChatMessageHandler,
-        isOpenAIMsg,
-        messageType,
-        size,
-        url,
-        res
-      );
+      let temp = {...msgData};
+      temp.data =  res.data; 
+      msgData.saveMessage(temp);
+      socketSendMessage(temp);
     })
     .catch((err) => console.log(err));
 };
@@ -112,40 +85,21 @@ const sendOpenAIAnswer = (
   }
 };
 
-export const messageHandler = (
-  message,
-  authCtx,
-  chat,
-  isOpenAIMsg,
-  sendMessageHandler,
-  user,
-  messageType,
-  size,
-  url
-) => {
-  (chat.type === categoryState[0]
+export const messageHandler = (msgData) => {
+  (msgData.selectedType === categoryState[0]
     ? groupMessageHandler
-    : privateMessageHandler)(
-    message,
-    authCtx,
-    chat,
-    isOpenAIMsg,
-    sendMessageHandler,
-    user,
-    messageType,
-    size,
-    url
-  );
-  sendOpenAIAnswer(
-    message,
-    groupMessageHandler,
-    authCtx,
-    chat,
-    isOpenAIMsg,
-    sendMessageHandler,
-    user,
-    messageType,
-    size,
-    url
-  );
+    : privateMessageHandler)(msgData);
+
+  // sendOpenAIAnswer(
+  //   message,
+  //   groupMessageHandler,
+  //   authCtx,
+  //   chat,
+  //   isOpenAIMsg,
+  //   sendMessageHandler,
+  //   user,
+  //   messageType,
+  //   size,
+  //   url
+  // );
 };

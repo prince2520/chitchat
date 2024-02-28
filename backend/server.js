@@ -10,11 +10,9 @@ const helmet = require('helmet');
 require('dotenv').config();
 
 const groupRoute = require('./router/group')
-const messageRoute = require('./router/message')
 const authRoute = require('./router/auth');
 const userRoute = require('./router/user');
 const privateRoute = require('./router/private')
-const {use} = require("bcrypt/promises");
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.json());
@@ -33,7 +31,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/message',messageRoute);
 app.use('/group',groupRoute);
 app.use('/private',privateRoute);
 app.use('/user',userRoute)
@@ -58,14 +55,12 @@ io.on('connection',function (socket){
 
     // Send  message to receiver
     socket.on('send_message', ({data}) => {
+        console.log(data)
         if (!data.users) return console.log("Users not defined");
 
         data.users.forEach((user_id) => {
-            if (user_id === data.sender_id) return;
-
-            let messageData = data.messageData;
-
-            socket.in(user_id).emit("received_message", {messageData});
+            if (user_id === data.data.userId) return;
+            socket.in(user_id).emit("received_message", {messageData: data.data});
         });
     });
 
@@ -89,7 +84,8 @@ io.on('connection',function (socket){
     })
 });
 
-const MONGO_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.bnjx4wc.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+const MONGO_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.isorui9.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0
+`
 mongoose.connect(MONGO_URL,{
     useUnifiedTopology: true,
     useNewUrlParser: true

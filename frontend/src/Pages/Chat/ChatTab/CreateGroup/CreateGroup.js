@@ -40,16 +40,11 @@ const CreateGroup = () => {
     }
   }, [groupImage]);
 
-  const createGroupHandler = async (groupName, groupImg) => {
+  const createGroupHandler = async (name, groupImg) => {
     let firebaseUrl = await saveImageIntoFirebase(groupImg);
+    console.log(authCtx.userId)
 
-    createGroup(
-      authCtx?.token,
-      groupName,
-      authData.username,
-      authCtx?.userId,
-      firebaseUrl
-    )
+    createGroup(authCtx?.token, name, authCtx?.userId, firebaseUrl)
       .then((res) => {
         if (res.success) {
           dispatch(UserActions.addGroupHandler(res.groupData));

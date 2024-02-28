@@ -19,9 +19,9 @@ const JoinGroup = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    let group_name = event.target[0].value;
+    let groupId = event.target[0].value;
 
-    joinGroupHandler(authCtx?.token, group_name, authCtx?.userId)
+    joinGroupHandler(authCtx?.token, groupId, authCtx?.userId)
       .then((res) => {
         if (res.success) {
           dispatch(UserActions.addGroupHandler(res.groupData));
@@ -40,7 +40,7 @@ const JoinGroup = () => {
       <div className={"image-edit-container"}>
         <ImageContainer src={"https://i.imgur.com/W5U9qZB.png"} />
       </div>
-      <CustomInput label={"Name"} icon={"material-symbols:edit"} />
+      <CustomInput label={"Group Id"} icon={"material-symbols:edit"} />
       <Button backgroundColor={"var(--primary)"} width={"50%"}>
         <h5 className="color-text">Join</h5>
       </Button>

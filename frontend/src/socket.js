@@ -7,7 +7,7 @@ export const initiateSocket = (userId) => {
     socket.emit('user_connected', userId);
 }
 
-export const sendChatMessageHandler = (data) => {
+export const socketSendMessage = (data) => {
     if(socket){
         socket.emit('send_message',{data});
     }

@@ -5,11 +5,12 @@ import GroupListItem from "./GroupListItem/GroupListItem";
 import '../GroupPrivateList.css'
 
 const GroupList = () => {
-    const groupList = useSelector(state => state.user.groupList);
+    const groupList = useSelector(state => state.user.groups);
+    console.log(groupList)
 
     return (
         <div className="group-private-list">
-            {groupList.map((result, idx) =>
+            {groupList && groupList.map((result, idx) =>
                 <GroupListItem
                     key={idx}
                     result={result}/>)}
