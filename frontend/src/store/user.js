@@ -31,7 +31,7 @@ const UserSlice = createSlice({
       state.groups = [...state.groups, action.payload];
     },
     selectedChat(state, action) {
-      state.isSelected = true;
+      state.isSelected = action.payload.isSelected;
       state.selectedId = action.payload.selectedId;
       state.selectedType = action.payload.selectedType;
     },

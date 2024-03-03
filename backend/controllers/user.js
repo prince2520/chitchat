@@ -31,7 +31,6 @@ exports.fetchUser = async (req, res) => {
   const userId = mongoose.Types.ObjectId(req.query.userId);
 
   let userFound = await User.findOne({ _id: userId })
-    .populate("groups")
     .populate("privates")
     .populate({
       path: "groups",

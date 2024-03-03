@@ -4,27 +4,28 @@ import ImageContainer from "../../../../../../components/ImageContainer/ImageCon
 
 import { UserActions } from "../../../../../../store/user";
 import { categoryState } from "../../../../../../common";
-import { getFormatDate } from "../../../../common_function";
 import { useContext } from "react";
-import AuthContext from "../../../../../../context/authContext";
 import { Icon } from "@iconify/react";
+
+import AuthContext from "../../../../../../context/authContext";
 
 const GroupListItem = ({ result }) => {
   const dispatch = useDispatch();
   const authCtx = useContext(AuthContext);
   const user = useSelector((state) => state.user);
 
-  let msgLength = result.messages.length;
-  let lastMsg = result.messages[msgLength-1];
+  let msgLength = result?.messages.length;
+  let lastMsg = result?.messages[msgLength-1];
 
   const selectedGroup = () => {
-    if (user.selectedId === result._id) {
+    if (user.selectedId === result?._id) {
       return;
     }
 
     let data = {
+      isSelected : true,
       selectedType: categoryState[0],
-      selectedId: result._id,
+      selectedId: result?._id,
     };
 
     if (result) {
@@ -35,7 +36,6 @@ const GroupListItem = ({ result }) => {
    
 
   const checkTypeAndShowMsg = () => {
-    console.log('type',lastMsg.type)
     let msg = "";
     switch (lastMsg.type) {
       case 'string':
@@ -74,7 +74,7 @@ const GroupListItem = ({ result }) => {
   return (
     <div
       className={`group-private-item ${
-        result._id === user.selectedId && "group-selected"
+        result?._id === user.selectedId && "group-selected"
       } border`}
       onClick={() => {
         selectedGroup();

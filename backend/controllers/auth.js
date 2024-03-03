@@ -35,7 +35,7 @@ exports.signUp = async (req, res) => {
         .then(() => {
           return res
             .status(201)
-            .json({ success: true, message: "User Created"});
+            .json({ success: true, message: "User Created" });
         });
     }
   }
@@ -56,7 +56,10 @@ exports.login = (req, res) => {
   let loadedUser;
 
   User.findOne({ email: email })
-    .populate("groups")
+    .populate({
+      path: "groups",
+      populate: { path: "users", path: " messages", populate: "user" },
+    })
     .populate("privates")
     .then((user) => {
       loadedUser = user;
