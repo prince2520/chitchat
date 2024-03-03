@@ -106,6 +106,7 @@ exports.joinGroup = async (req, res, next) => {
 };
 
 exports.sendGroupMessage = (req, res) => {
+  console.log(req.body.data)
   let message, isOpenAIMsg, type, url, size, chatId, userId;
 
   chatId = mongoose.Types.ObjectId(req.body.chatId);
@@ -113,7 +114,7 @@ exports.sendGroupMessage = (req, res) => {
   // Message Data
   message = req.body.data.message;
   isOpenAIMsg = req.body.data.isOpenAIMsg;
-  url = req.body.url ? req.body.data.url : "";
+  url = req.body.data.url ? req.body.data.url : "";
   size = req.body.data.size ? req.body.data.size : 0;
   type = req.body.data.type;
   userId = mongoose.Types.ObjectId(req.body.data.userId);
@@ -136,13 +137,15 @@ exports.sendGroupMessage = (req, res) => {
 
         newMessage
           .save()
+          .then(res => res.populate('user').execPopulate())
           .then((data) => {
             group?.messages.push(data._id);
             group.save().then(() => {
+              console.log('data', data)
               return res.status(200).json({
                 success: true,
                 message: "message send successfully!",
-                data: data.populate("user"),
+                data: data,
               });
             });
           })

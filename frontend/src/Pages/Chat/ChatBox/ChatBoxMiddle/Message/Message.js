@@ -8,11 +8,11 @@ import MessageString from "./MessageString/MessageString";
 import MessageOther from "./MessageOther/MessageOther";
 import ImageContainer from "../../../../../components/ImageContainer/ImageContainer";
 
-import "./Message.css";
+import MessageImage from "./MessageImage/MessageImage";
+import MessageAudio from "./MessageAudio/MessageAudio";
+import MessageVideo from "./MessageVideo/MessageVideo";
 
-const MessageImage = lazy(() => import("./MessageImage/MessageImage"));
-const MessageAudio = lazy(() => import("./MessageAudio/MessageAudio"));
-const MessageVideo = lazy(() => import("./MessageVideo/MessageVideo"));
+import "./Message.css";
 
 const Message = ({ myMsg, messageDetail }) => {
   const printHandler = (messageDetail) => {

@@ -7,7 +7,6 @@ import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
 import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 
 import { categoryState } from "../../common";
-import { ChatActions } from "../../store/chat";
 import { OverlayActions } from "../../store/overlay";
 import { DragAndDropActions } from "../../store/dragAndDrop";
 import { messageHandler } from "../../Pages/Chat/sendMessage";
@@ -19,6 +18,7 @@ import {
 import AuthContext from "../../context/authContext";
 
 import "./DragAndDrop.css";
+import { UserActions } from "../../store/user";
 
 const DragAndDrop = () => {
   const dispatch = useDispatch();
@@ -26,6 +26,11 @@ const DragAndDrop = () => {
 
   const chat = useSelector((state) => state.chat);
   const user = useSelector((state) => state.user);
+
+  let data = (user?.selectedType === categoryState[0]
+    ? user.groups
+    : user.privates
+    ).filter(res => res._id === user.selectedId)[0]
 
   const files = useSelector((state) => state.dragAndDrop.files);
 
@@ -56,45 +61,31 @@ const DragAndDrop = () => {
     handleDropHelper(event.dataTransfer.files[0]);
   };
 
-  const sendMessageHandler = (
-    message,
-    users,
-    chatId,
-    cb,
-    isOpenAIMsg = false,
-    messageType,
-    size,
-    url
-  ) => {
-    let data, messageData;
-
-    messageData = {
-      chatId: chatId,
-      username: user.username,
-      message: message,
-      profileImageUrl: user.profileImageUrl,
-      isOpenAIMsg: isOpenAIMsg,
-      messageType: messageType,
-      size: size,
-      url: url,
-      createdAt: new Date().toISOString(),
-    };
-
-    data = {
-      sender_id: authCtx?.userId,
-      users: users,
-    };
-
-    data["messageData"] = { ...messageData };
-
-    if (chat.type === categoryState[1]) {
-      messageData["chatId"] = chat._id;
-    }
-
-    dispatch(ChatActions.saveChatMessage(messageData));
-
-    cb(data);
+  const saveMessage = (temp) => {
+    dispatch(UserActions.saveMessage(temp));
   };
+
+
+  const sendMessage = (url, file) => {
+    let msgData = {
+      token: authCtx.token,
+      chatId: data._id,
+      users: data.users,
+      selectedType: user.selectedType,
+      saveMessage: saveMessage,
+      data: {
+        message: '',
+        isOpenAIMsg: false,
+        url: url,
+        size: file.size,
+        type: file.type,
+        userId: authCtx.userId,
+      },
+    };
+    console.log('msgData',msgData);
+    messageHandler(msgData);
+  };
+
 
   const uploadHandler = (event) => {
     event.preventDefault();
@@ -102,17 +93,7 @@ const DragAndDrop = () => {
     files.map((file) => {
       saveImageIntoFirebase(file.fileData)
         .then((url) => {
-          messageHandler(
-            file.name,
-            authCtx,
-            chat,
-            false,
-            sendMessageHandler,
-            user,
-            file.type,
-            file.size,
-            url
-          );
+          sendMessage(url, file);
           dispatch(DragAndDropActions.removeSingleFile(file));
         })
         .catch((err) => console.log(err));

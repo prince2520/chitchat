@@ -55,12 +55,11 @@ io.on('connection',function (socket){
 
     // Send  message to receiver
     socket.on('send_message', ({data}) => {
-        console.log(data)
         if (!data.users) return console.log("Users not defined");
 
         data.users.forEach((user_id) => {
             if (user_id === data.data.userId) return;
-            socket.in(user_id).emit("received_message", {messageData: data.data});
+            socket.in(user_id).emit("received_message", {data: data});
         });
     });
 

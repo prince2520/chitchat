@@ -39,8 +39,8 @@ export const getChatMessage = (cb) => {
     if(!socket){
         return true
     }else{
-        socket.on("received_message",({messageData})=>{
-            return cb(null,{messageData})
+        socket.on("received_message",({data})=>{
+            return cb(null,{data})
         })
     };
 }

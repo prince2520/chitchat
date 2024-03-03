@@ -50,9 +50,8 @@ exports.fetchUser = async (req, res) => {
 };
 
 exports.fetchAuthUser = async (req, res, next) => {
-  const authUserId = mongoose.Types.ObjectId(req.query.authUser);
-
   const userFound = await User.findOne({ _id: authUserId });
+  const authUserId = mongoose.Types.ObjectId(req.query.authUser);
 
   if (userFound) {
     return res.status(200).json({ userFound: true, user: userFound });

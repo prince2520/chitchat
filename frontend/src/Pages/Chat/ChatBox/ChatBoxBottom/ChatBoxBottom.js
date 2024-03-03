@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useContext, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import OpenAI from "./OpenAI/OpenAI";
 import CustomEmoji from "./CustomEmoji/CustomEmoji";
@@ -10,10 +10,10 @@ import { OverlayActions } from "../../../../store/overlay";
 
 import AuthContext from "../../../../context/authContext";
 
+import { UserActions } from "../../../../store/user";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 import "./ChatBoxBottom.css";
-import { UserActions } from "../../../../store/user";
 
 const ChatBoxBottom = ({ data, selectedType }) => {
   const inputRef = useRef(null);
@@ -26,8 +26,6 @@ const ChatBoxBottom = ({ data, selectedType }) => {
   const [isOpenAIMsg, setIsOpenAIMsg] = useState(false);
 
   const saveMessage = (temp) => {
-    delete temp['saveMessage']; 
-
     dispatch(UserActions.saveMessage(temp));
   };
 
@@ -43,8 +41,8 @@ const ChatBoxBottom = ({ data, selectedType }) => {
       token: authCtx.token,
       chatId: data._id,
       users: data.users,
-      selectedType : selectedType,
-      saveMessage : saveMessage,
+      selectedType: selectedType,
+      saveMessage: saveMessage,
       data: {
         message: message,
         isOpenAIMsg: isOpenAIMsg,
@@ -52,9 +50,9 @@ const ChatBoxBottom = ({ data, selectedType }) => {
         size: 0,
         type: "string",
         userId: authCtx.userId,
-      }
+      },
     };
-    messageHandler(msgData);  
+    messageHandler(msgData);
     inputRef.current.value = "";
   };
 

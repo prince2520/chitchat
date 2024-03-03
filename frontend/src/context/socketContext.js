@@ -12,12 +12,11 @@ import {
 } from "../socket";
 
 import AuthContext from "./authContext";
-import {ChatActions} from "../store/chat";
 import {HelperActions} from "../store/helper";
 
 import Peer from "simple-peer";
-import {current} from "@reduxjs/toolkit";
 import { OverlayActions } from "../store/overlay";
+import { UserActions } from "../store/user";
 
 const SocketContext = React.createContext({});
 
@@ -40,15 +39,14 @@ export const SocketContextProvider = ({children}) => {
 
         return () => {
             dispatch(HelperActions.dropDownHandler(false));
-            dispatch(ChatActions.clearSelectedChat());
             disconnectSocket(authCtx?.userId)
         }
     }, [authCtx?.userId])
 
 
     useEffect(() => {
-        getChatMessage((err, {messageData}) => {
-            dispatch(ChatActions.saveChatMessage(messageData));
+        getChatMessage((err, {data}) => {
+            dispatch(UserActions.saveMessage(data));
         });
     }, []);
 

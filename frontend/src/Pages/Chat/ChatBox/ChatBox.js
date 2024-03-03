@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import NoMessage from "./NoMessage/NoMessage";
 import ChatBoxTop from "./ChatBoxTop/ChatBoxTop";

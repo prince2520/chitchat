@@ -10,11 +10,12 @@ import { getFormatDate } from "../../common_function";
 import "./ChatBoxMiddle.css";
 import AuthContext from "../../../../context/authContext";
 
-const ChatBoxMiddle = ({data}) => {
+const ChatBoxMiddle = ({ data }) => {
   const authCtx = useContext(AuthContext);
-  const username = useSelector((state) => state.user.username);
 
   const chatEndRef = useRef();
+
+  console.log("data", data, "userID", authCtx.userId);
 
   const checkShowDateCondition = (res, idx) => {
     if (idx === 0) return true;
@@ -39,6 +40,8 @@ const ChatBoxMiddle = ({data}) => {
     <div className="chat-box-middle border">
       {data.messages.map((res, idx) => (
         <React.Fragment key={idx}>
+          {console.log("message user: ", res.user._id, "authCtx" , authCtx.userId)}
+
           {checkShowDateCondition(res, idx) && (
             <DateLine createdAt={res.createdAt} />
           )}
