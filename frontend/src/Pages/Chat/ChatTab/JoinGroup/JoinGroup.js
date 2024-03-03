@@ -6,15 +6,16 @@ import Button from "../../../../components/Button/Button";
 import CustomInput from "../../../../components/CustomInput/CustomInput";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
-import { joinGroupHandler } from "../../../../api/api";
 import { UserActions } from "../../../../store/user";
+import { joinGroupHandler } from "../../../../api/api";
 
 import AuthContext from "../../../../context/authContext";
 
 const JoinGroup = () => {
-  const authCtx = useContext(AuthContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const authCtx = useContext(AuthContext);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -24,7 +25,7 @@ const JoinGroup = () => {
     joinGroupHandler(authCtx?.token, groupId, authCtx?.userId)
       .then((res) => {
         if (res.success) {
-          dispatch(UserActions.addGroupHandler(res.groupData));
+          dispatch(UserActions.addGroup(res.groupData));
           navigate("/chat");
         }
       })
