@@ -32,44 +32,19 @@ exports.createGroup = async (req, res) => {
 
     newGroup.save().then((saveGroup) => {
       saveGroup.users.push(userId);
-      saveGroup.save().then((saveUserInGroup) => {
-        userFound?.groups.push(saveUserInGroup._id);
+      saveGroup.save().then((data) => {
+        userFound?.groups.push(data._id);
         userFound?.save();
         return res.status(200).json({
           success: true,
           message: name + " group created successfully!",
-          group: saveUserInGroup,
+          data: data,
         });
       });
     });
   }
 };
 
-exports.fetchGroup = async (req, res, next) => {
-  const _id = req.query._id;
-  const result = await GroupChat.findOne({ _id: _id }).populate({
-    path: "messages",
-    populate: { path: "users" },
-  });
-
-  let messages = result.messages.map((message) => ({
-    _id: message._id,
-    username: message.user.userName,
-    message: message.message,
-    profileImageUrl: message.user.profileImageUrl,
-    isOpenAIMsg: message.isOpenAIMsg,
-    messageType: message.messageType,
-    url: message.url,
-    size: message.size,
-    createdAt: message.createdAt,
-  }));
-
-  if (result) {
-    return res.status(200).json({ success: true, messages: messages });
-  } else {
-    return res.status(200).json({ success: false, message: [] });
-  }
-};
 
 exports.joinGroup = async (req, res, next) => {
   const _id = req.body.groupId;

@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../Button/Button";
@@ -23,8 +23,8 @@ import { UserActions } from "../../store/user";
 const DragAndDrop = () => {
   const dispatch = useDispatch();
   const authCtx = useContext(AuthContext);
+  const [disabled, isDisabled] = useState(false);
 
-  const chat = useSelector((state) => state.chat);
   const user = useSelector((state) => state.user);
 
   let data = (user?.selectedType === categoryState[0]
@@ -82,7 +82,6 @@ const DragAndDrop = () => {
         userId: authCtx.userId,
       },
     };
-    console.log('msgData',msgData);
     messageHandler(msgData);
   };
 
@@ -129,7 +128,10 @@ const DragAndDrop = () => {
         ))}
       </div>
       {files.length > 0 && (
-        <Button backgroundColor={"var(--primary)"} width={"50%"}>
+        <Button
+         backgroundColor={"var(--primary)"} 
+         width={"50%"} 
+         disabled={disabled} >
           <h5 className="color-text">Send</h5>
         </Button>
       )}

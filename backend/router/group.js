@@ -1,8 +1,8 @@
 const express = require('express');
 
-const {createGroup, joinGroup, fetchGroup, sendGroupMessage}  = require('../controllers/group');
+const {createGroup, joinGroup, sendGroupMessage}  = require('../controllers/group');
 
-const isAuth = require('../middleware/is-auth')
+// const isAuth = require('../middleware/is-auth')
 const {check} = require("express-validator");
 
 
@@ -16,8 +16,6 @@ router.post('/createGroup',[
 ],createGroup);
 
 router.post('/joinGroup', joinGroup)
-
-router.get('/fetchGroup', isAuth, fetchGroup);
 
 router.post('/sendGroupMessage', sendGroupMessage)
 

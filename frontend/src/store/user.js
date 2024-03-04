@@ -33,10 +33,7 @@ const UserSlice = createSlice({
       state.selectedType = action.payload.selectedType;
     },
     saveMessage(state, action) {
-
-      console.log('saveMessage', action.payload)
       const isGroup = (action.payload.selectedType === categoryState[0]);
-
       const saveChatMessage = (state) =>{
         state = state.filter((chat) => {
           if (chat._id === action.payload.chatId) {

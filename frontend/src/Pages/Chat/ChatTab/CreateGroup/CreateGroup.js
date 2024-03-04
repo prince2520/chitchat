@@ -42,12 +42,12 @@ const CreateGroup = () => {
 
   const createGroupHandler = async (name, groupImg) => {
     let firebaseUrl = await saveImageIntoFirebase(groupImg);
-    console.log(authCtx.userId)
 
     createGroup(authCtx?.token, name, authCtx?.userId, firebaseUrl)
-      .then((res) => {
-        if (res.success) {
-          dispatch(UserActions.addGroupHandler(res.groupData));
+      .then((data) => {
+        console.log('data', data);
+        if (data.success) {
+          dispatch(UserActions.addGroup(data.data));
           navigate("/chat");
         }
       })

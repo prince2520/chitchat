@@ -60,7 +60,6 @@ export const saveProfile = async (token, data) => {
 export const createGroup = async (token, name, userId, groupUrl) => {
   let data = {
     name: name,
-    token: token,
     userId: userId,
     groupImageUrl: groupUrl,
   };

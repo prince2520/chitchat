@@ -41,7 +41,12 @@
     border: 1px solid white;
 }
 
-.group-selected .group-name,
+.group-selected h5,
 .group-selected .group-created{
-    color: white;
+    color: var(--text);
+}
+
+.group-selected svg,
+.group-selected p{
+    color: var(--text-light);
 }
