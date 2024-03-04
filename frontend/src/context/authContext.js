@@ -44,7 +44,6 @@ export const AuthContextProvider = (props) => {
       return;
     }
 
-    console.log('local', localEmail, localToken)
     fetchUser(localEmail, localToken)
       .then((result) => {
         console.log('result', result);

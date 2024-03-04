@@ -58,8 +58,12 @@ io.on('connection',function (socket){
         if (!data.users) return console.log("Users not defined");
 
         data.users.forEach((user_id) => {
-            if (user_id === data.data.userId) return;
-            socket.in(user_id).emit("received_message", {data: data});
+            let userId = user_id;
+            if(data.selectedType === 'Private') {
+                userId = user_id._id;
+            }
+            if (userId === data.data.userId) return;
+            socket.in(userId).emit("received_message", {data: data});
         });
     });
 

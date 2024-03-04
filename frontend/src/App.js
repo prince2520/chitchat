@@ -4,14 +4,13 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import Chat from "./Pages/Chat/Chat";
 import AlertBox from "./components/AlertBox/AlertBox";
-import JoinGroup from "./Pages/Chat/ChatTab/JoinGroup/JoinGroup";
-import Authentication from "./Pages/Authentication/Authentication";
 import Login from "./Pages/Authentication/LoginSignUp/Login";
 import SignUp from "./Pages/Authentication/LoginSignUp/SignUp";
-import EditProfile from "./Pages/Chat/ChatTab/EditProfile/EditProfile";
+import JoinGroup from "./Pages/Chat/ChatTab/JoinGroup/JoinGroup";
+import Authentication from "./Pages/Authentication/Authentication";
 import CreateGroup from "./Pages/Chat/ChatTab/CreateGroup/CreateGroup";
+import EditProfile from "./Pages/Chat/ChatTab/EditProfile/EditProfile";
 import GroupPrivateList from "./Pages/Chat/ChatTab/GroupPrivateList/GroupPrivateList";
-import PrivateList from "./Pages/Chat/ChatTab/GroupPrivateList/PrivateList/PrivateList";
 
 import { AlertBoxActions } from "./store/alert";
 
@@ -55,7 +54,6 @@ function App() {
             <Route path="edit-profile" element={<EditProfile />} />
             <Route path="join-group" element={<JoinGroup />} />
             <Route path="create-group" element={<CreateGroup />} />
-            <Route path="private-chat" element={<PrivateList />} />
             <Route path="" element={<Navigate to={"chat"} />} />
           </Route>
         )}

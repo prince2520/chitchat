@@ -8,7 +8,7 @@ exports.createPrivate = async (req, res) => {
   const chatId = mongoose.Types.ObjectId(req.body.chatId);
 
   const private = await Private.findOne({
-    users: { $all: [userId, chatId]},
+    users: { $all: [userId, chatId] },
   });
 
   const sender = await User.findOne({ _id: userId });
@@ -27,7 +27,7 @@ exports.createPrivate = async (req, res) => {
       .then((data) => {
         sender.privates.push(data._id);
         receiver.privates.push(data._id);
-        
+
         sender.save();
         receiver.save();
 
@@ -70,41 +70,44 @@ exports.sendPrivateMessage = async (req, res) => {
   chatId = mongoose.Types.ObjectId(req.body.chatId);
 
   // Message Data
-  message = req.body.message;
-  isOpenAIMsg = req.body.isOpenAIMsg;
-  url = req.body.url ? req.body.url : "";
-  size = req.body.size ? req.body.size : 0;
-  type = req.body.type;
-  userId = mongoose.Types.ObjectId(req.body.userId);
+  message = req.body.data.message;
+  isOpenAIMsg = req.body.data.isOpenAIMsg;
+  url = req.body.data.url ? req.body.data.url : "";
+  size = req.body.data.size ? req.body.data.size : 0;
+  type = req.body.data.type;
+  userId = mongoose.Types.ObjectId(req.body.data.userId);
 
-  const private = await Private.findOne({
-    user: { $all: [userId, chatId] },
-  });
+  const private = await Private.findOne({_id: chatId});
 
-  if (privateUser) {
+  if (private) {
     const newMessage = new Message({
-      message: message,
-      isOpenAIMsg: isOpenAIMsg,
-      url: url,
-      size: size,
-      type: type,
+      message,
+      isOpenAIMsg,
+      url,
+      size,
+      type,
       user: userId,
     });
 
-    newMessage.save().then(() => {
-      private?.messages.push(newMessage._id);
-      private
-        .save()
-        .then(() => {
-          return res
-            .status(200)
-            .json({ success: true, message: "Message saved Successfully!" });
-        })
-        .catch(() => {
-          return res
-            .status(404)
-            .json({ success: true, message: "Something goes wrong!" });
-        });
-    });
+    newMessage
+      .save()
+      .then((res) => res.populate("user").execPopulate())
+      .then((data) => {
+        private?.messages.push(data._id);
+        private
+          .save()
+          .then(() => {
+            return res.status(200).json({
+              data : data,
+              success: true,
+              message: "Message saved Successfully!",
+            });
+          })
+          .catch(() => {
+            return res
+              .status(404)
+              .json({ success: true, message: "Something goes wrong!" });
+          });
+      });
   }
 };

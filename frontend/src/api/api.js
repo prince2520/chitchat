@@ -152,35 +152,17 @@ export const fetchGroupMessages = async (groupName, token) => {
 };
 
 
-export const sendPrivateMessageHandler = async (
-  token,
-  senderId,
-  receiverId,
-  message,
-  isOpenAIMsg,
-  messageType,
-  size,
-  url
-) => {
+export const sendPrivateMessageHandler = async (msgData) => {
   let result = await fetch(
-    `${process.env.REACT_APP_SERVER_URL}/private/sendPrivateMessage`,
+    `${process.env.REACT_APP_SERVER_URL}/private/send-private-message`,
     {
       method: "POST",
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + msgData.token,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        senderId: senderId,
-        receiverId: receiverId,
-        message: message,
-        isOpenAIMsg: isOpenAIMsg,
-        messageType: messageType,
-        size: size,
-        url: url,
-      }),
+      body: JSON.stringify(msgData),
     }
   );
-
   return result.json();
 };

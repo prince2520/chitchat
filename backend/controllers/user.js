@@ -33,11 +33,11 @@ exports.fetchUser = async (req, res) => {
   let userFound = await User.findOne({ email: email })
     .populate({
        path: "privates",
-       populate:[ {path: "users"}],
+       populate: [{path:'messages', populate:  'user'}, "users"]
      })
     .populate({
       path: "groups",
-      populate: { path: "users", path: " messages", populate: "user" },
+      populate: [{ path: "messages", populate:  'user' }, "users"]
     });
 
   console.log(userFound)

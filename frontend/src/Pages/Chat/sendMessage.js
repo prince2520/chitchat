@@ -43,17 +43,6 @@ const privateMessageHandler = (
     .catch((err) => console.log(err));
 };
 
-const groupMessageHandler = (msgData) => {
-  sendGroupMessageHandler(msgData)
-    .then((res) => {
-      let temp = {...msgData};
-      temp.data =  res.data; 
-      msgData.saveMessage(temp);
-      socketSendMessage(temp);
-    })
-    .catch((err) => console.log(err));
-};
-
 const sendOpenAIAnswer = (
   message,
   cb,
@@ -86,9 +75,19 @@ const sendOpenAIAnswer = (
 };
 
 export const messageHandler = (msgData) => {
-  (msgData.selectedType === categoryState[0]
-    ? groupMessageHandler
-    : privateMessageHandler)(msgData);
+  const isGroup = msgData.selectedType === categoryState[0];
+
+  (isGroup
+    ? sendGroupMessageHandler(msgData)
+    : sendPrivateMessageHandler(msgData)
+  )
+    .then((res) => {
+      let temp = { ...msgData };
+      temp.data = res.data;
+      msgData.saveMessage(temp);
+      socketSendMessage(temp);
+    })
+    .catch((err) => console.log(err));
 
   // sendOpenAIAnswer(
   //   message,

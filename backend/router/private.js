@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.post('/create-private', createPrivate );
 
-
-router.post('/sendPrivateMessage',sendPrivateMessage);
+router.post('/send-private-message',sendPrivateMessage);
 
 module.exports = router;

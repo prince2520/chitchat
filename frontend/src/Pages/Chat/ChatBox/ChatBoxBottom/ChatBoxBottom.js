@@ -10,17 +10,25 @@ import { OverlayActions } from "../../../../store/overlay";
 
 import AuthContext from "../../../../context/authContext";
 
+import { categoryState } from "../../../../common";
+import { useSelector } from "react-redux";
 import { UserActions } from "../../../../store/user";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 import "./ChatBoxBottom.css";
 
-const ChatBoxBottom = ({ data, selectedType }) => {
+const ChatBoxBottom = () => {
   const inputRef = useRef(null);
 
   const authCtx = useContext(AuthContext);
 
   const dispatch = useDispatch();
+
+  const user = useSelector(state=>state.user);
+  const data = (user?.selectedType === categoryState[0]
+    ? user.groups
+    : user.privates
+    ).filter(res => res._id === user.selectedId)[0];
 
   const [showEmojis, setShowEmojis] = useState(false);
   const [isOpenAIMsg, setIsOpenAIMsg] = useState(false);
@@ -41,7 +49,7 @@ const ChatBoxBottom = ({ data, selectedType }) => {
       token: authCtx.token,
       chatId: data._id,
       users: data.users,
-      selectedType: selectedType,
+      selectedType: user.selectedType,
       saveMessage: saveMessage,
       data: {
         message: message,

@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 
-
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 import SearchBar from "../../../../components/SearchBar/SearchBar";
 import ChangeCategory from "../../../../components/ChangeCategory/ChangeCategory";
@@ -60,7 +59,8 @@ const GroupPrivateList = () => {
           <>
             <span>
               <Icon icon="ic:baseline-audio-file" />{" "}
-            </span> Other
+            </span>{" "}
+            Other
           </>
         );
     }
@@ -92,8 +92,9 @@ const GroupPrivateList = () => {
         {msgLength > 0 ? (
           <>
             <p className="flex-center">
-              {lastMsg.user._id === authCtx.userId ? "You" : lastMsg.user.name}{" "}: {checkTypeAndShowMsg(lastMsg)}
-            </p> 
+              {lastMsg.user._id === authCtx.userId ? "You" : lastMsg.user.name}{" "}
+              : {checkTypeAndShowMsg(lastMsg)}
+            </p>
           </>
         ) : (
           <p>No message</p>
@@ -108,19 +109,27 @@ const GroupPrivateList = () => {
       <SearchBar />
       <div className="group-private-list">
         {(isPrivate ? privates : groups).map((data, idx) => (
-            
           <div
             className={`group-private-item ${
               data._id === user.selectedId && "group-selected"
             }  border`}
             onClick={() => selectedItem(data)}
           >
-            {console.log('data',data)}
             <div className="group-private-item-left">
-              <ImageContainer src={isPrivate ? data.users.filter((user) => user._id !== authCtx.userId)[0].profileImgUrl : data.groupImageUrl} />
+              <ImageContainer
+                src={
+                  isPrivate
+                    ? data.users.filter(
+                        (user) => user._id !== authCtx.userId
+                      )[0].profileImgUrl
+                    : data.groupImageUrl
+                }
+              />
             </div>
             <div className="group-private-item-right">
-              <h5>{isPrivate ? data.users.filter((user) => user._id !== authCtx.userId)[0].name : data.name}</h5>
+              <h5>
+                {isPrivate ? data.users.filter((user) => user._id !== authCtx.userId)[0].name : data.name}
+              </h5>
               {showLastMsg(data)}
             </div>
           </div>

@@ -40,7 +40,7 @@ const ChatSlice = createSlice({
     clearSelectedChat(state) {
       state.selected = false;
       state._id = "";
-    },
+    }
   },
 });
 

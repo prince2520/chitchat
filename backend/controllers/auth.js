@@ -57,10 +57,13 @@ exports.login = (req, res) => {
 
   User.findOne({ email: email })
     .populate({
-      path: "groups",
-      populate: { path: "users", path: " messages", populate: "user" },
+      path: "privates",
+      populate: [{ path: "messages", populate: "user" }, "users"],
     })
-    .populate("privates")
+    .populate({
+      path: "groups",
+      populate: [{ path: "messages", populate: "user" }],
+    })
     .then((user) => {
       loadedUser = user;
       return bcrypt.compare(password, user.password);

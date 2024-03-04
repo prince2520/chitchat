@@ -106,7 +106,6 @@ exports.joinGroup = async (req, res, next) => {
 };
 
 exports.sendGroupMessage = (req, res) => {
-  console.log(req.body.data)
   let message, isOpenAIMsg, type, url, size, chatId, userId;
 
   chatId = mongoose.Types.ObjectId(req.body.chatId);
@@ -141,7 +140,6 @@ exports.sendGroupMessage = (req, res) => {
           .then((data) => {
             group?.messages.push(data._id);
             group.save().then(() => {
-              console.log('data', data)
               return res.status(200).json({
                 success: true,
                 message: "message send successfully!",
