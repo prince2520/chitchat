@@ -12,21 +12,21 @@ const AuthContext = React.createContext({
   token: "",
   userId: "",
   userName: "",
+  email: "",
   isAuth: false,
 });
 
 export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState("");
+  const [email, setEmail] = useState("");
   const [isAuth, setIsAuth] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const saveUserData = (result) => {
-    dispatch(
-      UserActions.saveUserData(result)
-    );
+    dispatch(UserActions.saveUserData(result));
   };
 
   useEffect(() => {
@@ -34,6 +34,8 @@ export const AuthContextProvider = (props) => {
     setToken(localToken);
     const localUserId = localStorage.getItem("userId");
     setUserId(localUserId);
+    const localEmail = localStorage.getItem("email");
+    setEmail(localEmail);
     const localExpiryDate = localStorage.getItem("expiryDate");
 
     if (new Date(localExpiryDate) <= new Date()) {
@@ -42,9 +44,10 @@ export const AuthContextProvider = (props) => {
       return;
     }
 
-    fetchUser(localUserId, localToken)
+    console.log('local', localEmail, localToken)
+    fetchUser(localEmail, localToken)
       .then((result) => {
-        console.log(result.user);
+        console.log('result', result);
         saveUserData(result.user);
       })
       .catch((err) => console.log(err));
@@ -72,16 +75,17 @@ export const AuthContextProvider = (props) => {
 
   const loginHandler = (email, password) => {
     login(email, password).then((result) => {
-        console.log('login', result)
       if (result.success) {
         saveUserData(result.user);
 
         setToken(result.token);
         setUserId(result.user?._id);
+        setEmail(result.user?.email);
         setIsAuth(true);
 
         localStorage.setItem("token", result.token);
         localStorage.setItem("userId", result.user._id);
+        localStorage.setItem("email", result.user?.email);
 
         const remainingMilliseconds = 60 * 60 * 1000;
         const expiryDate = new Date(
@@ -113,6 +117,7 @@ export const AuthContextProvider = (props) => {
         token: token,
         userId: userId,
         isAuth: isAuth,
+        email: email
       }}
     >
       {props.children}

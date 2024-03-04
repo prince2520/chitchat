@@ -1,13 +1,13 @@
 const User = require("../models/user");
-const Room = require("../models/group");
+const Group = require("../models/group");
 const mongoose = require("mongoose");
 
 exports.createUser = async (req, res, next) => {
-  const userName = req.body.userName;
-  const roomName = req.body.roomName;
+  const userId = req.body.userId;
+  const groupId = req.body.groupId;
 
-  const userFound = await User.findOne({ userName: userName });
-  const roomFound = await Room.findOne({ roomName: roomName });
+  const userFound = await User.findOne({ _id: userId });
+  const groupFound = await Group.findOne({ _id: groupId });
 
   if (userFound) {
     roomFound?.user.push(userFound._id);
@@ -28,18 +28,19 @@ exports.createUser = async (req, res, next) => {
 };
 
 exports.fetchUser = async (req, res) => {
-  const userId = mongoose.Types.ObjectId(req.query.userId);
+  const email = req.query.email;
 
-  let userFound = await User.findOne({ _id: userId })
-    .populate("privates")
+  let userFound = await User.findOne({ email: email })
+    .populate({
+       path: "privates",
+       populate:[ {path: "users"}],
+     })
     .populate({
       path: "groups",
       populate: { path: "users", path: " messages", populate: "user" },
     });
-    
-  if (req.query.email) {
-    userFound = await User.findOne({ email: req.query.email });
-  }
+
+  console.log(userFound)
 
   if (userFound) {
     return res.status(200).json({ success: true, user: userFound });

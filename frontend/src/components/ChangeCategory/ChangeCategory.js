@@ -4,7 +4,7 @@ import { categoryState } from "../../common";
 
 import "./ChangeCategory.css";
 
-const ChangeCategory = ({ setPrivateChatSelected }) => {
+const ChangeCategory = ({ setIsPrivate }) => {
   const [selectedChat, setSelectedChat] = useState(categoryState[0]);
 
   return (
@@ -13,13 +13,10 @@ const ChangeCategory = ({ setPrivateChatSelected }) => {
         <p
           key={idx}
           onClick={() => {
-            if (name === categoryState[0]) {
-              setSelectedChat(name);
-              setPrivateChatSelected(false);
-            } else {
-              setSelectedChat(name);
-              setPrivateChatSelected(true);
-            }
+            name === categoryState[0]
+              ? setIsPrivate(false)
+              : setIsPrivate(true);
+            setSelectedChat(name);
           }}
           className={`cursor-btn ${selectedChat === name && "selected"}`}
         >

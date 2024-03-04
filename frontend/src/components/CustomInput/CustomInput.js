@@ -2,10 +2,10 @@ import { Icon } from "@iconify/react";
 
 import "./CustomInput.css";
 
-const CustomInput = ({ type, icon, label }) => {
+const CustomInput = ({ type, icon, label, showLabel = true }) => {
   return (
     <div style={{width:'100%'}}>
-      <h5 className="color-text-extra-light">{label}</h5>
+      {showLabel && <h5 className="color-text-extra-light">{label}</h5>}
       <div className="flex-center rounded-corner  input-container">
         <input type={type} />
         <Icon icon={icon} fontSize={"1.5rem"} />

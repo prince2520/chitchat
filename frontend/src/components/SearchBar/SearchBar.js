@@ -3,7 +3,7 @@ import { useContext, useRef, useState } from "react";
 
 import SearchResult from "./SearchResult/SearchResult";
 
-import { searchUserHandler } from "../../api/api";
+import { fetchUser } from "../../api/api";
 
 import AuthContext from "../../context/authContext";
 
@@ -12,15 +12,16 @@ import "./SearchBar.css";
 const SearchBar = () => {
   const searchUserRef = useRef();
   const authCtx = useContext(AuthContext);
+
+  const [data, setData] = useState(null);
   const [showResult, setShowResult] = useState(false);
-  const [searchResult, setSearchResult] = useState({});
 
   const submitHandler = (event) => {
     event.preventDefault();
-    searchUserHandler(authCtx?.token, searchUserRef.current?.value)
+    fetchUser(searchUserRef.current?.value, authCtx?.token)
       .then((result) => {
+        setData(result);
         setShowResult(result.success);
-        setSearchResult(result.user);
       })
       .catch((err) => console.log(err));
   };
@@ -32,15 +33,13 @@ const SearchBar = () => {
     >
       <input ref={searchUserRef} placeholder={"Search by email ..."} />
       <button>
-        <Icon
-          icon="material-symbols:search"
-          style={{fontSize: "1.5rem" }}
-        />
+        <Icon icon="material-symbols:search" style={{ fontSize: "1.5rem" }} />
       </button>
       {showResult && (
         <SearchResult
+          data={data}
           setShowResult={setShowResult}
-          searchResult={searchResult}
+          setData={setData}
         />
       )}
     </form>

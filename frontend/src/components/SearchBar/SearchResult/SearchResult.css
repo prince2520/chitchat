@@ -1,6 +1,5 @@
 .search-result-container{
     position: absolute;
-    width: 100%;
     column-gap: 0.5rem;
 
     bottom: -7rem;

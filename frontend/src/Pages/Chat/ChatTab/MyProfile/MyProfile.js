@@ -11,9 +11,9 @@ import {useDetectClickOutside} from "react-detect-click-outside";
 import './MyProfile.css';
 
 const MyProfile = () => {
+    const dispatch = useDispatch();
     const showDropdown = useSelector(state => state.helper.showDropdown);
     const profileImageUrl = useSelector(state => state.user.profileImageUrl);
-    const dispatch = useDispatch();
 
     const closeDropDownHandler = () => {
         dispatch(HelperActions.dropDownHandler(false));

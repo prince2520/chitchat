@@ -1,15 +1,19 @@
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 import PrivateListItem from "./PrivateListItem/PrivateListItem";
 
 const PrivateList = () => {
-    const privateList = useSelector(state => state.user.privateList);
+  const privates = useSelector((state) => state.user.privates);
 
-    return (
-        <div className="group-private-list">
-            {privateList.map((result, idx) => <PrivateListItem key={idx} result={result}/>)}
-        </div>
-    );
+  console.log("privates", privates);
+
+  return (
+    <div className="group-private-list">
+      {privates.map((data, idx) => (
+        <PrivateListItem key={idx} data={data} />
+      ))}
+    </div>
+  );
 };
 
 export default PrivateList;

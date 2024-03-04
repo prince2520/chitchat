@@ -5,7 +5,7 @@ import ImageContainer from "../../../../../../components/ImageContainer/ImageCon
 import { UserActions } from "../../../../../../store/user";
 import { categoryState } from "../../../../../../common";
 import { useContext } from "react";
-import { Icon } from "@iconify/react";
+import { checkTypeAndShowMsg } from "../../../../common_function";
 
 import AuthContext from "../../../../../../context/authContext";
 
@@ -34,36 +34,13 @@ const GroupListItem = ({ result }) => {
   };
 
    
-
-  const checkTypeAndShowMsg = () => {
-    let msg = "";
-    switch (lastMsg.type) {
-      case 'string':
-        msg = <p>{lastMsg.message}</p>;
-        break;
-      case 'image':
-        msg = (<p className="flex-center"><Icon icon="typcn:image"/> Photo</p>);
-        break;
-      case 'audio':
-        msg = (<><span><Icon icon="typcn:image"/></span> Photo</>);
-        break;        
-      case 'video':
-        msg = (<><span><Icon icon="akar-icons:video"/></span>Video</>)
-        break; 
-      default :
-        msg = (<><span><Icon icon="ic:baseline-audio-file"/> </span>Other</>)
-    };
-
-    return msg;
-  }
-
   const showLastMsg =  (
     <>
       {
         (msgLength > 0) ?
         <>
          <p className="flex-center">{lastMsg.user._id === authCtx.userId ? 'You' :  lastMsg.user.name } :</p> 
-         {checkTypeAndShowMsg()}
+         {checkTypeAndShowMsg(lastMsg)}
         </>
          :
            <p>No message</p>

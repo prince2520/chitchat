@@ -1,25 +1,24 @@
 import { useContext } from "react";
 import { Icon } from "@iconify/react";
 
+import { addUserInPrivate } from "../../../api/api";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
-import ImageContainer from "../../ImageContainer/ImageContainer";
-import { addUserInPrivateChat } from "../../../api/api";
-
 import AuthContext from "../../../context/authContext";
+import ImageContainer from "../../ImageContainer/ImageContainer";
 
 import "./SearchResult.css";
 
-const SearchResult = ({ searchResult, setShowResult }) => {
+const SearchResult = ({ data, setShowResult, setData }) => {
   const authCtx = useContext(AuthContext);
+
   const addPrivateUserHandler = () => {
-    addUserInPrivateChat(authCtx, authCtx?.userId, searchResult?._id)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    addUserInPrivate(authCtx.token, authCtx.userId, data.user._id);
   };
 
   const closeSearchHandler = () => {
     setShowResult(false);
+    setData(null);
   };
 
   const ref = useDetectClickOutside({ onTriggered: closeSearchHandler });
@@ -33,11 +32,11 @@ const SearchResult = ({ searchResult, setShowResult }) => {
         />
       </div>
       <div className={"search-image-container"}>
-        <ImageContainer src={searchResult.profileImageUrl} />
+        <ImageContainer src={data.user.profileImageUrl} />
       </div>
       <div className={"flex-center search-result-description"}>
-        <h5 className="color-text">{searchResult.userName}</h5>
-        <p className="color-text-light">{searchResult?.Status}</p>
+        <h5 className="color-text">{data.user.name}</h5>
+        <p className="color-text-light">{data.user?.status}</p>
       </div>
       <div className={"flex-center search-result-join-btn"}>
         <Icon

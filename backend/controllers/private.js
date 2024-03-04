@@ -1,64 +1,60 @@
-const User = require("../models/user");
-const Private = require("../models/private");
-const Message = require("../models/message");
 const mongoose = require("mongoose");
-const user = require("../models/user");
+const User = require("../models/user");
+const Message = require("../models/message");
+const Private = require("../models/private");
 
-exports.addPrivateUser = async (req, res, next) => {
-  const senderId = mongoose.Types.ObjectId(req.body.senderId);
-  const receiverId = mongoose.Types.ObjectId(req.body.receiverId);
+exports.createPrivate = async (req, res) => {
+  const userId = mongoose.Types.ObjectId(req.body.userId);
+  const chatId = mongoose.Types.ObjectId(req.body.chatId);
 
-  const privateUser = await PrivateChat.findOne({
-    user: { $all: [senderId, receiverId] },
+  const private = await Private.findOne({
+    users: { $all: [userId, chatId]},
   });
 
-  const findSender = await User.findOne({ _id: senderId });
-  const findReceiver = await User.findOne({ _id: receiverId });
+  const sender = await User.findOne({ _id: userId });
+  const receiver = await User.findOne({ _id: chatId });
 
-  if (privateUser) {
+  if (private) {
     return res
       .status(200)
       .json({ success: false, message: "Private user already added!" });
   } else {
-    const newPrivateChat = new PrivateChat();
-
-    findReceiver?.privateUser.push(senderId);
-    findSender?.privateUser.push(receiverId);
-
-    await findSender.save();
-    await findReceiver.save();
-
-    newPrivateChat?.save().then((result) => {
-      result?.user.push(senderId);
-      result?.user.push(receiverId);
-      result
-        .save()
-        .then((done) => {
-          return res
-            .status(202)
-            .json({ success: true, message: "User added to Private Chat!" });
-        })
-        .catch(() => {
-          return res
-            .status(404)
-            .json({ success: false, message: "Something goes wrong!" });
-        });
+    const newPrivate = new Private({
+      users: [userId, chatId],
     });
+    newPrivate
+      .save()
+      .then((data) => {
+        sender.privates.push(data._id);
+        receiver.privates.push(data._id);
+        
+        sender.save();
+        receiver.save();
+
+        return res
+          .status(202)
+          .json({ success: true, message: "User added to Private Chat!" });
+      })
+      .catch(() => {
+        return res
+          .status(404)
+          .json({ success: false, message: "Something goes wrong!" });
+      });
   }
 };
 
-exports.fetchPrivateUser = async (req, res, next) => {
+exports.fetchPrivate = async (req, res) => {
   const userId = mongoose.Types.ObjectId(req.query.userId);
 
-  const privateUserFound = await PrivateChat.find({
-    user: { $in: [userId] },
-  }).populate("user");
+  const privateFound = await Private.find({
+    users: { $in: [userId] },
+  }).populate("users");
 
-  if (privateUserFound) {
+  if (privateFound) {
     return res.status(200).json({
       success: true,
       message: "Private User fetched successfully!",
-      privateUser: privateUserFound,
+      data: privateFound,
     });
   } else {
     return res.status(200).json({
@@ -98,7 +94,7 @@ exports.sendPrivateMessage = async (req, res) => {
     newMessage.save().then(() => {
       private?.messages.push(newMessage._id);
       private
-        ?.save()
+        .save()
         .then(() => {
           return res
             .status(200)
@@ -111,39 +107,4 @@ exports.sendPrivateMessage = async (req, res) => {
         });
     });
   }
-};
-
-exports.fetchPrivate = async (req, res) => {
-  const senderId = mongoose.Types.ObjectId(req.query.senderId);
-  const receiverId = mongoose.Types.ObjectId(req.query.receiverId);
-
-  PrivateChat.findOne({ user: { $all: [senderId, receiverId] } })
-    .populate({
-      path: "privateMessages",
-      populate: { path: "user" },
-    })
-    .then((privateChat) => {
-      let messages = privateChat?.privateMessages.map((message) => ({
-        messageId: message._id,
-        username: message.user.userName,
-        message: message.message,
-        profileImageUrl: message.user.profileImageUrl,
-        isOpenAIMsg: message.isOpenAIMsg,
-        messageType: message.messageType,
-        url: message.url,
-        size: message.size,
-        createdAt: message.createdAt,
-      }));
-
-      return res.status(200).json({
-        success: true,
-        messages: messages,
-      });
-    })
-    .catch(() =>
-      res.status(404).json({
-        success: false,
-        message: "Something goes wrong!",
-      })
-    );
 };

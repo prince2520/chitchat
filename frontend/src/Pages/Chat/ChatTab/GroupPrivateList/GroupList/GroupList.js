@@ -6,8 +6,6 @@ import '../GroupPrivateList.css'
 
 const GroupList = () => {
     const groupList = useSelector(state => state.user.groups);
-    console.log(groupList)
-
     return (
         <div className="group-private-list">
             {groupList && groupList.map((result, idx) =>

@@ -1,19 +1,15 @@
 const express = require('express');
 const {
-    addPrivateUser,
-    fetchPrivateUser,
+    createPrivate,
     sendPrivateMessage,
     fetchPrivate
 } = require("../controllers/private");
 
 const router = express.Router();
 
-router.post('/addPrivateChat',addPrivateUser );
+router.post('/create-private', createPrivate );
 
-router.get('/fetchPrivateUser', fetchPrivateUser);
 
 router.post('/sendPrivateMessage',sendPrivateMessage);
-
-router.get( '/fetchPrivateMessage',fetchPrivate);
 
 module.exports = router;
