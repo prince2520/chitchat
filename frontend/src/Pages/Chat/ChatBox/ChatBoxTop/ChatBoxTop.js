@@ -23,8 +23,6 @@ const ChatBoxTop = () => {
     user?.selectedType === categoryState[0] ? user.groups : user.privates
   ).filter((res) => res._id === user.selectedId)[0];
 
-  console.log('data', data);
-
   const [showSetting, setShowSetting] = useState(false);
 
   const closeSettingHandler = () => {

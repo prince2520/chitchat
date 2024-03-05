@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchUser, login, signup } from "../api/api";
 import { useDispatch } from "react-redux";
 import { AlertBoxActions } from "../store/alert";
 import { UserActions } from "../store/user";
+import { socketJoinGroup } from "../socket";
 
 const AuthContext = React.createContext({
   loginHandler: (email, password) => {},
@@ -25,9 +26,27 @@ export const AuthContextProvider = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const saveUserData = (result) => {
+  const saveUserData = useCallback((result) => {
     dispatch(UserActions.saveUserData(result));
+  },[dispatch]);
+
+  const joinGroup = (groups) => {
+    socketJoinGroup(groups);
   };
+
+  const logoutHandler = useCallback(() => {
+    setToken(null);
+    setIsAuth(false);
+    navigate("/login");
+    localStorage.clear();
+  },[navigate]);
+
+
+  const autoLogout = useCallback((milliseconds) => {
+    setTimeout(() => {
+      logoutHandler();
+    }, milliseconds);
+  },[logoutHandler]);
 
   useEffect(() => {
     const localToken = localStorage.getItem("token");
@@ -46,7 +65,7 @@ export const AuthContextProvider = (props) => {
 
     fetchUser(localEmail, localToken)
       .then((result) => {
-        console.log('result', result);
+        joinGroup(result.user.groups);
         saveUserData(result.user);
       })
       .catch((err) => console.log(err));
@@ -55,13 +74,9 @@ export const AuthContextProvider = (props) => {
       new Date(localExpiryDate).getTime() - new Date().getTime();
     autoLogout(remainingMilliseconds);
     setIsAuth(true);
-  }, []);
-
-  const autoLogout = (milliseconds) => {
-    setTimeout(() => {
-      logoutHandler();
-    }, milliseconds);
-  };
+  }, [autoLogout, logoutHandler, saveUserData]);
+  
+ 
 
   const signUpHandler = (userName, email, password) => {
     signup(userName, email, password).then((result) => {
@@ -72,10 +87,12 @@ export const AuthContextProvider = (props) => {
     });
   };
 
-  const loginHandler = (email, password) => {
+  const loginHandler = useCallback((email, password) => {
     login(email, password).then((result) => {
       if (result.success) {
         saveUserData(result.user);
+
+        joinGroup(result.user.groups);
 
         setToken(result.token);
         setUserId(result.user?._id);
@@ -98,15 +115,9 @@ export const AuthContextProvider = (props) => {
         dispatch(AlertBoxActions.showAlertBoxHandler(result));
       }
     });
-  };
+  },[autoLogout, dispatch, navigate, saveUserData]);
 
-  const logoutHandler = () => {
-    setToken(null);
-    setIsAuth(false);
-    navigate("/login");
-    localStorage.clear();
-  };
-
+  
   return (
     <AuthContext.Provider
       value={{
@@ -116,7 +127,7 @@ export const AuthContextProvider = (props) => {
         token: token,
         userId: userId,
         isAuth: isAuth,
-        email: email
+        email: email,
       }}
     >
       {props.children}

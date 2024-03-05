@@ -41,14 +41,13 @@ export const SocketContextProvider = ({children}) => {
             dispatch(HelperActions.dropDownHandler(false));
             disconnectSocket(authCtx?.userId)
         }
-    }, [authCtx?.userId])
-
+    }, [authCtx?.userId, dispatch])
 
     useEffect(() => {
         getChatMessage((err, {data}) => {
             dispatch(UserActions.saveMessage(data));
         });
-    }, []);
+    }, [dispatch]);
 
     const getUserMedia = async ( ) => {
         let mediaStream = null;
@@ -60,10 +59,6 @@ export const SocketContextProvider = ({children}) => {
             console.log(err);
         }
     };
-
-    const stopAudioVideo = async () => {
-        
-    }
 
     const answerCall = () => {
         setCallAccepted(true);

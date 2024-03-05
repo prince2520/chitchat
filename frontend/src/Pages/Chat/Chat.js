@@ -17,7 +17,6 @@ const Chat = () => {
 
   const dispatch  = useDispatch();
 
-
   useEffect (() => {
     return () => {
       dispatch(UserActions.selectedChat({
@@ -26,7 +25,7 @@ const Chat = () => {
         selectedType : null
       }))
     };
-  },[])
+  },[dispatch])
 
   return (
     <SocketContextProvider>
