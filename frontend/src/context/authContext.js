@@ -19,8 +19,8 @@ const AuthContext = React.createContext({
 
 export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(null);
-  const [userId, setUserId] = useState("");
   const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("");
   const [isAuth, setIsAuth] = useState(false);
 
   console.log('Hello')

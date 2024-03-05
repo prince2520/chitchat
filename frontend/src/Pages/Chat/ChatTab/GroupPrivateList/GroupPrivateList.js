@@ -111,9 +111,7 @@ const GroupPrivateList = () => {
               <ImageContainer
                 src={
                   isPrivate
-                    ? data.users.filter(
-                        (user) => user._id !== authCtx.userId
-                      )[0].profileImgUrl
+                    ? data.users.filter((user) => user._id !== authCtx.userId)[0].profileImageUrl
                     : data.groupImageUrl
                 }
               />

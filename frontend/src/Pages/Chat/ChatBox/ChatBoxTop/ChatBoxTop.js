@@ -18,7 +18,7 @@ import "./ChatBoxTop.css";
 const ChatBoxTop = () => {
   const user = useSelector((state) => state.user);
   const authCtx = useContext(AuthContext);
-  
+
   const data = (
     user?.selectedType === categoryState[0] ? user.groups : user.privates
   ).filter((res) => res._id === user.selectedId)[0];
@@ -34,15 +34,25 @@ const ChatBoxTop = () => {
   return (
     <div className="chat-box-top border">
       <SideBar />
-      <ImageContainer src={data.groupImageUrl} />
+      <ImageContainer
+        src={
+          user.selectedType === categoryState[1] 
+            ? data.users.filter((user) => user._id !== authCtx.userId)[0]
+                .profileImageUrl
+            : data.groupImageUrl
+        }
+      />
       <div className="chat-description">
         <h5>
           {user.selectedType === categoryState[0]
             ? data.name
             : data.users.filter((user) => user._id !== authCtx.userId)[0].name}
         </h5>
-        <p>{!(user.selectedType === categoryState[0]) ? data.users.filter((user) => user._id !== authCtx.userId)[0]
-                .status : data._id}</p>
+        <p>
+          {!(user.selectedType === categoryState[0])
+            ? data.users.filter((user) => user._id !== authCtx.userId)[0].status
+            : data._id}
+        </p>
       </div>
       {data.type === categoryState[1] && <MediaCommunication />}
       <Icon
