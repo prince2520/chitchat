@@ -6,43 +6,6 @@ import {
   sendPrivateMessageHandler,
 } from "../../api/api";
 
-const privateMessageHandler = (
-  message,
-  authCtx,
-  chat,
-  isOpenAIMsg,
-  sendMessageHandler,
-  user = null,
-  messageType,
-  size,
-  url
-) => {
-  sendPrivateMessageHandler(
-    authCtx?.token,
-    authCtx?.userId,
-    chat._id,
-    message,
-    isOpenAIMsg,
-    messageType,
-    size,
-    url
-  )
-    .then(() => {
-      let users = [authCtx?.userId, chat._id];
-      sendMessageHandler(
-        message,
-        users,
-        authCtx.userId,
-        socketSendMessage,
-        isOpenAIMsg,
-        messageType,
-        size,
-        url
-      );
-    })
-    .catch((err) => console.log(err));
-};
-
 const sendOpenAIAnswer = (
   message,
   cb,

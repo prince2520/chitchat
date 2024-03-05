@@ -25,42 +25,33 @@ const GroupPrivateList = () => {
     let msg = "";
     switch (lastMsg.type) {
       case "string":
-        msg = <p>{lastMsg.message}</p>;
+        msg = <>{lastMsg.message}</>;
         break;
       case "image":
         msg = (
-          <p className="flex-center">
+          <>
             <Icon icon="typcn:image" /> Photo
-          </p>
+          </>
         );
         break;
       case "audio":
         msg = (
           <>
-            <span>
-              <Icon icon="typcn:image" />
-            </span>{" "}
-            Photo
+            <Icon icon="typcn:image" /> Photo
           </>
         );
         break;
       case "video":
         msg = (
           <>
-            <span>
-              <Icon icon="akar-icons:video" />
-            </span>
-            Video
+            <Icon icon="akar-icons:video" /> Video
           </>
         );
         break;
       default:
         msg = (
           <>
-            <span>
-              <Icon icon="ic:baseline-audio-file" />{" "}
-            </span>{" "}
-            Other
+            <Icon icon="ic:baseline-audio-file" /> Other
           </>
         );
     }
@@ -108,8 +99,9 @@ const GroupPrivateList = () => {
       <ChangeCategory setIsPrivate={setIsPrivate} />
       <SearchBar />
       <div className="group-private-list">
-        {(isPrivate ? privates : groups).map((data, idx) => (
+        {(isPrivate ? privates : groups).map((data) => (
           <div
+            key={data._id}
             className={`group-private-item ${
               data._id === user.selectedId && "group-selected"
             }  border`}
@@ -128,7 +120,10 @@ const GroupPrivateList = () => {
             </div>
             <div className="group-private-item-right">
               <h5>
-                {isPrivate ? data.users.filter((user) => user._id !== authCtx.userId)[0].name : data.name}
+                {isPrivate
+                  ? data.users.filter((user) => user._id !== authCtx.userId)[0]
+                      .name
+                  : data.name}
               </h5>
               {showLastMsg(data)}
             </div>

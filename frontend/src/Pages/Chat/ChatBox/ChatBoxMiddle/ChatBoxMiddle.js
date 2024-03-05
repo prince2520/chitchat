@@ -43,15 +43,15 @@ const ChatBoxMiddle = () => {
 
   return (
     <div className="chat-box-middle border">
-      {data.messages.map((res, idx) => (
-        <React.Fragment key={idx}>
-          {checkShowDateCondition(res, idx) && (
-            <DateLine createdAt={res.createdAt} />
+      {data.messages.map((message, idx) => (
+        <React.Fragment key={message._id}>
+          {checkShowDateCondition(message, idx) && (
+            <DateLine createdAt={message.createdAt} />
           )}
           <Message
             key={idx}
-            messageDetail={res}
-            myMsg={res.user._id === authCtx.userId}
+            messageDetail={message}
+            myMsg={message.user._id === authCtx.userId}
           />
         </React.Fragment>
       ))}

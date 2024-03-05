@@ -49,7 +49,6 @@ io.on("connection", function (socket) {
 
   // Join the group
   socket.on("join_group", ({ groups }) => {
-    console.log('groups', groups)
     groups?.map((group) => {
       if (group._id) {
         socket.join(group._id);
