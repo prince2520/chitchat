@@ -27,6 +27,9 @@ const UserSlice = createSlice({
     addGroup(state, action) {
       state.groups = [...state.groups, action.payload];
     },
+    addPrivate(state, action){
+      state.privates = [...state.privates, action.payload];
+    },
     selectedChat(state, action) {
       state.isSelected = action.payload.isSelected;
       state.selectedId = action.payload.selectedId;

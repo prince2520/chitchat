@@ -24,6 +24,11 @@ exports.createPrivate = async (req, res) => {
     });
     newPrivate
       .save()
+      .then((res) =>
+        res
+          .populate([{ path: "messages", populate: "user" }, "users"])
+          .execPopulate()
+      )
       .then((data) => {
         sender.privates.push(data._id);
         receiver.privates.push(data._id);
@@ -33,7 +38,11 @@ exports.createPrivate = async (req, res) => {
 
         return res
           .status(202)
-          .json({ success: true, message: "User added to Private Chat!" });
+          .json({
+            success: true,
+            data: data,
+            message: "User added to Private Chat!",
+          });
       })
       .catch(() => {
         return res
@@ -77,7 +86,7 @@ exports.sendPrivateMessage = async (req, res) => {
   type = req.body.data.type;
   userId = mongoose.Types.ObjectId(req.body.data.userId);
 
-  const private = await Private.findOne({_id: chatId});
+  const private = await Private.findOne({ _id: chatId });
 
   if (private) {
     const newMessage = new Message({
@@ -98,7 +107,7 @@ exports.sendPrivateMessage = async (req, res) => {
           .save()
           .then(() => {
             return res.status(200).json({
-              data : data,
+              data: data,
               success: true,
               message: "Message saved Successfully!",
             });

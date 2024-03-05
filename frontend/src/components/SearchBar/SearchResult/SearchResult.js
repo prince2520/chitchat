@@ -1,8 +1,12 @@
 import { useContext } from "react";
 import { Icon } from "@iconify/react";
-
-import { addUserInPrivate } from "../../../api/api";
+import { useDispatch } from "react-redux";
 import { useDetectClickOutside } from "react-detect-click-outside";
+
+import { UserActions } from "../../../store/user";
+import { addUserInPrivate } from "../../../api/api";
+
+import { socketAddPrivate } from "../../../socket";
 
 import AuthContext from "../../../context/authContext";
 import ImageContainer from "../../ImageContainer/ImageContainer";
@@ -11,9 +15,19 @@ import "./SearchResult.css";
 
 const SearchResult = ({ data, setShowResult, setData }) => {
   const authCtx = useContext(AuthContext);
+  const dispatch = useDispatch()
 
   const addPrivateUserHandler = () => {
-    addUserInPrivate(authCtx.token, authCtx.userId, data.user._id);
+    addUserInPrivate(authCtx.token, authCtx.userId, data.user._id)
+    .then((Private)=>{
+      if(Private.success){
+        dispatch(UserActions.addPrivate(Private.data))
+        socketAddPrivate({
+          userId : authCtx.userId,
+          private : Private.data
+        });
+      }
+    });
   };
 
   const closeSearchHandler = () => {

@@ -8,7 +8,8 @@ import {
     getChatMessage,
     initiateSocket,
     sendAnswerCallHandler,
-    sendCallUserHandler
+    sendCallUserHandler,
+    getPrivateChat
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -47,6 +48,9 @@ export const SocketContextProvider = ({children}) => {
         getChatMessage((err, {data}) => {
             dispatch(UserActions.saveMessage(data));
         });
+        getPrivateChat((err, {data})=> {
+            dispatch(UserActions.addPrivate(data.private))
+        })
     }, [dispatch]);
 
     const getUserMedia = async ( ) => {
@@ -58,7 +62,7 @@ export const SocketContextProvider = ({children}) => {
         } catch (err) {
             console.log(err);
         }
-    };
+    }
 
     const answerCall = () => {
         setCallAccepted(true);

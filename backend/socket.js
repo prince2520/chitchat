@@ -1,5 +1,6 @@
 module.exports = (io) => {
   io.on("connection", function (socket) {
+
     // Connect the user
     socket.on("user_connected", (userId) => {
       socket.join(userId);
@@ -14,6 +15,15 @@ module.exports = (io) => {
         }
         return group;
       });
+    });
+
+    // Add private User
+    socket.on("add_private", ({ data }) => {
+      data.private.users?.map((user) => {
+        let userId = user._id;
+        if (userId === data.userId) return;
+        socket.in(userId).emit("recived_private_user", { data: data });
+      })
     });
 
     // Send  message to receiver

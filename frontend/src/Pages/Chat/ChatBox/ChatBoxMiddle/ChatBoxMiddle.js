@@ -9,8 +9,9 @@ import { categoryState } from "../../../../common";
 
 import { getFormatDate } from "../../common_function";
 
-import "./ChatBoxMiddle.css";
 import AuthContext from "../../../../context/authContext";
+
+import "./ChatBoxMiddle.css";
 
 const ChatBoxMiddle = () => {
   const authCtx = useContext(AuthContext);

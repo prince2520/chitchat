@@ -40,6 +40,13 @@ export const sendCallUserHandler = ({ userToCall, signalData, from, name }) => {
   socket.emit("callUser", { userToCall, signalData, from, name });
 };
 
+
+export const socketAddPrivate = (data) => {
+    if(socket){
+        socket.emit("add_private", { data });
+    }
+}
+
 export const getChatMessage = (cb) => {
   if (!socket) {
     return true;
@@ -50,6 +57,16 @@ export const getChatMessage = (cb) => {
   }
 };
 
+export const getPrivateChat = (cb) => {
+    if (!socket) {
+        return true;
+      } else {
+        socket.on("recived_private_user", ({ data }) => {
+          return cb(null, { data });
+        });
+      }
+}
+ 
 export const disconnectSocket = (userId) => {
   if (socket) {
     socket.disconnect(userId);

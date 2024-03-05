@@ -23,8 +23,6 @@ export const AuthContextProvider = (props) => {
   const [userId, setUserId] = useState("");
   const [isAuth, setIsAuth] = useState(false);
 
-  console.log('AuthContext');
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
