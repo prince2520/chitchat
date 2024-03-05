@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const helmet = require("helmet");
 
 require("dotenv").config();
+require("./socket")(io);
 
 const groupRoute = require("./router/group");
 const authRoute = require("./router/auth");
@@ -16,8 +17,6 @@ const privateRoute = require("./router/private");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
-
-let users = [];
 
 app.use(helmet());
 
@@ -38,58 +37,6 @@ app.use("/auth", authRoute);
 app.use("/", (req, res, next) => {
   res.status(200).json({ message: "Server is Working..." });
   next();
-});
-
-io.on("connection", function (socket) {
-  // Connect the user
-  socket.on("user_connected", (userId) => {
-    socket.join(userId);
-    io.emit("received_user_connected", userId);
-  });
-
-  // Join the group
-  socket.on("join_group", ({ groups }) => {
-    groups?.map((group) => {
-      if (group._id) {
-        socket.join(group._id);
-      }
-      return group;
-    });
-  });
-
-  // Send  message to receiver
-  socket.on("send_message", ({ data }) => {
-    if (!data.users) return console.log("Users not defined");
-
-    if (data.selectedType === "Group") {
-      socket.to(data.chatId).emit("received_message", { data: data });
-    } else {
-      data.users.forEach((user) => {
-        let userId = user._id;
-        if (userId === data.data.userId) return;
-        socket.in(userId).emit("received_message", { data: data });
-      });
-    }
-  });
-
-  socket.on("callUser", ({ userToCall, signalData, from, name }) => {
-    socket.in(userToCall).emit("callUser", { signal: signalData, from, name });
-  });
-
-  socket.on("answerCall", (data) => {
-    socket.in(data.to).emit("callAccepted", data.signal);
-  });
-
-  // Leave Group
-  socket.on("leave_group", function ({ groupId }) {
-    socket.leave(groupId);
-  });
-
-  // Disconnect the user
-  socket.on("disconnect", function (userId) {
-    socket.leave(userId);
-    io.emit("user_connected", users);
-  });
 });
 
 const MONGO_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.isorui9.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0

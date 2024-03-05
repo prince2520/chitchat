@@ -113,6 +113,20 @@ a:hover {
   color: var(--text-extra-light);
 }
 
+::-webkit-scrollbar {
+  width: 0.35rem;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: grey;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text);
+}
+
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 }

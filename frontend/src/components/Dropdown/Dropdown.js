@@ -52,6 +52,7 @@ const Dropdown = () => {
       </div>
       {menuOption.map((value) => (
         <div
+          key={value.icon}
           className={"cursor-btn menu-option"}
           onClick={() => navigateHandler(value.link)}
         >
