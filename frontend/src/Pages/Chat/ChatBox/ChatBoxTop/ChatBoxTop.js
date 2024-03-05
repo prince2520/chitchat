@@ -36,7 +36,7 @@ const ChatBoxTop = () => {
       <SideBar />
       <ImageContainer
         src={
-          user.selectedType === categoryState[1] 
+          user.selectedType === categoryState[1]
             ? data.users.filter((user) => user._id !== authCtx.userId)[0]
                 .profileImageUrl
             : data.groupImageUrl

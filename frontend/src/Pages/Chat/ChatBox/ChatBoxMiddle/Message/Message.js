@@ -11,10 +11,13 @@ import ImageContainer from "../../../../../components/ImageContainer/ImageContai
 import MessageImage from "./MessageImage/MessageImage";
 import MessageAudio from "./MessageAudio/MessageAudio";
 import MessageVideo from "./MessageVideo/MessageVideo";
-
+import { categoryState } from "../../../../../common";
 import "./Message.css";
+import { useSelector } from "react-redux";
 
 const Message = ({ myMsg, messageDetail }) => {
+  const selectedType = useSelector(state => state.user.selectedType);
+
   const printHandler = (messageDetail) => {
     let message, createdTime, time;
 
@@ -49,7 +52,7 @@ const Message = ({ myMsg, messageDetail }) => {
 
   return (
     <div className={`message-container ${myMsg && "my-message"}`}>
-      {!myMsg && (
+      {((!myMsg) && !(selectedType === categoryState[1])) && (
         <div className={`message-img-container`}>
           <ImageContainer src={messageDetail.user.profileImageUrl} />
         </div>
