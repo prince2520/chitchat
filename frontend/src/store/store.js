@@ -4,7 +4,6 @@ import overlayReducer from "./overlay";
 import alertReducer from "./alert";
 import helperReducer from "./helper";
 import userReducer from "./user";
-import chatReducer from "./chat";
 import dragAndDropReducer from "./dragAndDrop";
 
 const store = configureStore({
@@ -13,7 +12,6 @@ const store = configureStore({
     helper: helperReducer,
     alert: alertReducer,
     user: userReducer,
-    chat: chatReducer,
     dragAndDrop: dragAndDropReducer,
   },
 });

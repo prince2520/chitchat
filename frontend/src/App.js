@@ -45,7 +45,7 @@ function App() {
           <Route path="/" element={<Authentication />}>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
-            <Route path="" element={<Navigate to={"login"} />} />
+            <Route path="" element={<Navigate to={"signup"} />} />
           </Route>
         )}
         {authCtx?.isAuth && (

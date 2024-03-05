@@ -23,12 +23,17 @@ export const AuthContextProvider = (props) => {
   const [email, setEmail] = useState("");
   const [isAuth, setIsAuth] = useState(false);
 
+  console.log('Hello')
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const saveUserData = useCallback((result) => {
-    dispatch(UserActions.saveUserData(result));
-  },[dispatch]);
+  const saveUserData = useCallback(
+    (result) => {
+      dispatch(UserActions.saveUserData(result));
+    },
+    [dispatch]
+  );
 
   const joinGroup = (groups) => {
     socketJoinGroup(groups);
@@ -39,14 +44,16 @@ export const AuthContextProvider = (props) => {
     setIsAuth(false);
     navigate("/login");
     localStorage.clear();
-  },[navigate]);
+  }, [navigate]);
 
-
-  const autoLogout = useCallback((milliseconds) => {
-    setTimeout(() => {
-      logoutHandler();
-    }, milliseconds);
-  },[logoutHandler]);
+  const autoLogout = useCallback(
+    (milliseconds) => {
+      setTimeout(() => {
+        logoutHandler();
+      }, milliseconds);
+    },
+    [logoutHandler]
+  );
 
   useEffect(() => {
     const localToken = localStorage.getItem("token");
@@ -57,7 +64,11 @@ export const AuthContextProvider = (props) => {
     setEmail(localEmail);
     const localExpiryDate = localStorage.getItem("expiryDate");
 
-    if (new Date(localExpiryDate) <= new Date()) {
+    if(!localExpiryDate){
+      return;
+    }
+
+    if ((new Date(localExpiryDate) <= new Date())) {
       setIsAuth(false);
       logoutHandler();
       return;
@@ -70,22 +81,19 @@ export const AuthContextProvider = (props) => {
       })
       .catch((err) => console.log(err));
 
-    const remainingMilliseconds =
-      new Date(localExpiryDate).getTime() - new Date().getTime();
+    const remainingMilliseconds = new Date(localExpiryDate).getTime() - new Date().getTime();
     autoLogout(remainingMilliseconds);
     setIsAuth(true);
   }, [autoLogout, logoutHandler, saveUserData]);
-  
- 
 
-  const signUpHandler = (userName, email, password) => {
+  const signUpHandler = useCallback((userName, email, password) => {
     signup(userName, email, password).then((result) => {
       if (result.success) {
         navigate("/login");
       }
       dispatch(AlertBoxActions.showAlertBoxHandler(result));
     });
-  };
+  },[navigate, dispatch]);
 
   const loginHandler = useCallback((email, password) => {
     login(email, password).then((result) => {
@@ -117,7 +125,6 @@ export const AuthContextProvider = (props) => {
     });
   },[autoLogout, dispatch, navigate, saveUserData]);
 
-  
   return (
     <AuthContext.Provider
       value={{

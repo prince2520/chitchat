@@ -40,8 +40,6 @@ exports.fetchUser = async (req, res) => {
       populate: [{ path: "messages", populate:  'user' }, "users"]
     });
 
-  console.log(userFound)
-
   if (userFound) {
     return res.status(200).json({ success: true, user: userFound });
   } else {
@@ -76,7 +74,7 @@ exports.saveProfile = async (req, res, next) => {
       userFound.profileImageUrl = profileImageUrl;
     }
 
-    userFound.save().then((result) => {
+    userFound.save().then(() => {
       return res.status(200).json({
         success: true,
         message: "Profile Updated!",
