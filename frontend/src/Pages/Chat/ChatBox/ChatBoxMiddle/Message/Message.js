@@ -62,7 +62,7 @@ const Message = ({ myMsg, messageDetail }) => {
           messageDetail.isOpenAIMsg && "open-ai-msg-box"
         }`}
       >
-        {!myMsg && <span className={"username"}>{messageDetail.user.name}</span>}
+        {((!myMsg) && !(selectedType === categoryState[1]))  && <span className={"username"}>{messageDetail.user.name}</span>}
         {printHandler(messageDetail)}
       </div>
       {messageDetail.isOpenAIMsg && (
