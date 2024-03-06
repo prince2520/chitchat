@@ -1,30 +1,29 @@
 import {Icon} from "@iconify/react";
 import {useDispatch, useSelector} from "react-redux";
+import { useState } from "react";
 
 import Dropdown from "../../../../components/Dropdown/Dropdown";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
-import {HelperActions} from "../../../../store/helper";
 
 import {useDetectClickOutside} from "react-detect-click-outside";
 
 import './MyProfile.css';
 
 const MyProfile = () => {
-    const dispatch = useDispatch();
-    const showDropdown = useSelector(state => state.helper.showDropdown);
+    const [showDropdown, setShowDropdown] = useState(false)
     const profileImageUrl = useSelector(state => state.user.profileImageUrl);
 
-    const closeDropDownHandler = () => {
-        dispatch(HelperActions.dropDownHandler(false));
-    }
+    const closeDropdown = () => {
+        setShowDropdown(false);
+    };
 
-    const ref = useDetectClickOutside({ onTriggered: closeDropDownHandler});
+    const ref = useDetectClickOutside({ onTriggered: closeDropdown});
 
     return (
         <div className={'my-profile-container border'}>
             <ImageContainer src={profileImageUrl}/>
-            <span onClick={()=>dispatch(HelperActions.dropDownHandler(!showDropdown))}>
+            <span onClick={()=>setShowDropdown(prevState=>!prevState)}>
                 <Icon ref={ref} icon="gridicons:dropdown" style={{color:'var(--text)', fontSize:'3rem', cursor:'pointer'}}/>
             </span>
             {showDropdown && <Dropdown/>}

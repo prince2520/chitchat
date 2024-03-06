@@ -3,6 +3,8 @@ const User = require("../models/user");
 const Group = require("../models/group");
 const Message = require("../models/message");
 const { validationResult } = require("express-validator");
+const group = require("../models/group");
+
 
 exports.createGroup = async (req, res) => {
   const name = req.body.name;
@@ -50,12 +52,21 @@ exports.joinGroup = async (req, res, next) => {
   const _id = req.body.groupId;
   const userId = mongoose.Types.ObjectId(req.body.userId);
 
+  const MAX_USER_IN_GROUP = 20;
+
   const groupFound = await Group.findOne({ _id: _id }).populate();
   const userFound = await User.findOne({ _id: userId });
 
   let userInGroupFound;
 
   if (groupFound) {
+
+    if(groupFound.users.length >= MAX_USER_IN_GROUP) {
+      return res
+      .status(202)
+      .json({ success: false, message: "Max number of user already joined this group" });
+    }
+
     for (const userInGroup of groupFound.users) {
       userInGroupFound = userInGroup.toString() === userId.toString();
     }

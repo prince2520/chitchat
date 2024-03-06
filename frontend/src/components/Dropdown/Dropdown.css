@@ -1,5 +1,6 @@
 .menu-container{
     border: 1px solid var(--border);
+    z-index: 1000;
 }
 
 .menu-container .menu-option{

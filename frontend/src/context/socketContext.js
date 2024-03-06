@@ -13,7 +13,6 @@ import {
 } from "../socket";
 
 import AuthContext from "./authContext";
-import {HelperActions} from "../store/helper";
 
 import Peer from "simple-peer";
 import { OverlayActions } from "../store/overlay";
@@ -39,7 +38,6 @@ export const SocketContextProvider = ({children}) => {
         initiateSocket(authCtx?.userId);
 
         return () => {
-            dispatch(HelperActions.dropDownHandler(false));
             disconnectSocket(authCtx?.userId)
         }
     }, [authCtx?.userId, dispatch])

@@ -3,8 +3,6 @@ import { Icon } from "@iconify/react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { HelperActions } from "../../store/helper";
-
 import AuthContext from "../../context/authContext";
 
 import "./Dropdown.css";
@@ -33,23 +31,15 @@ const menuOption = [
 ];
 
 const Dropdown = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
 
   const navigateHandler = (url) => {
-    dispatch(HelperActions.dropDownHandler(false));
     navigate(url);
   };
 
   return (
     <div className={"menu-container box-shadow"}>
-      <div className={"menu-close cursor-btn"}>
-        <Icon
-          onClick={() => dispatch(HelperActions.dropDownHandler(false))}
-          icon="iconamoon:close-fill"
-        />
-      </div>
       {menuOption.map((value) => (
         <div
           key={value.icon}

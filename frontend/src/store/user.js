@@ -30,6 +30,7 @@ const UserSlice = createSlice({
       state.groups = [...state.groups, action.payload];
     },
     addPrivate(state, action){
+       console.log('addPrivate', action.payload);
       state.privates = [...state.privates, action.payload];
     },
     selectedChat(state, action) {
