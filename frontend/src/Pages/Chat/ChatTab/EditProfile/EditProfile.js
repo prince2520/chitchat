@@ -18,7 +18,7 @@ import AuthContext from "../../../../context/authContext";
 import { AlertBoxActions } from "../../../../store/alert";
 
 const EditProfile = () => {
-  const authData = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const authCtx = useContext(AuthContext);
   const dispatch = useDispatch();
 
@@ -38,14 +38,14 @@ const EditProfile = () => {
     }
   }, [profileImage]);
 
-  const saveProfileBackend = async (
-    username,
+  const saveProfileBackend =  (
+    name,
     status,
     profileImageUrl = null
   ) => {
     let data = {
       userId: authCtx.userId,
-      username: username,
+      name: name,
       status: status,
     };
     if (profileImageUrl) {
@@ -54,32 +54,32 @@ const EditProfile = () => {
     return saveProfile(authCtx.token, data);
   };
 
-  const saveProfileDetail = async (username, status) => {
+  const saveProfileDetail = async (name, status) => {
     let firebaseUrl = await saveImageIntoFirebase(profileImage);
 
-    saveProfileBackend(username, status, firebaseUrl)
+    saveProfileBackend(name, status, firebaseUrl)
       .then((result) => {
         dispatch(AlertBoxActions.showAlertBoxHandler(result));
         dispatch(
           UserActions.saveUserData({
-            username: username,
+            name: name,
             status: status,
-            profileImageUrl: firebaseUrl,
+            profileImageUrl: firebaseUrl
           })
         );
       })
       .catch((err) => console.log(err));
   };
 
-  const submitHandler = async (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
 
-    let username, status;
+    let name, status;
 
-    username = event.target[1].value;
+    name = event.target[1].value;
     status = event.target[2].value;
 
-    await saveProfileDetail(username, status);
+    saveProfileDetail(name, status);
   };
 
   return (
@@ -89,7 +89,7 @@ const EditProfile = () => {
     >
       <h2>My Profile</h2>
       <div className={"image-edit-container"}>
-        <ImageContainer src={preview ? preview : authData?.profileImageUrl} />
+        <ImageContainer src={preview ? preview : user?.profileImageUrl} />
         <input
           accept="image/*"
           ref={imageRef}
@@ -113,13 +113,13 @@ const EditProfile = () => {
         </div>
       </div>
       <CustomInput
-        defaultValue={authData?.username}
+        defaultValue={user?.name}
         type={"text"}
         label={"Name"}
         icon={"material-symbols:edit"}
       />
       <CustomInput
-        defaultValue={authData?.status}
+        defaultValue={user?.status}
         type={"text"}
         label={"About Me"}
         icon={"material-symbols:edit"}

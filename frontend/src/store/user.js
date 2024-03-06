@@ -18,11 +18,22 @@ const UserSlice = createSlice({
   initialState: initialUserState,
   reducers: {
     saveUserData(state, action) {
-      state.email = action.payload.email;
-      state.status = action.payload.status;
-      state.groups = action.payload.groups;
-      state.privates = action.payload.privates;
-      state.profileImageUrl = action.payload.profileImageUrl;
+      let name, email, status, groups, privates, profileImageUrl;
+      
+      name = action.payload.name;
+      email = action.payload.email;
+      status = action.payload.status;
+      groups = action.payload.groups;
+      privates = action.payload.privates;
+      profileImageUrl = action.payload.profileImageUrl;
+
+      state.name = name;
+      state.status = status;
+      state.profileImageUrl = profileImageUrl;
+      
+      state.email = email ? email : state.email;
+      state.groups = groups ? groups : state.groups;
+      state.privates = privates ? groups : state.privates;;
     },
     addGroup(state, action) {
       state.groups = [...state.groups, action.payload];
@@ -45,7 +56,6 @@ const UserSlice = createSlice({
           return chat;
         });
       }
-
       if(isGroup){
         saveChatMessage(state.groups)
       }else {

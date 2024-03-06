@@ -6,10 +6,11 @@ import Overlay from "../../components/Overlay/Overlay";
 import NotSelectedChat from "./NotSelectedChat/NotSelectedChat";
 
 import { SocketContextProvider } from "../../context/socketContext";
-
-import "./Chat.css";
 import { useEffect } from "react";
 import { UserActions } from "../../store/user";
+
+import "./Chat.css";
+
 
 const Chat = () => {
   const isSelected = useSelector((state) => state.user.isSelected);

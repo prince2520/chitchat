@@ -84,19 +84,6 @@
   color: var(--white);
 }
 
-::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 0.25rem;
-  background-color: grey;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--text);
-}
-
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .chat-page {

@@ -59,15 +59,15 @@ exports.fetchAuthUser = async (req, res, next) => {
 };
 
 exports.saveProfile = async (req, res, next) => {
-  const status = req.body.status;
-  const username = req.body.username;
   const _id = mongoose.Types.ObjectId(req.body.userId);
+  const status = req.body.status;
+  const name = req.body.name;
   const profileImageUrl = req.body.profileImageUrl;
 
   const userFound = await User.findOne({ _id: _id });
 
   if (userFound) {
-    userFound.username = username;
+    userFound.name = name;
     userFound.status = status;
 
     if (profileImageUrl) {

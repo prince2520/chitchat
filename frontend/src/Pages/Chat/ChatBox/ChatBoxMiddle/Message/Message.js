@@ -1,6 +1,5 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-import { lazy } from "react";
 
 import date from "date-and-time";
 
@@ -12,8 +11,9 @@ import MessageImage from "./MessageImage/MessageImage";
 import MessageAudio from "./MessageAudio/MessageAudio";
 import MessageVideo from "./MessageVideo/MessageVideo";
 import { categoryState } from "../../../../../common";
-import "./Message.css";
 import { useSelector } from "react-redux";
+
+import "./Message.css";
 
 const Message = ({ myMsg, messageDetail }) => {
   const selectedType = useSelector(state => state.user.selectedType);
