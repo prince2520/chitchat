@@ -40,7 +40,7 @@ export const AuthContextProvider = (props) => {
   const logoutHandler = useCallback(() => {
     setToken(null);
     setIsAuth(false);
-    navigate("/login");
+    navigate("/");
     localStorage.clear();
   }, [navigate]);
 
@@ -71,7 +71,6 @@ export const AuthContextProvider = (props) => {
       logoutHandler();
       return;
     }
-
     fetchUser(localEmail, localToken)
       .then((result) => {
         joinGroup(result.user.groups);
@@ -87,7 +86,7 @@ export const AuthContextProvider = (props) => {
   const signUpHandler = useCallback((userName, email, password) => {
     signup(userName, email, password).then((result) => {
       if (result.success) {
-        navigate("/login");
+        navigate("/auth/login");
       }
       dispatch(AlertBoxActions.showAlertBoxHandler(result));
     });
@@ -116,7 +115,7 @@ export const AuthContextProvider = (props) => {
         localStorage.setItem("expiryDate", expiryDate.toISOString());
         autoLogout(remainingMilliseconds);
 
-        navigate("/chat");
+        navigate("/");
       } else {
         dispatch(AlertBoxActions.showAlertBoxHandler(result));
       }

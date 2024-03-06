@@ -46,8 +46,8 @@ const SignUp = () => {
       </Button>
       <p className="flex-center">
         Already have an account ?
-        <Link to={"/login"} className="link">
-          Login with an account
+        <Link to={"/auth/login"} className="link">
+          Login
         </Link>
       </p>
     </form>

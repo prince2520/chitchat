@@ -11,7 +11,7 @@ const menuOption = [
   {
     title: "Chat",
     icon: "material-symbols:chat",
-    link: "chat",
+    link: "/chat",
   },
   {
     title: "Create a Group",
