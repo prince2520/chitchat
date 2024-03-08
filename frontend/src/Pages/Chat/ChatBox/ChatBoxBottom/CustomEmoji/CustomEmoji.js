@@ -5,7 +5,7 @@ import "./CustomEmoji.css";
 
 const CustomEmoji = ({ inputRef }) => {
   return (
-    <div className="emoji-container">
+    <div className="emoji">
       <Picker
         previewPosition={"none"}
         dynamicWidth={true}

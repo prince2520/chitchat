@@ -1,18 +1,17 @@
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useContext, useEffect, useRef, useState } from "react";
 
 import Button from "../../../../components/Button/Button";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 import CustomInput from "../../../../components/CustomInput/CustomInput";
 
-import { createGroup } from "../../../../api/api";
-import { UserActions } from "../../../../store/user";
-import {
-  compressImageHandler,
-  saveImageIntoFirebase,
-} from "../../common_function";
+import { createGroup } from "../../../../api/group";
+import { UserActions } from "../../../../store/userSlice";
+import { saveInFirebase } from "../../../../utils/SaveInFirebase";
+import { compressImage } from "../../../../utils/CompressImage";
+
 
 import AuthContext from "../../../../context/authContext";
 
@@ -23,7 +22,6 @@ const CreateGroup = () => {
   const authCtx = useContext(AuthContext);
   const [preview, setPreview] = useState(null);
   const [groupImage, setGroupImage] = useState(null);
-  const authData = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,11 +39,10 @@ const CreateGroup = () => {
   }, [groupImage]);
 
   const createGroupHandler = async (name, groupImg) => {
-    let firebaseUrl = await saveImageIntoFirebase(groupImg);
+    let firebaseUrl = await saveInFirebase(groupImg);
 
     createGroup(authCtx?.token, name, authCtx?.userId, firebaseUrl)
       .then((data) => {
-        console.log('data', data);
         if (data.success) {
           dispatch(UserActions.addGroup(data.data));
           navigate("/chat");
@@ -64,19 +61,19 @@ const CreateGroup = () => {
 
   return (
     <form
-      className="flex-center create-group-container"
+      className="flex-center create-group"
       onSubmit={(event) => submitHandler(event)}
     >
       <h2>Create a Group</h2>
       <div className={"image-edit-container"}>
-        <ImageContainer src={preview} />
+        <ImageContainer src={preview}  width="12rem" height="12rem"  />
         <input
           accept="image/*"
           ref={imageRef}
           type="file"
           style={{ display: "none" }}
           onChange={(event) => {
-            compressImageHandler(event, setGroupImage);
+            compressImage(event, setGroupImage);
           }}
         />
         <div

@@ -1,10 +1,9 @@
 import {Icon} from "@iconify/react";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import { useState } from "react";
 
 import Dropdown from "../../../../components/Dropdown/Dropdown";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
-
 
 import {useDetectClickOutside} from "react-detect-click-outside";
 
@@ -21,7 +20,7 @@ const MyProfile = () => {
     const ref = useDetectClickOutside({ onTriggered: closeDropdown});
 
     return (
-        <div className={'my-profile-container border'}>
+        <div className={'flex-center my-profile-container border'}>
             <ImageContainer src={profileImageUrl}/>
             <span onClick={()=>setShowDropdown(prevState=>!prevState)}>
                 <Icon ref={ref} icon="gridicons:dropdown" style={{color:'var(--text)', fontSize:'3rem', cursor:'pointer'}}/>

@@ -1,8 +1,8 @@
 import './ImageContainer.css';
-const ImageContainer = (props) => {
+const ImageContainer = ({src, width = "4rem", height = "4rem"}) => {
     return (
-        <div className='image-container box-shadow'>
-            <img alt={'group'} src={props.src ? props.src : 'https://i.imgur.com/SNl3ZA8.jpg'}/>
+        <div className='flex-center image-container' style={{width: width, height: height}}>
+            <img alt={'group'} src={src ? src : 'https://i.imgur.com/SNl3ZA8.jpg'}/>
         </div>
     );
 };

@@ -10,7 +10,7 @@ import ImageContainer from "../../../../../components/ImageContainer/ImageContai
 import MessageImage from "./MessageImage/MessageImage";
 import MessageAudio from "./MessageAudio/MessageAudio";
 import MessageVideo from "./MessageVideo/MessageVideo";
-import { categoryState } from "../../../../../common";
+import { categoryState } from "../../../../../constants/constants";
 import { useSelector } from "react-redux";
 
 import "./Message.css";
@@ -54,7 +54,7 @@ const Message = ({ myMsg, messageDetail }) => {
     <div className={`message-container ${myMsg && "my-message"}`}>
       {((!myMsg) && !(selectedType === categoryState[1])) && (
         <div className={`message-img-container`}>
-          <ImageContainer src={messageDetail.user.profileImageUrl} />
+          <ImageContainer src={messageDetail.user.profileImageUrl} width="2.25rem" height="2.25rem" />
         </div>
       )}
       <div

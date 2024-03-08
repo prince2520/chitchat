@@ -5,5 +5,8 @@
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
+
+    border-right: 1px solid var(--border);
+    z-index: 700;
 }
 

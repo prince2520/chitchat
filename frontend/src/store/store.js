@@ -1,17 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import overlayReducer from "./overlay";
-import alertReducer from "./alert";
-import userReducer from "./user";
-import dragAndDropReducer from "./dragAndDrop";
+import userReducer from "./userSlice";
+import alertReducer from "./alertSlice";
+import overlayReducer from "./overlaySlice";
+import dragAndDropReducer from "./dragAndDropSlice";
 
 const store = configureStore({
   reducer: {
     overlay: overlayReducer,
     alert: alertReducer,
     user: userReducer,
-    dragAndDrop: dragAndDropReducer,
-  },
+    dragAndDrop: dragAndDropReducer
+  }
 });
 
 export default store;

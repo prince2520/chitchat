@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 
-import ChitChatAnimation from '../../animations/ChitChat.json'
+import ChitChatAnimation from '../../assests/animations/ChitChat.json'
 
 import './Logo.css'
 

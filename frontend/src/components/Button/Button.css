@@ -1,7 +1,8 @@
-.button-container{
-    background-color: var(--primary);
-    padding: 0.35rem;
-    border-radius: 0.25rem;
-    text-decoration: none;
+.button__container{
     border: none;
+    border-radius: 0.25rem;
+    padding: 0.35rem;
+    text-decoration: none;
+
+    background-color: var(--primary);
 }

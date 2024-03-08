@@ -5,10 +5,8 @@ import { useCallback, useEffect, useRef } from "react";
 import Message from "./Message/Message";
 import DateLine from "./DateLine/DateLine";
 
-import { categoryState } from "../../../../common";
-
-import { getFormatDate } from "../../common_function";
-
+import { categoryState } from "../../../../constants/constants";
+import { getFormatDate } from ".././../../../utils/GetFormatDate";
 import AuthContext from "../../../../context/authContext";
 
 import "./ChatBoxMiddle.css";
@@ -43,7 +41,7 @@ const ChatBoxMiddle = () => {
   }, [data.messages]);
 
   return (
-    <div className="chat-box-middle border">
+    <div className="border chat-box__middle">
       {data.messages.map((message, idx) => (
         <React.Fragment key={message._id}>
           {checkShowDateCondition(message, idx) && (

@@ -8,7 +8,7 @@ import ChatBoxBottom from "./ChatBoxBottom/ChatBoxBottom";
 import ChatBoxMiddle from "./ChatBoxMiddle/ChatBoxMiddle";
 import Loading from "../../../components/Loading/Loading";
 
-import { categoryState } from "../../../common";
+import { categoryState } from "../../../constants/constants"
 
 import "./ChatBox.css";
 

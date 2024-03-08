@@ -1,15 +1,11 @@
 const express = require('express');
 
-const {createUser, fetchUser, fetchAuthUser, saveProfile} = require("../controllers/user");
+const { fetchUser, updateUser} = require("../controllers/user");
+const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
-router.post('/createUser',createUser);
-
-router.get('/fetchUser',fetchUser)
-
-router.get('/fetchAuthUser',fetchAuthUser);
-
-router.post('/saveProfile',saveProfile);
+router.get('/fetch-user',fetchUser)
+router.put('/update-user', isAuth, updateUser);
 
 module.exports = router;

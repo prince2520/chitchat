@@ -1,24 +1,25 @@
 const express = require('express');
 
-const {createGroup, joinGroup, sendGroupMessage}  = require('../controllers/group');
+const {createGroup, joinGroup, saveGroupMessage, blockUser, unBlockUser}  = require('../controllers/group');
 
-// const isAuth = require('../middleware/is-auth')
+const isAuth = require('../middleware/is-auth')
 const {check} = require("express-validator");
-
 
 const router = express.Router();
 
-router.post('/createGroup',[
+router.post('/create-group', [
     check('name')
         .isLength({min:1})
         .withMessage('User name should be at least 5 character long.')
         .trim(),
-],createGroup);
+], isAuth, createGroup);
 
-router.post('/joinGroup', joinGroup)
+router.put('/join-group', isAuth, joinGroup);
 
-router.post('/sendGroupMessage', sendGroupMessage)
+router.put('/save-group-message', isAuth, saveGroupMessage);
 
+router.put("/block-user", isAuth, blockUser);
 
+router.put("/unblock-user", isAuth, unBlockUser);
 
 module.exports = router;

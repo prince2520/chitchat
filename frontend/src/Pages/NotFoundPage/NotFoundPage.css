@@ -1,0 +1,13 @@
+.not-found-page {
+    column-gap: 5rem!important;
+}
+
+.not-found-page > .not-found-page__content{
+    flex-direction: column!important;
+    align-items: flex-start!important;
+    row-gap: 1rem;
+}
+
+.not-found-page > .not-fount-page__image{
+    width: 25rem;
+}

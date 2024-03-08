@@ -5,14 +5,14 @@ import { useDispatch } from "react-redux";
 import OpenAI from "./OpenAI/OpenAI";
 import CustomEmoji from "./CustomEmoji/CustomEmoji";
 
-import { messageHandler } from "../../sendMessage";
-import { OverlayActions } from "../../../../store/overlay";
+import { messageHandler } from "../../../../utils/SendMessage";
+import { OverlayActions } from "../../../../store/overlaySlice";
 
 import AuthContext from "../../../../context/authContext";
 
-import { categoryState } from "../../../../common";
+import { categoryState } from "../../../../constants/constants";
 import { useSelector } from "react-redux";
-import { UserActions } from "../../../../store/user";
+import { UserActions } from "../../../../store/userSlice";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 import "./ChatBoxBottom.css";
@@ -24,11 +24,10 @@ const ChatBoxBottom = () => {
 
   const dispatch = useDispatch();
 
-  const user = useSelector(state=>state.user);
-  const data = (user?.selectedType === categoryState[0]
-    ? user.groups
-    : user.privates
-    ).filter(res => res._id === user.selectedId)[0];
+  const user = useSelector((state) => state.user);
+  const data = (
+    user?.selectedType === categoryState[0] ? user.groups : user.privates
+  ).filter((res) => res._id === user.selectedId)[0];
 
   const [showEmojis, setShowEmojis] = useState(false);
   const [isOpenAIMsg, setIsOpenAIMsg] = useState(false);
@@ -76,28 +75,28 @@ const ChatBoxBottom = () => {
     <form
       ref={ref}
       onSubmit={(event) => sendMessage(event)}
-      className="chat-box-bottom "
+      className="flex-center chat-box__bottom "
     >
-      <div className={"chat-box-bottom-left"}>
+      <div className={"flex-center chat-box__bottom__left"}>
         <Icon
-          className={"smile-icon cursor-btn"}
+          className={"cursor-btn smile__icon"}
           onClick={() => {
             setShowEmojis(!showEmojis);
           }}
           icon="emojione:winking-face"
         />
         <Icon
-          className={"files-icon"}
+          className={"cursor-btn files__icon"}
           onClick={() => dispatch(OverlayActions.openDragDropHandler())}
           icon="tabler:files"
         />
         <OpenAI isOpenAIHandler={isOpenAIHandler} />
       </div>
-      <div className={"chat-box-bottom-middle border"}>
+      <div className={" hoverState flex-center border chat-box__bottom__middle"}>
         <input ref={inputRef} type="text" placeholder={"Type Something ..."} />
       </div>
-      <div className="chat-box-bottom-right  align-center icon-container">
-        <button className={"send-msg-button cursor-btn align-center"}>
+      <div className="flex-center icon__container chat-box__bottom__right">
+        <button className={"cursor-btn flex-center send-msg__button"}>
           <Icon icon="mingcute:send-line" />
         </button>
       </div>

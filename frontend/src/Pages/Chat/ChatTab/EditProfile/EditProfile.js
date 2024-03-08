@@ -6,16 +6,16 @@ import Button from "../../../../components/Button/Button";
 import CustomInput from "../../../../components/CustomInput/CustomInput";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
-import { saveProfile } from "../../../../api/api";
-import { UserActions } from "../../../../store/user";
-import {
-  compressImageHandler,
-  saveImageIntoFirebase,
-} from "../../common_function";
+import { updateUser } from "../../../../api/user";
+import { UserActions } from "../../../../store/userSlice";
+
+
+import { compressImage } from "../../../../utils/CompressImage";
+import { saveInFirebase } from "../../../../utils/SaveInFirebase";
 
 import AuthContext from "../../../../context/authContext";
 
-import { AlertBoxActions } from "../../../../store/alert";
+import { AlertBoxActions } from "../../../../store/alertSlice";
 
 const EditProfile = () => {
   const user = useSelector((state) => state.user);
@@ -38,7 +38,7 @@ const EditProfile = () => {
     }
   }, [profileImage]);
 
-  const saveProfileBackend =  (
+  const saveProfileBackend = (
     name,
     status,
     profileImageUrl = null
@@ -51,11 +51,11 @@ const EditProfile = () => {
     if (profileImageUrl) {
       data.profileImageUrl = profileImageUrl;
     }
-    return saveProfile(authCtx.token, data);
+    return updateUser(authCtx.token, data);
   };
 
   const saveProfileDetail = async (name, status) => {
-    let firebaseUrl = await saveImageIntoFirebase(profileImage);
+    let firebaseUrl = await saveInFirebase(profileImage);
 
     saveProfileBackend(name, status, firebaseUrl)
       .then((result) => {
@@ -84,19 +84,19 @@ const EditProfile = () => {
 
   return (
     <form
-      className="flex-center create-group-container"
+      className="flex-center create-group"
       onSubmit={(event) => submitHandler(event)}
     >
       <h2>My Profile</h2>
       <div className={"image-edit-container"}>
-        <ImageContainer src={preview ? preview : user?.profileImageUrl} />
+        <ImageContainer src={preview ? preview : user?.profileImageUrl} width="12rem" height="12rem" />
         <input
           accept="image/*"
           ref={imageRef}
           type="file"
           style={{ display: "none" }}
           onChange={(event) => {
-            compressImageHandler(event, setProfileImage);
+            compressImage(event, setProfileImage);
           }}
         />
         <div

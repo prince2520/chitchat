@@ -3,7 +3,7 @@ import { useContext, useRef, useState } from "react";
 
 import SearchResult from "./SearchResult/SearchResult";
 
-import { fetchUser } from "../../api/api";
+import { fetchUser } from "../../api/user";
 
 import AuthContext from "../../context/authContext";
 

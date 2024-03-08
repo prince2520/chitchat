@@ -7,7 +7,7 @@ const OpenAI = ({isOpenAIHandler}) => {
     const [selectedOpenAI, setSelectedOpenAI] = useState(false);
 
     return (
-        <div className={`open-ai-container ${selectedOpenAI && `open-ai-selected`}`}
+        <div className={`flex-center open-ai ${selectedOpenAI && `open-ai-selected`}`}
              onClick={()=> {
                  isOpenAIHandler(!selectedOpenAI);
                  setSelectedOpenAI(!selectedOpenAI);

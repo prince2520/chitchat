@@ -3,8 +3,8 @@ import { Icon } from "@iconify/react";
 import { useDispatch } from "react-redux";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
-import { UserActions } from "../../../store/user";
-import { addUserInPrivate } from "../../../api/api";
+import { UserActions } from "../../../store/userSlice";
+import { createPrivate } from "../../../api/private";
 
 import { socketAddPrivate } from "../../../socket";
 
@@ -18,7 +18,7 @@ const SearchResult = ({ data, setShowResult, setData }) => {
   const dispatch = useDispatch()
 
   const addPrivateUserHandler = () => {
-    addUserInPrivate(authCtx.token, authCtx.userId, data.user._id)
+    createPrivate(authCtx.token, authCtx.userId, data.user._id)
     .then((Private)=>{
       if(Private.success){
         dispatch(UserActions.addPrivate(Private.data))

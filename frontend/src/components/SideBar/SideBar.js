@@ -1,7 +1,7 @@
 import {Icon} from "@iconify/react";
 import {useDispatch} from "react-redux";
 
-import {OverlayActions} from "../../store/overlay";
+import {OverlayActions} from "../../store/overlaySlice";
 
 import './SideBar.css';
 

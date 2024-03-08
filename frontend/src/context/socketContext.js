@@ -15,8 +15,8 @@ import {
 import AuthContext from "./authContext";
 
 import Peer from "simple-peer";
-import { OverlayActions } from "../store/overlay";
-import { UserActions } from "../store/user";
+import { OverlayActions } from "../store/overlaySlice";
+import { UserActions } from "../store/userSlice";
 
 const SocketContext = React.createContext({});
 

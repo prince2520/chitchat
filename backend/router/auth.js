@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { check } = require("express-validator");
 
-const authController = require("../controllers/auth");
+const {signup, login} = require("../controllers/auth");
 
-router.put(
+router.post(
   "/signup",
   [
     check("name")
@@ -18,7 +18,7 @@ router.put(
       .withMessage("Password Should be at least 10 character.")
       .trim(),
   ],
-  authController.signUp
+  signup
 );
 
 router.post(
@@ -30,7 +30,7 @@ router.post(
       .withMessage("Password Should be at least 10 character.")
       .trim(),
   ],
-  authController.login
+  login
 );
 
 module.exports = router;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { categoryState } from "../../common";
+import { categoryState } from "../../constants/constants"
 
 import "./ChangeCategory.css";
 

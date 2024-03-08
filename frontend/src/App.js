@@ -2,23 +2,22 @@ import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import Chat from "./Pages/Chat/Chat";
-import AlertBox from "./components/AlertBox/AlertBox";
-import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
-import Login from "./Pages/Authentication/LoginSignUp/Login";
-import SignUp from "./Pages/Authentication/LoginSignUp/SignUp";
-import JoinGroup from "./Pages/Chat/ChatTab/JoinGroup/JoinGroup";
-import Authentication from "./Pages/Authentication/Authentication"
-import EditProfile from "./Pages/Chat/ChatTab/EditProfile/EditProfile";
-import CreateGroup from "./Pages/Chat/ChatTab/CreateGroup/CreateGroup";
-import GroupPrivateList from "./Pages/Chat/ChatTab/GroupPrivateList/GroupPrivateList";
+import { AlertBoxActions } from "./store/alertSlice";
 
-import { AlertBoxActions } from "./store/alert";
-
+import Chat from "./pages/Chat/Chat";
 import AuthContext from "./context/authContext";
+import AlertBox from "./components/AlertBox/AlertBox";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import Login from "./pages/Authentication/AuthenticationLoginSignUp/AuthenticationLogin";
+import SignUp from "./pages/Authentication/AuthenticationLoginSignUp/AuthenticationSignUp";
+import JoinGroup from "./pages/Chat/ChatTab/JoinGroup/JoinGroup";
+import Authentication from "./pages/Authentication/Authentication"
+import EditProfile from "./pages/Chat/ChatTab/EditProfile/EditProfile";
+import CreateGroup from "./pages/Chat/ChatTab/CreateGroup/CreateGroup";
+import GroupPrivateList from "./pages/Chat/ChatTab/GroupPrivateList/GroupPrivateList";
 
 import "./App.css";
-import "./style.css";
+import "./assests/css/style.css";
 
 let time = null;
 
@@ -55,7 +54,7 @@ function App() {
             <Route path="create-group" element={<CreateGroup />} />
           </Route>
         )}
-        <Route path="/" exact={true} element={<Navigate to={!authCtx.isAuth ? "/auth/login" : "/chat"}/>} />
+        <Route path="/"  element={<Navigate to={!authCtx.isAuth ? "/auth/login" : "/chat"}/>} />
         <Route path="*"  element={<NotFoundPage/>}/>
       </Routes>
     </div>

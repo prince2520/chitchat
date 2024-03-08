@@ -1,14 +1,15 @@
-import "./Button.css";
 import styled from "styled-components";
 
+import "./Button.css";
+
 const CustomButton = styled.button`
-  width: ${(props) => props.$width || "100%"};
-  background-color: ${(props) => props.$backgroundColor || "var(--primary)"};
+  width: ${({$width}) => $width || "100%"};
+  background-color: ${({$backgroundColor}) => $backgroundColor || "var(--primary)"};
 
   &:hover {
     background-color: var(--text);
     :is(h1, h2, h3, h4, h5, h6, p) {
-      color: ${(props) => props.$backgroundColor || "var(--primary)"};
+      color: ${({$backgroundColor}) => $backgroundColor || "var(--primary)"};
     }
   }
 
@@ -35,7 +36,7 @@ const Button = ({
       disabled={disabled}
       onClick={() => (onClick ? onClick() : null)}
       type={type === "click" ? "click" : "submit"}
-      className="flex-center cursor-btn button-container"
+      className="flex-center cursor-btn button__container"
     >
       {children}
     </CustomButton>

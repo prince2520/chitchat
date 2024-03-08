@@ -126,6 +126,13 @@ a:hover {
   background-color: var(--text);
 }
 
+.hoverState:hover :is(h1, h2, h3, h4, h5, h6, p, svg, input) {
+  color: var(--text);
+}
+
+.hoverState:hover{
+  border: 1px solid var(--text);
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

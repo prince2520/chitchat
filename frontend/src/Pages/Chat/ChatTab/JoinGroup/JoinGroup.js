@@ -6,8 +6,8 @@ import Button from "../../../../components/Button/Button";
 import CustomInput from "../../../../components/CustomInput/CustomInput";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
-import { UserActions } from "../../../../store/user";
-import { joinGroupHandler } from "../../../../api/api";
+import { UserActions } from "../../../../store/userSlice";
+import { joinGroup } from "../../../../api/group";
 
 import AuthContext from "../../../../context/authContext";
 
@@ -22,7 +22,7 @@ const JoinGroup = () => {
 
     let groupId = event.target[0].value;
 
-    joinGroupHandler(authCtx?.token, groupId, authCtx?.userId)
+    joinGroup(authCtx?.token, groupId, authCtx?.userId)
       .then((res) => {
         if (res.success) {
           dispatch(UserActions.addGroup(res.groupData));
@@ -39,7 +39,7 @@ const JoinGroup = () => {
     >
       <h2>Join a Group</h2>
       <div className={"image-edit-container"}>
-        <ImageContainer src={"https://i.imgur.com/W5U9qZB.png"} />
+        <ImageContainer src={"https://i.imgur.com/W5U9qZB.png"}  width="12rem" height="12rem" />
       </div>
       <CustomInput label={"Group Id"} icon={"material-symbols:edit"} />
       <Button backgroundColor={"var(--primary)"} width={"50%"}>

@@ -5,6 +5,10 @@ const initialOverlayState = {
   showDragDrop: false,
   showSideMobileBar: false,
   showVideoChat: false,
+  showSettings: {
+    link : "Members",
+    value : false
+  }
 };
 
 const OverlaySlice = createSlice({
@@ -14,8 +18,11 @@ const OverlaySlice = createSlice({
     closeOverlayHandler(state) {
       state.showSideMobileBar = false;
       state.showDragDrop = false;
+      state.showSettings = {
+        links : "Members",
+        value : false
+      };
       state.showOverlay = false;
-      state.show = false;
     },
     openSideMobileBarHandler(state) {
       state.showSideMobileBar = true;
@@ -27,6 +34,10 @@ const OverlaySlice = createSlice({
     },
     openVideoChatHandler(state) {
       state.showVideoChat = true;
+      state.showOverlay = true;
+    },
+    openSettingsHandler(state, action) {
+      state.showSettings = action.payload;
       state.showOverlay = true;
     },
   },

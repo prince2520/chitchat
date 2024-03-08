@@ -1,14 +1,5 @@
-.create-group-container{
+.create-group{
     row-gap: 1rem;
     min-height: 50%;
     flex-direction: column;
-}
-
-.create-group-container .image-container{
-    width: 12.5rem;
-    height: 12.5rem;
-}
-
-.create-group-container .email-container{
-    width: 80%;
 }

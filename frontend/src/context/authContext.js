@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchUser, login, signup } from "../api/api";
 import { useDispatch } from "react-redux";
-import { AlertBoxActions } from "../store/alert";
-import { UserActions } from "../store/user";
+import { UserActions } from "../store/userSlice";
 import { socketJoinGroup } from "../socket";
+import { AlertBoxActions } from "../store/alertSlice";
+import {login, signup } from "../api/auth";
+import {fetchUser } from "../api/user";
+
 
 const AuthContext = React.createContext({
   loginHandler: (email, password) => {},
@@ -14,7 +16,7 @@ const AuthContext = React.createContext({
   userId: "",
   userName: "",
   email: "",
-  isAuth: false,
+  isAuth: false
 });
 
 export const AuthContextProvider = (props) => {
@@ -40,8 +42,8 @@ export const AuthContextProvider = (props) => {
   const logoutHandler = useCallback(() => {
     setToken(null);
     setIsAuth(false);
-    navigate("/");
     localStorage.clear();
+    navigate("/auth/login");
   }, [navigate]);
 
   const autoLogout = useCallback(
@@ -73,6 +75,7 @@ export const AuthContextProvider = (props) => {
     }
     fetchUser(localEmail, localToken)
       .then((result) => {
+        console.log('fetch user', result);
         joinGroup(result.user.groups);
         saveUserData(result.user);
       })
@@ -115,7 +118,7 @@ export const AuthContextProvider = (props) => {
         localStorage.setItem("expiryDate", expiryDate.toISOString());
         autoLogout(remainingMilliseconds);
 
-        navigate("/");
+        navigate("/chat");
       } else {
         dispatch(AlertBoxActions.showAlertBoxHandler(result));
       }

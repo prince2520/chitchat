@@ -9,7 +9,7 @@ import AuthContext from "../../../../context/authContext";
 import { useContext } from "react";
 import { Icon } from "@iconify/react";
 import { useDetectClickOutside } from "react-detect-click-outside";
-import { categoryState } from "../../../../common";
+import { categoryState } from "../../../../constants/constants"
 
 import MediaCommunication from "./MediaCommunication/MediaCommunication";
 
@@ -32,7 +32,7 @@ const ChatBoxTop = () => {
   const ref = useDetectClickOutside({ onTriggered: closeSettingHandler });
 
   return (
-    <div className="chat-box-top border">
+    <div className="border cursor-btn chat-box__top">
       <SideBar />
       <ImageContainer
         src={
@@ -42,7 +42,7 @@ const ChatBoxTop = () => {
             : data.groupImageUrl
         }
       />
-      <div className="chat-description">
+      <div className="full-screen chat-box__description">
         <h5>
           {user.selectedType === categoryState[0]
             ? data.name
@@ -51,7 +51,7 @@ const ChatBoxTop = () => {
         <p>
           {!(user.selectedType === categoryState[0])
             ? data.users.filter((user) => user._id !== authCtx.userId)[0].status
-            : data._id}
+            : data.status}
         </p>
       </div>
       {data.type === categoryState[1] && <MediaCommunication />}
@@ -62,7 +62,7 @@ const ChatBoxTop = () => {
         className="cursor-btn"
         style={{ color: "var(--text-light)", fontSize: "2.25rem" }}
       />
-      {showSetting && <Setting />}
+      {showSetting && <Setting data={data} />}
     </div>
   );
 };

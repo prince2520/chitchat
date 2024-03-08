@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { validationResult } = require("express-validator");
 
-exports.signUp = async (req, res) => {
+exports.signup = async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;

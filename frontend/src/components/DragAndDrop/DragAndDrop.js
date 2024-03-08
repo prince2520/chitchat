@@ -6,19 +6,20 @@ import Button from "../Button/Button";
 import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
 import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 
-import { categoryState } from "../../common";
-import { OverlayActions } from "../../store/overlay";
-import { DragAndDropActions } from "../../store/dragAndDrop";
-import { messageHandler } from "../../Pages/Chat/sendMessage";
+import { categoryState } from "../../constants/constants";
+import { OverlayActions } from "../../store/overlaySlice";
+import { DragAndDropActions } from "../../store/dragAndDropSlice";
+import { messageHandler } from "../../utils/SendMessage";
 import {
-  getDragAndDropData,
-  saveImageIntoFirebase,
-} from "../../Pages/Chat/common_function";
+  saveInFirebase,
+} from "../../utils/SaveInFirebase";
+
+import {getDropData} from "../../utils/GetDropData";
 
 import AuthContext from "../../context/authContext";
 
 import "./DragAndDrop.css";
-import { UserActions } from "../../store/user";
+import { UserActions } from "../../store/userSlice";
 
 const DragAndDrop = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const DragAndDrop = () => {
   };
 
   const handleDropHelper = (dragFile) => {
-    let data = getDragAndDropData(dragFile);
+    let data = getDropData(dragFile);
 
     if (
       !files.find((file) => file.name === data.name) &&
@@ -90,7 +91,7 @@ const DragAndDrop = () => {
     event.preventDefault();
 
     files.map((file) => {
-      saveImageIntoFirebase(file.fileData)
+      saveInFirebase(file.fileData)
         .then((url) => {
           sendMessage(url, file);
           dispatch(DragAndDropActions.removeSingleFile(file));
@@ -110,7 +111,7 @@ const DragAndDrop = () => {
           onClick={() => dispatch(OverlayActions.closeOverlayHandler())}
         />
       </div>
-      <h2>Uploads</h2>
+      <h3>Uploads</h3>
       <div className={"drag-and-drop-box-condition"}>
         <p>Max Size: 20MB</p>
         <p>Max Files: 3</p>
@@ -130,9 +131,8 @@ const DragAndDrop = () => {
       {files.length > 0 && (
         <Button
          backgroundColor={"var(--primary)"} 
-         width={"50%"} 
-         disabled={disabled} >
-          <h5 className="color-text">Send</h5>
+         width={"50%"}  >
+          <p className="color-text">Send</p>
         </Button>
       )}
     </form>

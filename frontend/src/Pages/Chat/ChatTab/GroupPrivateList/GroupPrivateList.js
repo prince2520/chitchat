@@ -3,14 +3,12 @@ import { useContext, useState } from "react";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 import SearchBar from "../../../../components/SearchBar/SearchBar";
 import ChangeCategory from "../../../../components/ChangeCategory/ChangeCategory";
-
-import { Icon } from "@iconify/react";
-
 import { useDispatch, useSelector } from "react-redux";
-import { UserActions } from "../../../../store/user";
+import { UserActions } from "../../../../store/userSlice";
 import AuthContext from "../../../../context/authContext";
-import { categoryState } from "../../../../common";
-
+import { categoryState } from "../../../../constants/constants"
+import { getLastMessage } from "../../../../utils/GetLastMessage";
+ 
 import "./GroupPrivateList.css";
 
 const GroupPrivateList = () => {
@@ -20,44 +18,6 @@ const GroupPrivateList = () => {
   const privates = user.privates;
   const authCtx = useContext(AuthContext);
   const groups = user.groups;
-
-  const checkTypeAndShowMsg = (lastMsg) => {
-    let msg = "";
-    switch (lastMsg.type) {
-      case "string":
-        msg = <>{lastMsg.message}</>;
-        break;
-      case "image":
-        msg = (
-          <>
-            <Icon icon="typcn:image" /> Photo
-          </>
-        );
-        break;
-      case "audio":
-        msg = (
-          <>
-            <Icon icon="typcn:image" /> Photo
-          </>
-        );
-        break;
-      case "video":
-        msg = (
-          <>
-            <Icon icon="akar-icons:video" /> Video
-          </>
-        );
-        break;
-      default:
-        msg = (
-          <>
-            <Icon icon="ic:baseline-audio-file" /> Other
-          </>
-        );
-    }
-
-    return msg;
-  };
 
   const selectedItem = (item) => {
     if (user.selectedId === item?._id) {
@@ -84,7 +44,7 @@ const GroupPrivateList = () => {
           <>
             <p className="flex-center">
               {lastMsg.user._id === authCtx.userId ? "You" : lastMsg.user.name}{" "}
-              : {checkTypeAndShowMsg(lastMsg)}
+              : {getLastMessage(lastMsg)}
             </p>
           </>
         ) : (

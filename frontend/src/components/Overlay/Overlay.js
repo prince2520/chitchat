@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import Model from "./Model/Model";
 import { useSelector } from "react-redux";
 
-import { OverlayActions } from "../../store/overlay";
+import { OverlayActions } from "../../store/overlaySlice";
 
 import "./Overlay.css";
 

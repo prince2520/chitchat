@@ -6,12 +6,17 @@ const groupSchema = new Schema(
   {
     name: {
       type: String,
-      required: false,
+      required: true,
     },
     groupImageUrl: {
       type: String,
       required: false,
       default: "https://i.imgur.com/nHlY97n.png",
+    },
+    status: {
+      type: String,
+      required: false,
+      default: "Let's connect, share, and laugh together. ",
     },
     messages: [
       {
@@ -19,6 +24,13 @@ const groupSchema = new Schema(
         ref: "Message",
         required: false,
       },
+    ],
+    blockList : [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: false,
+      }
     ],
     users: [
       {
@@ -31,7 +43,7 @@ const groupSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
-    },
+    }
   },
   { timestamps: true }
 );

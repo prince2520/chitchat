@@ -1,32 +1,21 @@
-.open-ai-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.open-ai{
     padding: 0.15rem;
-
     border-radius: 50%;
-
     font-size: 1.35rem;
-
     color: var(--text);
     border: 2px solid var(--text);
-
     cursor: pointer;
-
     margin-right: 0.5rem;
 }
 
 .open-ai-selected{
-    background-color: #10A37F;
     color: white;
     border-color: white;
+    background-color: #10A37F;
 }
 
-
 @media screen and (max-width: 800px) {
-    .open-ai-container{
+    .open-ai{
         font-size: 1rem;
     }
-
-
 }

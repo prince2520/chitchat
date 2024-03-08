@@ -6,8 +6,8 @@ import './NoMessage.css';
 
 const NoMessage = () => {
     return(
-        <div className='noMessage_box'>
-            <div className='noMessage_box-imageContainer'>
+        <div className='full-screen flex-center noMessage'>
+            <div className='noMessage__imageContainer'>
                 <Lottie animationData={NoMessageAnimation} loop={true} />
                 {/*<img src="https://i.imgur.com/SYbQZXR.jpg" alt="noMessage_image"/>*/}
             </div>

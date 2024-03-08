@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { categoryState } from "../common";
+import { categoryState } from "../constants/constants";
+
 const initialUserState = {
   name: "",
   email: "",
@@ -8,8 +9,8 @@ const initialUserState = {
   groups: [],
   privates: [],
 
-  selectedId: "",
-  selectedType: "",
+  selectedId: null,
+  selectedType: null,
   isSelected: false,
 };
 

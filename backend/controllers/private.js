@@ -4,7 +4,7 @@ const Message = require("../models/message");
 const Private = require("../models/private");
 
 exports.createPrivate = async (req, res) => {
-  const userId = mongoose.Types.ObjectId(req.body.userId);
+  const userId = mongoose.Types.ObjectId(req.userId);
   const chatId = mongoose.Types.ObjectId(req.body.chatId);
 
   const private = await Private.findOne({
@@ -36,13 +36,11 @@ exports.createPrivate = async (req, res) => {
         sender.save();
         receiver.save();
 
-        return res
-          .status(202)
-          .json({
-            success: true,
-            data: data,
-            message: "User added to Private Chat!",
-          });
+        return res.status(202).json({
+          success: true,
+          data: data,
+          message: "User added to Private Chat!",
+        });
       })
       .catch(() => {
         return res
@@ -52,28 +50,7 @@ exports.createPrivate = async (req, res) => {
   }
 };
 
-exports.fetchPrivate = async (req, res) => {
-  const userId = mongoose.Types.ObjectId(req.query.userId);
-
-  const privateFound = await Private.find({
-    users: { $in: [userId] },
-  }).populate("users");
-
-  if (privateFound) {
-    return res.status(200).json({
-      success: true,
-      message: "Private User fetched successfully!",
-      data: privateFound,
-    });
-  } else {
-    return res.status(200).json({
-      success: false,
-      message: "Something goes wrong!",
-    });
-  }
-};
-
-exports.sendPrivateMessage = async (req, res) => {
+exports.savePrivateMessage = async (req, res) => {
   let message, isOpenAIMsg, type, url, size, chatId, userId;
 
   chatId = mongoose.Types.ObjectId(req.body.chatId);
@@ -84,7 +61,7 @@ exports.sendPrivateMessage = async (req, res) => {
   url = req.body.data.url ? req.body.data.url : "";
   size = req.body.data.size ? req.body.data.size : 0;
   type = req.body.data.type;
-  userId = mongoose.Types.ObjectId(req.body.data.userId);
+  userId = mongoose.Types.ObjectId(req.userId);
 
   const private = await Private.findOne({ _id: chatId });
 

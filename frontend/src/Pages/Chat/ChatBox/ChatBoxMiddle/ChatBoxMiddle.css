@@ -1,11 +1,10 @@
-.chat-box-middle{
+.chat-box__middle{
     width: auto;
     height: 100%;
-
     display: flex;
-    flex-direction: column;
-    row-gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
     overflow: auto;
+    row-gap: 0.5rem;
     overflow-x: hidden;
+    flex-direction: column;
+    padding: 0.5rem 0.75rem;
 }

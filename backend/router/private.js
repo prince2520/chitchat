@@ -1,14 +1,14 @@
 const express = require('express');
 const {
     createPrivate,
-    sendPrivateMessage,
-    fetchPrivate
+    savePrivateMessage
 } = require("../controllers/private");
+const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
-router.post('/create-private', createPrivate );
+router.post('/create-private', isAuth, createPrivate);
 
-router.post('/send-private-message',sendPrivateMessage);
+router.put('/save-private-message', isAuth, savePrivateMessage);
 
 module.exports = router;

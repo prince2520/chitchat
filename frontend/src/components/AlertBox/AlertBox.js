@@ -5,7 +5,7 @@ import Lottie from "lottie-react";
 import ErrorAnimation from "../../animations/Error.json";
 import SuccessAnimation from "../../animations/Success.json";
 
-import { AlertBoxActions } from "../../store/alert";
+import { AlertBoxActions } from "../../store/alertSlice";
 
 import "./AlertBox.css";
 
@@ -15,13 +15,13 @@ const AlertBox = () => {
   const alertBoxData = useSelector((state) => state.alert);
 
   return (
-    <div className={"alert-box-page"}>
+    <div className={"flex-center alert-box"}>
       <div
-        className={`alert-box-container box-shadow ${
+        className={`alert-box__container box-shadow ${
           alertBoxData.success ? "success" : "error"
         }`}
       >
-        <div className={"alert-box-container-left"}>
+        <div className={"alert-box__container__left"}>
           <Lottie
             animationData={
               alertBoxData.success ? SuccessAnimation : ErrorAnimation
@@ -29,11 +29,11 @@ const AlertBox = () => {
             loop={false}
           />
         </div>
-        <div className={"alert-box-container-right align-center"}>
+        <div className={"alert-box__container__right align-center"}>
           <h3>{alertBoxData.success ? "Success" : "Error"}</h3>
           <p>{alertBoxData.message}</p>
         </div>
-        <div className={"alert-box-container-close cursor-btn align-center"}>
+        <div className={"alert-box__container__close cursor-btn align-center"}>
           <Icon
             icon="iconamoon:close-bold"
             onClick={() => dispatch(AlertBoxActions.closeAlertBoxHandler())}

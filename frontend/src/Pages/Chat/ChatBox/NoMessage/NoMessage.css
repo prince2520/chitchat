@@ -1,17 +1,8 @@
-.noMessage_box{
-    height: 100%;
-    width: 100%;
-
-    display: flex;
+.noMessage{
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
     row-gap: 1rem;
-    font-weight: 600;
-    color: var(--text);
 }
 
-.noMessage_box-imageContainer{
+.noMessage > .noMessage__imageContainer{
     width: 20rem ;
 }

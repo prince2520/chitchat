@@ -1,4 +1,4 @@
-.input-container {
+.custom-input > .custom-input__container{
     width: 100%;
     padding: 0.25rem 0.75rem ;
     align-items: space-between;

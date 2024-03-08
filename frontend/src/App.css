@@ -4,6 +4,7 @@
   /*--background: #222831;*/
   /*--container: rgba(57, 62, 70, 0.7);*/
   --background: #151617;
+  --model-container: rgb(21, 22, 23, 0.9);
   --container: rgba(40, 40, 42);
 
   --white: #ffff;
@@ -17,8 +18,8 @@
   --text-primary: var(--primary);
 
   --border: var(--text-extra-light);  
-  --error: #eb5757;
-  --success: #2bd994;
+  --error: #e24040;
+  --success: rgb(25, 129, 87, .5);
 
   --link: #6598ea;
   --link-hover: #85b3fe;

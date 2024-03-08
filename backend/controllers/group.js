@@ -3,13 +3,11 @@ const User = require("../models/user");
 const Group = require("../models/group");
 const Message = require("../models/message");
 const { validationResult } = require("express-validator");
-const group = require("../models/group");
-
 
 exports.createGroup = async (req, res) => {
   const name = req.body.name;
   const groupImageUrl = req.body.groupImageUrl;
-  const userId = mongoose.Types.ObjectId(req.body.userId);
+  const userId = mongoose.Types.ObjectId(req.userId);
 
   const invalidInput = validationResult(req);
 
@@ -19,7 +17,6 @@ exports.createGroup = async (req, res) => {
       .json({ success: false, message: invalidInput.errors[0].msg });
   } else {
     const userFound = await User.findOne({ _id: userId });
-
     let data = {
       name: name,
       groupImageUrl: groupImageUrl,
@@ -47,24 +44,23 @@ exports.createGroup = async (req, res) => {
   }
 };
 
-
-exports.joinGroup = async (req, res, next) => {
-  const _id = req.body.groupId;
-  const userId = mongoose.Types.ObjectId(req.body.userId);
+exports.joinGroup = async (req, res) => {
+  const groupId = req.body.groupId;
+  const userId = mongoose.Types.ObjectId(req.userId);
 
   const MAX_USER_IN_GROUP = 20;
 
-  const groupFound = await Group.findOne({ _id: _id }).populate();
+  const groupFound = await Group.findOne({ _id: groupId }).populate();
   const userFound = await User.findOne({ _id: userId });
 
   let userInGroupFound;
 
   if (groupFound) {
-
-    if(groupFound.users.length >= MAX_USER_IN_GROUP) {
-      return res
-      .status(202)
-      .json({ success: false, message: "Max number of user already joined this group" });
+    if (groupFound.users.length >= MAX_USER_IN_GROUP) {
+      return res.status(202).json({
+        success: false,
+        message: "Max number of user already joined this group",
+      });
     }
 
     for (const userInGroup of groupFound.users) {
@@ -91,7 +87,7 @@ exports.joinGroup = async (req, res, next) => {
   }
 };
 
-exports.sendGroupMessage = (req, res) => {
+exports.saveGroupMessage = (req, res) => {
   let message, isOpenAIMsg, type, url, size, chatId, userId;
 
   chatId = mongoose.Types.ObjectId(req.body.chatId);
@@ -102,7 +98,7 @@ exports.sendGroupMessage = (req, res) => {
   url = req.body.data.url ? req.body.data.url : "";
   size = req.body.data.size ? req.body.data.size : 0;
   type = req.body.data.type;
-  userId = mongoose.Types.ObjectId(req.body.data.userId);
+  userId = mongoose.Types.ObjectId(req.userId);
 
   const invalidInput = validationResult(req);
 
@@ -122,7 +118,7 @@ exports.sendGroupMessage = (req, res) => {
 
         newMessage
           .save()
-          .then(res => res.populate('user').execPopulate())
+          .then((res) => res.populate("user").execPopulate())
           .then((data) => {
             group?.messages.push(data._id);
             group.save().then(() => {
@@ -140,5 +136,72 @@ exports.sendGroupMessage = (req, res) => {
       .catch((err) => {
         console.log(err);
       });
+  }
+};
+
+exports.blockUser = async (req, res) => {
+  const adminId = mongoose.Types.ObjectId(req.userId);
+
+  let blockUserId, groupId;
+  groupId = mongoose.Types.ObjectId(req.body.groupId);
+  blockUserId = mongoose.Types.ObjectId(req.body.blockUserId);
+
+  try {
+    let groupFound = await Group.findOne({ _id: groupId });
+    if (groupFound) {
+      if (groupFound.createdBy === adminId) {
+        groupFound.blockList.push(blockUserId);
+        await groupFound.save();
+
+        return res.status(200).json({
+          success: true,
+          message: "User blocked successfully!",
+        });
+      } else {
+        return res.status(403).json({
+          success: true,
+          message: "You are not allowed to block this user."
+        });
+      }
+    }
+  } catch (err) {
+    return res.status(404).json({
+      success: false,
+      message: "Something goes wrong!",
+    });
+  }
+};
+
+
+exports.unBlockUser = async (req, res) => {
+  const adminId = mongoose.Types.ObjectId(req.userId);
+
+  let unBlockUserId, groupId;
+  groupId = mongoose.Types.ObjectId(req.body.groupId);
+  unBlockUserId = mongoose.Types.ObjectId(req.body.blockUserId);
+
+  try {
+    let groupFound = await Group.findOne({ _id: groupId });
+    if (groupFound) {
+      if (groupFound.createdBy === adminId) {
+        groupFound.blockList.pull(unBlockUserId);
+        await groupFound.save();
+
+        return res.status(200).json({
+          success: true,
+          message: "User unblocked successfully!",
+        });
+      } else {
+        return res.status(403).json({
+          success: true,
+          message: "You are not allowed to block this user."
+        });
+      }
+    }
+  } catch (err) {
+    return res.status(404).json({
+      success: false,
+      message: "Something goes wrong!",
+    });
   }
 };
