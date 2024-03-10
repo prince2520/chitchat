@@ -42,12 +42,18 @@ const Setting = () => {
       chatId: chatId,
     })
       .then((res) => {
+        console.log(res);
         if (res.success) {
           if(isAdmin()){
-            socketRemoveChat({
+            let socketData = {
               type: type,
               chatId: chatId,
-            });
+            };
+            if(selectedType === categoryState[1]){
+              const privateUserId = data.users.filter(user => user._id !== authCtx.userId)[0]._id;
+              socketData['privatUserId'] = privateUserId;
+            }
+            socketRemoveChat(socketData);
           }
           dispatch(
             UserActions.selectedChat({
@@ -59,7 +65,7 @@ const Setting = () => {
           dispatch(
             UserActions.deleteChat({
               type: type,
-              chatId: chatId,
+              chatId: chatId
             })
           );          
         }
@@ -69,7 +75,7 @@ const Setting = () => {
 
   return (
     <div className="flex-center box-shadow border setting">
-      {chatTopSettingOptions.map((option) => (
+      {(selectedType === categoryState[0]) && chatTopSettingOptions.map((option) => (
         <div
           className={"cursor-btn flex-center setting__option"}
           onClick={() =>

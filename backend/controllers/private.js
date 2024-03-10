@@ -107,7 +107,15 @@ exports.deletePrivate = async (req, res) => {
 
   if (privateFound) {
     if (privateFound.users.includes(userId)) {
+      const users = [...privateFound.users];
       await privateFound.remove();
+
+      await User.updateMany(
+        { _id: { $in: users } },
+        { $pull: { privates: privateId } },
+        { multi: true }
+      );
+      
       return res
         .status(200)
         .json({ success: true, message: "Private removed successfully!" });

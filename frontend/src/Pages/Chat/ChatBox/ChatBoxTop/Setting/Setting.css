@@ -1,16 +1,16 @@
 .setting{
-    left: auto!important;
-    right: 0.75rem;
-    bottom: -9.5rem;
+    left: auto !important;
+    right: 1rem;
+    top : 3.5rem;
 
     width: 15rem!important;
 
     flex-direction: column;
     justify-content: flex-start;
 
-    column-gap: 0.5rem;
-    row-gap: 00.5rem;
     padding: 0 5rem;
+    row-gap: 00.5rem;
+    column-gap: 0.5rem;
 }
 
 .setting .setting__option{

@@ -31,6 +31,8 @@ module.exports = (io) => {
       if (data.type === "Group") {
         io.to(data.chatId).emit("received_remove_chat", { data });
         socket.leave(data.chatId);
+      }else{
+        io.to(data.privatUserId).emit("received_remove_chat", { data });
       }
     });
 

@@ -206,13 +206,11 @@ exports.unBlockUser = async (req, res) => {
 };
 
 exports.deleteGroup = async (req, res) => {
-  console.log(req.userId)
   const adminId = mongoose.Types.ObjectId(req.userId);
 
-  let groupId;
-  groupId = mongoose.Types.ObjectId(req.body.chatId);
+  const groupId = mongoose.Types.ObjectId(req.body.chatId);
 
-  const groupFound = Group.findOne({ _id: groupId });
+  const groupFound = await Group.findOne({ _id: groupId });
 
   // if (groupFound.createdBy !== req.userId) {
   //   return res.status(200).json({
@@ -221,17 +219,30 @@ exports.deleteGroup = async (req, res) => {
   //   });
   // }
 
-  await groupFound.remove();
+  if (groupFound) {
+    const users = [...groupFound.users].map(user => mongoose.Types.ObjectId(user));
 
-  await User.updateMany(
-    { _id: groupFound.users },
-    { $pull: { groups: { _id: groupFound._id } } }
-  );
+    await groupFound.remove();
 
-  return res.status(200).json({
-    success: true,
-    message: "Group Deleted!",
-  });
+    console.log('users', users);
+
+    await User.updateMany(
+      { _id: { $in: users } },
+      { $pull: { groups: groupId } },
+      { multi: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Group Deleted!",
+    });
+
+  }else{
+    return res.status(400).json({
+      success: false,
+      message: "Group not Deleted!",
+    });
+  }
 };
 
 // remove a user from the group
@@ -239,11 +250,11 @@ exports.leaveGroup = async (req, res) => {
   const userId = mongoose.Types.ObjectId(req.userId);
   const groupId = mongoose.Types.ObjectId(req.body.chatId);
 
-  const groupFound = await Group.findOne({_id : groupId});
-  const userFound = await User.findOne({_id : userId});
+  const groupFound = await Group.findOne({ _id: groupId });
+  const userFound = await User.findOne({ _id: userId });
 
-  if(groupFound  && userFound){
-    if(groupFound.users.includes(userId)){
+  if (groupFound && userFound) {
+    if (groupFound.users.includes(userId)) {
       groupFound.users.pull(userId);
       userFound.groups.pull(groupId);
 
@@ -254,11 +265,11 @@ exports.leaveGroup = async (req, res) => {
         success: true,
         message: "User left successfully!",
       });
-    }else{
+    } else {
       return res.status(403).json({
         success: false,
         message: "You are not in this group.",
       });
     }
   }
-} 
+};

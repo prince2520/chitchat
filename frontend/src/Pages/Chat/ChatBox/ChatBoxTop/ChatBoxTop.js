@@ -9,7 +9,7 @@ import AuthContext from "../../../../context/authContext";
 import { useContext } from "react";
 import { Icon } from "@iconify/react";
 import { useDetectClickOutside } from "react-detect-click-outside";
-import { categoryState } from "../../../../constants/constants"
+import { categoryState } from "../../../../constants/constants";
 
 import MediaCommunication from "./MediaCommunication/MediaCommunication";
 
@@ -60,7 +60,7 @@ const ChatBoxTop = () => {
         ref={ref}
         icon="gg:more-vertical-o"
         className="cursor-btn"
-        style={{ color: "var(--text-light)", fontSize: "2.25rem" }}
+        style={{ color: "var(--textX-light)", fontSize: "2.25rem" }}
       />
       {showSetting && <Setting data={data} />}
     </div>

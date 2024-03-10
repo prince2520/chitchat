@@ -19,6 +19,7 @@ const UserSlice = createSlice({
   initialState: initialUserState,
   reducers: {
     deleteChat(state, action) {
+      console.log("deleteChat", action.payload)
       if (action.payload.type === categoryState[0]) {
         state.groups = state.groups.filter((group) => {
           return group._id !== action.payload.chatId;
