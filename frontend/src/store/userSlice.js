@@ -18,6 +18,17 @@ const UserSlice = createSlice({
   name: "user",
   initialState: initialUserState,
   reducers: {
+    deleteChat(state, action) {
+      if (action.payload.type === categoryState[0]) {
+        state.groups = state.groups.filter((group) => {
+          return group._id !== action.payload.chatId;
+        });
+      }else{
+        state.privates = state.privates.filter((data)=> {
+          return data._id !== action.payload.chatId;
+        })
+      }
+    },
     saveUserData(state, action) {
       state.name = action.payload.name;
       state.status = action.payload.status;
@@ -30,8 +41,7 @@ const UserSlice = createSlice({
     addGroup(state, action) {
       state.groups = [...state.groups, action.payload];
     },
-    addPrivate(state, action){
-       console.log('addPrivate', action.payload);
+    addPrivate(state, action) {
       state.privates = [...state.privates, action.payload];
     },
     selectedChat(state, action) {
@@ -40,22 +50,22 @@ const UserSlice = createSlice({
       state.selectedType = action.payload.selectedType;
     },
     saveMessage(state, action) {
-      const isGroup = (action.payload.selectedType === categoryState[0]);
-      const saveChatMessage = (state) =>{
+      const isGroup = action.payload.selectedType === categoryState[0];
+      const saveChatMessage = (state) => {
         state = state.filter((chat) => {
           if (chat._id === action.payload.chatId) {
             chat.messages = [...chat.messages, action.payload.data];
           }
           return chat;
         });
+      };
+      if (isGroup) {
+        saveChatMessage(state.groups);
+      } else {
+        saveChatMessage(state.privates);
       }
-      if(isGroup){
-        saveChatMessage(state.groups)
-      }else {
-        saveChatMessage(state.privates)
-      }      
-    } 
-  }
+    },
+  },
 });
 
 export const UserActions = UserSlice.actions;

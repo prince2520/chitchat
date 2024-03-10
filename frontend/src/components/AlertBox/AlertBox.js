@@ -2,8 +2,8 @@ import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Lottie from "lottie-react";
-import ErrorAnimation from "../../animations/Error.json";
-import SuccessAnimation from "../../animations/Success.json";
+import ErrorAnimation from "../../assests/animations/Error.json";
+import SuccessAnimation from "../../assests/animations/Success.json";
 
 import { AlertBoxActions } from "../../store/alertSlice";
 

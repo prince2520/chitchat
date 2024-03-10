@@ -6,7 +6,7 @@ import './Logo.css'
 
 const Logo = () => {
     return (
-        <div className={'logo-container align-center'}>
+        <div className={'flex-center logo-container'}>
             <span className={'logo-img'}>
                 <Lottie animationData={ChitChatAnimation} loop={false}/>
             </span>

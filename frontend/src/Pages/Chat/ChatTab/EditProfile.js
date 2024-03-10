@@ -2,20 +2,20 @@ import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext, useEffect, useRef, useState } from "react";
 
-import Button from "../../../../components/Button/Button";
-import CustomInput from "../../../../components/CustomInput/CustomInput";
-import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
+import Button from "../../../components/Button/Button";
+import CustomInput from "../../../components/CustomInput/CustomInput";
+import ImageContainer from "../../../components/ImageContainer/ImageContainer";
 
-import { updateUser } from "../../../../api/user";
-import { UserActions } from "../../../../store/userSlice";
+import { updateUser } from "../../../api/user";
+import { UserActions } from "../../../store/userSlice";
 
 
-import { compressImage } from "../../../../utils/CompressImage";
-import { saveInFirebase } from "../../../../utils/SaveInFirebase";
+import { compressImage } from "../../../utils/CompressImage";
+import { saveInFirebase } from "../../../utils/SaveInFirebase";
 
-import AuthContext from "../../../../context/authContext";
+import AuthContext from "../../../context/authContext";
 
-import { AlertBoxActions } from "../../../../store/alertSlice";
+import { AlertBoxActions } from "../../../store/alertSlice";
 
 const EditProfile = () => {
   const user = useSelector((state) => state.user);
@@ -84,12 +84,12 @@ const EditProfile = () => {
 
   return (
     <form
-      className="flex-center create-group"
+      className="flex-center edit-profile"
       onSubmit={(event) => submitHandler(event)}
     >
-      <h2>My Profile</h2>
+      <h3 className="color-text-light">My Profile</h3>
       <div className={"image-edit-container"}>
-        <ImageContainer src={preview ? preview : user?.profileImageUrl} width="12rem" height="12rem" />
+        <ImageContainer src={preview ? preview : user?.profileImageUrl} width="9rem" height="9rem" />
         <input
           accept="image/*"
           ref={imageRef}
@@ -117,15 +117,17 @@ const EditProfile = () => {
         type={"text"}
         label={"Name"}
         icon={"material-symbols:edit"}
+        width="90%" maxWidth="20rem"
       />
       <CustomInput
         defaultValue={user?.status}
         type={"text"}
         label={"About Me"}
         icon={"material-symbols:edit"}
+        width="90%" maxWidth="20rem"
       />
       <Button width={"50%"} backgroundColor={"var(--primary)"}>
-        <h5 className="color-text">Save</h5>
+        <p className="color-text">Save</p>
       </Button>
     </form>
   );

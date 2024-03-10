@@ -47,15 +47,6 @@ p {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-input{
-  width: 100%;
-  border: none;
-  outline: none;
-  font-weight: 550;
-  padding: 0 0 0 0.75rem;
-  border-radius: 0.25rem;
-  padding: 0 0.5rem 0 0 !important;
-}
 
 .image-edit-container {
   position: relative;
@@ -69,8 +60,8 @@ input{
 
   border: 1px solid var(--text);
 
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   background-color: var(--white);
 
   display: flex;

@@ -33,3 +33,19 @@ export const savePrivateMessage = async (data) => {
   );
   return result.json();
 };
+
+// delete private 
+export const deletePrivate = async(data) => {
+  const result = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/private/delete-private`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + data.token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    }
+  );
+  return result.json();
+}

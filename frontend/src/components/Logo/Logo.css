@@ -1,5 +1,5 @@
 .logo-container {
-  justify-content: flex-start;
+  justify-content: flex-start!important;
 }
 
 .logo-img {

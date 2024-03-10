@@ -2,7 +2,7 @@ import Lottie from "lottie-react";
 
 import { chatFeatures } from "../../../constants/constants";
 
-import HomepageAnimation from "../../../animations/Homepage.json";
+import HomepageAnimation from "../../../assests/animations/Homepage.json";
 
 import "./AuthenticationIntro.css";
 

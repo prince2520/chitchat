@@ -2,14 +2,15 @@ import { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import Button from "../../../../components/Button/Button";
-import CustomInput from "../../../../components/CustomInput/CustomInput";
-import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
+import Button from "../../../components/Button/Button";
+import CustomInput from "../../../components/CustomInput/CustomInput";
+import JoinGroupImg from "../../../assests/images/JoinGroup.svg";
 
-import { UserActions } from "../../../../store/userSlice";
-import { joinGroup } from "../../../../api/group";
+import { UserActions } from "../../../store/userSlice";
+import { joinGroup } from "../../../api/group";
 
-import AuthContext from "../../../../context/authContext";
+import AuthContext from "../../../context/authContext";
+
 
 const JoinGroup = () => {
   const dispatch = useDispatch();
@@ -35,15 +36,16 @@ const JoinGroup = () => {
   return (
     <form
       onSubmit={(event) => submitHandler(event)}
-      className="flex-center create-group-container"
+      className="flex-center join-group"
     >
-      <h2>Join a Group</h2>
-      <div className={"image-edit-container"}>
-        <ImageContainer src={"https://i.imgur.com/W5U9qZB.png"}  width="12rem" height="12rem" />
-      </div>
-      <CustomInput label={"Group Id"} icon={"material-symbols:edit"} />
+      <h3 className="color-text-light">Join a Group</h3>
+      <img src={JoinGroupImg} />
+      <CustomInput
+        width="90%" maxWidth="20rem"
+        label={"Group Id"}
+        icon={"material-symbols:edit"} />
       <Button backgroundColor={"var(--primary)"} width={"50%"}>
-        <h5 className="color-text">Join</h5>
+        <p className="color-text">Join</p>
       </Button>
     </form>
   );

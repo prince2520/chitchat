@@ -4,7 +4,9 @@ import "./Button.css";
 
 const CustomButton = styled.button`
   width: ${({$width}) => $width || "100%"};
+  max-width: ${({$maxWidth}) => $maxWidth || "100%"};
   background-color: ${({$backgroundColor}) => $backgroundColor || "var(--primary)"};
+  padding: 0.25rem 2rem;
 
   &:hover {
     background-color: var(--text);
@@ -28,11 +30,13 @@ const Button = ({
   backgroundColor,
   children,
   disabled = false,
+  maxWidth = "100%"
 }) => {
   return (
     <CustomButton
       $backgroundColor={backgroundColor}
       $width={width}
+      $maxWidth = {maxWidth}
       disabled={disabled}
       onClick={() => (onClick ? onClick() : null)}
       type={type === "click" ? "click" : "submit"}

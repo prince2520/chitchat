@@ -1,6 +1,5 @@
 module.exports = (io) => {
   io.on("connection", function (socket) {
-
     // Connect the user
     socket.on("user_connected", (userId) => {
       socket.join(userId);
@@ -23,7 +22,16 @@ module.exports = (io) => {
         let userId = user._id;
         if (userId === data.userId) return;
         socket.in(userId).emit("recived_private_user", { data: data });
-      })
+      });
+    });
+
+    // remove group
+    socket.on("remove_chat", ({ data }) => {
+      console.log("remove", data)
+      if (data.type === "Group") {
+        io.to(data.chatId).emit("received_remove_chat", { data });
+        socket.leave(data.chatId);
+      }
     });
 
     // Send  message to receiver

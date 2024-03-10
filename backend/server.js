@@ -10,9 +10,9 @@ const helmet = require("helmet");
 require("dotenv").config();
 require("./socket")(io);
 
-const groupRoute = require("./router/group");
 const authRoute = require("./router/auth");
 const userRoute = require("./router/user");
+const groupRoute = require("./router/group");
 const privateRoute = require("./router/private");
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,10 +30,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/group", groupRoute);
-app.use("/private", privateRoute);
 app.use("/user", userRoute);
 app.use("/auth", authRoute);
+app.use("/group", groupRoute);
+app.use("/private", privateRoute);
 app.use("/", (req, res, next) => {
   res.status(200).json({ message: "Server is Working..." });
   next();
@@ -43,8 +43,10 @@ const MONGO_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWOR
 
 mongoose
   .connect(MONGO_URL, {
-    useUnifiedTopology: true,
     useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then((done) => {
     console.log("Connected");

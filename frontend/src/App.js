@@ -10,10 +10,10 @@ import AlertBox from "./components/AlertBox/AlertBox";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import Login from "./pages/Authentication/AuthenticationLoginSignUp/AuthenticationLogin";
 import SignUp from "./pages/Authentication/AuthenticationLoginSignUp/AuthenticationSignUp";
-import JoinGroup from "./pages/Chat/ChatTab/JoinGroup/JoinGroup";
+import JoinGroup from "./pages/Chat/ChatTab/JoinGroup";
 import Authentication from "./pages/Authentication/Authentication"
-import EditProfile from "./pages/Chat/ChatTab/EditProfile/EditProfile";
-import CreateGroup from "./pages/Chat/ChatTab/CreateGroup/CreateGroup";
+import EditProfile from "./pages/Chat/ChatTab/EditProfile";
+import CreateGroup from "./pages/Chat/ChatTab/CreateGroup";
 import GroupPrivateList from "./pages/Chat/ChatTab/GroupPrivateList/GroupPrivateList";
 
 import "./App.css";

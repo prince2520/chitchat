@@ -97,3 +97,26 @@ exports.savePrivateMessage = async (req, res) => {
       });
   }
 };
+
+// delete private
+exports.deletePrivate = async (req, res) => {
+  const userId = mongoose.Types.ObjectId(req.userId);
+  const privateId = mongoose.Types.ObjectId(req.body.chatId);
+
+  const privateFound = await Private.findOne({ _id: privateId });
+
+  if (privateFound) {
+    if (privateFound.users.includes(userId)) {
+      await privateFound.remove();
+      return res
+        .status(200)
+        .json({ success: true, message: "Private removed successfully!" });
+    } else {
+      return res
+        .status(404)
+        .json({ success: true, message: "You are not authenticated!" });
+    }
+  } else {
+    return res.status(404).json({ success: true, message: "Group not found!" });
+  }
+};

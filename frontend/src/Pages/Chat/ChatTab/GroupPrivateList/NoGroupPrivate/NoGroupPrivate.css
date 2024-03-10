@@ -1,0 +1,15 @@
+.no-group-private {
+    height: 70%;
+    flex-direction: column !important;
+}
+
+.no-group-private img {
+    width: 90%;
+    max-width: 15rem;
+}
+
+.no-group-private .no-group-private__description{
+    row-gap: 0.5rem;
+    text-align: center;
+    flex-direction: column!important;
+} 

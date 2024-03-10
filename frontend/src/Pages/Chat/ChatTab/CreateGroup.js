@@ -3,19 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useContext, useEffect, useRef, useState } from "react";
 
-import Button from "../../../../components/Button/Button";
-import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
-import CustomInput from "../../../../components/CustomInput/CustomInput";
+import Button from "../../../components/Button/Button";
+import CustomInput from "../../../components/CustomInput/CustomInput";
+import ImageContainer from "../../../components/ImageContainer/ImageContainer";
 
-import { createGroup } from "../../../../api/group";
-import { UserActions } from "../../../../store/userSlice";
-import { saveInFirebase } from "../../../../utils/SaveInFirebase";
-import { compressImage } from "../../../../utils/CompressImage";
+import { createGroup } from "../../../api/group";
+import { UserActions } from "../../../store/userSlice";
+import { saveInFirebase } from "../../../utils/SaveInFirebase";
+import { compressImage } from "../../../utils/CompressImage";
 
 
-import AuthContext from "../../../../context/authContext";
-
-import "./CreateGroup.css";
+import AuthContext from "../../../context/authContext";
 
 const CreateGroup = () => {
   const imageRef = useRef();
@@ -41,7 +39,7 @@ const CreateGroup = () => {
   const createGroupHandler = async (name, groupImg) => {
     let firebaseUrl = await saveInFirebase(groupImg);
 
-    createGroup(authCtx?.token, name, authCtx?.userId, firebaseUrl)
+    createGroup(authCtx?.token, name, firebaseUrl)
       .then((data) => {
         if (data.success) {
           dispatch(UserActions.addGroup(data.data));
@@ -64,9 +62,9 @@ const CreateGroup = () => {
       className="flex-center create-group"
       onSubmit={(event) => submitHandler(event)}
     >
-      <h2>Create a Group</h2>
+      <h3 className="color-text-light">Create a Group</h3>
       <div className={"image-edit-container"}>
-        <ImageContainer src={preview}  width="12rem" height="12rem"  />
+        <ImageContainer src={preview}  width="9rem" height="9rem"  />
         <input
           accept="image/*"
           ref={imageRef}
@@ -87,9 +85,9 @@ const CreateGroup = () => {
           />
         </div>
       </div>
-      <CustomInput label={"Name"} icon={"material-symbols:edit"} />
+      <CustomInput label={"Name"} icon={"material-symbols:edit"} width="90%" maxWidth="20rem" />
       <Button backgroundColor={"var(--primary)"} width="50%">
-        <h5 className="color-text">Create</h5>
+        <p className="color-text">Create</p>
       </Button>
     </form>
   );

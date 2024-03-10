@@ -76,8 +76,8 @@
   z-index: 600;
   border-radius: 0.25rem;
   position: absolute;
-  width: 105%;
-  left: -0.5rem;
+  width: 100%;
+  left: 0;
   padding: 0.5rem 1rem;
 
   backdrop-filter: blur(8px);

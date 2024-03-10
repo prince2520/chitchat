@@ -13,6 +13,16 @@ export const socketSendMessage = (data) => {
   }
 };
 
+export const socketRemoveChat = (data) => {
+  socket.emit("remove_chat", { data });
+}
+
+export const socketGetRemoveChat = (cb) => {
+  socket.on("received_remove_chat", ({data}) => {
+    cb(data);
+  });
+};
+
 export const socketJoinGroup = (groups) => {
   if (socket) {
     socket.emit("join_group", { groups });

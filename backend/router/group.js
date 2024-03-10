@@ -1,24 +1,41 @@
-const express = require('express');
+const express = require("express");
 
-const {createGroup, joinGroup, saveGroupMessage, blockUser, unBlockUser}  = require('../controllers/group');
+const {
+  createGroup,
+  joinGroup,
+  saveGroupMessage,
+  blockUser,
+  unBlockUser,
+  deleteGroup,
+  leaveGroup
+} = require("../controllers/group");
 
-const isAuth = require('../middleware/is-auth')
-const {check} = require("express-validator");
+const isAuth = require("../middleware/is-auth");
+const { check } = require("express-validator");
 
 const router = express.Router();
 
-router.post('/create-group', [
-    check('name')
-        .isLength({min:1})
-        .withMessage('User name should be at least 5 character long.')
-        .trim(),
-], isAuth, createGroup);
+router.post(
+  "/create-group",
+  [
+    check("name")
+      .isLength({ min: 1 })
+      .withMessage("User name should be at least 5 character long.")
+      .trim(),
+  ],
+  isAuth,
+  createGroup
+);
 
-router.put('/join-group', isAuth, joinGroup);
+router.put("/join-group", isAuth, joinGroup);
 
-router.put('/save-group-message', isAuth, saveGroupMessage);
+router.put("/save-group-message", isAuth, saveGroupMessage);
 
 router.put("/block-user", isAuth, blockUser);
+
+router.delete("/delete-group", isAuth, deleteGroup);
+
+router.delete("/leave-group", isAuth, leaveGroup);
 
 router.put("/unblock-user", isAuth, unBlockUser);
 

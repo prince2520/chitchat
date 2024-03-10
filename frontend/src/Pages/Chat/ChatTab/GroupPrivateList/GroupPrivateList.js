@@ -8,7 +8,8 @@ import { UserActions } from "../../../../store/userSlice";
 import AuthContext from "../../../../context/authContext";
 import { categoryState } from "../../../../constants/constants"
 import { getLastMessage } from "../../../../utils/GetLastMessage";
- 
+import NoGroupPrivate from "./NoGroupPrivate/NoGroupPrivate";
+
 import "./GroupPrivateList.css";
 
 const GroupPrivateList = () => {
@@ -59,7 +60,7 @@ const GroupPrivateList = () => {
       <ChangeCategory setIsPrivate={setIsPrivate} />
       <SearchBar />
       <div className="group-private-list">
-        {(isPrivate ? privates : groups).map((data) => (
+        {(isPrivate ? privates : groups).length > 0 ? (isPrivate ? privates : groups).map((data) => (
           <div
             key={data._id}
             className={`group-private-item ${
@@ -86,7 +87,7 @@ const GroupPrivateList = () => {
               {showLastMsg(data)}
             </div>
           </div>
-        ))}
+        )): <NoGroupPrivate isPrivate={isPrivate}/>}
       </div>
     </>
   );

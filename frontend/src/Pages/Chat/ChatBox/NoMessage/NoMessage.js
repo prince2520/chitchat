@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 
-import NoMessageAnimation from "../../../../animations/Circle.json";
+import NoMessageAnimation from "../../../../assests/animations/Circle.json";
 
 import './NoMessage.css';
 

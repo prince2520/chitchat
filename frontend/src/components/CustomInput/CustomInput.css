@@ -1,6 +1,40 @@
-.custom-input > .custom-input__container{
-    width: 100%;
-    padding: 0.25rem 0.75rem ;
-    align-items: space-between;
-    background-color: var(--text);
+.custom-input p {
+  margin-bottom: 0.25rem;
+}
+
+input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 0 0 0 0.75rem;
+  border-radius: 0.25rem;
+  padding: 0 0.5rem 0 0 !important;
+  background-color: transparent;
+  color: var(--text-light);
+}
+
+.custom-input > .custom-input__container {
+  width: 100%;
+  padding: 0.25rem 0.75rem;
+  align-items: space-between;
+  border: 1px solid var(--border);
+}
+
+.custom-input__container svg {
+    color: var(--text-light);
+}
+
+.custom-input__container:hover input,
+.custom-input__container:active input{
+    color : var(--text);
+}
+
+.custom-input__container:hover,
+.custom-input__container:active{
+    border-color: var(--text);
+}
+
+.custom-input__container:hover svg,
+.custom-input__container:active svg {
+    color: var(--text);
 }

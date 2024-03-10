@@ -1,6 +1,6 @@
-import VideoAnimation from "../animations/Video.json";
-import GroupAnimation from "../animations/Group.json";
-import MessageAnimation from "../animations/Message.json";
+import VideoAnimation from "../assests/animations/Video.json";
+import GroupAnimation from "../assests/animations/Group.json";
+import MessageAnimation from "../assests/animations/Message.json";
 
 export const categoryState = ["Group", "Private"];
 

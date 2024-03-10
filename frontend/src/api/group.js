@@ -35,8 +35,8 @@ export const joinGroup = async (token, groupId, userId) => {
       },
       body: JSON.stringify({
         groupId,
-        userId
-      })
+        userId,
+      }),
     }
   );
   return result.json();
@@ -52,8 +52,40 @@ export const saveGroupMessage = async (data) => {
         "Content-Type": "application/json",
         Authorization: "Bearer " + data.token,
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     }
   );
   return result.json();
 };
+
+// delete a group
+export const deleteGroup = async (data) => {
+  const result = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/group/delete-group`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + data.token,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  return result.json();
+};
+
+export const leaveGroup = async (data) => {
+  const result = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/group/leave-group`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + data.token,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  return result.json();
+};
+
