@@ -26,12 +26,12 @@ const messageSchema = new Schema(
     type: {
       type: String,
       default: "string",
-      required: false,
+      required: true,
     },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: false,
+      required: true,
     }
   },
   { timestamps: true }

@@ -1,13 +1,10 @@
 // create a new group
-export const createGroup = async (token, name, groupImageUrl) => {
+export const createGroup = async (token, name, highResUrl, lowResUrl) => {
   let data = {
     name: name,
-    groupImageUrl: groupImageUrl,
+    highResUrl: highResUrl,
+    lowResUrl : lowResUrl
   };
-
-  if (groupImageUrl) {
-    data.groupImageUrl = groupImageUrl;
-  }
 
   const result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/group/create-group`,

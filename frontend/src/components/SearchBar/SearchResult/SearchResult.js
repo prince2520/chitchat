@@ -46,7 +46,7 @@ const SearchResult = ({ data, setShowResult, setData }) => {
         />
       </div>
       <div className={"search-image-container"}>
-        <ImageContainer src={data.user.profileImageUrl} />
+        <ImageContainer highResUrl={data.user.highResUrl}  lowResUrl={data.user.lowResUrl}/>
       </div>
       <div className={"flex-center search-result-description"}>
         <h5 className="color-text">{data.user.name}</h5>

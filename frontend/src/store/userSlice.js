@@ -5,7 +5,8 @@ const initialUserState = {
   name: "",
   email: "",
   status: "",
-  profileImageUrl: "",
+  highResUrl: "",
+  lowResUrl: "",
   groups: [],
   privates: [],
 
@@ -19,7 +20,6 @@ const UserSlice = createSlice({
   initialState: initialUserState,
   reducers: {
     deleteChat(state, action) {
-      console.log("deleteChat", action.payload)
       if (action.payload.type === categoryState[0]) {
         state.groups = state.groups.filter((group) => {
           return group._id !== action.payload.chatId;
@@ -33,8 +33,8 @@ const UserSlice = createSlice({
     saveUserData(state, action) {
       state.name = action.payload.name;
       state.status = action.payload.status;
-      state.profileImageUrl = action.payload.profileImageUrl;
-
+      state.highResUrl = action.payload.highResUrl;
+      state.lowResUrl = action.payload.lowResUrl;
       state.email = action.payload.email || state.email;
       state.groups = action.payload.groups || state.groups;
       state.privates = action.payload.privates || state.privates;

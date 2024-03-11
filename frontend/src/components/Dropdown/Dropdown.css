@@ -11,6 +11,18 @@
     text-decoration: none;
 }
 
+.menu-option svg{
+    color: var(--text-light);
+}
+
+.menu-option:hover svg,
+.menu-option:active svg,
+.menu-option:active h5,
+.menu-option:hover h5{
+    color : var(--text)
+
+}
+
 .menu-container .menu-close{
     position: absolute;
     font-size: 2.25rem;

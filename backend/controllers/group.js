@@ -6,7 +6,8 @@ const { validationResult } = require("express-validator");
 
 exports.createGroup = async (req, res) => {
   const name = req.body.name;
-  const groupImageUrl = req.body.groupImageUrl;
+  const highResUrl = req.body.highResUrl;
+  const lowResUrl = req.body.lowResUrl;
   const userId = mongoose.Types.ObjectId(req.userId);
 
   const invalidInput = validationResult(req);
@@ -19,13 +20,10 @@ exports.createGroup = async (req, res) => {
     const userFound = await User.findOne({ _id: userId });
     let data = {
       name: name,
-      groupImageUrl: groupImageUrl,
+      highResUrl: highResUrl,
+      lowResUrl: lowResUrl,
       createdBy: userId,
     };
-
-    if (groupImageUrl) {
-      data = { ...data, groupImageUrl: groupImageUrl };
-    }
 
     let newGroup = new Group(data);
 
@@ -93,7 +91,7 @@ exports.saveGroupMessage = (req, res) => {
   chatId = mongoose.Types.ObjectId(req.body.chatId);
 
   // Message Data
-  message = req.body.data.message;
+  message = req.body.data.message ? req.body.data.message : '' ;
   isOpenAIMsg = req.body.data.isOpenAIMsg;
   url = req.body.data.url ? req.body.data.url : "";
   size = req.body.data.size ? req.body.data.size : 0;
@@ -220,11 +218,13 @@ exports.deleteGroup = async (req, res) => {
   // }
 
   if (groupFound) {
-    const users = [...groupFound.users].map(user => mongoose.Types.ObjectId(user));
+    const users = [...groupFound.users].map((user) =>
+      mongoose.Types.ObjectId(user)
+    );
 
     await groupFound.remove();
 
-    console.log('users', users);
+    console.log("users", users);
 
     await User.updateMany(
       { _id: { $in: users } },
@@ -236,8 +236,7 @@ exports.deleteGroup = async (req, res) => {
       success: true,
       message: "Group Deleted!",
     });
-
-  }else{
+  } else {
     return res.status(400).json({
       success: false,
       message: "Group not Deleted!",

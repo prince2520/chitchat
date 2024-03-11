@@ -35,12 +35,20 @@ const ChatBoxTop = () => {
     <div className="border cursor-btn chat-box__top">
       <SideBar />
       <ImageContainer
-        src={
+        highResUrl={
           user.selectedType === categoryState[1]
             ? data.users.filter((user) => user._id !== authCtx.userId)[0]
-                .profileImageUrl
-            : data.groupImageUrl
+                .highResUrl
+            : data.highResUrl
         }
+        lowResUrl={
+          user.selectedType === categoryState[1]
+            ? data.users.filter((user) => user._id !== authCtx.userId)[0]
+                .lowResUrl
+            : data.lowResUrl
+        }
+
+
       />
       <div className="full-screen chat-box__description">
         <h5>

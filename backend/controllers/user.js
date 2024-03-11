@@ -7,12 +7,12 @@ exports.fetchUser = async (req, res) => {
 
   const userFound = await User.findOne({ email: email })
     .populate({
-       path: "privates",
-       populate: [{path:'messages', populate:  'user'}, "users"]
-     })
+      path: "privates",
+      populate: [{ path: "messages", populate: "user" }, "users"],
+    })
     .populate({
       path: "groups",
-      populate: [{ path: "messages", populate:  'user' }, "users"]
+      populate: [{ path: "messages", populate: "user" }, "users"],
     });
 
   if (userFound) {
@@ -22,11 +22,11 @@ exports.fetchUser = async (req, res) => {
   }
 };
 
-
 exports.updateUser = async (req, res) => {
   const name = req.body.name;
   const status = req.body.status;
-  const profileImageUrl = req.body.profileImageUrl;
+  const highResUrl = req.body.highResUrl;
+  const lowResUrl = req.body.lowResUrl;
   const _id = mongoose.Types.ObjectId(req.userId);
 
   const userFound = await User.findOne({ _id: _id });
@@ -35,8 +35,9 @@ exports.updateUser = async (req, res) => {
     userFound.name = name;
     userFound.status = status;
 
-    if (profileImageUrl) {
-      userFound.profileImageUrl = profileImageUrl;
+    if (highResUrl && lowResUrl) {
+      userFound.highResUrl = highResUrl;
+      userFound.lowResUrl = lowResUrl;
     }
 
     userFound.save().then(() => {

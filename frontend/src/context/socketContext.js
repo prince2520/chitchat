@@ -57,7 +57,6 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     socketGetRemoveChat((data) => {
-      console.log('data', data)
       if (selectedId === data.chatId) {
         dispatch(
           UserActions.selectedChat({

@@ -8,12 +8,10 @@ import ImageContainer from "../../../components/ImageContainer/ImageContainer";
 
 import { updateUser } from "../../../api/user";
 import { UserActions } from "../../../store/userSlice";
-
-
-import { compressImage } from "../../../utils/CompressImage";
 import { saveInFirebase } from "../../../utils/SaveInFirebase";
 
 import AuthContext from "../../../context/authContext";
+import useCompressImg from "../../../hooks/useCompressImg";
 
 import { AlertBoxActions } from "../../../store/alertSlice";
 
@@ -22,49 +20,60 @@ const EditProfile = () => {
   const authCtx = useContext(AuthContext);
   const dispatch = useDispatch();
 
-  const [profileImage, setProfileImage] = useState(null);
+  const [highResUrl, lowResUrl, setData] = useCompressImg(); 
   const [preview, setPreview] = useState(null);
   const imageRef = useRef();
 
   useEffect(() => {
-    if (profileImage) {
+    if (highResUrl && lowResUrl) {
       const readImg = new FileReader();
       readImg.onloadend = () => {
         setPreview(readImg.result);
       };
-      readImg.readAsDataURL(profileImage);
+      readImg.readAsDataURL(highResUrl);
     } else {
       setPreview(null);
     }
-  }, [profileImage]);
+  }, [highResUrl, lowResUrl]);
 
   const saveProfileBackend = (
     name,
     status,
-    profileImageUrl = null
+    highResUrl = null,
+    lowResUrl = null
   ) => {
     let data = {
       userId: authCtx.userId,
       name: name,
       status: status,
     };
-    if (profileImageUrl) {
-      data.profileImageUrl = profileImageUrl;
+    if (highResUrl && lowResUrl) {
+      data['highResUrl'] = highResUrl;
+      data['lowResUrl'] = lowResUrl
     }
+    console.log('data: ', data);
     return updateUser(authCtx.token, data);
   };
 
   const saveProfileDetail = async (name, status) => {
-    let firebaseUrl = await saveInFirebase(profileImage);
+    if(!highResUrl || !lowResUrl){
+      return;
+    }
 
-    saveProfileBackend(name, status, firebaseUrl)
+    let highResUrlfirebaseUrl = await saveInFirebase(highResUrl);
+    let lowResUrlfirebaseUrl = await saveInFirebase(lowResUrl);
+
+
+    saveProfileBackend(name, status, highResUrlfirebaseUrl, lowResUrlfirebaseUrl)
       .then((result) => {
+        console.log('result', result)
         dispatch(AlertBoxActions.showAlertBoxHandler(result));
         dispatch(
           UserActions.saveUserData({
             name: name,
             status: status,
-            profileImageUrl: firebaseUrl
+            highResUrl: highResUrlfirebaseUrl,
+            lowResUrl: lowResUrlfirebaseUrl
           })
         );
       })
@@ -89,14 +98,17 @@ const EditProfile = () => {
     >
       <h3 className="color-text-light">My Profile</h3>
       <div className={"image-edit-container"}>
-        <ImageContainer src={preview ? preview : user?.profileImageUrl} width="9rem" height="9rem" />
+        <ImageContainer highResUrl={preview ? preview : user?.highResUrl} lowResUrl={user.lowResUrl} width="11rem" height="11rem" />
         <input
           accept="image/*"
           ref={imageRef}
           type="file"
           style={{ display: "none" }}
           onChange={(event) => {
-            compressImage(event, setProfileImage);
+            if(event){
+              setData(event);
+
+            }
           }}
         />
         <div

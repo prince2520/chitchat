@@ -12,6 +12,7 @@ export const fetchUser = async (email, token) => {
 };
 
 export const updateUser = async (token, data) => {
+  console.log('updateUser', token, data);
   let result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/user/update-user`,
     {

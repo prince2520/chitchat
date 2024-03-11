@@ -8,35 +8,40 @@ const groupSchema = new Schema(
       type: String,
       required: true,
     },
-    groupImageUrl: {
+    highResUrl: {
       type: String,
-      required: false,
-      default: "https://i.imgur.com/nHlY97n.png",
+      required: true,
+      default: "https://i.imgur.com/sFlcbYx.png",
+    },
+    lowResUrl: {
+      type: String,
+      required: true,
+      default: "https://i.imgur.com/Pq8Irug.png",
     },
     status: {
       type: String,
-      required: false,
+      required: true,
       default: "Let's connect, share, and laugh together. ",
     },
     messages: [
       {
         type: Schema.Types.ObjectId,
         ref: "Message",
-        required: false,
+        required: true,
       },
     ],
     blockList : [
       {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: false,
+        required: true,
       }
     ],
     users: [
       {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: false,
+        required: true,
       }
     ],
     createdBy: {

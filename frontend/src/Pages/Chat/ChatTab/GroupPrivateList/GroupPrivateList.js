@@ -72,10 +72,15 @@ const GroupPrivateList = () => {
           >
             <div className="group-private-item-left">
               <ImageContainer
-                src={
+                highResUrl={
                   isPrivate
-                    ? data.users.filter((user) => user._id !== authCtx.userId)[0].profileImageUrl
-                    : data.groupImageUrl
+                    ? data.users.filter((user) => user._id !== authCtx.userId)[0].highResUrl
+                    : data.highResUrl
+                }
+                lowResUrl={
+                  isPrivate
+                  ? data.users.filter((user) => user._id !== authCtx.userId)[0].lowResUrl
+                  : data.lowResUrl
                 }
               />
             </div>

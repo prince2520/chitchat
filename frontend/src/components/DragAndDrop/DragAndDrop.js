@@ -8,30 +8,31 @@ import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 
 import { categoryState } from "../../constants/constants";
 import { OverlayActions } from "../../store/overlaySlice";
-import { DragAndDropActions } from "../../store/dragAndDropSlice";
 import { messageHandler } from "../../utils/SendMessage";
-import {
-  saveInFirebase,
-} from "../../utils/SaveInFirebase";
+import { saveInFirebase } from "../../utils/SaveInFirebase";
+import { DragAndDropActions } from "../../store/dragAndDropSlice";
 
-import {getDropData} from "../../utils/GetDropData";
+import { getDropData } from "../../utils/GetDropData";
+import { UserActions } from "../../store/userSlice";
 
 import AuthContext from "../../context/authContext";
 
+import useCompressImg from "../../hooks/useCompressImg";
+
 import "./DragAndDrop.css";
-import { UserActions } from "../../store/userSlice";
 
 const DragAndDrop = () => {
   const dispatch = useDispatch();
+
   const authCtx = useContext(AuthContext);
-  const [disabled, isDisabled] = useState(false);
 
   const user = useSelector((state) => state.user);
+  
+  const [highResUrl, lowResUrl, setData] =  useCompressImg();
 
-  let data = (user?.selectedType === categoryState[0]
-    ? user.groups
-    : user.privates
-    ).filter(res => res._id === user.selectedId)[0]
+  let data = (
+    user?.selectedType === categoryState[0] ? user.groups : user.privates
+  ).filter((res) => res._id === user.selectedId)[0];
 
   const files = useSelector((state) => state.dragAndDrop.files);
 
@@ -46,7 +47,7 @@ const DragAndDrop = () => {
   };
 
   const handleDropHelper = (dragFile) => {
-    let data = getDropData(dragFile);
+    const data = getDropData(dragFile);
 
     if (
       !files.find((file) => file.name === data.name) &&
@@ -66,7 +67,6 @@ const DragAndDrop = () => {
     dispatch(UserActions.saveMessage(temp));
   };
 
-
   const sendMessage = (url, file) => {
     let msgData = {
       token: authCtx.token,
@@ -75,7 +75,7 @@ const DragAndDrop = () => {
       selectedType: user.selectedType,
       saveMessage: saveMessage,
       data: {
-        message: '',
+        message: "",
         isOpenAIMsg: false,
         url: url,
         size: file.size,
@@ -86,11 +86,11 @@ const DragAndDrop = () => {
     messageHandler(msgData);
   };
 
-
   const uploadHandler = (event) => {
     event.preventDefault();
 
     files.map((file) => {
+
       saveInFirebase(file.fileData)
         .then((url) => {
           sendMessage(url, file);
@@ -129,9 +129,7 @@ const DragAndDrop = () => {
         ))}
       </div>
       {files.length > 0 && (
-        <Button
-         backgroundColor={"var(--primary)"} 
-         width={"50%"}  >
+        <Button backgroundColor={"var(--primary)"} width={"50%"}>
           <p className="color-text">Send</p>
         </Button>
       )}

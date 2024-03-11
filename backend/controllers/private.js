@@ -51,14 +51,16 @@ exports.createPrivate = async (req, res) => {
 };
 
 exports.savePrivateMessage = async (req, res) => {
+  console.log(req.body);
   let message, isOpenAIMsg, type, url, size, chatId, userId;
 
   chatId = mongoose.Types.ObjectId(req.body.chatId);
 
   // Message Data
-  message = req.body.data.message;
+  message = req.body.data.message ?  req.body.data.message : '';
   isOpenAIMsg = req.body.data.isOpenAIMsg;
   url = req.body.data.url ? req.body.data.url : "";
+
   size = req.body.data.size ? req.body.data.size : 0;
   type = req.body.data.type;
   userId = mongoose.Types.ObjectId(req.userId);
@@ -72,7 +74,7 @@ exports.savePrivateMessage = async (req, res) => {
       url,
       size,
       type,
-      user: userId,
+      user: userId
     });
 
     newMessage

@@ -1,9 +1,13 @@
 import Lottie from "lottie-react";
 import NotFoundPageAnimation from "../../assests/animations/404Page.json";
-import Button from "../../components/Button/Button";
+import Button from "../../components/Button/Button"
+import NotFoundLarge from "../../assests/images/404Large.png";
+import NotFoundSmall from "../../assests/images/404Small.png";
+
 import { useNavigate } from "react-router-dom";
 
 import "./NotFoundPage.css";
+import ImageContainer from "../../components/ImageContainer/ImageContainer";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -18,7 +22,11 @@ const NotFoundPage = () => {
         </Button>
       </div>
       <div className="not-fount-page__image">
-        <Lottie animationData={NotFoundPageAnimation} loop={true} />
+        <ImageContainer
+         width="20rem"
+         src={NotFoundLarge} 
+         smallSrc={NotFoundSmall} height="auto" circle={false}/>
+        {/* <Lottie animationData={NotFoundPageAnimation} loop={true} /> */}
       </div>
     </div>
   );

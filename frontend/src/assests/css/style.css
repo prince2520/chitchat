@@ -134,6 +134,16 @@ a:hover {
   border: 1px solid var(--text);
 }
 
+svg {
+  color: var(--text-extra-light)
+}
+
+svg:hover,
+svg:active,
+svg:focus {
+  color: var(--text)
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 }

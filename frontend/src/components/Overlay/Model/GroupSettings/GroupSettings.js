@@ -39,7 +39,8 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
             <div className="flex-center group-settings-user">
               <div className="flex-center group-settings-user-content">
                 <ImageContainer
-                  src={user.profileImageUrl}
+                  highResUrl={user.highResUrl}
+                  lowResUrl={user.lowResUrl}
                   width="2rem"
                   height="2rem"
                 />
@@ -87,7 +88,7 @@ const GroupSettings = () => {
   return (
     <div className="flex-center border box-shadow group-settings">
       <div className="flex-center group-settings-details">
-        <ImageContainer src={data.groupImageUrl} width="6rem" height="6rem" />
+        <ImageContainer highResUrl={data.highResUrl} lowResUrl={data.lowResUrl} width="6rem" height="6rem" />
         <h5>{data.name}</h5>
       </div>
       <div className="flex-center group-settings-links">

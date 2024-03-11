@@ -4,12 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
-import JoinGroupImg from "../../../assests/images/JoinGroup.svg";
+import JoinGroupLargeImg from "../../../assests/images/JoinGroup.png";
+import JoinGroupSmallImg from "../../../assests/images/JoinGroupSmall.png";
+
 
 import { UserActions } from "../../../store/userSlice";
 import { joinGroup } from "../../../api/group";
 
 import AuthContext from "../../../context/authContext";
+import ImageContainer from "../../../components/ImageContainer/ImageContainer";
 
 
 const JoinGroup = () => {
@@ -39,7 +42,7 @@ const JoinGroup = () => {
       className="flex-center join-group"
     >
       <h3 className="color-text-light">Join a Group</h3>
-      <img src={JoinGroupImg} />
+      <ImageContainer height="auto" src={JoinGroupLargeImg} highResUrl={JoinGroupLargeImg} lowResUrl={JoinGroupSmallImg}  width="15rem" circle={false}/>
       <CustomInput
         width="90%" maxWidth="20rem"
         label={"Group Id"}

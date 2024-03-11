@@ -20,7 +20,7 @@ const Dropdown = () => {
           onClick={() => navigate(value.link)}
         >
           <Icon icon={value.icon} />
-          <h5 className="color-text">{value.title}</h5>
+          <h5>{value.title}</h5>
         </div>
       ))}
       <div
@@ -28,7 +28,7 @@ const Dropdown = () => {
         onClick={() => authCtx?.logoutHandler()}
       >
         <Icon icon="material-symbols:logout" />
-        <h5 className="color-text">Logout</h5>
+        <h5>Logout</h5>
       </div>
     </div>
   );

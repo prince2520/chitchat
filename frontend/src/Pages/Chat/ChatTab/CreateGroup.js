@@ -6,40 +6,46 @@ import { useContext, useEffect, useRef, useState } from "react";
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
-
 import { createGroup } from "../../../api/group";
 import { UserActions } from "../../../store/userSlice";
 import { saveInFirebase } from "../../../utils/SaveInFirebase";
-import { compressImage } from "../../../utils/CompressImage";
 
-
+import useCompressImg from "../../../hooks/useCompressImg";
 import AuthContext from "../../../context/authContext";
+
+import CreateGroupLarge from "../../../assests/images/CreateGroupLarge.png";
+import CreateGroupSmall from "../../../assests/images/CreateGroupSmall.png";
 
 const CreateGroup = () => {
   const imageRef = useRef();
   const authCtx = useContext(AuthContext);
   const [preview, setPreview] = useState(null);
-  const [groupImage, setGroupImage] = useState(null);
+  const [ highResUrl, lowResUrl, setData ] = useCompressImg();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (groupImage) {
+    if (highResUrl && lowResUrl) {
       const readImg = new FileReader();
       readImg.onloadend = () => {
         setPreview(readImg.result);
       };
-      readImg.readAsDataURL(groupImage);
+      readImg.readAsDataURL(highResUrl);
     } else {
       setPreview(null);
     }
-  }, [groupImage]);
+  }, [highResUrl, lowResUrl]);
 
-  const createGroupHandler = async (name, groupImg) => {
-    let firebaseUrl = await saveInFirebase(groupImg);
+  const createGroupHandler = async (name) => {
+    if(!highResUrl || !lowResUrl) {
+      return;
+    }
 
-    createGroup(authCtx?.token, name, firebaseUrl)
+    const highResUrlfirebaseUrl = await saveInFirebase(highResUrl);
+    const lowResUrlfirebaseUrl = await saveInFirebase(lowResUrl);
+
+    createGroup(authCtx?.token, name, highResUrlfirebaseUrl, lowResUrlfirebaseUrl)
       .then((data) => {
         if (data.success) {
           dispatch(UserActions.addGroup(data.data));
@@ -51,10 +57,8 @@ const CreateGroup = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-
-    let groupName = event.target[1].value;
-
-    await createGroupHandler(groupName, groupImage);
+    const name = event.target[1].value;
+    await createGroupHandler(name);
   };
 
   return (
@@ -64,14 +68,14 @@ const CreateGroup = () => {
     >
       <h3 className="color-text-light">Create a Group</h3>
       <div className={"image-edit-container"}>
-        <ImageContainer src={preview}  width="9rem" height="9rem"  />
+        <ImageContainer highResUrl={preview || highResUrl || CreateGroupLarge } lowResUrl={lowResUrl || CreateGroupSmall } width="11rem" height="11rem"  />
         <input
           accept="image/*"
           ref={imageRef}
           type="file"
           style={{ display: "none" }}
           onChange={(event) => {
-            compressImage(event, setGroupImage);
+            setData(event);
           }}
         />
         <div

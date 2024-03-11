@@ -1,26 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 import store from "./store/store";
-import {Provider} from "react-redux";
-import {BrowserRouter} from "react-router-dom";
-import {AuthContextProvider} from "./context/authContext";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { AuthContextProvider } from "./context/authContext";
 
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from "./reportWebVitals";
 
-import App from './App';
+import App from "./App";
 
-import './index.css';
+import "./index.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-    <BrowserRouter>
-        <Provider store={store}>
-            <AuthContextProvider>
-                    <App/>
-            </AuthContextProvider>
-        </Provider>
-    </BrowserRouter>
+  <BrowserRouter>
+    <Provider store={store}>
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
+    </Provider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

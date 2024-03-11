@@ -11,7 +11,8 @@ import './MyProfile.css';
 
 const MyProfile = () => {
     const [showDropdown, setShowDropdown] = useState(false)
-    const profileImageUrl = useSelector(state => state.user.profileImageUrl);
+    const highResUrl = useSelector(state => state.user.highResUrl);
+    const lowResUrl = useSelector(state => state.user.lowResUrl);
 
     const closeDropdown = () => {
         setShowDropdown(false);
@@ -21,7 +22,7 @@ const MyProfile = () => {
 
     return (
         <div className={'flex-center my-profile-container border'}>
-            <ImageContainer src={profileImageUrl}/>
+            <ImageContainer highResUrl={highResUrl} lowResUrl={lowResUrl}/>
             <span onClick={()=>setShowDropdown(prevState=>!prevState)}>
                 <Icon ref={ref} icon="gridicons:dropdown" style={{color:'var(--text)', fontSize:'3rem', cursor:'pointer'}}/>
             </span>

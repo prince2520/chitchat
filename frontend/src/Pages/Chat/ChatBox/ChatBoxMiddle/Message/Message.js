@@ -54,7 +54,7 @@ const Message = ({ myMsg, messageDetail }) => {
     <div className={`message-container ${myMsg && "my-message"}`}>
       {((!myMsg) && !(selectedType === categoryState[1])) && (
         <div className={`message-img-container`}>
-          <ImageContainer src={messageDetail.user.profileImageUrl} width="2.25rem" height="2.25rem" />
+          <ImageContainer highResUrl={messageDetail.user.highResUrl} lowResUrl={messageDetail.user.lowResUrl} width="2.25rem" height="2.25rem" />
         </div>
       )}
       <div

@@ -1,13 +1,19 @@
-.image-container{
-    flex-shrink: 0;
-    position: relative;
-    background-color: black;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 1px solid var(--white);
+.image-container {
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
-.image-container img{
-    object-fit: contain;
-    height: 100%;
+.image-container.image-circle {
+  border: 1px solid var(--white);
+  background-color: black;
+  border-radius: 50%;
+}
+
+.image-container img {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
 }
