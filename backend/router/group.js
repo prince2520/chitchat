@@ -7,7 +7,8 @@ const {
   blockUser,
   unBlockUser,
   deleteGroup,
-  leaveGroup
+  leaveGroup,
+  removeUser
 } = require("../controllers/group");
 
 const isAuth = require("../middleware/is-auth");
@@ -38,5 +39,7 @@ router.delete("/delete-group", isAuth, deleteGroup);
 router.delete("/leave-group", isAuth, leaveGroup);
 
 router.put("/unblock-user", isAuth, unBlockUser);
+
+router.delete("/remove-user", isAuth, removeUser);
 
 module.exports = router;

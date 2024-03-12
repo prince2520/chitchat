@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { categoryState } from "../constants/constants";
 
 const initialUserState = {
+  _id : "",
   name: "",
   email: "",
   status: "",
@@ -24,13 +25,14 @@ const UserSlice = createSlice({
         state.groups = state.groups.filter((group) => {
           return group._id !== action.payload.chatId;
         });
-      }else{
-        state.privates = state.privates.filter((data)=> {
+      } else {
+        state.privates = state.privates.filter((data) => {
           return data._id !== action.payload.chatId;
-        })
+        });
       }
     },
     saveUserData(state, action) {
+      state._id = action.payload._id ? action.payload._id : state._id;
       state.name = action.payload.name;
       state.status = action.payload.status;
       state.highResUrl = action.payload.highResUrl;
@@ -50,8 +52,28 @@ const UserSlice = createSlice({
       state.selectedId = action.payload.selectedId;
       state.selectedType = action.payload.selectedType;
     },
+    removeUserGroup(state, action) {
+      const removeUserId = action.payload.removeUserId;
+      const groupId = action.payload.groupId;
+
+      state.groups = state.groups.filter((group) => {
+        if (group._id === groupId) {
+          group.users = group.users.filter((user) => user._id === removeUserId);
+        }
+        return group;
+      });
+
+      if(state._id === removeUserId ){
+        state.selectedId = null;
+        state.selectedType = null;
+        state.isSelected = false;
+
+        state.groups = state.groups.filter((group)=> group._id !== groupId);
+      }
+    },
     saveMessage(state, action) {
       const isGroup = action.payload.selectedType === categoryState[0];
+
       const saveChatMessage = (state) => {
         state = state.filter((chat) => {
           if (chat._id === action.payload.chatId) {
@@ -60,6 +82,7 @@ const UserSlice = createSlice({
           return chat;
         });
       };
+
       if (isGroup) {
         saveChatMessage(state.groups);
       } else {

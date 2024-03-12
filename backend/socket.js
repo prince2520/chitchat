@@ -61,12 +61,18 @@ module.exports = (io) => {
       socket.in(data.to).emit("callAccepted", data.signal);
     });
 
-    // Leave Group
+    // leave Group
     socket.on("leave_group", function ({ groupId }) {
       socket.leave(groupId);
     });
 
-    // Disconnect the user
+    //remove user from group
+    socket.on("remove_user_group", function ({data}){
+      console.log("data", data);
+      socket.to(data.groupId).emit("recieved_remove_user_group", {data:data})
+    });
+
+    // disconnect the user
     socket.on("disconnect", function (userId) {
       socket.leave(userId);
     });

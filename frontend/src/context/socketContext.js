@@ -11,6 +11,7 @@ import {
   sendCallUserHandler,
   getPrivateChat,
   socketGetRemoveChat,
+  socketGetRemoveGroup
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -44,8 +45,6 @@ export const SocketContextProvider = ({ children }) => {
     };
   }, [authCtx?.userId, dispatch]);
 
-  
-
   useEffect(() => {
     getChatMessage((err, { data }) => {
       dispatch(UserActions.saveMessage(data));
@@ -53,6 +52,10 @@ export const SocketContextProvider = ({ children }) => {
     getPrivateChat((err, { data }) => {
       dispatch(UserActions.addPrivate(data.private));
     });
+    socketGetRemoveGroup((err, {data})=>{
+      console.log('socketGetRemoveGroup', data);
+      dispatch(UserActions.removeUserGroup(data));
+    })
   }, [dispatch]);
 
   useEffect(() => {

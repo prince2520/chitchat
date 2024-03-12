@@ -15,10 +15,10 @@ export const socketSendMessage = (data) => {
 
 export const socketRemoveChat = (data) => {
   socket.emit("remove_chat", { data });
-}
+};
 
 export const socketGetRemoveChat = (cb) => {
-  socket.on("received_remove_chat", ({data}) => {
+  socket.on("received_remove_chat", ({ data }) => {
     cb(data);
   });
 };
@@ -50,12 +50,11 @@ export const sendCallUserHandler = ({ userToCall, signalData, from, name }) => {
   socket.emit("callUser", { userToCall, signalData, from, name });
 };
 
-
 export const socketAddPrivate = (data) => {
-    if(socket){
-        socket.emit("add_private", { data });
-    }
-}
+  if (socket) {
+    socket.emit("add_private", { data });
+  }
+};
 
 export const getChatMessage = (cb) => {
   if (!socket) {
@@ -68,17 +67,31 @@ export const getChatMessage = (cb) => {
 };
 
 export const getPrivateChat = (cb) => {
-    if (!socket) {
-        return true;
-      } else {
-        socket.on("recived_private_user", ({ data }) => {
-          return cb(null, { data });
-        });
-      }
-}
- 
+  if (!socket) {
+    return true;
+  } else {
+    socket.on("recived_private_user", ({ data }) => {
+      return cb(null, { data });
+    });
+  }
+};
+
 export const disconnectSocket = (userId) => {
   if (socket) {
     socket.disconnect(userId);
+  }
+};
+
+export const socketRemoveUserGroup = (data) => {
+  if (socket) {
+    socket.emit("remove_user_group", { data });
+  }
+};
+
+export const socketGetRemoveGroup = (cb) => {
+  if (socket) {
+    socket.on("recieved_remove_user_group", ({ data }) => {
+      cb(null, {data});
+    });
   }
 };

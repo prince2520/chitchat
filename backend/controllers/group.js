@@ -91,7 +91,7 @@ exports.saveGroupMessage = (req, res) => {
   chatId = mongoose.Types.ObjectId(req.body.chatId);
 
   // Message Data
-  message = req.body.data.message ? req.body.data.message : '' ;
+  message = req.body.data.message ? req.body.data.message : "";
   isOpenAIMsg = req.body.data.isOpenAIMsg;
   url = req.body.data.url ? req.body.data.url : "";
   size = req.body.data.size ? req.body.data.size : 0;
@@ -224,8 +224,6 @@ exports.deleteGroup = async (req, res) => {
 
     await groupFound.remove();
 
-    console.log("users", users);
-
     await User.updateMany(
       { _id: { $in: users } },
       { $pull: { groups: groupId } },
@@ -270,5 +268,35 @@ exports.leaveGroup = async (req, res) => {
         message: "You are not in this group.",
       });
     }
+  }
+};
+
+// Remove user from group
+exports.removeUser = async (req, res) => {
+  const adminId = mongoose.Types.ObjectId(req.userId);
+
+  const groupId = mongoose.Types.ObjectId(req.body.groupId);
+  const removeUserId = mongoose.Types.ObjectId(req.body.removeUserId);
+
+  const groupFound = await Group.findOne({ _id: groupId });
+  const removeUserFound = await User.findOne({ _id: removeUserId });
+
+  if (groupFound) {
+    groupFound.users.pull(removeUserId);
+    removeUserFound.groups.pull(groupId);
+
+    await removeUserFound.save();
+    await groupFound.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "User removed successfully!",
+    });
+
+  } else {
+    return res.status(403).json({
+      success: false,
+      message: "Group not found!",
+    });
   }
 };

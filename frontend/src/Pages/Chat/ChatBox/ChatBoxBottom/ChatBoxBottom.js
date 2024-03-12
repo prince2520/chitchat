@@ -10,19 +10,18 @@ import { OverlayActions } from "../../../../store/overlaySlice";
 
 import AuthContext from "../../../../context/authContext";
 
-import { categoryState } from "../../../../constants/constants";
 import { useSelector } from "react-redux";
 import { UserActions } from "../../../../store/userSlice";
+import { categoryState } from "../../../../constants/constants";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 import "./ChatBoxBottom.css";
 
 const ChatBoxBottom = () => {
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
 
   const authCtx = useContext(AuthContext);
-
-  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
   const data = (
@@ -92,7 +91,9 @@ const ChatBoxBottom = () => {
         />
         <OpenAI isOpenAIHandler={isOpenAIHandler} />
       </div>
-      <div className={" hoverState flex-center border chat-box__bottom__middle"}>
+      <div
+        className={" hoverState flex-center border chat-box__bottom__middle"}
+      >
         <input ref={inputRef} type="text" placeholder={"Type Something ..."} />
       </div>
       <div className="flex-center icon__container chat-box__bottom__right">

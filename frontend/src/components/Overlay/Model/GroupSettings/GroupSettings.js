@@ -1,14 +1,18 @@
-import { useSelector } from "react-redux";
-
-import { categoryState } from "../../../../constants/constants"
-import ImageContainer from "../../../ImageContainer/ImageContainer";
 import { Icon } from "@iconify/react";
-
-import Button from "../../../Button/Button";
-import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
+import { removeUser } from "../../../../api/group";
+import { categoryState } from "../../../../constants/constants";
+
+import Button from "../../../Button/Button";
+import AuthContext from "../../../../context/authContext";
+import ImageContainer from "../../../ImageContainer/ImageContainer";
+
 import "./GroupSettings.css";
+import { UserActions } from "../../../../store/userSlice";
+import { socketRemoveUserGroup } from "../../../../socket";
 
 const Share = ({ groupId }) => {
   return (
@@ -31,6 +35,31 @@ const Share = ({ groupId }) => {
 };
 
 const MembersAndBlockList = ({ data, isBlockList = false }) => {
+  const authCtx = useContext(AuthContext);
+  const dispatch = useDispatch();
+
+  const removeUserfromGroup = (removeUserId) => {
+    const groupId = data._id;
+    const token = authCtx.token;
+    
+    let removeData = {
+      groupId,
+      token,
+      removeUserId,
+    };
+
+    removeUser(removeData)
+      .then((res) => {
+        if (res.success) {
+          dispatch(UserActions.removeUserGroup(removeData));
+          socketRemoveUserGroup(removeData);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <React.Fragment>
       {(isBlockList ? data.blockList : data.users).length > 0 ? (
@@ -56,8 +85,9 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
                   </Button>
                 ) : (
                   <Icon
+                    onClick={()=>removeUserfromGroup(user._id)}
                     icon="pajamas:remove"
-                    className="color-text-light"
+                    className="color-text-light cursor-btn"
                     fontSize={"1.25rem"}
                   />
                 )}
@@ -76,7 +106,7 @@ const settingsLinks = ["Members", "Block List", "Share"];
 
 const GroupSettings = () => {
   const user = useSelector((state) => state.user);
-  const link = useSelector((state) => state.overlay.showSettings.link)
+  const link = useSelector((state) => state.overlay.showSettings.link);
   const [selectedLinks, setSelectedLinks] = useState(link);
 
   const data = (
@@ -88,7 +118,12 @@ const GroupSettings = () => {
   return (
     <div className="flex-center border box-shadow group-settings">
       <div className="flex-center group-settings-details">
-        <ImageContainer highResUrl={data.highResUrl} lowResUrl={data.lowResUrl} width="6rem" height="6rem" />
+        <ImageContainer
+          highResUrl={data.highResUrl}
+          lowResUrl={data.lowResUrl}
+          width="6rem"
+          height="6rem"
+        />
         <h5>{data.name}</h5>
       </div>
       <div className="flex-center group-settings-links">

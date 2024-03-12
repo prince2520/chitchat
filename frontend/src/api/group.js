@@ -3,7 +3,7 @@ export const createGroup = async (token, name, highResUrl, lowResUrl) => {
   let data = {
     name: name,
     highResUrl: highResUrl,
-    lowResUrl : lowResUrl
+    lowResUrl: lowResUrl,
   };
 
   const result = await fetch(
@@ -86,3 +86,18 @@ export const leaveGroup = async (data) => {
   return result.json();
 };
 
+// remove user from group
+export const removeUser = async (data) => {
+  const result = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/group/remove-user`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + data.token,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  return result.json();
+};
