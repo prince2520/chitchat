@@ -101,3 +101,21 @@ export const removeUser = async (data) => {
   );
   return result.json();
 };
+
+// edit a group 
+export const editGroup = async (data) => {
+  
+  const result = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/group/edit-group`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + data.token,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  return result.json();
+};

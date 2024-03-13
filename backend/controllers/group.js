@@ -300,3 +300,43 @@ exports.removeUser = async (req, res) => {
     });
   }
 };
+
+
+// Edit a group
+exports.editGroup = async (req, res) => {
+
+  const name = req.body.name;
+  const lowResUrl = req.body.lowResUrl;
+  const highResUrl = req.body.highResUrl;
+  const description = req.body.description;
+
+  const groupId = mongoose.Types.ObjectId(req.body.groupId);
+
+  const groupFound = await Group.findOne({ _id: groupId });
+
+  if(groupFound){
+
+    groupFound.name = name;
+    groupFound.description = description;
+
+    if(highResUrl && lowResUrl){
+      groupFound.highResUrl = highResUrl;
+      groupFound.lowResUrl = lowResUrl;
+    }
+
+    await groupFound.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Group edited successfully!",
+    });
+
+  }else{
+
+    return res.status(403).json({
+      success: false,
+      message: "Group not found!",
+    });
+
+  }
+};

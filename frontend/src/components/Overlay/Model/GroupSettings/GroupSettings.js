@@ -15,6 +15,7 @@ import { UserActions } from "../../../../store/userSlice";
 import { socketRemoveUserGroup } from "../../../../socket";
 
 import "./GroupSettings.css";
+import CustomInput from "../../../CustomInput/CustomInput";
 
 const Share = ({ groupId }) => {
   return (
@@ -33,6 +34,28 @@ const Share = ({ groupId }) => {
         </CopyToClipboard>
       </div>
     </>
+  );
+};
+
+const Edit = ({ data }) => {
+  return (
+    <div
+      className="flex-center"
+      style={{ flexDirection: "column", rowGap: "1rem", width: "100%" }}
+    >
+      <CustomInput
+        defaultValue={data.name}
+        label={"Group Name "}
+        type={"text"}
+        width="100%"
+      />
+      <CustomInput
+        defaultValue={data.status}
+        label={"Description "}
+        type={"text"}
+        width="100%"
+      />
+    </div>
   );
 };
 
@@ -60,6 +83,10 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const isAdmin = () => {
+    return authCtx.userId === data.createdBy;
   };
 
   const addUserToBlocklist = (blockedUser) => {
@@ -100,18 +127,22 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
                   </Button>
                 ) : (
                   <>
-                    <Icon
-                      onClick={() => addUserToBlocklist(user)}
-                      className="color-text-light cursor-btn"
-                      fontSize={"1.25rem"}
-                      icon="streamline:inbox-block-solid"
-                    />
-                    <Icon
-                      onClick={() => removeUserfromGroup(user._id)}
-                      icon="pajamas:remove"
-                      className="color-text-light cursor-btn"
-                      fontSize={"1.25rem"}
-                    />
+                    {isAdmin() ? (
+                      <div className="flex-center" style={{justifyContent: "space-between", width : "4rem"}}>
+                        <Icon
+                          onClick={() => addUserToBlocklist(user)}
+                          className="color-text-light cursor-btn"
+                          fontSize={"1.25rem"}
+                          icon="streamline:inbox-block-solid"
+                        />
+                        <Icon
+                          onClick={() => removeUserfromGroup(user._id)}
+                          icon="pajamas:remove"
+                          className="color-text-light cursor-btn"
+                          fontSize={"1.25rem"}
+                        />
+                      </div>
+                    ) : null}
                   </>
                 )}
               </div>
@@ -125,7 +156,7 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
   );
 };
 
-const settingsLinks = ["Members", "Block List", "Share"];
+const settingsLinks = ["Members", "Block List", "Edit", "Share"];
 
 const GroupSettings = () => {
   const user = useSelector((state) => state.user);
@@ -137,6 +168,29 @@ const GroupSettings = () => {
       ? user.groups
       : user.privates
   ).filter((res) => res._id === user.selectedId)[0];
+
+  const displaySettingOption = () => {
+    let displayData;
+
+    const memberAndBlockCondition =
+      settingsLinks[0] === selectedLinks || settingsLinks[1] === selectedLinks;
+    const editCondition = settingsLinks[2] === selectedLinks;
+
+    if (memberAndBlockCondition) {
+      displayData = (
+        <MembersAndBlockList
+          data={data}
+          isBlockList={selectedLinks === settingsLinks[1]}
+        />
+      );
+    } else if (editCondition) {
+      displayData = <Edit data={data} />;
+    } else {
+      displayData = <Share groupId={data._id} />;
+    }
+
+    return displayData;
+  };
 
   return (
     <div className="flex-center border box-shadow group-settings">
@@ -152,6 +206,7 @@ const GroupSettings = () => {
       <div className="flex-center group-settings-links">
         {settingsLinks.map((name) => (
           <p
+            style={{ color: selectedLinks === name ? "var(--text)" : "" }}
             key={uid(32)}
             className="cursor-btn"
             onClick={() => setSelectedLinks(name)}
@@ -161,14 +216,7 @@ const GroupSettings = () => {
         ))}
       </div>
       <div className="flex-center border hoverState group-settings-content">
-        {selectedLinks !== settingsLinks[2] ? (
-          <MembersAndBlockList
-            data={data}
-            isBlockList={selectedLinks === settingsLinks[1]}
-          />
-        ) : (
-          <Share groupId={data._id} />
-        )}
+        {displaySettingOption()}
       </div>
       <Button backgroundColor={"var(--error)"} width={"50%"}>
         <p className="color-text">Delete</p>

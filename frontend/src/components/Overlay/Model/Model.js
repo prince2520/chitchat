@@ -4,11 +4,10 @@ import { useSelector } from "react-redux";
 
 import VideoChat from "../../VideoChat/VideoChat";
 import DragAndDrop from "../../DragAndDrop/DragAndDrop";
+import GroupSettings from "./GroupSettings/GroupSettings";
 import ChatTab from "../../../pages/Chat/ChatTab/ChatTab";
 
-import GroupSettings from "./GroupSettings/GroupSettings";
 import "./Model.css";
-
 
 const Model = () => {
   const overlay = useSelector((state) => state.overlay);

@@ -7,12 +7,14 @@ const ImageContainer = ({
   circle = true,
   lowResUrl,
 }) => {
+
   const [imageSrc, { blur }] = useProgressiveImg(
     lowResUrl,
     highResUrl
   );
 
   return (
+    
     <div
       className={`flex-center image-container ${circle ? "image-circle" : ""}`}
       style={{ width: width, height: height }}
