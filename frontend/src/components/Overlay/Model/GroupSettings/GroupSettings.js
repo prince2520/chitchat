@@ -11,11 +11,13 @@ import AuthContext from "../../../../context/authContext";
 import ImageContainer from "../../../ImageContainer/ImageContainer";
 import { uid } from "uid";
 
+import { editGroup } from "../../../../api/group";
 import { UserActions } from "../../../../store/userSlice";
 import { socketRemoveUserGroup } from "../../../../socket";
 
 import "./GroupSettings.css";
 import CustomInput from "../../../CustomInput/CustomInput";
+import { saveInFirebase } from "../../../../utils/SaveInFirebase";
 
 const Share = ({ groupId }) => {
   return (
@@ -128,7 +130,13 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
                 ) : (
                   <>
                     {isAdmin() ? (
-                      <div className="flex-center" style={{justifyContent: "space-between", width : "4rem"}}>
+                      <div
+                        className="flex-center"
+                        style={{
+                          justifyContent: "space-between",
+                          width: "4rem",
+                        }}
+                      >
                         <Icon
                           onClick={() => addUserToBlocklist(user)}
                           className="color-text-light cursor-btn"
@@ -163,6 +171,12 @@ const GroupSettings = () => {
   const link = useSelector((state) => state.overlay.showSettings.link);
   const [selectedLinks, setSelectedLinks] = useState(link);
 
+  const [highResUrl, setHighResUrl] = useState(null);
+  const [lowResUrl, setLowResUrl] = useState(null);
+  const dispatch = useDispatch();
+
+  const authCtx = useContext(AuthContext);
+
   const data = (
     user?.selectedType !== null && user?.selectedType === categoryState[0]
       ? user.groups
@@ -192,14 +206,49 @@ const GroupSettings = () => {
     return displayData;
   };
 
+  const saveEditData = async (event) => {
+    event.preventDefault();
+    const name = event.target[1].value;
+    const status = event.target[2].value;
+    const token = authCtx.token;
+
+    const firebaseHighResUrl = await saveInFirebase(highResUrl);
+    const firebaseLowResUrl = await saveInFirebase(lowResUrl);
+
+    let saveData = {
+      token,
+      groupId: data._id,
+      name,
+      status,
+      highResUrl: firebaseHighResUrl,
+      lowResUrl: firebaseLowResUrl,
+    };
+
+    editGroup(saveData)
+      .then((result) => {
+        if (result.success) {
+          dispatch(UserActions.editGroup(saveData));
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <div className="flex-center border box-shadow group-settings">
+    <form
+      onSubmit={(event) => saveEditData(event)}
+      className="flex-center border box-shadow group-settings"
+    >
       <div className="flex-center group-settings-details">
         <ImageContainer
           highResUrl={data.highResUrl}
           lowResUrl={data.lowResUrl}
           width="6rem"
           height="6rem"
+          isEditable={selectedLinks === settingsLinks[2]}
+          editImageHandler={(newHighResUrl, newLowResUrl) => {
+            setHighResUrl(newHighResUrl);
+            setLowResUrl(newLowResUrl);
+          }}
         />
         <h5>{data.name}</h5>
       </div>
@@ -218,10 +267,16 @@ const GroupSettings = () => {
       <div className="flex-center border hoverState group-settings-content">
         {displaySettingOption()}
       </div>
-      <Button backgroundColor={"var(--error)"} width={"50%"}>
-        <p className="color-text">Delete</p>
-      </Button>
-    </div>
+      {!(selectedLinks === settingsLinks[2]) ? (
+        <Button backgroundColor={"var(--error)"} width={"50%"}>
+          <p className="color-text">Delete</p>
+        </Button>
+      ) : (
+        <Button backgroundColor={"var(--success)"} width={"50%"}>
+          <p className="color-text">Save</p>
+        </Button>
+      )}
+    </form>
   );
 };
 

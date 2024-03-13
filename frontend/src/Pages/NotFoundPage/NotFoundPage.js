@@ -24,8 +24,8 @@ const NotFoundPage = () => {
       <div className="not-fount-page__image">
         <ImageContainer
          width="20rem"
-         src={NotFoundLarge} 
-         smallSrc={NotFoundSmall} height="auto" circle={false}/>
+         highResUrl={NotFoundLarge} 
+         lowResUrl={NotFoundSmall} height="auto" circle={false}/>
         {/* <Lottie animationData={NotFoundPageAnimation} loop={true} /> */}
       </div>
     </div>

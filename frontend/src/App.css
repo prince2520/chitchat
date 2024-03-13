@@ -47,29 +47,6 @@ p {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-
-.image-edit-container {
-  position: relative;
-}
-
-.image-edit-container .edit-btn {
-  bottom: 0;
-  cursor: pointer;
-  position: absolute;
-  right: 1.5rem;
-
-  border: 1px solid var(--text);
-
-  width: 2rem;
-  height: 2rem;
-  background-color: var(--white);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-}
-
 @media screen and (max-width: 800px) {
   .authentication-page,
   .chat-page {

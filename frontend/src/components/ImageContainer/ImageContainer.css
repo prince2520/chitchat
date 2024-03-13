@@ -1,19 +1,33 @@
 .image-container {
-  flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
 }
 
 .image-container.image-circle {
-  border: 1px solid var(--white);
-  background-color: black;
   border-radius: 50%;
+  background-color: black;
+  border: 1px solid var(--white);
 }
 
 .image-container img {
-  object-fit: contain;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.image-edit-container {
+  position: relative;
+}
+
+.image-edit-container .edit-btn {
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+
+  padding: 0.25rem 0.25rem;
+  border: 1px solid var(--text);
+  background-color: var(--white);
 }

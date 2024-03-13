@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { categoryState } from "../constants/constants";
 
 const initialUserState = {
-  _id : "",
+  _id: "",
   name: "",
   email: "",
   status: "",
@@ -63,12 +63,12 @@ const UserSlice = createSlice({
         return group;
       });
 
-      if(state._id === removeUserId ){
+      if (state._id === removeUserId) {
         state.selectedId = null;
         state.selectedType = null;
         state.isSelected = false;
 
-        state.groups = state.groups.filter((group)=> group._id !== groupId);
+        state.groups = state.groups.filter((group) => group._id !== groupId);
       }
     },
     saveMessage(state, action) {
@@ -103,16 +103,36 @@ const UserSlice = createSlice({
     blockUserGroup(state, action) {
       const blockedUser = action.payload.blockedUser;
       const groupId = action.payload.groupId;
-      
+
       const temp = state.groups.concat().map((group) => {
-        if(group._id === groupId){
-          group.blockList =[...group.blockList.concat(), blockedUser];
+        if (group._id === groupId) {
+          group.blockList = [...group.blockList.concat(), blockedUser];
         }
         return group;
       });
 
       state.groups = temp;
-    }
+    },
+    editGroup(state, action) {
+      const groupId = action.payload.groupId;
+      const name = action.payload.name;
+      const status = action.payload.status;
+      const highResUrl = action.payload.highResUrl;
+      const lowResUrl = action.payload.lowResUrl;
+
+      state.groups = state.groups.map((group) => {
+        if (group._id === groupId) {
+          group.name = name;
+          group.status = status;
+
+          if (highResUrl && lowResUrl) {
+            group.highResUrl = highResUrl;
+            group.lowResUrl = lowResUrl;
+          }
+        }
+        return group;
+      });
+    },
   },
 });
 

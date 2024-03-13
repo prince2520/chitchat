@@ -6,8 +6,8 @@ import ChatBox from "./ChatBox/ChatBox";
 import Overlay from "../../components/Overlay/Overlay";
 import NotSelectedChat from "./NotSelectedChat/NotSelectedChat";
 
-import { SocketContextProvider } from "../../context/socketContext";
 import { UserActions } from "../../store/userSlice";
+import { SocketContextProvider } from "../../context/socketContext";
 
 import "./Chat.css";
 

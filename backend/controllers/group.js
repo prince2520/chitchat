@@ -304,11 +304,12 @@ exports.removeUser = async (req, res) => {
 
 // Edit a group
 exports.editGroup = async (req, res) => {
+  console.log('req.body', req.body);
 
   const name = req.body.name;
+  const status = req.body.status;
   const lowResUrl = req.body.lowResUrl;
   const highResUrl = req.body.highResUrl;
-  const description = req.body.description;
 
   const groupId = mongoose.Types.ObjectId(req.body.groupId);
 
@@ -317,7 +318,7 @@ exports.editGroup = async (req, res) => {
   if(groupFound){
 
     groupFound.name = name;
-    groupFound.description = description;
+    groupFound.status = status;
 
     if(highResUrl && lowResUrl){
       groupFound.highResUrl = highResUrl;
