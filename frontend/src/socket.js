@@ -91,7 +91,23 @@ export const socketRemoveUserGroup = (data) => {
 export const socketGetRemoveGroup = (cb) => {
   if (socket) {
     socket.on("recieved_remove_user_group", ({ data }) => {
-      cb(null, {data});
+      cb(null, { data });
+    });
+  }
+};
+
+// update group details
+export const socketUpdateGroup = (data) => {
+  if (socket) {
+    socket.emit("update_group_detail", { data });
+  }
+};
+
+// get - update group detials
+export const socketGetUpdateGroup = (cb) => {
+  if (socket) {
+    socket.on("get_update_group_detail", ({ data }) => {
+      cb(null, { data });
     });
   }
 };

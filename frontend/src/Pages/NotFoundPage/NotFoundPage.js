@@ -1,13 +1,11 @@
-import Lottie from "lottie-react";
-import NotFoundPageAnimation from "../../assests/animations/404Page.json";
 import Button from "../../components/Button/Button"
 import NotFoundLarge from "../../assests/images/404Large.png";
 import NotFoundSmall from "../../assests/images/404Small.png";
+import ImageContainer from "../../components/ImageContainer/ImageContainer";
 
 import { useNavigate } from "react-router-dom";
 
 import "./NotFoundPage.css";
-import ImageContainer from "../../components/ImageContainer/ImageContainer";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();

@@ -1,12 +1,12 @@
 module.exports = (io) => {
   io.on("connection", function (socket) {
-    // Connect the user
+    // USER - Connect
     socket.on("user_connected", (userId) => {
       socket.join(userId);
       io.emit("received_user_connected", userId);
     });
 
-    // Join the group
+    // GROUP - Join
     socket.on("join_group", ({ groups }) => {
       groups?.map((group) => {
         if (group._id) {
@@ -16,7 +16,7 @@ module.exports = (io) => {
       });
     });
 
-    // Add private User
+    // PRIVATE - add private User
     socket.on("add_private", ({ data }) => {
       data.private.users?.map((user) => {
         let userId = user._id;
@@ -25,13 +25,13 @@ module.exports = (io) => {
       });
     });
 
-    // remove group
+    // GROUP - remove 
     socket.on("remove_chat", ({ data }) => {
-      console.log("remove", data)
+      console.log("remove", data);
       if (data.type === "Group") {
         io.to(data.chatId).emit("received_remove_chat", { data });
         socket.leave(data.chatId);
-      }else{
+      } else {
         io.to(data.privatUserId).emit("received_remove_chat", { data });
       }
     });
@@ -61,15 +61,23 @@ module.exports = (io) => {
       socket.in(data.to).emit("callAccepted", data.signal);
     });
 
-    // leave Group
+    // GROUP - leave Group
     socket.on("leave_group", function ({ groupId }) {
       socket.leave(groupId);
     });
 
-    //remove user from group
-    socket.on("remove_user_group", function ({data}){
-      console.log("data", data);
-      socket.to(data.groupId).emit("recieved_remove_user_group", {data:data})
+    // GROUP - remove user 
+    socket.on("remove_user_group", function ({ data }) {
+      socket
+        .to(data.groupId)
+        .emit("recieved_remove_user_group", { data: data });
+    });
+
+    // GROUP - update group detail
+    socket.on("update_group_detail", function ({ data }) {
+      socket
+        .to(data.groupId)
+        .emit("get_update_group_detail", { data: data });
     });
 
     // disconnect the user

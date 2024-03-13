@@ -13,11 +13,13 @@ import { uid } from "uid";
 
 import { editGroup } from "../../../../api/group";
 import { UserActions } from "../../../../store/userSlice";
-import { socketRemoveUserGroup } from "../../../../socket";
+import { socketRemoveUserGroup, socketUpdateGroup } from "../../../../socket";
 
-import "./GroupSettings.css";
 import CustomInput from "../../../CustomInput/CustomInput";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
+
+import "./GroupSettings.css";
+
 
 const Share = ({ groupId }) => {
   return (
@@ -228,6 +230,8 @@ const GroupSettings = () => {
       .then((result) => {
         if (result.success) {
           dispatch(UserActions.editGroup(saveData));
+          delete saveData.token;
+          socketUpdateGroup(saveData);
         }
       })
       .catch((err) => console.log(err));
