@@ -89,6 +89,30 @@ const UserSlice = createSlice({
         saveChatMessage(state.privates);
       }
     },
+    addUserGroup(state, action) {
+      const removeUserId = action.payload.addUserId;
+      const groupId = action.payload.groupId;
+
+      state.groups = state.groups.map((group) => {
+        if (group._id === groupId) {
+          group.users = group.users.filter((user) => user._id === removeUserId);
+        }
+        return group;
+      });
+    },
+    blockUserGroup(state, action) {
+      const blockedUser = action.payload.blockedUser;
+      const groupId = action.payload.groupId;
+      
+      const temp = state.groups.concat().map((group) => {
+        if(group._id === groupId){
+          group.blockList =[...group.blockList.concat(), blockedUser];
+        }
+        return group;
+      });
+
+      state.groups = temp;
+    }
   },
 });
 

@@ -28,6 +28,7 @@ const JoinGroup = () => {
 
     joinGroup(authCtx?.token, groupId, authCtx?.userId)
       .then((res) => {
+        console.log('join group', res);
         if (res.success) {
           dispatch(UserActions.addGroup(res.groupData));
           navigate("/chat");

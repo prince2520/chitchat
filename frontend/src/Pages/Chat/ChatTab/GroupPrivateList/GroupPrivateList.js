@@ -20,13 +20,10 @@ const GroupPrivateList = () => {
   const authCtx = useContext(AuthContext);
   const groups = user.groups;
 
-  console.log('GroupList', user)
-
   const selectedItem = (item) => {
     if (user.selectedId === item?._id) {
       return;
     }
-
     let data = {
       isSelected: true,
       selectedType: categoryState[!isPrivate ? 0 : 1],

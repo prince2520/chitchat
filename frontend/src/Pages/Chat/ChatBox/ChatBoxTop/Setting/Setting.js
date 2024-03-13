@@ -6,6 +6,7 @@ import { deleteGroup, leaveGroup } from "../../../../../api/group";
 import { OverlayActions } from "../../../../../store/overlaySlice";
 import { chatTopSettingOptions } from "../../../../../constants/constants";
 
+import { uid } from 'uid';
 import AuthContext from "../../../../../context/authContext";
 
 import { categoryState } from "../../../../../constants/constants";
@@ -77,6 +78,7 @@ const Setting = () => {
     <div className="flex-center box-shadow border setting">
       {(selectedType === categoryState[0]) && chatTopSettingOptions.map((option) => (
         <div
+          key={uid(32)}
           className={"cursor-btn flex-center setting__option"}
           onClick={() =>
             dispatch(

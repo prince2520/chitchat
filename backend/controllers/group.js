@@ -48,7 +48,7 @@ exports.joinGroup = async (req, res) => {
 
   const MAX_USER_IN_GROUP = 20;
 
-  const groupFound = await Group.findOne({ _id: groupId }).populate();
+  const groupFound = await Group.findOne({ _id: groupId }).populate(['users', 'messages']);
   const userFound = await User.findOne({ _id: userId });
 
   let userInGroupFound;

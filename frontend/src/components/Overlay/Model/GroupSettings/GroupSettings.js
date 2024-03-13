@@ -9,10 +9,12 @@ import { categoryState } from "../../../../constants/constants";
 import Button from "../../../Button/Button";
 import AuthContext from "../../../../context/authContext";
 import ImageContainer from "../../../ImageContainer/ImageContainer";
+import { uid } from "uid";
 
-import "./GroupSettings.css";
 import { UserActions } from "../../../../store/userSlice";
 import { socketRemoveUserGroup } from "../../../../socket";
+
+import "./GroupSettings.css";
 
 const Share = ({ groupId }) => {
   return (
@@ -41,7 +43,7 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
   const removeUserfromGroup = (removeUserId) => {
     const groupId = data._id;
     const token = authCtx.token;
-    
+
     let removeData = {
       groupId,
       token,
@@ -60,12 +62,25 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
       });
   };
 
+  const addUserToBlocklist = (blockedUser) => {
+    const groupId = data._id;
+    const token = authCtx.token;
+
+    let blockData = {
+      groupId,
+      token,
+      blockedUser,
+    };
+
+    dispatch(UserActions.blockUserGroup(blockData));
+  };
+
   return (
     <React.Fragment>
       {(isBlockList ? data.blockList : data.users).length > 0 ? (
         (isBlockList ? data.blockList : data.users).map((user) => {
           return (
-            <div className="flex-center group-settings-user">
+            <div key={uid()} className="flex-center group-settings-user">
               <div className="flex-center group-settings-user-content">
                 <ImageContainer
                   highResUrl={user.highResUrl}
@@ -84,12 +99,20 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
                     <h6>Admin</h6>
                   </Button>
                 ) : (
-                  <Icon
-                    onClick={()=>removeUserfromGroup(user._id)}
-                    icon="pajamas:remove"
-                    className="color-text-light cursor-btn"
-                    fontSize={"1.25rem"}
-                  />
+                  <>
+                    <Icon
+                      onClick={() => addUserToBlocklist(user)}
+                      className="color-text-light cursor-btn"
+                      fontSize={"1.25rem"}
+                      icon="streamline:inbox-block-solid"
+                    />
+                    <Icon
+                      onClick={() => removeUserfromGroup(user._id)}
+                      icon="pajamas:remove"
+                      className="color-text-light cursor-btn"
+                      fontSize={"1.25rem"}
+                    />
+                  </>
                 )}
               </div>
             </div>
@@ -128,7 +151,11 @@ const GroupSettings = () => {
       </div>
       <div className="flex-center group-settings-links">
         {settingsLinks.map((name) => (
-          <p className="cursor-btn" onClick={() => setSelectedLinks(name)}>
+          <p
+            key={uid(32)}
+            className="cursor-btn"
+            onClick={() => setSelectedLinks(name)}
+          >
             {name}
           </p>
         ))}
