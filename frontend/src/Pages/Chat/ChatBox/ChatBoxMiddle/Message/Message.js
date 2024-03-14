@@ -1,7 +1,7 @@
 import React from "react";
-import { Icon } from "@iconify/react";
-
 import date from "date-and-time";
+import { Icon } from "@iconify/react";
+import { useSelector } from "react-redux";
 
 import MessageString from "./MessageString/MessageString";
 import MessageOther from "./MessageOther/MessageOther";
@@ -11,7 +11,6 @@ import MessageImage from "./MessageImage/MessageImage";
 import MessageAudio from "./MessageAudio/MessageAudio";
 import MessageVideo from "./MessageVideo/MessageVideo";
 import { categoryState } from "../../../../../constants/constants";
-import { useSelector } from "react-redux";
 
 import "./Message.css";
 

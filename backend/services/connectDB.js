@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const {MONGO_URL} = require('../constants/constants');
 
-module.exports = () => {
+module.exports.connectDB = (server) => {
   mongoose
     .connect(MONGO_URL, {
       useNewUrlParser: true,
