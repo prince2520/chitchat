@@ -13,7 +13,7 @@ import { uid } from "uid";
 
 import { editGroup } from "../../../../api/group";
 import { UserActions } from "../../../../store/userSlice";
-import { socketRemoveUserGroup, socketUpdateGroup } from "../../../../socket";
+import { socketRemoveUserGroup, socketUpdatedGroup } from "../../../../socket";
 
 import CustomInput from "../../../CustomInput/CustomInput";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
@@ -231,7 +231,7 @@ const GroupSettings = () => {
         if (result.success) {
           dispatch(UserActions.editGroup(saveData));
           delete saveData.token;
-          socketUpdateGroup(saveData);
+          socketUpdatedGroup(saveData);
         }
       })
       .catch((err) => console.log(err));

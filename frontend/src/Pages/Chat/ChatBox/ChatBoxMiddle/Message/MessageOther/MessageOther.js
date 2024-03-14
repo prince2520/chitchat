@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import "./MessageOther.css";
 
 const MessageOther = ({ messageDetail }) => {
+  console.log('messageDetail', messageDetail);
   return (
     <div
       className={"message-other rounded-corner"}
@@ -12,7 +13,7 @@ const MessageOther = ({ messageDetail }) => {
     >
       <Icon icon="solar:folder-with-files-bold"  fontSize={"2.5rem"} />
       <div className="message-other-content">
-        <h5>{messageDetail.message}</h5>
+        <h6>{messageDetail.message.slice(0,20)} {messageDetail.message.length > 20 && "..."}</h6>
       </div>
       <h6>{messageDetail.size.toFixed(3)} MB</h6>
       <a  target="_blank" href={messageDetail.url}>

@@ -68,6 +68,7 @@ const DragAndDrop = () => {
   };
 
   const sendMessage = (url, file) => {
+    console.log('sendMessage', file)
     let msgData = {
       token: authCtx.token,
       chatId: data._id,
@@ -75,7 +76,7 @@ const DragAndDrop = () => {
       selectedType: user.selectedType,
       saveMessage: saveMessage,
       data: {
-        message: "",
+        message: file.name,
         isOpenAIMsg: false,
         url: url,
         size: file.size,

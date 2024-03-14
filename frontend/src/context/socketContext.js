@@ -12,7 +12,7 @@ import {
   getPrivateChat,
   socketGetRemoveChat,
   socketGetRemoveGroup,
-  socketGetUpdateGroup
+  socketGetUpdatedGroup
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -56,7 +56,7 @@ export const SocketContextProvider = ({ children }) => {
     socketGetRemoveGroup((err, {data})=>{
       dispatch(UserActions.removeUserGroup(data));
     });
-    socketGetUpdateGroup((err, {data})=>{
+    socketGetUpdatedGroup((err, {data})=>{
       dispatch(UserActions.editGroup(data));
     })
   }, [dispatch]);

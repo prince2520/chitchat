@@ -1,12 +1,24 @@
+/*
+USER - 
+GROUP - 
+PRIVATE -
+*/
+
 module.exports = (io) => {
   io.on("connection", function (socket) {
-    // USER - Connect
-    socket.on("user_connected", (userId) => {
+    
+    // USER - initiate the socket
+    socket.on("user_connect", (userId) => {
       socket.join(userId);
-      io.emit("received_user_connected", userId);
+      io.emit("get_user_connected", userId);
     });
 
-    // GROUP - Join
+     // USER - disconnect the user
+     socket.on("disconnect", function (userId) {
+      socket.leave(userId);
+    });
+    
+    // GROUP - join
     socket.on("join_group", ({ groups }) => {
       groups?.map((group) => {
         if (group._id) {
@@ -14,6 +26,35 @@ module.exports = (io) => {
         }
         return group;
       });
+    });
+
+    // GROUP - remove 
+    socket.on("remove_chat", ({ data }) => {
+      if (data.type === "Group") {
+        io.to(data.chatId).emit("received_remove_chat", { data });
+        socket.leave(data.chatId);
+      } else {
+        io.to(data.privatUserId).emit("received_remove_chat", { data });
+      }
+    });
+
+    // GROUP - remove user 
+    socket.on("remove_user_group", function ({ data }) {
+      socket
+        .to(data.groupId)
+        .emit("recieved_remove_user_group", { data: data });
+    });
+
+    // GROUP - update group detail
+    socket.on("updated_group_detail", function ({ data }) {
+      socket
+        .to(data.groupId)
+        .emit("get_updated_group_detail", { data: data });
+    });
+
+     // GROUP - leave Group
+     socket.on("leave_group", function ({ groupId }) {
+      socket.leave(groupId);
     });
 
     // PRIVATE - add private User
@@ -25,18 +66,8 @@ module.exports = (io) => {
       });
     });
 
-    // GROUP - remove 
-    socket.on("remove_chat", ({ data }) => {
-      console.log("remove", data);
-      if (data.type === "Group") {
-        io.to(data.chatId).emit("received_remove_chat", { data });
-        socket.leave(data.chatId);
-      } else {
-        io.to(data.privatUserId).emit("received_remove_chat", { data });
-      }
-    });
 
-    // Send  message to receiver
+    // GROUP & PRIVATE - Send  message to receiver
     socket.on("send_message", ({ data }) => {
       if (!data.users) return console.log("Users not defined");
 
@@ -60,29 +91,6 @@ module.exports = (io) => {
     socket.on("answerCall", (data) => {
       socket.in(data.to).emit("callAccepted", data.signal);
     });
-
-    // GROUP - leave Group
-    socket.on("leave_group", function ({ groupId }) {
-      socket.leave(groupId);
-    });
-
-    // GROUP - remove user 
-    socket.on("remove_user_group", function ({ data }) {
-      socket
-        .to(data.groupId)
-        .emit("recieved_remove_user_group", { data: data });
-    });
-
-    // GROUP - update group detail
-    socket.on("update_group_detail", function ({ data }) {
-      socket
-        .to(data.groupId)
-        .emit("get_update_group_detail", { data: data });
-    });
-
-    // disconnect the user
-    socket.on("disconnect", function (userId) {
-      socket.leave(userId);
-    });
+   
   });
 };
