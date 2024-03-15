@@ -14,11 +14,12 @@ import ImageContainer from "../../ImageContainer/ImageContainer";
 import "./SearchResult.css";
 
 const SearchResult = ({ data, setShowResult, setData }) => {
+  console.log("Data", data);
   const authCtx = useContext(AuthContext);
   const dispatch = useDispatch()
 
   const addPrivateUserHandler = () => {
-    createPrivate(authCtx.token, authCtx.userId, data.user._id)
+    createPrivate(authCtx?.token, authCtx?.userId, data._id)
     .then((Private)=>{
       if(Private.success){
         dispatch(UserActions.addPrivate(Private.data))
@@ -46,11 +47,11 @@ const SearchResult = ({ data, setShowResult, setData }) => {
         />
       </div>
       <div className={"search-image-container"}>
-        <ImageContainer highResUrl={data.user.highResUrl}  lowResUrl={data.user.lowResUrl}/>
+        <ImageContainer highResUrl={data.highResUrl}  lowResUrl={data.lowResUrl}/>
       </div>
       <div className={"flex-center search-result-description"}>
-        <h5 className="color-text">{data.user.name}</h5>
-        <p className="color-text-light">{data.user?.status}</p>
+        <h5 className="color-text">{data.name}</h5>
+        <p className="color-text-light">{data.status}</p>
       </div>
       <div className={"flex-center search-result-join-btn"}>
         <Icon

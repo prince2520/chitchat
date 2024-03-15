@@ -1,3 +1,4 @@
+// GET -> 
 export const fetchUser = async (email, token) => {
   const result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/user/fetch-user?email=${email}`,
@@ -11,9 +12,9 @@ export const fetchUser = async (email, token) => {
   return result.json();
 };
 
+// PUT -> update profile details 
 export const updateUser = async (token, data) => {
-  console.log('updateUser', token, data);
-  let result = await fetch(
+  const result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/user/update-user`,
     {
       method: "PUT",

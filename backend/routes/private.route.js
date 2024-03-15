@@ -3,8 +3,8 @@ const {
     createPrivate,
     savePrivateMessage,
     deletePrivate
-} = require("../controllers/private");
-const isAuth = require('../middleware/isAuth');
+} = require("../controllers/private.controller");
+const isAuth = require('../middleware/isAuth.middleware');
 
 const router = express.Router();
 

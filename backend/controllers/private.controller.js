@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const User = require("../models/user");
-const Message = require("../models/message");
-const Private = require("../models/private");
+const User = require("../models/user.model");
+const Message = require("../models/message.model");
+const Private = require("../models/private.model");
 
 exports.createPrivate = async (req, res) => {
   const userId = mongoose.Types.ObjectId(req.userId);

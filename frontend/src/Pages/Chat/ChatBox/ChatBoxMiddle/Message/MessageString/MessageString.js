@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 
+import useExtractLinkDetail from "../../../../../../hooks/useExtractLinkDetail";
 
 import "./MessageString.css";
-import useExtractLinkDetail from "../../../../../../hooks/useExtractLinkDetail";
+
 
 const MessageString = ({ message, time }) => {
   const [isUrl , linkData, setMessage] = useExtractLinkDetail();
@@ -10,7 +11,7 @@ const MessageString = ({ message, time }) => {
   useEffect(()=>{
     setMessage(message);
   },[message]);
-  
+
   return (
     <>
       <div className={`flex-center msg ${isUrl ? "msg-link" : ""}`}>
@@ -21,7 +22,7 @@ const MessageString = ({ message, time }) => {
             <div className="flex-center msg-link__container__img">
               <a className="flex-center" href={message} target="_blank">
                 <img
-                 src={linkData.icon} 
+                 src={linkData.icon || 'https://i.imgur.com/Up8N7lU.png'} 
                  alt={linkData.title}
                  onError={({ currentTarget }) => {
                   currentTarget.onerror = null; // prevents looping

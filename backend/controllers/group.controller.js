@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const User = require("../models/user");
-const Group = require("../models/group");
-const Message = require("../models/message");
+const User = require("../models/user.model");
+const Group = require("../models/group.model");
+const Message = require("../models/message.model");
 const { validationResult } = require("express-validator");
 
 exports.createGroup = async (req, res) => {

@@ -2,13 +2,15 @@ const express = require("express");
 const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
-const cors = require("./middleware/cors").cors;
 
-const authRoute = require("./router/auth");
-const userRoute = require("./router/user");
-const groupRoute = require("./router/group");
-const helperRoute = require("./router/helper");
-const privateRoute = require("./router/private");
+const authRoute = require("./routes/auth.route");
+const userRoute = require("./routes/user.route");
+const groupRoute = require("./routes/group.route");
+const helperRoute = require("./routes/helper.route");
+const privateRoute = require("./routes/private.route");
+
+const {errorHandler} = require("./middleware/error.middleware");
+const {cors} = require("./middleware/cors.middleware");
 
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
@@ -30,8 +32,7 @@ app.use("/user", userRoute);
 app.use("/group", groupRoute);
 app.use("/helper", helperRoute);
 app.use("/private", privateRoute);
-app.use("/", (req, res, next) => {
-  res.status(200).json({ message: "Server is Working..." });
-  next();
-});
+
+// error handling
+app.use(errorHandler);
 

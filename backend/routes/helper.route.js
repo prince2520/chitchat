@@ -2,7 +2,7 @@ const express = require("express");
 
 const {
   urlWebsiteData,
-} = require("../controllers/helper.js");
+} = require("../controllers/helper.controller.js");
 
 const router = express.Router();
 

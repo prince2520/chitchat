@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
@@ -8,7 +9,6 @@ import ImageContainer from "../../../components/ImageContainer/ImageContainer";
 import { updateUser } from "../../../api/user";
 import { UserActions } from "../../../store/userSlice";
 import { saveInFirebase } from "../../../utils/SaveInFirebase";
-import { AlertBoxActions } from "../../../store/alertSlice";
 
 import AuthContext from "../../../context/authContext";
 
@@ -53,17 +53,21 @@ const EditProfile = () => {
       lowResUrlfirebaseUrl
     )
       .then((result) => {
-        dispatch(AlertBoxActions.showAlertBoxHandler(result));
-        dispatch(
-          UserActions.saveUserData({
-            name: name,
-            status: status,
-            highResUrl: highResUrlfirebaseUrl,
-            lowResUrl: lowResUrlfirebaseUrl,
-          })
-        );
+        if (result.success) {
+          dispatch(
+            UserActions.saveUserData({
+              name: name,
+              status: status,
+              highResUrl: highResUrlfirebaseUrl,
+              lowResUrl: lowResUrlfirebaseUrl,
+            })
+          );
+          toast.success(result.msg);
+        } else {
+          toast.error(result.msg);
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => toast.error(err));
   };
 
   const submitHandler = (event) => {
@@ -90,7 +94,7 @@ const EditProfile = () => {
         width="11rem"
         height="11rem"
         isEditable={true}
-        editImageHandler={(newHighResUrl, newLowResUrl)=>{
+        editImageHandler={(newHighResUrl, newLowResUrl) => {
           setHighResUrl(newHighResUrl);
           setLowResUrl(newLowResUrl);
         }}

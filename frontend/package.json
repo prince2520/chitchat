@@ -31,6 +31,7 @@
     "react-scripts": "5.0.1",
     "react-speech-recognition": "^3.10.0",
     "react-tiny-popover": "^8.0.4",
+    "react-toastify": "^10.0.5",
     "reactjs-popup": "^2.0.6",
     "simple-peer": "^9.11.1",
     "socket.io-client": "^4.6.2",

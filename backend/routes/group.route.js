@@ -10,9 +10,9 @@ const {
   leaveGroup,
   removeUser,
   editGroup
-} = require("../controllers/group");
+} = require("../controllers/group.controller");
 
-const isAuth = require("../middleware/isAuth");
+const isAuth = require("../middleware/isAuth.middleware");
 const { check } = require("express-validator");
 
 const router = express.Router();
