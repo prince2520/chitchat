@@ -1,6 +1,15 @@
 import { Icon } from "@iconify/react";
+import { isValidUrl } from "../utils/IsValidUrl";
 
 export const getLastMessage = (lastMsg) => {
+  if (isValidUrl(lastMsg.message)) {
+    return (
+      <>
+        <Icon icon="ph:link-fill"/> {lastMsg?.message.length > 0 && lastMsg.message.substr(0, 20)} {lastMsg?.message.length > 20 && "..."}
+      </>
+    );
+  }
+
   let msg = "";
   switch (lastMsg.type) {
     case "string":
@@ -16,8 +25,8 @@ export const getLastMessage = (lastMsg) => {
     case "audio":
       msg = (
         <>
-          <Icon icon="typcn:image" />
-          Photo
+          <Icon icon="ic:round-audio-file" />
+          Audio
         </>
       );
       break;
@@ -32,7 +41,7 @@ export const getLastMessage = (lastMsg) => {
     default:
       msg = (
         <>
-          <Icon icon="ic:baseline-audio-file" /> Other
+          <Icon icon="ph:file-fill" /> Other
         </>
       );
   }

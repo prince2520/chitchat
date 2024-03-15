@@ -24,7 +24,6 @@ const NotFoundPage = () => {
          width="20rem"
          highResUrl={NotFoundLarge} 
          lowResUrl={NotFoundSmall} height="auto" circle={false}/>
-        {/* <Lottie animationData={NotFoundPageAnimation} loop={true} /> */}
       </div>
     </div>
   );
