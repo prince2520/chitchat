@@ -6,33 +6,33 @@ exports.urlWebsiteData = async (req, res) => {
   const html = await response.text();
   const $ = cheerio.load(html);
 
-  const title = $('title').innerText;
-  const metaTitle =$("meta[name=title]")
-  console.log("url", url,"metaTitle", metaTitle  ,"title", title);
+  const title = $('title').text()  ;
+  const description =$("meta[name='description']").prop("content");
 
   let extractedIconPath =
     $('link[rel="icon"]').prop("href") ??
     $('link[rel="shortcut icon"]').prop("href") ??
     "favicon.ico";
 
-  let iconPath = extractedIconPath;  
+  let icon = extractedIconPath;  
 
   const parsedUrl = new URL(url);
   
-  if (extractedIconPath.startsWith("http")) {
-    iconPath = extractedIconPath;
+  if (icon.startsWith("http")) {
+    icon = extractedIconPath;
   } else if (extractedIconPath.startsWith("//")) {
-    iconPath = `${parsedUrl.protocol}${extractedIconPath}`;
+    icon = `${parsedUrl.protocol}${extractedIconPath}`;
   } else {
     const iconPathname = extractedIconPath.startsWith("/")
       ? extractedIconPath
       : `/${extractedIconPath}`;
-    iconPath = `${parsedUrl.origin}${iconPathname}`;
+    icon = `${parsedUrl.origin}${iconPathname}`;
   }
 
   const data = {
-    icon: iconPath,
+    icon,
     title,
+    description
   };
 
   if (data.icon || data.title) {

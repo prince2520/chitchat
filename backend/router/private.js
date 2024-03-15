@@ -4,7 +4,7 @@ const {
     savePrivateMessage,
     deletePrivate
 } = require("../controllers/private");
-const isAuth = require('../middleware/is-auth');
+const isAuth = require('../middleware/isAuth');
 
 const router = express.Router();
 

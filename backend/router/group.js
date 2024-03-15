@@ -12,7 +12,7 @@ const {
   editGroup
 } = require("../controllers/group");
 
-const isAuth = require("../middleware/is-auth");
+const isAuth = require("../middleware/isAuth");
 const { check } = require("express-validator");
 
 const router = express.Router();
