@@ -35,6 +35,7 @@ const MessageString = ({ message, time }) => {
       .then((res) => {
         if (res.success) {
           setData(res.data);
+          console.log('icon: ', res.data.icon.substr(res.data.icon.length - 3, 3));
         }
       })
       .catch((error) => {
@@ -59,7 +60,14 @@ const MessageString = ({ message, time }) => {
           <div className="flex-center msg-link__container">
             <div className="flex-center msg-link__container__img">
               <a className="flex-center" href={message} target="_blank">
-                <img src={data.icon} alt={data.title} />
+                <img
+                 src={data.icon} 
+                 alt={data.title}
+                 onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src='https://i.imgur.com/Up8N7lU.png';
+                }}
+                 />
               </a>
             </div>
 
