@@ -20,6 +20,7 @@ const MyProfile = () => {
 
   const ref = useDetectClickOutside({ onTriggered: closeDropdown });
 
+
   return (
     <div className={"flex-center my-profile-container border"}>
       <ImageContainer highResUrl={highResUrl} lowResUrl={lowResUrl} />
