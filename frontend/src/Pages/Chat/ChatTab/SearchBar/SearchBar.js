@@ -1,47 +1,49 @@
-import { Icon } from "@iconify/react";
 import { toast } from "react-toastify";
-import { useCallback, useContext, useRef, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 
-import { fetchUser } from "../../api/user";
+import { fetchUser } from "../../../../api/user";
 
-import AuthContext from "../../context/authContext";
 import SearchResult from "./SearchResult/SearchResult";
-
-import "./SearchBar.css";
+import AuthContext from "../../../../context/authContext";
+import CustomInput from "../../../../components/CustomInput/CustomInput";
 
 const SearchBar = () => {
-  const searchUserRef = useRef();
   const authCtx = useContext(AuthContext);
 
   const [data, setData] = useState(null);
   const [showResult, setShowResult] = useState(false);
 
-  const submitHandler = useCallback((event) => {
+  // fetch search user data
+  const handleSubmit = useCallback((event) => {
     event.preventDefault();
-    fetchUser(searchUserRef.current?.value, authCtx?.token)
+
+    fetchUser(event.target[0].value, authCtx?.token)
       .then((result) => {
+        console.log(result);
         if (result?.success) {
-          console.log('result', result);
           setData(result?.user);
           setShowResult(result?.success);
-        }else{
+          toast.success(result?.message);
+        } else {
           toast.error(result?.message);
         }
       })
       .catch((err) => {
         toast.success(err);
       });
-  },[]);
+  }, []);
 
   return (
     <form
-      onSubmit={(event) => submitHandler(event)}
-      className="flex-center search-bar-container"
+      onSubmit={(event) => handleSubmit(event)}
+      style={{ position: "relative" }}
+      className="flex-center search-bar__container"
     >
-      <input ref={searchUserRef} placeholder={"Search by email ..."} />
-      <button>
-        <Icon icon="material-symbols:search" style={{ fontSize: "1.5rem" }} />
-      </button>
+      <CustomInput
+        showLabel={false}
+        icon={"material-symbols:search"}
+        placeholder={"Search by email ..."}
+      />
       {(showResult && data) && (
         <SearchResult
           data={data}

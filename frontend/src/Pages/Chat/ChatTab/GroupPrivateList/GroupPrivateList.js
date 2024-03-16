@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
-import SearchBar from "../../../../components/SearchBar/SearchBar";
 import ChangeCategory from "../../../../components/ChangeCategory/ChangeCategory";
 import { useDispatch, useSelector } from "react-redux";
 import { UserActions } from "../../../../store/userSlice";
@@ -57,7 +56,6 @@ const GroupPrivateList = () => {
   return (
     <>
       <ChangeCategory setIsPrivate={setIsPrivate} />
-      <SearchBar />
       <div className="group-private-list">
         {(isPrivate ? privates : groups).length > 0 ? (isPrivate ? privates : groups).map((data) => (
           <div
