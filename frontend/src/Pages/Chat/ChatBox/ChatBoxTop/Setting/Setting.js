@@ -52,7 +52,7 @@ const Setting = () => {
   };
 
   // dispatch delete chat and unselect the chat
-  const dispatchDeleteChat = () => {
+  const dispatchDeleteChat = (chatId, type) => {
     dispatch(
       UserActions.selectedChat({
         selectedId: null,
