@@ -12,9 +12,8 @@ const Login = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    let email, password;
-    email = event.target[0].value;
-    password = event.target[1].value;
+    const email = event.target[0].value;
+    const password = event.target[1].value;
 
     authCtx?.loginHandler(email, password);
   };

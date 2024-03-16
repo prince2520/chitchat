@@ -1,5 +1,5 @@
-// sign up
-export const signup = async (name, email, password) => {
+// POST -> Sign up
+export const signup = async (name, email, password, confirmPassword) => {
   const result = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, {
     method: "POST",
     headers: {
@@ -9,12 +9,13 @@ export const signup = async (name, email, password) => {
       name: name,
       email: email,
       password: password,
+      confirmPassword: confirmPassword
     })
   });
   return result.json();
 };
 
-// login
+// POST -> Login
 export const login = async (email, password) => {
   const result = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
     method: "POST",

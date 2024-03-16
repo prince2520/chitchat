@@ -1,97 +1,105 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
-const { validationResult } = require("express-validator");
+const { StatusCodes } = require("http-status-codes");
 
-exports.signup = async (req, res) => {
+// POST -> Sign Up
+exports.signup = async (req, res, next) => {
+
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
 
-  const invalidInput = validationResult(req);
+  try {
+   
+    if (password !== confirmPassword) {
+      let error = new Error("Confirm password and password are not matched!");
+      error.statusCode = StatusCodes.BAD_REQUEST;
+      throw error;
+    }
 
-  if (!invalidInput.isEmpty()) {
-    return res
-      .status(422)
-      .json({ success: false, message: invalidInput?.errors[0].msg });
-  } else {
     const userFound = await User.findOne({ email: email });
 
     if (userFound) {
-      return res
-        .status(422)
-        .json({ success: false, message: "Email already exit!" });
-    } else {
-      bcrypt
-        .hash(password, 12)
-        .then((hashedPw) => {
-          const newUser = new User({
-            name: name,
-            email: email,
-            password: hashedPw,
-          });
-          return newUser.save();
-        })
-        .then(() => {
-          return res
-            .status(201)
-            .json({ success: true, message: "User Created" });
-        });
+      let error = new Error("User with this email already exists");
+      error.statusCode = StatusCodes.BAD_REQUEST;
+      throw error;
     }
+
+    bcrypt
+      .hash(password, 12)
+      .then((hashedPw) => {
+        const newUser = new User({
+          name: name,
+          email: email,
+          password: hashedPw,
+        });
+        return newUser.save();
+      })
+      .then(() => {
+        return res
+          .status(StatusCodes.OK)
+          .json({ success: true, message: "User Created" });
+      })
+      .catch((err) => {
+        let error = new Error(err.message);
+        error.statusCode = StatusCodes.BAD_REQUEST;
+        throw error;
+      });
+  } catch (err) {
+    next(err);
   }
 };
 
-exports.login = (req, res) => {
+// POST - Login
+exports.login = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  const invalidInput = validationResult(req);
+  try {
+    let loadedUser;
 
-  if (!invalidInput.isEmpty()) {
-    return res
-      .status(422)
-      .json({ success: false, message: invalidInput?.errors[0].msg });
+    User.findOne({ email: email })
+      .populate({
+        path: "privates",
+        populate: [{ path: "messages", populate: "user" }, "users"],
+      })
+      .populate({
+        path: "groups",
+        populate: [{ path: "messages", populate: "user" }],
+      })
+      .then((user) => {
+        loadedUser = user;
+        return bcrypt.compare(password, user.password);
+      })
+      .then((isEqual) => {
+        if (!isEqual) {
+          let error = new Error("Password incorrect!");
+          error.statusCode = StatusCodes.UNAUTHORIZED;
+          throw error;
+        } else {
+          const token = jwt.sign(
+            {
+              email: loadedUser.email,
+              userId: loadedUser._id.toString(),
+            },
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: "1h" }
+          );
+          return res.status(StatusCodes.OK).json({
+            success: true,
+            token: token,
+            user: loadedUser,
+          });
+        }
+      })
+      .catch(() => {
+        let error = new Error("User not found!");
+        error.statusCode = StatusCodes.NOT_FOUND;
+        throw error;
+      });
+  } catch (err) {
+    next(err);
   }
-
-  let loadedUser;
-
-  User.findOne({ email: email })
-    .populate({
-      path: "privates",
-      populate: [{ path: "messages", populate: "user" }, "users"],
-    })
-    .populate({
-      path: "groups",
-      populate: [{ path: "messages", populate: "user" }],
-    })
-    .then((user) => {
-      loadedUser = user;
-      return bcrypt.compare(password, user.password);
-    })
-    .then((isEqual) => {
-      if (!isEqual) {
-        return res
-          .status(422)
-          .json({ success: false, message: "Password Incorrect!" });
-      } else {
-        const token = jwt.sign(
-          {
-            email: loadedUser.email,
-            userId: loadedUser._id.toString(),
-          },
-          "OnePiece",
-          { expiresIn: "1h" }
-        );
-        return res.status(200).json({
-          success: true,
-          token: token,
-          user: loadedUser,
-        });
-      }
-    })
-    .catch(() => {
-      return res
-        .status(422)
-        .json({ success: false, message: "Email not found!" });
-    });
 };

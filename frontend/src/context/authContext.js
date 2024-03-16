@@ -6,6 +6,7 @@ import { socketJoinGroup } from "../socket";
 import { AlertBoxActions } from "../store/alertSlice";
 import {login, signup } from "../api/auth";
 import {fetchUser } from "../api/user";
+import { toast } from "react-toastify";
 
 
 const AuthContext = React.createContext({
@@ -85,13 +86,15 @@ export const AuthContextProvider = (props) => {
     setIsAuth(true);
   }, [autoLogout, logoutHandler, saveUserData]);
 
-  const signUpHandler = useCallback((userName, email, password) => {
-    signup(userName, email, password).then((result) => {
+  const signUpHandler = useCallback((userName, email, password, confirmPassword) => {
+    signup(userName, email, password, confirmPassword).then((result) => {
       if (result.success) {
+        toast.success(result.message);
         navigate("/auth/login");
+      }else{
+        toast.error(result.message);
       }
-      dispatch(AlertBoxActions.showAlertBoxHandler(result));
-    });
+    }).catch((err)=> toast.success(err));
   },[navigate, dispatch]);
 
   const loginHandler = useCallback((email, password) => {
@@ -119,8 +122,10 @@ export const AuthContextProvider = (props) => {
 
         navigate("/chat");
       } else {
-        dispatch(AlertBoxActions.showAlertBoxHandler(result));
+        toast.error(result.message);
       }
+    }).catch((err)=>{
+      toast.error(err);
     });
   },[autoLogout, dispatch, navigate, saveUserData]);
 
