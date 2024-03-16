@@ -20,19 +20,22 @@ const SearchResult = ({ data, setShowResult, setData }) => {
 
   // create private chat and save it to frontend
   const handleAddPrivate = () => {
-    createPrivate(authCtx?.token, authCtx?.userId, data._id).then((data) => {
-      if (data.success) {
-        dispatch(UserActions.addPrivate(data.data));
-        socketAddPrivate({
-          userId: authCtx.userId,
-          private: data.data,
-        });
-      }else{
-        toast.error(data.message)
-      }
-    }).catch((err)=>{
-      toast.error(err);
-    });
+    createPrivate(authCtx?.token, authCtx?.userId, data._id)
+      .then((data) => {
+        if (data.success) {
+          dispatch(UserActions.addPrivate(data.data));
+          socketAddPrivate({
+            userId: authCtx.userId,
+            private: data.data,
+          });
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   };
 
   // close search result

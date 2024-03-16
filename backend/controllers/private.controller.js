@@ -2,26 +2,31 @@ const mongoose = require("mongoose");
 const User = require("../models/user.model");
 const Message = require("../models/message.model");
 const Private = require("../models/private.model");
+const { StatusCodes } = require("http-status-codes");
 
-exports.createPrivate = async (req, res) => {
+// POST -> create private chat
+exports.createPrivate = async (req, res, next) => {
   const userId = mongoose.Types.ObjectId(req.userId);
   const chatId = mongoose.Types.ObjectId(req.body.chatId);
 
-  const private = await Private.findOne({
-    users: { $all: [userId, chatId] },
-  });
+  try {
+    const private = await Private.findOne({
+      users: { $all: [userId, chatId] },
+    });
 
-  const sender = await User.findOne({ _id: userId });
-  const receiver = await User.findOne({ _id: chatId });
+    const sender = await User.findOne({ _id: userId });
+    const receiver = await User.findOne({ _id: chatId });
 
-  if (private) {
-    return res
-      .status(200)
-      .json({ success: false, message: "Private user already added!" });
-  } else {
+    if (private) {
+      let error = new Error("Private chat already created!");
+      error.statusCode = StatusCodes.CONFLICT;
+      throw error;
+    }
+
     const newPrivate = new Private({
       users: [userId, chatId],
     });
+
     newPrivate
       .save()
       .then((res) =>
@@ -29,52 +34,59 @@ exports.createPrivate = async (req, res) => {
           .populate([{ path: "messages", populate: "user" }, "users"])
           .execPopulate()
       )
-      .then((data) => {
+      .then(async (data) => {
         sender.privates.push(data._id);
         receiver.privates.push(data._id);
 
-        sender.save();
-        receiver.save();
+        await sender.save();
+        await receiver.save();
 
         return res.status(202).json({
           success: true,
           data: data,
-          message: "User added to Private Chat!",
+          message: "Private chat created!",
         });
       })
       .catch(() => {
-        return res
-          .status(404)
-          .json({ success: false, message: "Something goes wrong!" });
+        let error = new Error("Private chat not saved!");
+        error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+        throw error;
       });
+  } catch (err) {
+    next(err);
   }
 };
 
+// POST -> save private message
 exports.savePrivateMessage = async (req, res) => {
-  console.log(req.body);
   let message, isOpenAIMsg, type, url, size, chatId, userId;
 
   chatId = mongoose.Types.ObjectId(req.body.chatId);
 
-  // Message Data
-  message = req.body.data?.message ?  req.body.data.message : '';
+  // message data
+  message = req.body.data?.message ? req.body.data.message : "";
   isOpenAIMsg = req.body.data.isOpenAIMsg;
   url = req.body.data.url ? req.body.data.url : "";
-
   size = req.body.data.size ? req.body.data.size : 0;
   type = req.body.data.type;
   userId = mongoose.Types.ObjectId(req.userId);
 
-  const private = await Private.findOne({ _id: chatId });
+  try {
+    const private = await Private.findOne({ _id: chatId });
 
-  if (private) {
+    if (!private) {
+      let error = new Error("Private chat not saved!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
     const newMessage = new Message({
       message,
       isOpenAIMsg,
       url,
       size,
       type,
-      user: userId
+      user: userId,
     });
 
     newMessage
@@ -92,22 +104,35 @@ exports.savePrivateMessage = async (req, res) => {
             });
           })
           .catch(() => {
-            return res
-              .status(404)
-              .json({ success: true, message: "Something goes wrong!" });
+            let error = new Error("Message not saved in private!");
+            error.statusCode = StatusCodes. NOT_IMPLEMENTED
+            throw error;
           });
+      })
+      .catch(() => {
+        let error = new Error("New message not created!");
+        error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+        throw error;
       });
+  } catch (err) {
+    next(err);
   }
 };
 
-// delete private
+// DELETE -> private chat delete
 exports.deletePrivate = async (req, res) => {
   const userId = mongoose.Types.ObjectId(req.userId);
   const privateId = mongoose.Types.ObjectId(req.body.chatId);
 
-  const privateFound = await Private.findOne({ _id: privateId });
+  try {
+    const privateFound = await Private.findOne({ _id: privateId });
 
-  if (privateFound) {
+    if (!privateFound) {
+      let error = new Error("Private chat not found!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
     if (privateFound.users.includes(userId)) {
       const users = [...privateFound.users];
       await privateFound.remove();
@@ -117,16 +142,16 @@ exports.deletePrivate = async (req, res) => {
         { $pull: { privates: privateId } },
         { multi: true }
       );
-      
+
       return res
-        .status(200)
-        .json({ success: true, message: "Private removed successfully!" });
+        .status(StatusCodes.OK)
+        .json({ success: true, message: "Private chat removed successfully!" });
     } else {
-      return res
-        .status(404)
-        .json({ success: true, message: "You are not authenticated!" });
+      let error = new Error("You are not authenticated!");
+      error.statusCode = StatusCodes.CONFLICT;
+      throw error;
     }
-  } else {
-    return res.status(404).json({ success: true, message: "Group not found!" });
+  } catch (err) {
+    next(err);
   }
 };

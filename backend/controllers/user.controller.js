@@ -30,7 +30,6 @@ exports.fetchUser = async (req, res, next) => {
       message: "User found successfully!",
       user: userFound,
     });
-
   } catch (err) {
     next(err);
   }

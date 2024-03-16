@@ -1,24 +1,24 @@
 import { useContext } from "react";
 import { Icon } from "@iconify/react";
+import { toast } from "react-toastify";
+import { uid } from "uid";
 import { useDispatch, useSelector } from "react-redux";
 
-import { deleteGroup, leaveGroup } from "../../../../../api/group";
-import { OverlayActions } from "../../../../../store/overlaySlice";
-import { chatTopSettingOptions } from "../../../../../constants/constants";
-
-import { uid } from "uid";
-import AuthContext from "../../../../../context/authContext";
-
-import { categoryState } from "../../../../../constants/constants";
-
-import { UserActions } from "../../../../../store/userSlice";
 import { socketRemoveChat } from "../../../../../socket";
 import { deletePrivate } from "../../../../../api/private";
+import { UserActions } from "../../../../../store/userSlice";
+import { OverlayActions } from "../../../../../store/overlaySlice";
+import { categoryState } from "../../../../../constants/constants";
+import { deleteGroup, leaveGroup } from "../../../../../api/group";
+import { chatTopSettingOptions } from "../../../../../constants/constants";
+
+import AuthContext from "../../../../../context/authContext";
 
 import "./Setting.css";
 
 const Setting = () => {
   const dispatch = useDispatch();
+
   const authCtx = useContext(AuthContext);
 
   const user = useSelector((state) => state.user);
@@ -34,7 +34,42 @@ const Setting = () => {
     return authCtx.userId === data.createdBy;
   };
 
-  const deleteChatHandler = () => {
+  // delete this chat from all users using socket
+  const deleteAllUserChat = (chatId, type) => {
+    if (isAdmin()) {
+      let socketData = {
+        type: type,
+        chatId: chatId,
+      };
+      if (selectedType === categoryState[1]) {
+        const privateUserId = data.users.filter(
+          (user) => user._id !== authCtx.userId
+        )[0]._id;
+        socketData["privatUserId"] = privateUserId;
+      }
+      socketRemoveChat(socketData);
+    }
+  };
+
+  // dispatch delete chat and unselect the chat
+  const dispatchDeleteChat = () => {
+    dispatch(
+      UserActions.selectedChat({
+        selectedId: null,
+        selectedType: null,
+        isSelected: false,
+      })
+    );
+    dispatch(
+      UserActions.deleteChat({
+        type: type,
+        chatId: chatId,
+      })
+    );
+  };
+
+  // delet chat 
+  const handleDeleteChat = () => {
     const chatId = selectedId;
     const type = selectedType;
 
@@ -47,37 +82,15 @@ const Setting = () => {
       chatId: chatId,
     })
       .then((res) => {
-        console.log(res);
         if (res.success) {
-          if (isAdmin()) {
-            let socketData = {
-              type: type,
-              chatId: chatId,
-            };
-            if (selectedType === categoryState[1]) {
-              const privateUserId = data.users.filter(
-                (user) => user._id !== authCtx.userId
-              )[0]._id;
-              socketData["privatUserId"] = privateUserId;
-            }
-            socketRemoveChat(socketData);
-          }
-          dispatch(
-            UserActions.selectedChat({
-              selectedId: null,
-              selectedType: null,
-              isSelected: false,
-            })
-          );
-          dispatch(
-            UserActions.deleteChat({
-              type: type,
-              chatId: chatId,
-            })
-          );
+          deleteAllUserChat(chatId, type);
+          dispatchDeleteChat(chatId, type);
+          toast.success(res.message);
+        } else {
+          toast.error(res.message);
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => toast.error(err.message));
   };
 
   return (
@@ -107,7 +120,7 @@ const Setting = () => {
           icon={"material-symbols:delete-outline"}
         />
         <h5
-          onClick={() => deleteChatHandler()}
+          onClick={() => handleDeleteChat()}
           style={{ color: "var(--error)" }}
         >
           {isAdmin() ? "Delete" : "Leave"}
