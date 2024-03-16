@@ -6,7 +6,7 @@ exports.urlWebsiteData = async (req, res) => {
   const html = await response.text();
   const $ = cheerio.load(html);
 
-  const title = $('title').text()  ;
+  const title = $('title').text();
   const description =$("meta[name='description']").prop("content");
 
   let extractedIconPath =

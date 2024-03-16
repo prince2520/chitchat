@@ -4,6 +4,8 @@ const Group = require("../models/group.model");
 const Message = require("../models/message.model");
 const { validationResult } = require("express-validator");
 
+
+// POST -> create group
 exports.createGroup = async (req, res) => {
   const name = req.body.name;
   const highResUrl = req.body.highResUrl;
