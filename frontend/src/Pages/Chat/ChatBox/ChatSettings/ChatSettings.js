@@ -1,34 +1,35 @@
+import { uid } from "uid";
 import { useContext } from "react";
 import { Icon } from "@iconify/react";
 import { toast } from "react-toastify";
-import { uid } from "uid";
 import { useDispatch, useSelector } from "react-redux";
 
-import { socketRemoveChat } from "../../../../../socket";
-import { deletePrivate } from "../../../../../api/private";
-import { UserActions } from "../../../../../store/userSlice";
-import { OverlayActions } from "../../../../../store/overlaySlice";
-import { categoryState } from "../../../../../constants/constants";
-import { deleteGroup, leaveGroup } from "../../../../../api/group";
-import { chatTopSettingOptions } from "../../../../../constants/constants";
+import { socketRemoveChat } from "../../../../socket";
+import { deletePrivate } from "../../../../api/private";
+import { UserActions } from "../../../../store/userSlice";
+import { OverlayActions } from "../../../../store/overlaySlice";
+import { categoryState } from "../../../../constants/constants";
+import { deleteGroup, leaveGroup } from "../../../../api/group";
+import { chatTopSettingOptions } from "../../../../constants/constants";
 
-import AuthContext from "../../../../../context/authContext";
+import AuthContext from "../../../../context/authContext";
 
-import "./Setting.css";
+import "./ChatSettings.css";
 
-const Setting = () => {
+const ChatSettings = () => {
   const dispatch = useDispatch();
-
-  const authCtx = useContext(AuthContext);
 
   const user = useSelector((state) => state.user);
   const selectedType = user.selectedType;
   const selectedId = user.selectedId;
 
+  const authCtx = useContext(AuthContext);
+
   const data = (
     selectedType === categoryState[0] ? user.groups : user.privates
   ).filter((res) => res._id === user.selectedId)[0];
 
+  // check if user is admin of chat
   const isAdmin = () => {
     if (selectedType === categoryState[1]) return true;
     return authCtx.userId === data.createdBy;
@@ -68,7 +69,7 @@ const Setting = () => {
     );
   };
 
-  // delet chat 
+  // delete chat
   const handleDeleteChat = () => {
     const chatId = selectedId;
     const type = selectedType;
@@ -94,12 +95,12 @@ const Setting = () => {
   };
 
   return (
-    <div className="flex-center box-shadow border setting">
+    <div className="flex-center box-shadow border chat-settings">
       {selectedType === categoryState[0] &&
         chatTopSettingOptions.map((option) => (
           <div
             key={uid(32)}
-            className={"cursor-btn flex-center setting__option"}
+            className={"cursor-btn flex-center chat-settings__option"}
             onClick={() =>
               dispatch(
                 OverlayActions.openSettingsHandler({
@@ -113,16 +114,16 @@ const Setting = () => {
             <h5 className="color-text-light">{option.title}</h5>
           </div>
         ))}
-      <div className="cursor-btn flex-center setting__option">
+      <div
+        className="cursor-btn flex-center chat-settings__option"
+        onClick={() => handleDeleteChat()}
+      >
         <Icon
           color="var(--error)"
           className="color-text-light"
           icon={"material-symbols:delete-outline"}
         />
-        <h5
-          onClick={() => handleDeleteChat()}
-          style={{ color: "var(--error)" }}
-        >
+        <h5 style={{ color: "var(--error)" }}>
           {isAdmin() ? "Delete" : "Leave"}
         </h5>
       </div>
@@ -130,4 +131,4 @@ const Setting = () => {
   );
 };
 
-export default Setting;
+export default ChatSettings;

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
-import Setting from "./Setting/Setting";
+import ChatSettings from "../ChatSettings/ChatSettings";
 import SideBar from "../../../../components/SideBar/SideBar";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
@@ -70,7 +70,7 @@ const ChatBoxTop = () => {
         className="cursor-btn"
         style={{ color: "var(--textX-light)", fontSize: "2.25rem" }}
       />
-      {showSetting && <Setting data={data} />}
+      {showSetting && <ChatSettings data={data} />}
     </div>
   );
 };

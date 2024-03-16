@@ -52,7 +52,7 @@
 
 .menu-container,
 .search-result__container,
-.setting {
+.chat-settings {
   z-index: 600;
   border-radius: 0.25rem;
   position: absolute;

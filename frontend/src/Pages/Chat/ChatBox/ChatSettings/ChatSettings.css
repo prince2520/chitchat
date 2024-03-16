@@ -1,4 +1,4 @@
-.setting{
+.chat-settings{
     left: auto !important;
     right: 1rem;
     top : 3.5rem;
@@ -9,11 +9,11 @@
     justify-content: flex-start;
 
     padding: 0 5rem;
-    row-gap: 00.5rem;
+    row-gap: 0.5rem;
     column-gap: 0.5rem;
 }
 
-.setting .setting__option{
+.chat-settings .chat-settings__option{
     width: 100%;
     justify-content: flex-start;
     column-gap: 0.5rem;
