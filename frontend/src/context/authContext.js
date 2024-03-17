@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { UserActions } from "../store/userSlice";
 import { socketJoinGroup } from "../socket";
-import { AlertBoxActions } from "../store/alertSlice";
 import {login, signup } from "../api/auth";
 import {fetchUser } from "../api/user";
 import { toast } from "react-toastify";
@@ -119,7 +118,6 @@ export const AuthContextProvider = (props) => {
         );
         localStorage.setItem("expiryDate", expiryDate.toISOString());
         autoLogout(remainingMilliseconds);
-
         navigate("/chat");
       } else {
         toast.error(result.message);

@@ -30,7 +30,7 @@ function App() {
     <div className="flex-center App">
       <ToastContainer
         position="top-center"
-        autoClose={3000}
+         autoClose={30000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
