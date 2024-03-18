@@ -75,6 +75,7 @@ export const AuthContextProvider = (props) => {
     }
     fetchUser(localEmail, localToken)
       .then((result) => {
+        console.log('fetchUser', result);
         joinGroup(result.user.groups);
         saveUserData(result.user);
       })

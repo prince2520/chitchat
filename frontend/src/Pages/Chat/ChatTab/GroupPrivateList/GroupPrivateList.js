@@ -58,6 +58,7 @@ const GroupPrivateList = () => {
       <ChangeCategory setIsPrivate={setIsPrivate} />
       <div className="group-private-list">
         {(isPrivate ? privates : groups).length > 0 ? (isPrivate ? privates : groups).map((data) => (
+          
           <div
             key={data._id}
             className={`group-private-item ${
@@ -65,6 +66,7 @@ const GroupPrivateList = () => {
             }  border`}
             onClick={() => selectedItem(data)}
           >
+            {console.log('data', data)}
             <div className="group-private-item-left">
               <ImageContainer
                 highResUrl={
@@ -82,8 +84,7 @@ const GroupPrivateList = () => {
             <div className="group-private-item-right">
               <h5>
                 {isPrivate
-                  ? data.users.filter((user) => user._id !== authCtx.userId)[0]
-                      .name
+                  ? data.users.filter((user) => user._id !== authCtx.userId)[0].name
                   : data.name}
               </h5>
               {showLastMsg(data)}

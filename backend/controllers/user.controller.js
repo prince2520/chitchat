@@ -19,6 +19,8 @@ exports.fetchUser = async (req, res, next) => {
       })
       .lean();
 
+    console.log('userFound', userFound);  
+
     if (!userFound) {
       let error = new Error("User not found!");
       error.statusCode = StatusCodes.NOT_FOUND;

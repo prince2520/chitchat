@@ -1,12 +1,10 @@
 import React, { useContext } from "react";
-import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { ToastContainer } from "react-toastify";
 
 import Chat from "./pages/Chat/Chat";
 import AuthContext from "./context/authContext";
-import AlertBox from "./components/AlertBox/AlertBox";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import Login from "./pages/Authentication/AuthenticationLoginSignUp/AuthenticationLogin";
 import SignUp from "./pages/Authentication/AuthenticationLoginSignUp/AuthenticationSignUp";
@@ -24,13 +22,12 @@ let time = null;
 
 function App() {
   const authCtx = useContext(AuthContext);
-  const showAlertBox = useSelector((state) => state.alert.showAlertBox);
 
   return (
     <div className="flex-center App">
       <ToastContainer
         position="top-center"
-         autoClose={30000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -40,7 +37,6 @@ function App() {
         pauseOnHover
         theme="dark"
       />
-      {showAlertBox && <AlertBox />}
       <Routes>
         {!authCtx.isAuth && (
           <Route path="/auth" element={<Authentication />}>

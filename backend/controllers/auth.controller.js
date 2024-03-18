@@ -6,6 +6,7 @@ const { StatusCodes } = require("http-status-codes");
 // POST -> Sign Up
 exports.signup = async (req, res, next) => {
 
+  //User data
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
@@ -54,6 +55,8 @@ exports.signup = async (req, res, next) => {
 
 // POST - Login
 exports.login = (req, res, next) => {
+
+  // data
   const email = req.body.email;
   const password = req.body.password;
 

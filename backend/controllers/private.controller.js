@@ -9,7 +9,16 @@ exports.createPrivate = async (req, res, next) => {
   const userId = mongoose.Types.ObjectId(req.userId);
   const chatId = mongoose.Types.ObjectId(req.body.chatId);
 
+  console.log("createPrivate", userId, chatId);
+
   try {
+
+    if(req.userId === req.body.chatId){
+      let error = new Error("You cannot create a private chat with yourself!");
+      error.statusCode = StatusCodes.CONFLICT;
+      throw error;
+    };
+
     const private = await Private.findOne({
       users: { $all: [userId, chatId] },
     });
@@ -40,6 +49,8 @@ exports.createPrivate = async (req, res, next) => {
 
         await sender.save();
         await receiver.save();
+
+        console.log(data);
 
         return res.status(202).json({
           success: true,

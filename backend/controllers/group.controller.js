@@ -1,66 +1,110 @@
 const mongoose = require("mongoose");
+const { StatusCodes } = require("http-status-codes");
+const { validationResult } = require("express-validator");
+
+// Import - Models
 const User = require("../models/user.model");
 const Group = require("../models/group.model");
 const Message = require("../models/message.model");
-const { validationResult } = require("express-validator");
 
-
-// POST -> create group
-exports.createGroup = async (req, res) => {
+// POST -> Create group
+exports.createGroup = async (req, res, next) => {
+  
+  // Group -> data
   const name = req.body.name;
-  const highResUrl = req.body.highResUrl;
   const lowResUrl = req.body.lowResUrl;
+  const highResUrl = req.body.highResUrl;
   const userId = mongoose.Types.ObjectId(req.userId);
 
-  const invalidInput = validationResult(req);
-
-  if (!invalidInput.isEmpty()) {
-    return res
-      .status(422)
-      .json({ success: false, message: invalidInput.errors[0].msg });
-  } else {
+  try {
     const userFound = await User.findOne({ _id: userId });
-    let data = {
+
+    if (!userFound) {
+      let error = new Error("User not found.");
+      error.statusCode = StatusCodes.BAD_REQUEST;
+      throw error;
+    }
+
+    const data = {
       name: name,
       highResUrl: highResUrl,
       lowResUrl: lowResUrl,
       createdBy: userId,
     };
 
-    let newGroup = new Group(data);
+    const newGroup = new Group(data);
 
-    newGroup.save().then((saveGroup) => {
-      saveGroup.users.push(userId);
-      saveGroup.save().then((data) => {
-        userFound?.groups.push(data._id);
-        userFound?.save();
-        return res.status(200).json({
-          success: true,
-          message: name + " group created successfully!",
-          data: data,
-        });
+    newGroup
+      .save()
+      .then((saveGroup) => {
+        saveGroup.users.push(userId);
+        saveGroup
+          .save()
+          .then((data) => {
+            userFound?.groups.push(data._id);
+            userFound
+              .save()
+              .then(() => {
+                return res.status(StatusCodes.OK).json({
+                  success: true,
+                  message: "Group created successfully.",
+                  data: data,
+                });
+              })
+              .catch(() => {
+                let error = new Error("Group not saved in user.");
+                error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+                throw error;
+              });
+          })
+          .catch(() => {
+            let error = new Error("User not added to group.");
+            error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+            throw error;
+          });
+      })
+      .catch(() => {
+        let error = new Error("New group not created!");
+        error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+        throw error;
       });
-    });
+  } catch (err) {
+    next(err);
   }
 };
 
-exports.joinGroup = async (req, res) => {
+exports.joinGroup = async (req, res, next) => {
   const groupId = req.body.groupId;
   const userId = mongoose.Types.ObjectId(req.userId);
 
-  const MAX_USER_IN_GROUP = 20;
+  try {
+    const MAX_USER_IN_GROUP = 20;
 
-  const groupFound = await Group.findOne({ _id: groupId }).populate(['users', 'messages']);
-  const userFound = await User.findOne({ _id: userId });
+    const groupFound = await Group.findOne({ _id: groupId }).populate([
+      "users",
+      "messages",
+    ]);
 
-  let userInGroupFound;
+    if (!groupFound) {
+      let error = new Error("Group not found!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
 
-  if (groupFound) {
+    const userFound = await User.findOne({ _id: userId });
+
+    if (!userFound) {
+      let error = new Error("User does not exist!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
+    let userInGroupFound;
+
     if (groupFound.users.length >= MAX_USER_IN_GROUP) {
-      return res.status(202).json({
-        success: false,
-        message: "Max number of user already joined this group",
-      });
+      let error = new Error("Max number of user already joined this group");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
     }
 
     for (const userInGroup of groupFound.users) {
@@ -68,26 +112,43 @@ exports.joinGroup = async (req, res) => {
     }
 
     if (userInGroupFound) {
-      return res
-        .status(202)
-        .json({ success: false, message: "User already joined this group!" });
-    } else {
-      groupFound?.users.push(userId);
-      userFound?.groups.push(groupFound._id);
-      await groupFound?.save();
-      await userFound?.save();
-      return res.status(202).json({
-        success: true,
-        message: "Group join successfully!",
-        groupData: groupFound,
-      });
+      let error = new Error("User already joined this group!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
     }
-  } else {
-    return res.status(404).json({ success: true, message: "Group Not found!" });
+
+    groupFound?.users.push(userId);
+    userFound?.groups.push(groupFound._id);
+
+    groupFound
+      ?.save()
+      .then(() => {
+        userFound
+          ?.save()
+          .then(() => {
+            return res.status(202).json({
+              success: true,
+              message: "Group join successfully!",
+              groupData: groupFound,
+            });
+          })
+          .catch(() => {
+            let error = new Error("Group not added to users!");
+            error.statusCode = StatusCodes.NOT_FOUND;
+            throw error;
+          });
+      })
+      .catch(() => {
+        let error = new Error("User not added to group!");
+        error.statusCode = StatusCodes.NOT_FOUND;
+        throw error;
+      });
+  } catch (err) {
+    next(err);
   }
 };
 
-exports.saveGroupMessage = (req, res) => {
+exports.saveGroupMessage = (req, res, next) => {
   let message, isOpenAIMsg, type, url, size, chatId, userId;
 
   chatId = mongoose.Types.ObjectId(req.body.chatId);
@@ -100,11 +161,7 @@ exports.saveGroupMessage = (req, res) => {
   type = req.body.data.type;
   userId = mongoose.Types.ObjectId(req.userId);
 
-  const invalidInput = validationResult(req);
-
-  if (!invalidInput.isEmpty()) {
-    return res.status(422).json({ invalidInput: invalidInput });
-  } else {
+  try {
     Group.findOne({ _id: chatId })
       .then((group) => {
         const newMessage = new Message({
@@ -122,24 +179,30 @@ exports.saveGroupMessage = (req, res) => {
           .then((data) => {
             group?.messages.push(data._id);
             group.save().then(() => {
-              return res.status(200).json({
+              return res.status(StatusCodes.OK).json({
                 success: true,
-                message: "message send successfully!",
+                message: "Message send successfully!",
                 data: data,
               });
             });
           })
-          .catch((err) => {
-            console.log(err);
+          .catch(() => {
+            let error = new Error("Message not created!");
+            error.statusCode = StatusCodes.NOT_FOUND;
+            throw error;
           });
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        let error = new Error("Group not found!");
+        error.statusCode = StatusCodes.NOT_FOUND;
+        throw error;
       });
+  } catch (err) {
+    next(err);
   }
 };
 
-exports.blockUser = async (req, res) => {
+exports.blockUser = async (req, res, next) => {
   const adminId = mongoose.Types.ObjectId(req.userId);
 
   let blockUserId, groupId;
@@ -148,78 +211,85 @@ exports.blockUser = async (req, res) => {
 
   try {
     let groupFound = await Group.findOne({ _id: groupId });
-    if (groupFound) {
-      if (groupFound.createdBy === adminId) {
-        groupFound.blockList.push(blockUserId);
-        await groupFound.save();
 
-        return res.status(200).json({
-          success: true,
-          message: "User blocked successfully!",
-        });
-      } else {
-        return res.status(403).json({
-          success: false,
-          message: "You are not allowed to block this user.",
-        });
-      }
+    if (!groupFound) {
+      let error = new Error("Group not found!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
     }
-  } catch (err) {
-    return res.status(404).json({
-      success: false,
-      message: "Something goes wrong!",
+
+    if (groupFound.createdBy !== adminId) {
+      let error = new Error("You are not admin of this group!");
+      error.statusCode = StatusCodes.UNAUTHORIZED;
+      throw error;
+    }
+
+    groupFound.blockList.push(blockUserId);
+    await groupFound.save();
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "User blocked successfully!",
     });
+  } catch (err) {
+    next(err);
   }
 };
 
-exports.unBlockUser = async (req, res) => {
+exports.unBlockUser = async (req, res, next) => {
   const adminId = mongoose.Types.ObjectId(req.userId);
 
   let unBlockUserId, groupId;
+
   groupId = mongoose.Types.ObjectId(req.body.groupId);
   unBlockUserId = mongoose.Types.ObjectId(req.body.blockUserId);
 
   try {
     let groupFound = await Group.findOne({ _id: groupId });
-    if (groupFound) {
-      if (groupFound.createdBy === adminId) {
-        groupFound.blockList.pull(unBlockUserId);
-        await groupFound.save();
 
-        return res.status(200).json({
-          success: true,
-          message: "User unblocked successfully!",
-        });
-      } else {
-        return res.status(403).json({
-          success: true,
-          message: "You are not allowed to block this user.",
-        });
-      }
+    if (!groupFound) {
+      let error = new Error("Group not found!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
     }
-  } catch (err) {
-    return res.status(404).json({
-      success: false,
-      message: "Something goes wrong!",
+
+    if (groupFound.createdBy !== adminId) {
+      let error = new Error("You are not admin of this group!");
+      error.statusCode = StatusCodes.UNAUTHORIZED;
+      throw error;
+    }
+
+    groupFound.blockList.pull(unBlockUserId);
+    await groupFound.save();
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "User unblocked successfully!",
     });
+  } catch (err) {
+    next(err);
   }
 };
 
-exports.deleteGroup = async (req, res) => {
-  const adminId = mongoose.Types.ObjectId(req.userId);
+exports.deleteGroup = async (req, res, next) => {
 
   const groupId = mongoose.Types.ObjectId(req.body.chatId);
 
-  const groupFound = await Group.findOne({ _id: groupId });
+  try {
+    const groupFound = await Group.findOne({ _id: groupId });
+    
+    if (groupFound.createdBy != req.userId) {
+      let error = new Error("You are not authorized to delete this group!");
+      error.statusCode = StatusCodes.UNAUTHORIZED;
+      throw error;
+    }
 
-  // if (groupFound.createdBy !== req.userId) {
-  //   return res.status(200).json({
-  //     success: false,
-  //     message: "Group Deleted!",
-  //   });
-  // }
+    if (!groupFound) {
+      let error = new Error("Group not found!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
 
-  if (groupFound) {
     const users = [...groupFound.users].map((user) =>
       mongoose.Types.ObjectId(user)
     );
@@ -232,27 +302,38 @@ exports.deleteGroup = async (req, res) => {
       { multi: true }
     );
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Group Deleted!",
     });
-  } else {
-    return res.status(400).json({
-      success: false,
-      message: "Group not Deleted!",
-    });
+    
+  } catch (err) {
+    next(err);
   }
 };
 
 // remove a user from the group
-exports.leaveGroup = async (req, res) => {
+exports.leaveGroup = async (req, res, next) => {
   const userId = mongoose.Types.ObjectId(req.userId);
   const groupId = mongoose.Types.ObjectId(req.body.chatId);
 
-  const groupFound = await Group.findOne({ _id: groupId });
-  const userFound = await User.findOne({ _id: userId });
+  try {
+    const groupFound = await Group.findOne({ _id: groupId });
 
-  if (groupFound && userFound) {
+    if (!groupFound) {
+      let error = new Error("Group not found!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
+    const userFound = await User.findOne({ _id: userId });
+
+    if (!userFound) {
+      let error = new Error("User not found!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
     if (groupFound.users.includes(userId)) {
       groupFound.users.pull(userId);
       userFound.groups.pull(groupId);
@@ -260,83 +341,94 @@ exports.leaveGroup = async (req, res) => {
       await groupFound.save();
       await userFound.save();
 
-      return res.status(200).json({
+      return res.status(StatusCodes.OK).json({
         success: true,
         message: "User left successfully!",
       });
     } else {
-      return res.status(403).json({
-        success: false,
-        message: "You are not in this group.",
-      });
+      let error = new Error("User not int his group!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
     }
+  } catch (err) {
+    next(err);
   }
 };
 
 // Remove user from group
-exports.removeUser = async (req, res) => {
+exports.removeUser = async (req, res, next) => {
   const adminId = mongoose.Types.ObjectId(req.userId);
 
   const groupId = mongoose.Types.ObjectId(req.body.groupId);
   const removeUserId = mongoose.Types.ObjectId(req.body.removeUserId);
 
-  const groupFound = await Group.findOne({ _id: groupId });
-  const removeUserFound = await User.findOne({ _id: removeUserId });
+  try {
+    const groupFound = await Group.findOne({ _id: groupId });
 
-  if (groupFound) {
+    if (!groupFound) {
+      let error = new Error("Group not found!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
+    const removeUserFound = await User.findOne({ _id: removeUserId });
+
+    if (!removeUserFound) {
+      let error = new Error("User not found!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
     groupFound.users.pull(removeUserId);
     removeUserFound.groups.pull(groupId);
 
     await removeUserFound.save();
     await groupFound.save();
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "User removed successfully!",
     });
-
-  } else {
-    return res.status(403).json({
-      success: false,
-      message: "Group not found!",
-    });
+  } catch (err) {
+    next(err);
   }
 };
 
-
 // Edit a group
-exports.editGroup = async (req, res) => {
+exports.editGroup = async (req, res, next) => {
+  /// Group Data
   const name = req.body.name;
   const status = req.body.status;
   const lowResUrl = req.body.lowResUrl;
   const highResUrl = req.body.highResUrl;
 
   const groupId = mongoose.Types.ObjectId(req.body.groupId);
-  const groupFound = await Group.findOne({ _id: groupId });
 
-  if(groupFound){
+  try {
+    const groupFound = await Group.findOne({ _id: groupId });
+
+    if (!groupFound) {
+      let error = new Error("User not found!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
 
     groupFound.name = name;
     groupFound.status = status;
 
-    if(highResUrl && lowResUrl){
+    if (highResUrl && lowResUrl) {
       groupFound.highResUrl = highResUrl;
       groupFound.lowResUrl = lowResUrl;
     }
 
     await groupFound.save();
 
-    return res.status(200).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       message: "Group edited successfully!",
     });
 
-  }else{
-
-    return res.status(403).json({
-      success: false,
-      message: "Group not found!",
-    });
-
+  } catch (err) {
+    next(err);
   }
 };
