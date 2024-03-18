@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Button from "../../../components/Button/Button";
@@ -8,6 +8,7 @@ import AuthContext from "../../../context/authContext";
 
 const Login = () => {
   const authCtx = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -15,7 +16,7 @@ const Login = () => {
     const email = event.target[0].value;
     const password = event.target[1].value;
 
-    authCtx?.loginHandler(email, password);
+    authCtx?.loginHandler(email, password, setLoading);
   };
 
   return (
@@ -29,6 +30,7 @@ const Login = () => {
         icon={"material-symbols:lock"}
       />
       <Button
+        loading ={ loading}
         backgroundColor="var(--primary)"
         color="var(--text)"
         width={"60%"}

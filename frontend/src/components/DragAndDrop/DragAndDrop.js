@@ -28,7 +28,7 @@ const DragAndDrop = () => {
 
   const user = useSelector((state) => state.user);
   
-  const [highResUrl, lowResUrl, setData] =  useCompressImg();
+  const [loading, setLoading] = useState(false);
 
   let data = (
     user?.selectedType === categoryState[0] ? user.groups : user.privates
@@ -68,7 +68,6 @@ const DragAndDrop = () => {
   };
 
   const sendMessage = (url, file) => {
-    console.log('sendMessage', file)
     let msgData = {
       token: authCtx.token,
       chatId: data._id,
@@ -84,20 +83,20 @@ const DragAndDrop = () => {
         userId: authCtx.userId,
       },
     };
-    messageHandler(msgData);
+    messageHandler(msgData, setLoading);
   };
 
   const uploadHandler = (event) => {
     event.preventDefault();
-
     files.map((file) => {
-
       saveInFirebase(file.fileData)
         .then((url) => {
           sendMessage(url, file);
           dispatch(DragAndDropActions.removeSingleFile(file));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err)).finally(()=>{
+          setLoading(false);
+        });
     });
   };
 
@@ -130,8 +129,8 @@ const DragAndDrop = () => {
         ))}
       </div>
       {files.length > 0 && (
-        <Button backgroundColor={"var(--primary)"} width={"50%"}>
-          <p className="color-text">Send</p>
+        <Button loading={loading} backgroundColor={"var(--primary)"} width={"50%"}>
+          <h5 className="color-text">Send</h5>
         </Button>
       )}
     </form>

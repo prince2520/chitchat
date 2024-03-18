@@ -1,4 +1,4 @@
-// create a new private
+// POST -> create a new private
 export const createPrivate = async (token, userId, chatId) => {
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/private/create-private`,
@@ -18,7 +18,7 @@ export const createPrivate = async (token, userId, chatId) => {
 };
 
 
-// save private message
+// PUT -> save private message
 export const savePrivateMessage = async (data) => {
   const result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/private/save-private-message`,
@@ -34,7 +34,7 @@ export const savePrivateMessage = async (data) => {
   return result.json();
 };
 
-// delete private 
+// DELETE -> delete private 
 export const deletePrivate = async(data) => {
   const result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/private/delete-private`,

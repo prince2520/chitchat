@@ -86,7 +86,8 @@ export const AuthContextProvider = (props) => {
     setIsAuth(true);
   }, [autoLogout, logoutHandler, saveUserData]);
 
-  const signUpHandler = useCallback((userName, email, password, confirmPassword) => {
+  const signUpHandler = useCallback((userName, email, password, confirmPassword, setLoading) => {
+    setLoading(true);
     signup(userName, email, password, confirmPassword).then((result) => {
       if (result.success) {
         toast.success(result.message);
@@ -94,10 +95,15 @@ export const AuthContextProvider = (props) => {
       }else{
         toast.error(result.message);
       }
-    }).catch((err)=> toast.success(err));
+    })
+    .catch((err)=> toast.success(err))
+    .finally(()=>{
+      setLoading(false);
+    });
   },[navigate, dispatch]);
 
-  const loginHandler = useCallback((email, password) => {
+  const loginHandler = useCallback((email, password, setLoading) => {
+    setLoading(true);
     login(email, password).then((result) => {
       if (result.success) {
         saveUserData(result.user);
@@ -125,6 +131,8 @@ export const AuthContextProvider = (props) => {
       }
     }).catch((err)=>{
       toast.error(err);
+    }).finally(()=>{
+      setLoading(false);
     });
   },[autoLogout, dispatch, navigate, saveUserData]);
 

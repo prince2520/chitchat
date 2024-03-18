@@ -1,4 +1,4 @@
-// create a new group
+// POST -> create a new group
 export const createGroup = async (token, name, highResUrl, lowResUrl) => {
   let data = {
     name: name,
@@ -20,7 +20,7 @@ export const createGroup = async (token, name, highResUrl, lowResUrl) => {
   return result.json();
 };
 
-// join a group
+// PUT -> join a group
 export const joinGroup = async (token, groupId, userId) => {
   let result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/group/join-group`,
@@ -39,7 +39,7 @@ export const joinGroup = async (token, groupId, userId) => {
   return result.json();
 };
 
-// save group message
+// PUT -> save group message
 export const saveGroupMessage = async (data) => {
   const result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/group/save-group-message`,
@@ -55,7 +55,7 @@ export const saveGroupMessage = async (data) => {
   return result.json();
 };
 
-// delete a group
+// DELETE -> delete a group
 export const deleteGroup = async (data) => {
   const result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/group/delete-group`,
@@ -71,6 +71,7 @@ export const deleteGroup = async (data) => {
   return result.json();
 };
 
+// DELETE -> leave group 
 export const leaveGroup = async (data) => {
   const result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/group/leave-group`,
@@ -86,7 +87,7 @@ export const leaveGroup = async (data) => {
   return result.json();
 };
 
-// remove user from group
+// DELETE -> remove user from group
 export const removeUser = async (data) => {
   const result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/group/remove-user`,
@@ -102,7 +103,7 @@ export const removeUser = async (data) => {
   return result.json();
 };
 
-// edit a group 
+// PUT -> edit a group 
 export const editGroup = async (data) => {
   
   const result = await fetch(

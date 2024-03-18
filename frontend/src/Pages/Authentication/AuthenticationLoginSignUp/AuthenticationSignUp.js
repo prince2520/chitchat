@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Button from "../../../components/Button/Button";
@@ -8,6 +8,7 @@ import AuthContext from "../../../context/authContext";
 
 const SignUp = () => {
   const authCtx = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -18,7 +19,7 @@ const SignUp = () => {
     email = event.target[1].value;
     password = event.target[2].value;
 
-    authCtx?.signUpHandler(username, email, password);
+    authCtx?.signUpHandler(username, email, password, setLoading);
   };
 
   return (
@@ -41,7 +42,7 @@ const SignUp = () => {
         label={"Confirm Password"}
         icon={"material-symbols:lock"}
       />
-      <Button backgroundColor='var(--primary)' color="var(--text)" width={"60%"}>
+      <Button loading={loading} backgroundColor='var(--primary)' color="var(--text)" width={"60%"}>
         <h5 className="color-text">Sign Up</h5>
       </Button>
       <p className="flex-center">
