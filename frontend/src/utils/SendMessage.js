@@ -40,8 +40,9 @@ import {
 //   }
 // };
 
-export const messageHandler = (msgData, setLoading=false) => {
+export const messageHandler = (msgData) => {
   const isGroup = msgData.selectedType === categoryState[0];
+  
   (isGroup
     ? saveGroupMessage(msgData)
     : savePrivateMessage(msgData)
@@ -52,7 +53,7 @@ export const messageHandler = (msgData, setLoading=false) => {
       msgData.saveMessage(temp);
       socketSendMessage(temp);
     })
-    .catch((err) => console.log(err)).finally(()=>setLoading(false))
+    .catch((err) => console.log(err));
     ;
 
   // sendOpenAIAnswer(
