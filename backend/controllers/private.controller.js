@@ -9,8 +9,6 @@ exports.createPrivate = async (req, res, next) => {
   const userId = mongoose.Types.ObjectId(req.userId);
   const chatId = mongoose.Types.ObjectId(req.body.chatId);
 
-  console.log("createPrivate", userId, chatId);
-
   try {
 
     if(req.userId === req.body.chatId){

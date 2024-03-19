@@ -11,5 +11,4 @@ exports.validationHandler = (schema) => (req, res, next) => {
   };
 
   next();
-  
 };

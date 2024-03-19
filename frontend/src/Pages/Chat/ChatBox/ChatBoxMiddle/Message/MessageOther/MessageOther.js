@@ -5,7 +5,6 @@ import { Icon } from "@iconify/react";
 import "./MessageOther.css";
 
 const MessageOther = ({ messageDetail }) => {
-  console.log('messageDetail', messageDetail);
   return (
     <div
       className={"message-other rounded-corner"}

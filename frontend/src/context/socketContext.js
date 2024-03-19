@@ -12,7 +12,7 @@ import {
   getPrivateChat,
   socketGetRemoveChat,
   socketGetRemoveGroup,
-  socketGetUpdatedGroup
+  socketGetUpdatedGroup,
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -33,6 +33,7 @@ export const SocketContextProvider = ({ children }) => {
   const [myStream, setMyStream] = useState();
   const [callDetail, setCallDetail] = useState({});
   const selectedId = useSelector((state) => state.user.selectedId);
+  const user = useSelector((state) => state.user);
 
   const connectionRef = useRef();
   const myVideo = useRef(null);
@@ -53,12 +54,12 @@ export const SocketContextProvider = ({ children }) => {
     getPrivateChat((err, { data }) => {
       dispatch(UserActions.addPrivate(data.private));
     });
-    socketGetRemoveGroup((err, {data})=>{
+    socketGetRemoveGroup((err, { data }) => {
       dispatch(UserActions.removeUserGroup(data));
     });
-    socketGetUpdatedGroup((err, {data})=>{
+    socketGetUpdatedGroup((err, { data }) => {
       dispatch(UserActions.editGroup(data));
-    })
+    });
   }, [dispatch]);
 
   useEffect(() => {
@@ -110,21 +111,26 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     getCall((err, callDetail) => {
+      console.log("Recieved call: ", callDetail);
       setCallAccepted(true);
       setCallDetail(callDetail);
     });
   }, []);
 
-  const callUser = (userId) => {
+  const callUser = (chatId) => {
+    console.log('chatId', chatId);
     const peer = new Peer({ initiator: true, trickle: false, myStream });
-
+    
     peer.on("signal", (data) => {
-      sendCallUserHandler({
-        userToCall: userId,
-        signalData: data,
-        from: authCtx.userId,
-        name: authCtx.userId,
-      });
+      
+      const callData = {
+        userToCall: chatId,
+        data : {
+          user: user,
+          signalData: data
+        }
+      }
+      sendCallUserHandler(callData);
     });
 
     peer.on("stream", (userStream) => {
@@ -169,7 +175,5 @@ export const SocketContextProvider = ({ children }) => {
     </SocketContext.Provider>
   );
 };
-
-
 
 export default SocketContext;

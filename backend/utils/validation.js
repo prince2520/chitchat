@@ -1,10 +1,4 @@
 const Joi = require("joi");
-const {
-  customAuthNameMsgs,
-  customEmailMsgs,
-  customPasswordMsgs,
-} = require("constants");
-
 // Validation - Signup
 exports.signupSchema = Joi.object({
   name: Joi.string()

@@ -6,7 +6,7 @@ const useProgressiveImg = (lowQualitySrc, highQualitySrc) => {
 
   useEffect(() => {
     setSrc(lowQualitySrc);
-
+    
     const img = new Image();
 
     img.src = highQualitySrc;

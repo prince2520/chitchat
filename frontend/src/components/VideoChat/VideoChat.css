@@ -8,5 +8,6 @@
 }
 
 .video-chat-container video{
+    width: 100%;
     border: none;
 }

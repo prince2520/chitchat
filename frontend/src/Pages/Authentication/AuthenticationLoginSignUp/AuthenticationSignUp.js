@@ -8,18 +8,20 @@ import AuthContext from "../../../context/authContext";
 
 const SignUp = () => {
   const authCtx = useContext(AuthContext);
+  
   const [loading, setLoading] = useState(false);
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    let username, email, password;
+    let username, email, password, confirmPassword;
 
     username = event.target[0].value;
     email = event.target[1].value;
     password = event.target[2].value;
+    confirmPassword = event.target[3].value;
 
-    authCtx?.signUpHandler(username, email, password, setLoading);
+    authCtx?.signUpHandler(username, email, password, confirmPassword, setLoading);
   };
 
   return (

@@ -47,8 +47,6 @@ const ChatBoxTop = () => {
                 .lowResUrl
             : data.lowResUrl
         }
-
-
       />
       <div className="full-screen chat-box__description">
         <h5>
@@ -62,7 +60,7 @@ const ChatBoxTop = () => {
             : data.status}
         </p>
       </div>
-      {data.type === categoryState[1] && <MediaCommunication />}
+      {user?.selectedType === categoryState[1] && <MediaCommunication />}
       <Icon
         onClick={() => setShowSetting((prevState) => !prevState)}
         ref={ref}

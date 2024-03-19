@@ -1,4 +1,4 @@
-// GET -> 
+// GET -> fetch user data
 export const fetchUser = async (email, token) => {
   const result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/user/fetch-user?email=${email}`,

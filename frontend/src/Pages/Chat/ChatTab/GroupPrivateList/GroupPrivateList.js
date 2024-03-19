@@ -5,7 +5,7 @@ import ChangeCategory from "../../../../components/ChangeCategory/ChangeCategory
 import { useDispatch, useSelector } from "react-redux";
 import { UserActions } from "../../../../store/userSlice";
 import AuthContext from "../../../../context/authContext";
-import { categoryState } from "../../../../constants/constants"
+import { categoryState } from "../../../../constants/constants";
 import { getLastMessage } from "../../../../utils/GetLastMessage";
 import NoGroupPrivate from "./NoGroupPrivate/NoGroupPrivate";
 
@@ -57,40 +57,48 @@ const GroupPrivateList = () => {
     <>
       <ChangeCategory setIsPrivate={setIsPrivate} />
       <div className="group-private-list">
-        {(isPrivate ? privates : groups).length > 0 ? (isPrivate ? privates : groups).map((data) => (
-          
-          <div
-            key={data._id}
-            className={`group-private-item ${
-              data._id === user.selectedId && "group-selected"
-            }  border`}
-            onClick={() => selectedItem(data)}
-          >
-            {console.log('data', data)}
-            <div className="group-private-item-left">
-              <ImageContainer
-                highResUrl={
-                  isPrivate
-                    ? data.users.filter((user) => user._id !== authCtx.userId)[0].highResUrl
-                    : data.highResUrl
-                }
-                lowResUrl={
-                  isPrivate
-                  ? data.users.filter((user) => user._id !== authCtx.userId)[0].lowResUrl
-                  : data.lowResUrl
-                }
-              />
+        {(isPrivate ? privates : groups).length > 0 ? (
+          (isPrivate ? privates : groups).map((data) => (
+            <div
+              key={data._id}
+              className={`group-private-item ${
+                data._id === user.selectedId && "group-selected"
+              }  border`}
+              onClick={() => selectedItem(data)}
+            >
+              <div className="group-private-item-left">
+                <ImageContainer
+                  highResUrl={
+                    isPrivate
+                      ? data.users.filter(
+                          (user) => user._id !== authCtx.userId
+                        )[0].highResUrl
+                      : data.highResUrl
+                  }
+                  lowResUrl={
+                    isPrivate
+                      ? data.users.filter(
+                          (user) => user._id !== authCtx.userId
+                        )[0].lowResUrl
+                      : data.lowResUrl
+                  }
+                />
+              </div>
+              <div className="group-private-item-right">
+                <h5>
+                  {isPrivate
+                    ? data.users.filter(
+                        (user) => user._id !== authCtx.userId
+                      )[0].name
+                    : data.name}
+                </h5>
+                {showLastMsg(data)}
+              </div>
             </div>
-            <div className="group-private-item-right">
-              <h5>
-                {isPrivate
-                  ? data.users.filter((user) => user._id !== authCtx.userId)[0].name
-                  : data.name}
-              </h5>
-              {showLastMsg(data)}
-            </div>
-          </div>
-        )): <NoGroupPrivate isPrivate={isPrivate}/>}
+          ))
+        ) : (
+          <NoGroupPrivate isPrivate={isPrivate} />
+        )}
       </div>
     </>
   );

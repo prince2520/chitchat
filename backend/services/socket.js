@@ -6,18 +6,17 @@ PRIVATE -
 
 module.exports = (io) => {
   io.on("connection", function (socket) {
-    
     // USER - initiate the socket
     socket.on("user_connect", (userId) => {
       socket.join(userId);
       io.emit("get_user_connected", userId);
     });
 
-     // USER - disconnect the user
-     socket.on("disconnect", function (userId) {
+    // USER - disconnect the user
+    socket.on("disconnect", function (userId) {
       socket.leave(userId);
     });
-    
+
     // GROUP - join
     socket.on("join_group", ({ groups }) => {
       groups?.map((group) => {
@@ -28,7 +27,7 @@ module.exports = (io) => {
       });
     });
 
-    // GROUP - remove 
+    // GROUP - remove
     socket.on("remove_chat", ({ data }) => {
       if (data.type === "Group") {
         io.to(data.chatId).emit("received_remove_chat", { data });
@@ -38,7 +37,7 @@ module.exports = (io) => {
       }
     });
 
-    // GROUP - remove user 
+    // GROUP - remove user
     socket.on("remove_user_group", function ({ data }) {
       socket
         .to(data.groupId)
@@ -47,13 +46,11 @@ module.exports = (io) => {
 
     // GROUP - update group detail
     socket.on("updated_group_detail", function ({ data }) {
-      socket
-        .to(data.groupId)
-        .emit("get_updated_group_detail", { data: data });
+      socket.to(data.groupId).emit("get_updated_group_detail", { data: data });
     });
 
-     // GROUP - leave Group
-     socket.on("leave_group", function ({ groupId }) {
+    // GROUP - leave Group
+    socket.on("leave_group", function ({ groupId }) {
       socket.leave(groupId);
     });
 
@@ -65,7 +62,6 @@ module.exports = (io) => {
         socket.in(userId).emit("recived_private_user", { data: data });
       });
     });
-
 
     // GROUP & PRIVATE - Send  message to receiver
     socket.on("send_message", ({ data }) => {
@@ -82,15 +78,14 @@ module.exports = (io) => {
       }
     });
 
-    socket.on("callUser", ({ userToCall, signalData, from, name }) => {
-      socket
-        .in(userToCall)
-        .emit("callUser", { signal: signalData, from, name });
+    // PRIVATE -> Call User
+    socket.on("callUser", ({callData }) => {
+      console.log('callData', callData);
+      socket.in(callData.userToCall).emit("callUser", { callData });
     });
 
     socket.on("answerCall", (data) => {
       socket.in(data.to).emit("callAccepted", data.signal);
     });
-   
   });
 };

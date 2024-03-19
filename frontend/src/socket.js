@@ -68,9 +68,8 @@ export const getCallAcceptedHandler = (cb) => {
 };
 
 export const getCall = (cb) => {
-  socket.on("callUser", ({ from, name: callerName, signal }) => {
-    console.log({ from, name: callerName, signal });
-    cb(null, { isReceivingCall: true, from, name: callerName, signal });
+  socket.on("callUser", ({ callData }) => {
+    cb(null, { callData });
   });
 };
 
@@ -78,8 +77,8 @@ export const sendAnswerCallHandler = ({ data, call }) => {
   socket.emit("answerCall", { signal: data, to: call.from });
 };
 
-export const sendCallUserHandler = ({ userToCall, signalData, from, name }) => {
-  socket.emit("callUser", { userToCall, signalData, from, name });
+export const sendCallUserHandler = (callData) => {
+  socket.emit("callUser", { callData });
 };
 
 export const socketAddPrivate = (data) => {
