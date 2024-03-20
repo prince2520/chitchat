@@ -84,8 +84,15 @@ module.exports = (io) => {
       socket.in(callData.userToCall).emit("callUser", { callData });
     });
 
+    // PRIVATE -> Call Accepted
     socket.on("answerCall", (data) => {
       socket.in(data.to).emit("callAccepted", data.signal);
+    });
+
+    // PRIVATE -> END CALL
+    socket.on("endCall", ({data}) => {
+      console.log("endCall", data);
+      socket.in(data.to._id).emit("recieved_endCall", {data});
     });
   });
 };

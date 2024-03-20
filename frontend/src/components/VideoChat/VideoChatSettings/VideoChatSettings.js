@@ -1,18 +1,25 @@
 import { Icon } from "@iconify/react";
-
-import "./VideoChatSettings.css";
 import { useState, useContext } from "react";
+import { useSelector } from "react-redux";
+
+import Button from "../../Button/Button";
 import SocketContext from "../../../context/socketContext";
 
-const VideoChatSettings = () => {
+import "./VideoChatSettings.css";
+
+const VideoChatSettings = ({isReceivingCall = false}) => {
+  const socketCtx = useContext(SocketContext);
+
   const [audioMuted, isAudioMuted] = useState(false);
   const [videoMuted, isVideoMuted] = useState(false);
 
   const { getUserMedia } = useContext(SocketContext);
 
+  const videoAudioCall = useSelector((state) => state.videoAudioCall);
+
   return (
-    <div className="video-chat-settings">
-      <div className={"video-chat-video-mute cursor-btn"}>
+    <div className="flex-center video-chat-settings">
+      <div className={"flex-center video-chat-video-mute cursor-btn"}>
         <div
           className="setting-container flex-center"
           onClick={() => {
@@ -29,12 +36,16 @@ const VideoChatSettings = () => {
           />
         </div>
       </div>
-      <div className="video-chat-call-hangout cursor-btn">
-        <div className="setting-container flex-center">
-          <Icon icon="fluent:call-16-filled" />
-        </div>
-        <h6>Call</h6>
-      </div>
+      <Button width={"fit-content"} onClick={()=>{
+          socketCtx.endCall(videoAudioCall.callingDetails)
+        }}>
+        <Icon className="color-text" icon="fluent:call-16-filled" />
+        <p className="color-text" >End</p>
+      </Button>
+      {isReceivingCall && <Button backgroundColor={'var(--success)'} width={"fit-content"}>
+        <Icon className="color-text" icon="fluent:call-16-filled" />
+        <p className="color-text">Accept</p>
+      </Button>}
       <div className="video-chat-audio-mute cursor-btn">
         <div
           className="setting-container flex-center"

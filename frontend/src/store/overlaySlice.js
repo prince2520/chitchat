@@ -16,6 +16,7 @@ const OverlaySlice = createSlice({
   initialState: initialOverlayState,
   reducers: {
     closeOverlayHandler(state) {
+      state.showVideoChat = false;
       state.showSideMobileBar = false;
       state.showDragDrop = false;
       state.showSettings = {

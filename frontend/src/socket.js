@@ -50,7 +50,6 @@ export const socketSendMessage = (data) => {
   }
 };
 
-
 export const socketRemoveChat = (data) => {
   socket.emit("remove_chat", { data });
 };
@@ -96,7 +95,7 @@ export const getChatMessage = (cb) => {
 };
 
 export const getPrivateChat = (cb) => {
-  if(socket){
+  if (socket) {
     socket.on("recived_private_user", ({ data }) => {
       return cb(null, { data });
     });
@@ -117,4 +116,19 @@ export const socketGetRemoveGroup = (cb) => {
   }
 };
 
+// PRIVATE -> End Call
+export const socketEndCall = (data) => {
+  if (socket) {
+    socket.emit("endCall", { data });
+  }
+};
 
+
+// PRIVATE -> Get End Call 
+export const socketGetEndCall = (cb) => {
+  if (socket) {
+    socket.on("recieved_endCall", ({ data }) => {
+      cb(null, { data });
+    });
+  }
+};

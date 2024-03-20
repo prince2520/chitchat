@@ -7,12 +7,13 @@ import {
   getCallAcceptedHandler,
   getChatMessage,
   initiateSocket,
-  sendAnswerCallHandler,
   sendCallUserHandler,
   getPrivateChat,
   socketGetRemoveChat,
   socketGetRemoveGroup,
   socketGetUpdatedGroup,
+  socketEndCall,
+  socketGetEndCall,
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -21,6 +22,7 @@ import Peer from "simple-peer";
 import { useSelector } from "react-redux";
 import { UserActions } from "../store/userSlice";
 import { OverlayActions } from "../store/overlaySlice";
+import { VideoAudioCallActions } from "../store/videoAudioCallSlice";
 
 const SocketContext = React.createContext({});
 
@@ -28,16 +30,16 @@ export const SocketContextProvider = ({ children }) => {
   const dispatch = useDispatch();
   const authCtx = useContext(AuthContext);
 
-  const [callAccepted, setCallAccepted] = useState(false);
-  const [callEnded, setCallEnded] = useState(false);
-  const [myStream, setMyStream] = useState();
-  const [callDetail, setCallDetail] = useState({});
-  const selectedId = useSelector((state) => state.user.selectedId);
-  const user = useSelector((state) => state.user);
+  const videoAudioCall = useSelector((state) => state.videoAudioCall);
 
-  const connectionRef = useRef();
+  const [myStream, setMyStream] = useState();
+
+  const user = useSelector((state) => state.user);
+  const selectedId = useSelector((state) => state.user.selectedId);
+
+  const userVideo = useRef(null);
   const myVideo = useRef(null);
-  const userVideo = useRef();
+  const connectionRef = useRef();
 
   useEffect(() => {
     initiateSocket(authCtx?.userId);
@@ -92,44 +94,51 @@ export const SocketContextProvider = ({ children }) => {
   };
 
   const answerCall = () => {
-    setCallAccepted(true);
-
     const peer = new Peer({ initiator: false, trickle: false, myStream });
 
     peer?.on("signal", (data) => {
-      sendAnswerCallHandler({ data, call: callDetail });
+      //sendAnswerCallHandler({ data, call: callDetail });
     });
 
     peer?.on("stream", (userStream) => {
       userVideo.current.srcObject = userStream;
     });
 
-    peer.signal(callDetail.signal);
+    peer.signal(videoAudioCall.data);
 
     connectionRef.current = peer;
   };
 
   useEffect(() => {
-    getCall((err, callDetail) => {
-      console.log("Recieved call: ", callDetail);
-      setCallAccepted(true);
-      setCallDetail(callDetail);
+    getCall((err, receivingCallDetails) => {
+      console.log("Recieved call: ", receivingCallDetails);
+      dispatch(
+        VideoAudioCallActions.callingHandler({
+          isCalling: false,
+          isReceivingCall: true,
+          callingDetails: receivingCallDetails.callData.data.user,
+        })
+      );
+      dispatch(OverlayActions.openVideoChatHandler());
+    });
+
+    socketGetEndCall((err, data) => {
+      dispatch(VideoAudioCallActions.callEndedHandler());
+      dispatch(OverlayActions.closeOverlayHandler());
     });
   }, []);
 
   const callUser = (chatId) => {
-    console.log('chatId', chatId);
     const peer = new Peer({ initiator: true, trickle: false, myStream });
-    
+
     peer.on("signal", (data) => {
-      
       const callData = {
         userToCall: chatId,
-        data : {
+        data: {
           user: user,
-          signalData: data
-        }
-      }
+          signalData: data,
+        },
+      };
       sendCallUserHandler(callData);
     });
 
@@ -138,7 +147,11 @@ export const SocketContextProvider = ({ children }) => {
     });
 
     getCallAcceptedHandler((signal) => {
-      setCallAccepted(true);
+      dispatch(
+        VideoAudioCallActions.callAcceptedHandler({
+          callAccepted: true,
+        })
+      );
 
       peer.signal(signal);
     });
@@ -148,27 +161,30 @@ export const SocketContextProvider = ({ children }) => {
     dispatch(OverlayActions.openVideoChatHandler());
   };
 
-  const leaveCall = () => {
-    setCallEnded(true);
+  const endCall = (to) => {
+    dispatch(VideoAudioCallActions.callEndedHandler());
 
-    connectionRef.current.destroy();
+    const data = {
+      callEnded: true,
+      to: to,
+    };
 
-    window.location.reload();
+    socketEndCall(data);
+
+    // connectionRef.current.destroy();
+
+    dispatch(OverlayActions.closeOverlayHandler());
   };
 
   return (
     <SocketContext.Provider
       value={{
         getUserMedia,
-        callDetail,
-        callAccepted,
         myVideo,
         userVideo,
         myStream,
-        callEnded,
         callUser,
-        leaveCall,
-        answerCall,
+        endCall,
       }}
     >
       {children}

@@ -11,3 +11,7 @@
     width: 100%;
     border: none;
 }
+
+.call-user {
+    flex-direction: column!important;
+} 

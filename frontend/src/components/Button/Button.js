@@ -12,14 +12,14 @@ const CustomButton = styled.button`
 
   &:hover {
     background-color: var(--text);
-    :is(h1, h2, h3, h4, h5, h6, p) {
+    :is(h1, h2, h3, h4, h5, h6, p, svg) {
       color: ${({ $backgroundColor }) => $backgroundColor || "var(--primary)"};
     }
   }
 
   &:disabled {
     background-color: var(--text);
-    :is(h1, h2, h3, h4, h5, h6, p) {
+    :is(h1, h2, h3, h4, h5, h6, p, svg) {
       color: var(--primary);
     }
   }

@@ -1,21 +1,42 @@
 import React, { useContext } from "react";
 import { Icon } from "@iconify/react";
+
+import { useDispatch, useSelector } from "react-redux";
+
 import SocketContext from "../../../../../context/socketContext";
-import {useSelector } from "react-redux";
+import { OverlayActions } from "../../../../../store/overlaySlice";
+import { VideoAudioCallActions } from "../../../../../store/videoAudioCallSlice";
 
 const MediaCommunication = () => {
   const socketCtx = useContext(SocketContext);
-  const user = useSelector(state => state.user);
-  
-  const privateData=  user.privates.filter((res) => res._id === user.selectedId)[0];
+  const user = useSelector((state) => state.user);
+
+  const privateData = user.privates.filter(
+    (res) => res._id === user.selectedId
+  )[0];
+
+  const dispatch = useDispatch();
 
   return (
     <React.Fragment>
       <Icon
         onClick={() => {
-          console.log("privateData",  privateData);
-          const userId = privateData.users.filter(res=>res._id !== user._id)[0]._id;
-          socketCtx.callUser(userId);
+       
+          const privateUserData = privateData.users.filter(
+            (res) => res._id !== user._id
+          )[0];
+
+          dispatch(
+            VideoAudioCallActions.callingHandler({
+              isCalling: true,
+              isReceivingCall: false,
+              callingDetails: privateUserData,
+            })
+          );
+
+          socketCtx.callUser(privateUserData._id);
+
+          dispatch(OverlayActions.openVideoChatHandler());
         }}
         icon="tabler:video"
         className="cursor-btn"
