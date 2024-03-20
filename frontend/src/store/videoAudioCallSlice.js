@@ -5,6 +5,7 @@ const initialVideoAudioCallState = {
   isReceivingCall: false,
 
   callingDetails: null,
+  signal: null,
   callAccepted: false,
   callEnded: true,
 };
@@ -17,7 +18,9 @@ const VideoAudioCallSlice = createSlice({
       state.isCalling = action.payload.isCalling;
       state.callingDetails = action.payload.callingDetails;
       state.isReceivingCall = action.payload.isReceivingCall;
+      state.signal = action.payload.signal;
     },
+
     callAcceptedHandler(state, action) {
       state.callAccepted = action.payload.callAccepted;
     },

@@ -78,21 +78,22 @@ module.exports = (io) => {
       }
     });
 
+    // VIDEO CALL (PRIVATE)
+
+
     // PRIVATE -> Call User
-    socket.on("callUser", ({callData }) => {
-      console.log('callData', callData);
-      socket.in(callData.userToCall).emit("callUser", { callData });
+    socket.on("call", ({callData }) => {
+      socket.in(callData.userToCall).emit("get_call", { callData });
     });
 
     // PRIVATE -> Call Accepted
-    socket.on("answerCall", (data) => {
-      socket.in(data.to).emit("callAccepted", data.signal);
+    socket.on("callAccepted", ({data}) => {
+      socket.in(data.to).emit("get_callAccepted", {data});
     });
 
     // PRIVATE -> END CALL
     socket.on("endCall", ({data}) => {
-      console.log("endCall", data);
-      socket.in(data.to._id).emit("recieved_endCall", {data});
+      socket.in(data.to._id).emit("get_endCall", {data});
     });
   });
 };

@@ -8,13 +8,13 @@ Backend - Back
 let socket = null;
 
 // USER - initiate socket (Front -> Back)
-export const initiateSocket = (userId) => {
+export const socketInitiate = (userId) => {
   socket = io(process.env.REACT_APP_SERVER_URL, { transports: ["websocket"] });
   socket.emit("user_connect", userId);
 };
 
 // USER - disconnect socket (Front -> Back)
-export const disconnectSocket = (userId) => {
+export const socketDisconnect= (userId) => {
   if (socket) {
     socket.disconnect(userId);
   }
@@ -60,33 +60,13 @@ export const socketGetRemoveChat = (cb) => {
   });
 };
 
-export const getCallAcceptedHandler = (cb) => {
-  socket.on("callAccepted", (signal) => {
-    cb(signal);
-  });
-};
-
-export const getCall = (cb) => {
-  socket.on("callUser", ({ callData }) => {
-    cb(null, { callData });
-  });
-};
-
-export const sendAnswerCallHandler = ({ data, call }) => {
-  socket.emit("answerCall", { signal: data, to: call.from });
-};
-
-export const sendCallUserHandler = (callData) => {
-  socket.emit("callUser", { callData });
-};
-
 export const socketAddPrivate = (data) => {
   if (socket) {
     socket.emit("add_private", { data });
   }
 };
 
-export const getChatMessage = (cb) => {
+export const socketGetChatMessage = (cb) => {
   if (socket) {
     socket.on("received_message", ({ data }) => {
       return cb(null, { data });
@@ -94,7 +74,7 @@ export const getChatMessage = (cb) => {
   }
 };
 
-export const getPrivateChat = (cb) => {
+export const socketGetPrivateChat = (cb) => {
   if (socket) {
     socket.on("recived_private_user", ({ data }) => {
       return cb(null, { data });
@@ -116,6 +96,37 @@ export const socketGetRemoveGroup = (cb) => {
   }
 };
 
+// VIDEO AND AUDIO CALL (PRIVATE)
+
+// PRIVATE -> Call
+export const socketCall = (callData) => {
+  socket.emit("call", { callData });
+};
+
+// PRIVATE -> Get Call
+export const socketGetCall = (cb) => {
+  socket.on("get_call", ({ callData }) => {
+    cb(null, { callData });
+  });
+};
+
+// Private -> Call Accepted
+export const socketCallAccepted = (data) => {
+  if (socket) {
+    socket.emit("callAccepted", { data });
+  }
+};
+
+// Private -> Get Call Accepted
+export const socketGetCallAccepted = (cb) => {
+  if (socket) {
+    socket.on("get_callAccepted", ({ data }) => {
+      console.log('socketGetCallAccepted', data)
+      cb(null, { data });
+    });
+  }
+};
+
 // PRIVATE -> End Call
 export const socketEndCall = (data) => {
   if (socket) {
@@ -123,11 +134,10 @@ export const socketEndCall = (data) => {
   }
 };
 
-
-// PRIVATE -> Get End Call 
+// PRIVATE -> Get End Call
 export const socketGetEndCall = (cb) => {
   if (socket) {
-    socket.on("recieved_endCall", ({ data }) => {
+    socket.on("get_endCall", ({ data }) => {
       cb(null, { data });
     });
   }

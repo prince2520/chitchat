@@ -7,7 +7,7 @@ import SocketContext from "../../../context/socketContext";
 
 import "./VideoChatSettings.css";
 
-const VideoChatSettings = ({isReceivingCall = false}) => {
+const VideoChatSettings = ({ isReceivingCall = false }) => {
   const socketCtx = useContext(SocketContext);
 
   const [audioMuted, isAudioMuted] = useState(false);
@@ -36,16 +36,26 @@ const VideoChatSettings = ({isReceivingCall = false}) => {
           />
         </div>
       </div>
-      <Button width={"fit-content"} onClick={()=>{
-          socketCtx.endCall(videoAudioCall.callingDetails)
-        }}>
+      <Button
+        width={"fit-content"}
+        onClick={() => {
+          socketCtx.endCall(videoAudioCall.callingDetails);
+        }}
+      >
         <Icon className="color-text" icon="fluent:call-16-filled" />
-        <p className="color-text" >End</p>
+        <p className="color-text">End</p>
       </Button>
-      {isReceivingCall && <Button backgroundColor={'var(--success)'} width={"fit-content"}>
-        <Icon className="color-text" icon="fluent:call-16-filled" />
-        <p className="color-text">Accept</p>
-      </Button>}
+      {isReceivingCall && (
+        <Button
+          onClick={() =>{
+            socketCtx.acceptCall()}}
+          backgroundColor={"var(--success)"}
+          width={"fit-content"}
+        >
+          <Icon className="color-text" icon="fluent:call-16-filled" />
+          <p className="color-text">Accept</p>
+        </Button>
+      )}
       <div className="video-chat-audio-mute cursor-btn">
         <div
           className="setting-container flex-center"

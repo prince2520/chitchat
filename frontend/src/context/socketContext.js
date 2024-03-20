@@ -2,18 +2,27 @@ import { useDispatch } from "react-redux";
 import React, { useEffect, useContext, useState, useRef } from "react";
 
 import {
-  disconnectSocket,
-  getCall,
-  getCallAcceptedHandler,
-  getChatMessage,
-  initiateSocket,
-  sendCallUserHandler,
-  getPrivateChat,
+
+  socketInitiate,
+  socketDisconnect,
+
+  socketGetChatMessage,
+
+  socketGetPrivateChat,
   socketGetRemoveChat,
+  
   socketGetRemoveGroup,
   socketGetUpdatedGroup,
+
+  socketGetCall,
+  socketCall,
+  
+  socketCallAccepted,
+  socketGetCallAccepted,
+
   socketEndCall,
-  socketGetEndCall,
+  socketGetEndCall
+
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -41,19 +50,19 @@ export const SocketContextProvider = ({ children }) => {
   const myVideo = useRef(null);
   const connectionRef = useRef();
 
+  // Initiate Socket
   useEffect(() => {
-    initiateSocket(authCtx?.userId);
-
+    socketInitiate(authCtx?.userId);
     return () => {
-      disconnectSocket(authCtx?.userId);
+      socketDisconnect(authCtx?.userId);
     };
   }, [authCtx?.userId, dispatch]);
 
   useEffect(() => {
-    getChatMessage((err, { data }) => {
+    socketGetChatMessage((err, { data }) => {
       dispatch(UserActions.saveMessage(data));
     });
-    getPrivateChat((err, { data }) => {
+    socketGetPrivateChat((err, { data }) => {
       dispatch(UserActions.addPrivate(data.private));
     });
     socketGetRemoveGroup((err, { data }) => {
@@ -93,30 +102,39 @@ export const SocketContextProvider = ({ children }) => {
     }
   };
 
-  const answerCall = () => {
+  const acceptCall = () => {
     const peer = new Peer({ initiator: false, trickle: false, myStream });
 
     peer?.on("signal", (data) => {
-      //sendAnswerCallHandler({ data, call: callDetail });
+      socketCallAccepted({
+        signal: data,
+        to: videoAudioCall.callingDetails.to
+      });
     });
 
     peer?.on("stream", (userStream) => {
       userVideo.current.srcObject = userStream;
     });
 
-    peer.signal(videoAudioCall.data);
+    peer.signal(videoAudioCall.signal);
 
     connectionRef.current = peer;
+
+    dispatch(
+      VideoAudioCallActions.callAcceptedHandler({
+        callAccepted: true
+      })
+    );
   };
 
   useEffect(() => {
-    getCall((err, receivingCallDetails) => {
-      console.log("Recieved call: ", receivingCallDetails);
+    socketGetCall((err, receivingCallDetails) => {
       dispatch(
         VideoAudioCallActions.callingHandler({
           isCalling: false,
           isReceivingCall: true,
           callingDetails: receivingCallDetails.callData.data.user,
+          signal: receivingCallDetails.callData.data.signal
         })
       );
       dispatch(OverlayActions.openVideoChatHandler());
@@ -125,6 +143,14 @@ export const SocketContextProvider = ({ children }) => {
     socketGetEndCall((err, data) => {
       dispatch(VideoAudioCallActions.callEndedHandler());
       dispatch(OverlayActions.closeOverlayHandler());
+    });
+
+    socketGetCallAccepted((err, data) => {
+      dispatch(
+        VideoAudioCallActions.callAcceptedHandler({
+          callAccepted: true
+        })
+      );
     });
   }, []);
 
@@ -136,17 +162,17 @@ export const SocketContextProvider = ({ children }) => {
         userToCall: chatId,
         data: {
           user: user,
-          signalData: data,
+          signal: data,
         },
       };
-      sendCallUserHandler(callData);
+      socketCall(callData);
     });
 
     peer.on("stream", (userStream) => {
       userVideo.current.srcObject = userStream;
     });
 
-    getCallAcceptedHandler((signal) => {
+    socketGetCallAccepted((signal) => {
       dispatch(
         VideoAudioCallActions.callAcceptedHandler({
           callAccepted: true,
@@ -185,6 +211,7 @@ export const SocketContextProvider = ({ children }) => {
         myStream,
         callUser,
         endCall,
+        acceptCall
       }}
     >
       {children}

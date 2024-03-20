@@ -1,4 +1,4 @@
-import { useContext, useEffect} from "react";
+import { useContext, useEffect } from "react";
 import SocketContext from "../../context/socketContext";
 import ImageConatainer from "../ImageContainer/ImageContainer";
 import VideoChatSettings from "./VideoChatSettings/VideoChatSettings";
@@ -9,8 +9,7 @@ import Ringtone from "../../assests/audio/ringtone.mp3";
 
 import "./VideoChat.css";
 
-const CallUser = ({  user }) => {
-  const videoAudioCall = useSelector((state) => state.videoAudioCall);
+const CallUser = ({ user }) => {
 
   useEffect(() => {}, []);
 
@@ -31,20 +30,17 @@ const CallUser = ({  user }) => {
 const VideoChat = () => {
   const { getUserMedia, myVideo, userVideo } = useContext(SocketContext);
 
-  const videoAudioCall = useSelector((state) => state.videoAudioCall);
-
-  useEffect(() => {
+  useEffect(()=>{
     getUserMedia();
-    return () => {};
-  }, []);
+  },[]);
+
+  const videoAudioCall = useSelector((state) => state.videoAudioCall);
 
   return (
     <div className="video-chat-container box-shadow border">
       <div className="video-chat-window">
-        {/* {<video playsInline muted ref={myVideo} autoPlay />} */}
-        {videoAudioCall.callAccepted && (
-          <video playsInline height={100} muted ref={userVideo} />
-        )}
+         <video  playsInline width={500} height={200} autoPlay muted ref={myVideo} />
+        <video playsInline width={500} height={200} autoPlay muted ref={myVideo} />
       </div>
       {(videoAudioCall.isCalling || videoAudioCall.isReceivingCall) && (
         <CallUser
@@ -52,7 +48,7 @@ const VideoChat = () => {
           user={videoAudioCall.callingDetails}
         />
       )}
-      <VideoChatSettings isReceivingCall={ videoAudioCall.isReceivingCall} />
+      <VideoChatSettings isReceivingCall={videoAudioCall.isReceivingCall} />
       {videoAudioCall.isCalling && <audio src={OutgoingTone} autoPlay loop />}
       {videoAudioCall.isReceivingCall && <audio src={Ringtone} autoPlay loop />}
     </div>
