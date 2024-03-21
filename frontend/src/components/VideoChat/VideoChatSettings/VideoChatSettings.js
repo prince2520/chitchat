@@ -39,13 +39,13 @@ const VideoChatSettings = ({ isReceivingCall = false }) => {
       <Button
         width={"fit-content"}
         onClick={() => {
-          socketCtx.endCall(videoAudioCall.callingDetails);
+          socketCtx.endCall(videoAudioCall.callData.data.user._id);
         }}
       >
-        <Icon className="color-text" icon="fluent:call-16-filled" />
+        <Icon className="color-text" icon="fluent:call-end-24-filled" />
         <p className="color-text">End</p>
       </Button>
-      {isReceivingCall && (
+      {isReceivingCall && !videoAudioCall.callAccepted && (
         <Button
           onClick={() =>{
             socketCtx.acceptCall()}}

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import SocketContext from "../../context/socketContext";
 import ImageConatainer from "../ImageContainer/ImageContainer";
@@ -11,16 +11,18 @@ import Ringtone from "../../assests/audio/ringtone.mp3";
 import "./VideoChat.css";
 
 const CallUser = ({ callData }) => {
+  const videoAudioCall = useSelector((state) => state.videoAudioCall);
+
   return (
-    <div className="flex-center call-user">
+    <div className="flex-center call-user" style={{flexDirection : 'column'}}>
       <ImageConatainer
         width="6rem"
         height="6rem"
-        highResUrl={callData.data.user.highResUrl}
-        lowResUrl={callData.data.user.lowResUrl}
+        highResUrl={videoAudioCall.callData.data.user.highResUrl}
+        lowResUrl={videoAudioCall.callData.data.user.lowResUrl}
       />
-      <h5>{callData.data.user.name}</h5>
-      <p>{callData.data.user.email}</p>
+      <h5>{videoAudioCall.callData.data.user.name}</h5>
+      <p>{videoAudioCall.callData.data.user.email}</p>
     </div>
   );
 };
@@ -33,34 +35,45 @@ const VideoChat = () => {
 
   return (
     <div className="video-chat-container box-shadow border">
-      <div className="video-chat-window">
+      {!videoAudioCall.callAccepted && <CallUser
+        isCalling={videoAudioCall.isCalling}
+        callData={videoAudioCall.callData}
+      />}
+      <div
+        className="video-chat-window"
+        style={{ display: !videoAudioCall.callAccepted ? "none" : "block" }}
+      >
+        <div className="flex-center video-chat__window__profile">
+          <ImageConatainer
+            width="1.75rem"
+            height="1.75rem"
+            highResUrl={videoAudioCall.callData.data.user.highResUrl}
+            lowResUrl={videoAudioCall.callData.data.user.lowResUrl}
+          />
+          <h6>{videoAudioCall.callData.data.user.name}</h6>
+        </div>
         <video
+          className="border my__video"
           playsInline
-          width={500}
-          height={200}
           autoPlay
           muted
           ref={myVideo}
         />
-
         <video
+          className="border user__video"
           playsInline
-          width={500}
-          height={200}
           autoPlay
           muted
           ref={userVideo}
         />
       </div>
-      {(videoAudioCall.isCalling || videoAudioCall.isReceivingCall) && (
-        <CallUser
-          isCalling={videoAudioCall.isCalling}
-          callData={videoAudioCall.callData}
-        />
-      )}
       <VideoChatSettings isReceivingCall={videoAudioCall.isReceivingCall} />
-      {videoAudioCall.isCalling && <audio src={OutgoingTone} autoPlay loop />}
-      {videoAudioCall.isReceivingCall && <audio src={Ringtone} autoPlay loop />}
+      {!videoAudioCall.callAccepted && videoAudioCall.isCalling && (
+        <audio src={OutgoingTone} autoPlay loop />
+      )}
+      {!videoAudioCall.callAccepted && videoAudioCall.isReceivingCall && (
+        <audio src={Ringtone} autoPlay loop />
+      )}
     </div>
   );
 };

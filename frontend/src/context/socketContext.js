@@ -67,12 +67,12 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     // B ( Save 'A' Signal)
-    socketGetCall((err, {callData}) => {
+    socketGetCall((err, { callData }) => {
       dispatch(
         VideoAudioCallActions.callingHandler({
           isCalling: false,
           isReceivingCall: true,
-          callData: callData
+          callData: callData,
         })
       );
       dispatch(OverlayActions.openVideoChatHandler());
@@ -100,11 +100,9 @@ export const SocketContextProvider = ({ children }) => {
   }, [dispatch, selectedId]);
 
   const getUserMedia = async () => {
-    let mediaStream = null;
-
-    return new Promise (async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        mediaStream =  await navigator.mediaDevices.getUserMedia({
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
           video: true,
           audio: true,
         });
@@ -114,16 +112,19 @@ export const SocketContextProvider = ({ children }) => {
       } catch (err) {
         reject(err);
       }
-    })
+    });
   };
 
   const callUser = async (chatId) => {
-
     const mediaStream = await getUserMedia();
-    
+
     dispatch(OverlayActions.openVideoChatHandler());
 
-    const peer = new Peer({ initiator: true, trickle: false, stream: mediaStream });
+    const peer = new Peer({
+      initiator: true,
+      trickle: false,
+      stream: mediaStream,
+    });
 
     // A -> B Signal
     peer.on("signal", (data) => {
@@ -131,8 +132,8 @@ export const SocketContextProvider = ({ children }) => {
         userToCall: chatId,
         data: {
           user: user,
-          signal: data
-        }
+          signal: data,
+        },
       };
       socketCall(callData);
     });
@@ -142,7 +143,7 @@ export const SocketContextProvider = ({ children }) => {
     });
 
     // B -> A ( B Signal )
-    socketGetCallAccepted((err, {data}) => {
+    socketGetCallAccepted((err, { data }) => {
       peer.signal(data.signal);
       dispatch(VideoAudioCallActions.callAcceptedHandler());
     });
@@ -150,17 +151,20 @@ export const SocketContextProvider = ({ children }) => {
     connectionRef.current = peer;
   };
 
-  const acceptCall = async() => {
+  const acceptCall = async () => {
     const mediaStream = await getUserMedia();
 
-
-    const peer = new Peer({ initiator: false, trickle: false, stream: mediaStream });
+    const peer = new Peer({
+      initiator: false,
+      trickle: false,
+      stream: mediaStream,
+    });
 
     // B -> A ( B Signal)
     peer?.on("signal", (signal) => {
       socketCallAccepted({
         signal: signal,
-        userToCall: videoAudioCall.callData.data.user._id
+        userToCall: videoAudioCall.callData.data.user._id,
       });
     });
 
@@ -170,24 +174,22 @@ export const SocketContextProvider = ({ children }) => {
 
     peer.signal(videoAudioCall.callData.data.signal);
 
-    dispatch(
-      VideoAudioCallActions.callAcceptedHandler()
-    );
+    dispatch(VideoAudioCallActions.callAcceptedHandler());
 
     connectionRef.current = peer;
   };
 
-  const endCall = (to) => {
+  const endCall = (userToCall) => {
     dispatch(VideoAudioCallActions.callEndedHandler());
 
     const data = {
       callEnded: true,
-      to: to,
+      userToCall: userToCall,
     };
 
     socketEndCall(data);
 
-    //connectionRef.current.destroy();
+    connectionRef.current.destroy();
 
     dispatch(OverlayActions.closeOverlayHandler());
   };

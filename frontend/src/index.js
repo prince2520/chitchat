@@ -7,6 +7,8 @@ import { AuthContextProvider } from "./context/authContext";
 
 import reportWebVitals from "./reportWebVitals";
 
+import * as process from 'process';
+
 import App from "./App";
 
 import "./index.css";
