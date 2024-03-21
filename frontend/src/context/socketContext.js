@@ -2,27 +2,19 @@ import { useDispatch } from "react-redux";
 import React, { useEffect, useContext, useState, useRef } from "react";
 
 import {
-
   socketInitiate,
   socketDisconnect,
-
   socketGetChatMessage,
-
   socketGetPrivateChat,
   socketGetRemoveChat,
-  
   socketGetRemoveGroup,
   socketGetUpdatedGroup,
-
   socketGetCall,
   socketCall,
-  
   socketCallAccepted,
   socketGetCallAccepted,
-
   socketEndCall,
-  socketGetEndCall
-
+  socketGetEndCall,
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -41,7 +33,7 @@ export const SocketContextProvider = ({ children }) => {
 
   const videoAudioCall = useSelector((state) => state.videoAudioCall);
 
-  const [myStream, setMyStream] = useState();
+  const [stream, setStream] = useState();
 
   const user = useSelector((state) => state.user);
   const selectedId = useSelector((state) => state.user.selectedId);
@@ -74,6 +66,25 @@ export const SocketContextProvider = ({ children }) => {
   }, [dispatch]);
 
   useEffect(() => {
+    // B ( Save 'A' Signal)
+    socketGetCall((err, {callData}) => {
+      dispatch(
+        VideoAudioCallActions.callingHandler({
+          isCalling: false,
+          isReceivingCall: true,
+          callData: callData
+        })
+      );
+      dispatch(OverlayActions.openVideoChatHandler());
+    });
+
+    socketGetEndCall((err, data) => {
+      dispatch(VideoAudioCallActions.callEndedHandler());
+      dispatch(OverlayActions.closeOverlayHandler());
+    });
+  }, []);
+
+  useEffect(() => {
     socketGetRemoveChat((data) => {
       if (selectedId === data.chatId) {
         dispatch(
@@ -90,80 +101,38 @@ export const SocketContextProvider = ({ children }) => {
 
   const getUserMedia = async () => {
     let mediaStream = null;
-    try {
-      mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true,
-      });
-      myVideo.current.srcObject = mediaStream;
-      setMyStream(mediaStream);
-    } catch (err) {
-      console.log(err);
-    }
+
+    return new Promise (async (resolve, reject) => {
+      try {
+        mediaStream =  await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true,
+        });
+        myVideo.current.srcObject = mediaStream;
+        setStream(mediaStream);
+        resolve(mediaStream);
+      } catch (err) {
+        reject(err);
+      }
+    })
   };
 
-  const acceptCall = () => {
-    const peer = new Peer({ initiator: false, trickle: false, myStream });
+  const callUser = async (chatId) => {
 
-    peer?.on("signal", (data) => {
-      socketCallAccepted({
-        signal: data,
-        to: videoAudioCall.callingDetails.to
-      });
-    });
+    const mediaStream = await getUserMedia();
+    
+    dispatch(OverlayActions.openVideoChatHandler());
 
-    peer?.on("stream", (userStream) => {
-      userVideo.current.srcObject = userStream;
-    });
+    const peer = new Peer({ initiator: true, trickle: false, stream: mediaStream });
 
-    peer.signal(videoAudioCall.signal);
-
-    connectionRef.current = peer;
-
-    dispatch(
-      VideoAudioCallActions.callAcceptedHandler({
-        callAccepted: true
-      })
-    );
-  };
-
-  useEffect(() => {
-    socketGetCall((err, receivingCallDetails) => {
-      dispatch(
-        VideoAudioCallActions.callingHandler({
-          isCalling: false,
-          isReceivingCall: true,
-          callingDetails: receivingCallDetails.callData.data.user,
-          signal: receivingCallDetails.callData.data.signal
-        })
-      );
-      dispatch(OverlayActions.openVideoChatHandler());
-    });
-
-    socketGetEndCall((err, data) => {
-      dispatch(VideoAudioCallActions.callEndedHandler());
-      dispatch(OverlayActions.closeOverlayHandler());
-    });
-
-    socketGetCallAccepted((err, data) => {
-      dispatch(
-        VideoAudioCallActions.callAcceptedHandler({
-          callAccepted: true
-        })
-      );
-    });
-  }, []);
-
-  const callUser = (chatId) => {
-    const peer = new Peer({ initiator: true, trickle: false, myStream });
-
+    // A -> B Signal
     peer.on("signal", (data) => {
       const callData = {
         userToCall: chatId,
         data: {
           user: user,
-          signal: data,
-        },
+          signal: data
+        }
       };
       socketCall(callData);
     });
@@ -172,19 +141,40 @@ export const SocketContextProvider = ({ children }) => {
       userVideo.current.srcObject = userStream;
     });
 
-    socketGetCallAccepted((signal) => {
-      dispatch(
-        VideoAudioCallActions.callAcceptedHandler({
-          callAccepted: true,
-        })
-      );
-
-      peer.signal(signal);
+    // B -> A ( B Signal )
+    socketGetCallAccepted((err, {data}) => {
+      peer.signal(data.signal);
+      dispatch(VideoAudioCallActions.callAcceptedHandler());
     });
 
     connectionRef.current = peer;
+  };
 
-    dispatch(OverlayActions.openVideoChatHandler());
+  const acceptCall = async() => {
+    const mediaStream = await getUserMedia();
+
+
+    const peer = new Peer({ initiator: false, trickle: false, stream: mediaStream });
+
+    // B -> A ( B Signal)
+    peer?.on("signal", (signal) => {
+      socketCallAccepted({
+        signal: signal,
+        userToCall: videoAudioCall.callData.data.user._id
+      });
+    });
+
+    peer?.on("stream", (userStream) => {
+      userVideo.current.srcObject = userStream;
+    });
+
+    peer.signal(videoAudioCall.callData.data.signal);
+
+    dispatch(
+      VideoAudioCallActions.callAcceptedHandler()
+    );
+
+    connectionRef.current = peer;
   };
 
   const endCall = (to) => {
@@ -197,7 +187,7 @@ export const SocketContextProvider = ({ children }) => {
 
     socketEndCall(data);
 
-    // connectionRef.current.destroy();
+    //connectionRef.current.destroy();
 
     dispatch(OverlayActions.closeOverlayHandler());
   };
@@ -208,10 +198,10 @@ export const SocketContextProvider = ({ children }) => {
         getUserMedia,
         myVideo,
         userVideo,
-        myStream,
+        stream,
         callUser,
         endCall,
-        acceptCall
+        acceptCall,
       }}
     >
       {children}

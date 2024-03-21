@@ -121,7 +121,6 @@ export const socketCallAccepted = (data) => {
 export const socketGetCallAccepted = (cb) => {
   if (socket) {
     socket.on("get_callAccepted", ({ data }) => {
-      console.log('socketGetCallAccepted', data)
       cb(null, { data });
     });
   }

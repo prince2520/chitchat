@@ -30,10 +30,15 @@ const MediaCommunication = () => {
             VideoAudioCallActions.callingHandler({
               isCalling: true,
               isReceivingCall: false,
-              callingDetails: privateUserData,
+              callData: {
+                userToCall: privateUserData._id,
+                data: {
+                  user: privateUserData,
+                  signal: null
+                }
+              }
             })
           );
-
           socketCtx.callUser(privateUserData._id);
 
           dispatch(OverlayActions.openVideoChatHandler());

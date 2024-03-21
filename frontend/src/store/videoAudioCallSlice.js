@@ -4,10 +4,16 @@ const initialVideoAudioCallState = {
   isCalling: false,
   isReceivingCall: false,
 
-  callingDetails: null,
-  signal: null,
   callAccepted: false,
   callEnded: true,
+
+  callData: {
+    userToCall: null,
+    data: {
+      user: null,
+      signal: null,
+    }
+  }
 };
 
 const VideoAudioCallSlice = createSlice({
@@ -15,14 +21,14 @@ const VideoAudioCallSlice = createSlice({
   initialState: initialVideoAudioCallState,
   reducers: {
     callingHandler(state, action) {
+      console.log("calling handler action", action.payload);
       state.isCalling = action.payload.isCalling;
-      state.callingDetails = action.payload.callingDetails;
       state.isReceivingCall = action.payload.isReceivingCall;
-      state.signal = action.payload.signal;
+      state.callData = action.payload.callData;
     },
 
-    callAcceptedHandler(state, action) {
-      state.callAccepted = action.payload.callAccepted;
+    callAcceptedHandler(state) {
+      state.callAccepted = true;
     },
 
     receivingCallHandler(state, action) {
