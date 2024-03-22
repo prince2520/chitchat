@@ -24,7 +24,13 @@ const VideoChatSettings = ({ isReceivingCall = false }) => {
           className="setting-container flex-center"
           onClick={() => {
             isVideoMuted((prevState) => {
-              getUserMedia(!prevState, audioMuted);
+              if (videoMuted) {
+                socketCtx.stream.getTracks().forEach(function (track) {
+                  track.stop();
+                });
+              } else {
+                getUserMedia()
+              }
               return !prevState;
             });
           }}
@@ -47,8 +53,9 @@ const VideoChatSettings = ({ isReceivingCall = false }) => {
       </Button>
       {isReceivingCall && !videoAudioCall.callAccepted && (
         <Button
-          onClick={() =>{
-            socketCtx.acceptCall()}}
+          onClick={() => {
+            socketCtx.acceptCall();
+          }}
           backgroundColor={"var(--success)"}
           width={"fit-content"}
         >

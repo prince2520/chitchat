@@ -9,13 +9,13 @@ import {
   socketGetRemoveChat,
   socketGetRemoveGroup,
   socketGetUpdatedGroup,
-  socketGetCall,
   socketCall,
+  socketGetCall,
   socketCallAccepted,
   socketGetCallAccepted,
   socketEndCall,
   socketGetEndCall,
-  socketOffCallAccepted,
+  socketOffCallAccepted
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -25,7 +25,6 @@ import { useSelector } from "react-redux";
 import { UserActions } from "../store/userSlice";
 import { OverlayActions } from "../store/overlaySlice";
 import { VideoAudioCallActions } from "../store/videoAudioCallSlice";
-import { current } from "@reduxjs/toolkit";
 
 const SocketContext = React.createContext({});
 
