@@ -5,7 +5,7 @@ Frontend - Front
 Backend - Back
 */
 
-let socket = null;
+export let socket = null;
 
 // USER - initiate socket (Front -> Back)
 export const socketInitiate = (userId) => {
@@ -141,3 +141,10 @@ export const socketGetEndCall = (cb) => {
     });
   }
 };
+
+
+export const socketOffCallAccepted = (cb) => {
+  if(socket){
+    socket.off("get_callAccepted");
+  }
+}
