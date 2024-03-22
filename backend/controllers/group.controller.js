@@ -294,6 +294,7 @@ exports.deleteGroup = async (req, res, next) => {
       mongoose.Types.ObjectId(user)
     );
 
+    await Message.deleteMany({_id : groupFound.messages});
     await groupFound.remove();
 
     await User.updateMany(

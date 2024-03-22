@@ -144,6 +144,8 @@ exports.deletePrivate = async (req, res) => {
 
     if (privateFound.users.includes(userId)) {
       const users = [...privateFound.users];
+      
+      await Message.deleteMany({_id : privateFound.messages});
       await privateFound.remove();
 
       await User.updateMany(
