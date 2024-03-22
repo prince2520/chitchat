@@ -15,6 +15,11 @@ import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
+(window).global = window;
+(window).process = process;
+(window).Buffer = [];
+
+
 root.render(
   <BrowserRouter>
     <Provider store={store}>

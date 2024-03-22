@@ -94,7 +94,7 @@ module.exports = (io) => {
     // PRIVATE -> END CALL
     socket.on("endCall", ({data}) => {
       console.log("endCall", data);
-      socket.in(data.to._id).emit("get_endCall", {data});
+      socket.in(data.userToCall).emit("get_endCall", {data});
     });
   });
 };

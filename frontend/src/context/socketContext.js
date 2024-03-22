@@ -15,6 +15,7 @@ import {
   socketGetCallAccepted,
   socketEndCall,
   socketGetEndCall,
+  socketOffCallAccepted,
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -24,6 +25,7 @@ import { useSelector } from "react-redux";
 import { UserActions } from "../store/userSlice";
 import { OverlayActions } from "../store/overlaySlice";
 import { VideoAudioCallActions } from "../store/videoAudioCallSlice";
+import { current } from "@reduxjs/toolkit";
 
 const SocketContext = React.createContext({});
 
@@ -126,6 +128,11 @@ export const SocketContextProvider = ({ children }) => {
       stream: mediaStream,
     });
 
+    peer.on("close", () => {
+      console.log("peer closed");
+      socketOffCallAccepted();
+    });
+
     // A -> B Signal
     peer.on("signal", (data) => {
       const callData = {
@@ -160,6 +167,11 @@ export const SocketContextProvider = ({ children }) => {
       stream: mediaStream,
     });
 
+    peer.on("close", () => {
+      console.log("peer closed");
+      socketOffCallAccepted();
+    });
+
     // B -> A ( B Signal)
     peer?.on("signal", (signal) => {
       socketCallAccepted({
@@ -187,9 +199,10 @@ export const SocketContextProvider = ({ children }) => {
       userToCall: userToCall,
     };
 
-    socketEndCall(data);
-
     connectionRef.current.destroy();
+
+    socketEndCall(data);
+    socketOffCallAccepted();
 
     dispatch(OverlayActions.closeOverlayHandler());
   };
