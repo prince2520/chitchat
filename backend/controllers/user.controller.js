@@ -37,11 +37,11 @@ exports.fetchUser = async (req, res, next) => {
 
 // PUT -> Update User
 exports.updateUser = async (req, res) => {
+  const _id = mongoose.Types.ObjectId(req.userId);
   const name = req.body.name;
   const status = req.body.status;
-  const highResUrl = req.body.highResUrl;
   const lowResUrl = req.body.lowResUrl;
-  const _id = mongoose.Types.ObjectId(req.userId);
+  const highResUrl = req.body.highResUrl;
 
   try {
     const userFound = await User.findOne({ _id: _id });
@@ -60,19 +60,19 @@ exports.updateUser = async (req, res) => {
       userFound.lowResUrl = lowResUrl;
     }
 
-    userFound
-      .save()
-      .then(() => {
-        return res.status(StatusCodes.OK).json({
-          success: true,
-          message: "Profile Updated!",
-        });
-      })
-      .catch(() => {
-        let error = new Error("Profile not updated");
-        error.statusCode = StatusCodes.NOT_MODIFIED;
-        throw error;
-      });
+    const saveUser = await userFound.save();
+
+    if (!saveUser) {
+      let error = new Error("Profile not updated");
+      error.statusCode = StatusCodes.NOT_MODIFIED;
+      throw error;
+    }
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Profile Updated!",
+    });
+    
   } catch (err) {
     next(err);
   }

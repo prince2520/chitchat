@@ -82,10 +82,17 @@ const ChatSettings = () => {
       token: authCtx.token,
       chatId: chatId,
     })
-      .then((res) => {
+      .then(async (res) => {
         if (res.success) {
           deleteAllUserChat(chatId, type);
           dispatchDeleteChat(chatId, type);
+          // if (isAdmin()) {
+          //   deleteInFirebase(
+          //     `${
+          //       selectedType === categoryState[0] ? "groups" : "privates"
+          //     }/${chatId}`
+          //   );
+          // }
           toast.success(res.message);
         } else {
           toast.error(res.message);

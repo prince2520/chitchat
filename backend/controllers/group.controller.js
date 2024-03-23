@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const { StatusCodes } = require("http-status-codes");
-const { validationResult } = require("express-validator");
 
 // Import - Models
 const User = require("../models/user.model");
@@ -13,8 +12,6 @@ exports.createGroup = async (req, res, next) => {
   // Group -> data
   const name = req.body.name;
   const userId = mongoose.Types.ObjectId(req.userId);
-
-  console.log('created group', name, userId)
 
   try {
     const userFound = await User.findOne({ _id: userId });

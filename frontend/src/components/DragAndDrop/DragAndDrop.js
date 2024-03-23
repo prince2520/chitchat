@@ -89,7 +89,7 @@ const DragAndDrop = () => {
   const uploadHandler = (event) => {
     event.preventDefault();
     files.map((file) => {
-      saveInFirebase(file.fileData, `groups/${user.selectedId}/media/${authCtx.userId}-${uid(32)}`)
+      saveInFirebase(file.fileData, `${categoryState[0] === data.selectedType ? 'groups' : 'privates'}/${user.selectedId}/media/${authCtx.userId}-${uid(32)}`)
         .then((url) => {
           sendMessage(url, file);
           dispatch(DragAndDropActions.removeSingleFile(file));

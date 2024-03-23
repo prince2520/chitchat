@@ -67,7 +67,7 @@ exports.createPrivate = async (req, res, next) => {
 };
 
 // POST -> save private message
-exports.savePrivateMessage = async (req, res) => {
+exports.savePrivateMessage = async (req, res, next) => {
   let message, isOpenAIMsg, type, url, size, chatId, userId;
 
   chatId = mongoose.Types.ObjectId(req.body.chatId);
