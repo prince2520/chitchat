@@ -8,7 +8,6 @@ const Message = require("../models/message.model");
 
 // POST -> Create group
 exports.createGroup = async (req, res, next) => {
-  
   // Group -> data
   const name = req.body.name;
   const userId = mongoose.Types.ObjectId(req.userId);
@@ -25,44 +24,34 @@ exports.createGroup = async (req, res, next) => {
     const data = {
       name: name,
       createdBy: userId,
+      users: [userId],
     };
 
     const newGroup = new Group(data);
 
-    newGroup
-      .save()
-      .then((saveGroup) => {
-        saveGroup.users.push(userId);
-        saveGroup
-          .save()
-          .then((data) => {
-            userFound?.groups.push(data._id);
-            userFound
-              .save()
-              .then(() => {
-                return res.status(StatusCodes.OK).json({
-                  success: true,
-                  message: "Group created successfully.",
-                  data: data,
-                });
-              })
-              .catch(() => {
-                let error = new Error("Group not saved in user.");
-                error.statusCode = StatusCodes.NOT_IMPLEMENTED;
-                throw error;
-              });
-          })
-          .catch(() => {
-            let error = new Error("User not added to group.");
-            error.statusCode = StatusCodes.NOT_IMPLEMENTED;
-            throw error;
-          });
-      })
-      .catch(() => {
-        let error = new Error("New group not created!");
-        error.statusCode = StatusCodes.NOT_IMPLEMENTED;
-        throw error;
-      });
+    const saveGroup = await newGroup.save();
+
+    if (!saveGroup) {
+      let error = new Error("New group not created!");
+      error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+      throw error;
+    }
+
+    userFound?.groups.push(saveGroup._id);
+
+    const groupSaveInUser = await userFound.save();
+
+    if (!groupSaveInUser) {
+      let error = new Error("Group not saved in user.");
+      error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+      throw error;
+    }
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Group created successfully.",
+      data: saveGroup,
+    });
   } catch (err) {
     next(err);
   }
@@ -115,35 +104,31 @@ exports.joinGroup = async (req, res, next) => {
     groupFound?.users.push(userId);
     userFound?.groups.push(groupFound._id);
 
-    groupFound
-      ?.save()
-      .then(() => {
-        userFound
-          ?.save()
-          .then(() => {
-            return res.status(202).json({
-              success: true,
-              message: "Group join successfully!",
-              groupData: groupFound,
-            });
-          })
-          .catch(() => {
-            let error = new Error("Group not added to users!");
-            error.statusCode = StatusCodes.NOT_FOUND;
-            throw error;
-          });
-      })
-      .catch(() => {
-        let error = new Error("User not added to group!");
-        error.statusCode = StatusCodes.NOT_FOUND;
-        throw error;
-      });
+    const saveGroup = await groupFound.save();
+    if (!saveGroup) {
+      let error = new Error("Group not added to users!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
+    const saveUser = await userFound.save();
+    if (!saveUser) {
+      let error = new Error("User not added to group!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
+    return res.status(202).json({
+      success: true,
+      message: "Group join successfully!",
+      groupData: groupFound,
+    });
   } catch (err) {
     next(err);
   }
 };
 
-exports.saveGroupMessage = (req, res, next) => {
+exports.saveGroupMessage = async (req, res, next) => {
   let message, isOpenAIMsg, type, url, size, chatId, userId;
 
   chatId = mongoose.Types.ObjectId(req.body.chatId);
@@ -157,41 +142,51 @@ exports.saveGroupMessage = (req, res, next) => {
   userId = mongoose.Types.ObjectId(req.userId);
 
   try {
-    Group.findOne({ _id: chatId })
-      .then((group) => {
-        const newMessage = new Message({
-          message,
-          isOpenAIMsg,
-          url,
-          size,
-          type,
-          user: userId,
-        });
+    const groupFound = await Group.findOne({ _id: chatId });
 
-        newMessage
-          .save()
-          .then((res) => res.populate("user").execPopulate())
-          .then((data) => {
-            group?.messages.push(data._id);
-            group.save().then(() => {
-              return res.status(StatusCodes.OK).json({
-                success: true,
-                message: "Message send successfully!",
-                data: data,
-              });
-            });
-          })
-          .catch(() => {
-            let error = new Error("Message not created!");
-            error.statusCode = StatusCodes.NOT_FOUND;
-            throw error;
-          });
-      })
-      .catch(() => {
-        let error = new Error("Group not found!");
-        error.statusCode = StatusCodes.NOT_FOUND;
-        throw error;
-      });
+    if (!groupFound) {
+      let error = new Error("Group not found!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
+    const newMessage = new Message({
+      message,
+      isOpenAIMsg,
+      url,
+      size,
+      type,
+      user: userId,
+    });
+
+    const saveNewMessage = await newMessage.save();
+
+    if (!saveNewMessage) {
+      let error = new Error("Message not created!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
+    const poulateUserSaveNewMsg = await saveNewMessage
+      .populate("user")
+      .execPopulate();
+
+    groupFound?.messages.push(poulateUserSaveNewMsg._id);
+
+    const saveGroup = await groupFound.save();
+
+    if(!saveGroup){
+      let error = new Error("Message not added to group!");
+      error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Message send successfully!",
+      data: poulateUserSaveNewMsg,
+    });
+
   } catch (err) {
     next(err);
   }
@@ -267,12 +262,11 @@ exports.unBlockUser = async (req, res, next) => {
 };
 
 exports.deleteGroup = async (req, res, next) => {
-
   const groupId = mongoose.Types.ObjectId(req.body.chatId);
 
   try {
     const groupFound = await Group.findOne({ _id: groupId });
-    
+
     if (groupFound.createdBy != req.userId) {
       let error = new Error("You are not authorized to delete this group!");
       error.statusCode = StatusCodes.UNAUTHORIZED;
@@ -289,7 +283,7 @@ exports.deleteGroup = async (req, res, next) => {
       mongoose.Types.ObjectId(user)
     );
 
-    await Message.deleteMany({_id : groupFound.messages});
+    await Message.deleteMany({ _id: groupFound.messages });
     await groupFound.remove();
 
     await User.updateMany(
@@ -302,7 +296,6 @@ exports.deleteGroup = async (req, res, next) => {
       success: true,
       message: "Group Deleted!",
     });
-    
   } catch (err) {
     next(err);
   }
@@ -417,13 +410,18 @@ exports.editGroup = async (req, res, next) => {
       groupFound.lowResUrl = lowResUrl;
     }
 
-    await groupFound.save();
+    const saveGroup = await groupFound.save();
+
+    if (!saveGroup) {
+      let error = new Error("Group not edited successfully!");
+      error.statusCode = StatusCodes.UNAUTHORIZED;
+      throw error;
+    }
 
     return res.status(StatusCodes.OK).json({
       success: true,
       message: "Group edited successfully!",
     });
-
   } catch (err) {
     next(err);
   }
