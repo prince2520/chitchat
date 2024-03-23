@@ -214,8 +214,8 @@ const GroupSettings = () => {
     const status = event.target[2].value;
     const token = authCtx.token;
 
-    const firebaseHighResUrl = await saveInFirebase(highResUrl);
-    const firebaseLowResUrl = await saveInFirebase(lowResUrl);
+    const firebaseHighResUrl = await saveInFirebase(highResUrl, `groups/${data._id}/groupImg/highResImg-${data._id}`);
+    const firebaseLowResUrl = await saveInFirebase(lowResUrl, `groups/${data._id}/groupImg/lowResImg-${data._id}`);
 
     let saveData = {
       token,

@@ -12,9 +12,9 @@ exports.createGroup = async (req, res, next) => {
   
   // Group -> data
   const name = req.body.name;
-  const lowResUrl = req.body.lowResUrl;
-  const highResUrl = req.body.highResUrl;
   const userId = mongoose.Types.ObjectId(req.userId);
+
+  console.log('created group', name, userId)
 
   try {
     const userFound = await User.findOne({ _id: userId });
@@ -27,8 +27,6 @@ exports.createGroup = async (req, res, next) => {
 
     const data = {
       name: name,
-      highResUrl: highResUrl,
-      lowResUrl: lowResUrl,
       createdBy: userId,
     };
 

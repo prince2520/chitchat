@@ -61,7 +61,7 @@ exports.login = (req, res, next) => {
   const password = req.body.password;
 
   try {
-    let loadedUser;
+    let loadedUser;   
 
     User.findOne({ email: email })
       .populate({

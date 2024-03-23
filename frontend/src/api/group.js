@@ -1,9 +1,8 @@
 // POST -> create a new group
-export const createGroup = async (token, name, highResUrl, lowResUrl) => {
+export const createGroup = async (token, name) => {
+  console.log('createGroup', token, name);
   let data = {
-    name: name,
-    highResUrl: highResUrl,
-    lowResUrl: lowResUrl,
+    name: name
   };
 
   const result = await fetch(

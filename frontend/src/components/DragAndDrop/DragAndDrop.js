@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { uid } from "uid";
 
 import Button from "../Button/Button";
 import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
@@ -17,7 +18,6 @@ import { UserActions } from "../../store/userSlice";
 
 import AuthContext from "../../context/authContext";
 
-import useCompressImg from "../../hooks/useCompressImg";
 
 import "./DragAndDrop.css";
 
@@ -81,7 +81,7 @@ const DragAndDrop = () => {
         size: file.size,
         type: file.type,
         userId: authCtx.userId,
-      },
+      }
     };
     messageHandler(msgData, setLoading);
   };
@@ -89,7 +89,7 @@ const DragAndDrop = () => {
   const uploadHandler = (event) => {
     event.preventDefault();
     files.map((file) => {
-      saveInFirebase(file.fileData)
+      saveInFirebase(file.fileData, `groups/${user.selectedId}/media/${authCtx.userId}-${uid(32)}`)
         .then((url) => {
           sendMessage(url, file);
           dispatch(DragAndDropActions.removeSingleFile(file));

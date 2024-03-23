@@ -10,12 +10,12 @@ const groupSchema = new Schema(
     },
     highResUrl: {
       type: String,
-      required: true,
+      required: false,
       default: "https://i.imgur.com/sFlcbYx.png",
     },
     lowResUrl: {
       type: String,
-      required: true,
+      required: false,
       default: "https://i.imgur.com/Pq8Irug.png",
     },
     status: {

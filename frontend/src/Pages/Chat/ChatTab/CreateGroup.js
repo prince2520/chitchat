@@ -8,9 +8,7 @@ import CustomInput from "../../../components/CustomInput/CustomInput";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
 import { createGroup } from "../../../api/group";
 import { UserActions } from "../../../store/userSlice";
-import { saveInFirebase } from "../../../utils/SaveInFirebase";
 
-import useCompressImg from "../../../hooks/useCompressImg";
 import AuthContext from "../../../context/authContext";
 
 import CreateGroupLarge from "../../../assests/images/CreateGroupLarge.png";
@@ -22,23 +20,10 @@ const CreateGroup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [highResUrl, setHighResUrl] = useState(null);
-  const [lowResUrl, setLowResUrl] = useState(null);
-
-
   const createGroupHandler = async (name) => {
-    if (!highResUrl || !lowResUrl) {
-      return;
-    }
-
-    const highResUrlfirebaseUrl = await saveInFirebase(highResUrl);
-    const lowResUrlfirebaseUrl = await saveInFirebase(lowResUrl);
-
     createGroup(
       authCtx?.token,
-      name,
-      highResUrlfirebaseUrl,
-      lowResUrlfirebaseUrl
+      name     
     )
       .then((data) => {
         if (data.success) {
@@ -51,7 +36,7 @@ const CreateGroup = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const name = event.target[1].value;
+    const name = event.target[0].value;
     await createGroupHandler(name);
   };
 
@@ -66,11 +51,7 @@ const CreateGroup = () => {
         lowResUrl={ CreateGroupSmall}
         width="11rem"
         height="11rem"
-        isEditable={true}
-        editImageHandler={(newHighResUrl, newLowResUrl)=>{
-          setHighResUrl(newHighResUrl);
-          setLowResUrl(newLowResUrl);
-        }}
+        isEditable={false}
       />
       <CustomInput
         label={"Name"}
