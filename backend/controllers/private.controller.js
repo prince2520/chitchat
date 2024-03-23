@@ -10,22 +10,34 @@ exports.createPrivate = async (req, res, next) => {
   const chatId = mongoose.Types.ObjectId(req.body.chatId);
 
   try {
-
-    if(req.userId === req.body.chatId){
+    if (req.userId === req.body.chatId) {
       let error = new Error("You cannot create a private chat with yourself!");
       error.statusCode = StatusCodes.CONFLICT;
       throw error;
-    };
+    }
 
     const private = await Private.findOne({
       users: { $all: [userId, chatId] },
     });
 
-    const sender = await User.findOne({ _id: userId });
-    const receiver = await User.findOne({ _id: chatId });
-
     if (private) {
       let error = new Error("Private chat already created!");
+      error.statusCode = StatusCodes.CONFLICT;
+      throw error;
+    }
+
+    const sender = await User.findOne({ _id: userId });
+
+    if (!sender) {
+      let error = new Error("Sender not found!");
+      error.statusCode = StatusCodes.CONFLICT;
+      throw error;
+    }
+
+    const receiver = await User.findOne({ _id: chatId });
+
+    if (!receiver) {
+      let error = new Error("Receiver not found!");
       error.statusCode = StatusCodes.CONFLICT;
       throw error;
     }
@@ -34,33 +46,42 @@ exports.createPrivate = async (req, res, next) => {
       users: [userId, chatId],
     });
 
-    newPrivate
-      .save()
-      .then((res) =>
-        res
-          .populate([{ path: "messages", populate: "user" }, "users"])
-          .execPopulate()
-      )
-      .then(async (data) => {
-        sender.privates.push(data._id);
-        receiver.privates.push(data._id);
+    const savePrivate = await newPrivate.save();
 
-        await sender.save();
-        await receiver.save();
+    if (!savePrivate) {
+      let error = new Error("Private chat not saved!");
+      error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+      throw error;
+    }
 
-        console.log(data);
+    const poulateMsgUserSavePrivate = await savePrivate
+      .populate([{ path: "messages", populate: "user" }, "users"])
+      .execPopulate();
 
-        return res.status(202).json({
-          success: true,
-          data: data,
-          message: "Private chat created!",
-        });
-      })
-      .catch(() => {
-        let error = new Error("Private chat not saved!");
-        error.statusCode = StatusCodes.NOT_IMPLEMENTED;
-        throw error;
-      });
+    sender.privates.push(poulateMsgUserSavePrivate._id);
+    receiver.privates.push(poulateMsgUserSavePrivate._id);
+
+    const saveSender = await sender.save();
+
+    if (!saveSender) {
+      let error = new Error("Private chat not saved in sender!");
+      error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+      throw error;
+    }
+
+    const saveReceiver = await receiver.save();
+
+    if (!saveReceiver) {
+      let error = new Error("Private chat not saved in receiver!");
+      error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+      throw error;
+    }
+    
+    return res.status(202).json({
+      success: true,
+      data: poulateMsgUserSavePrivate,
+      message: "Private chat created!",
+    });
   } catch (err) {
     next(err);
   }
@@ -98,31 +119,32 @@ exports.savePrivateMessage = async (req, res, next) => {
       user: userId,
     });
 
-    newMessage
-      .save()
-      .then((res) => res.populate("user").execPopulate())
-      .then((data) => {
-        private?.messages.push(data._id);
-        private
-          .save()
-          .then(() => {
-            return res.status(200).json({
-              data: data,
-              success: true,
-              message: "Message saved Successfully!",
-            });
-          })
-          .catch(() => {
-            let error = new Error("Message not saved in private!");
-            error.statusCode = StatusCodes. NOT_IMPLEMENTED
-            throw error;
-          });
-      })
-      .catch(() => {
-        let error = new Error("New message not created!");
-        error.statusCode = StatusCodes.NOT_IMPLEMENTED;
-        throw error;
-      });
+    const saveNewMessage = await newMessage.save();
+
+    if (!saveNewMessage) {
+      let error = new Error("New message not created!");
+      error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+      throw error;
+    }
+
+    const poulateUserSaveNewMsg = await saveNewMessage
+      .populate("user")
+      .execPopulate();
+
+    private?.messages.push(poulateUserSaveNewMsg._id);
+    const savePrivate = await private.save();
+
+    if (!savePrivate) {
+      let error = new Error("Message not saved in private!");
+      error.statusCode = StatusCodes.NOT_IMPLEMENTED;
+      throw error;
+    }
+
+    return res.status(200).json({
+      data: poulateUserSaveNewMsg,
+      success: true,
+      message: "Message saved Successfully!",
+    });
   } catch (err) {
     next(err);
   }
@@ -144,8 +166,8 @@ exports.deletePrivate = async (req, res) => {
 
     if (privateFound.users.includes(userId)) {
       const users = [...privateFound.users];
-      
-      await Message.deleteMany({_id : privateFound.messages});
+
+      await Message.deleteMany({ _id: privateFound.messages });
       await privateFound.remove();
 
       await User.updateMany(
