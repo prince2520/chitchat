@@ -2,11 +2,10 @@ import { storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { uid } from 'uid';
 
-export const saveInFirebase = async (image) => {
+export const saveInFirebase = async (image, url = uid(32)) => {
   if (image) {
-    let imageUrl = new Date() + "-" + uid(32);
 
-    let imageRef = ref(storage, `images/${imageUrl}`);
+    let imageRef = ref(storage,url);
     const uploadTask = uploadBytesResumable(imageRef, image);
 
     return new Promise(function (resolve, reject) {

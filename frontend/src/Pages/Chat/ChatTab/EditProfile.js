@@ -43,8 +43,8 @@ const EditProfile = () => {
       return;
     }
 
-    let highResUrlfirebaseUrl = await saveInFirebase(highResUrl);
-    let lowResUrlfirebaseUrl = await saveInFirebase(lowResUrl);
+    const highResUrlfirebaseUrl = await saveInFirebase(highResUrl, `users/${authCtx.userId}/profileImg/highResImg-${authCtx.userId}`);
+    const lowResUrlfirebaseUrl = await saveInFirebase(lowResUrl,  `users/${authCtx.userId}/profileImg/lowResImg-${authCtx.userId}` );
 
     saveProfileBackend(
       name,
