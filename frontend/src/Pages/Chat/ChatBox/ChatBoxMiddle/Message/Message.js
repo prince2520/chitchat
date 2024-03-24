@@ -66,7 +66,7 @@ const Message = ({ myMsg, messageDetail }) => {
       </div>
       {messageDetail.isOpenAIMsg && (
         <div className={"open-ai-icon"}>
-          <Icon icon="ri:openai-fill" />
+          <Icon className="color-text" icon="ri:openai-fill" />
         </div>
       )}
     </div>

@@ -28,7 +28,7 @@ const MyProfile = () => {
         <Icon
           ref={ref}
           icon="gridicons:dropdown"
-          style={{ color: "var(--text)", fontSize: "3rem", cursor: "pointer" }}
+          style={{ fontSize: "3rem"}}
         />
       </span>
       {showDropdown && <Dropdown />}

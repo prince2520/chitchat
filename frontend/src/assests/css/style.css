@@ -135,7 +135,8 @@ a:hover {
 }
 
 svg {
-  color: var(--text-extra-light)
+  color: var(--text-extra-light);
+  cursor: pointer;
 }
 
 svg:hover,

@@ -21,8 +21,8 @@ const MessageImage = ({ myMsg, imageSrc, time }) => {
         showRotate={true}
       />
       <div className={"image-bottom"}>
-        <Icon icon="typcn:image"/>
-        <h6>{time}</h6>
+        <Icon style={{color:"var(text-extra-light)"}} icon="typcn:image"/>
+        <h6 className="color-text-light">{time}</h6>
       </div>
     </div>
   );

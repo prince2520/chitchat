@@ -1,122 +1,131 @@
 .message-container {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    column-gap: 0.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 0.5rem;
 }
 
-.message-img-container .image-container{
-    width: 2.5rem;
-    height: 2.5rem;
+.message-img-container .image-container {
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
-.message-container .msg{
-    width: 100%;
-    max-width: 40rem;
+.message-container .msg {
+  width: 100%;
+  max-width: 40rem;
 
-    padding: 0.25rem 0.5rem 0.25rem 1rem;
-    border: 1px solid var(--border);
-    color: var(--text);
-    border-radius: 0.25rem;
-    word-wrap: break-word;
+  padding: 0.25rem 0.5rem 0.25rem 1rem;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 0.25rem;
+  word-wrap: break-word;
 }
 
-.my-message{
-    justify-content: flex-end;
+.my-message {
+  justify-content: flex-end;
 }
 
-
-
-.my-message .msg{
-    background-color: var(--primary);
-    border: none;
-    color: white;
+.msg .msg__time,
+.msg .msg__content {
+  color: var(--text-light);
 }
 
-.message-container .message-box{
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
+.my-message .msg {
+  background-color: var(--primary);
+  border: none;
+  color: white;
 }
 
-.my-message .message-box{
-    justify-self: flex-end;
+.my-message .msg .msg__time,
+.my-message .msg .msg__content {
+  color: var(--text);
 }
 
-.message-box .username{
-    color: var(--text);
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-align: left;
+.message-container .message-box {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
-.open-ai-icon{
-    background-color: #10A37F;
-    padding: 0.1rem;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
+.my-message .message-box {
+  justify-self: flex-end;
 }
 
-.open-ai-msg-box .msg{
-    background-color: white;
-    color: black;
+.message-box .username {
+  color: var(--text-extra-light);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: left;
 }
 
-.message-box .send-img{
-    max-width: 80%;
-    width: 20rem;
-    align-self: flex-end;
+.open-ai-icon {
+  background-color: #10a37f;
+  padding: 0.1rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.open-ai-msg-box .msg {
+  background-color: var(--text);
+}
+
+.open-ai-msg-box .msg .msg__content,
+.open-ai-msg-box .msg .msg__time {
+  color: black;
+}
+
+.message-box .send-img {
+  max-width: 80%;
+  width: 20rem;
+  align-self: flex-end;
 }
 
 .msg-time {
-    font-size: 0.65rem;
-    color: gray;
-    font-weight: 500;
-    align-self: flex-end;
-
-
+  font-size: 0.65rem;
+  color: gray;
+  font-weight: 500;
+  align-self: flex-end;
 }
 
-.chat-msg-background{
-    background-color: var(--background);
-    padding: 0.25rem 0.25rem 0.5rem 0.25rem ;
-    border-radius: 0.25rem;
+.chat-msg-background {
+  background-color: var(--background);
+  padding: 0.25rem 0.25rem 0.5rem 0.25rem;
+  border-radius: 0.25rem;
 }
 
-.media-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    row-gap: 0.25rem;
+.media-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  row-gap: 0.25rem;
 }
 
-.my-message .msg-time{
-    color: var(--white);
+.my-message .msg-time {
+  color: var(--white);
 }
 
 .video-message .image-bottom,
-.send-img .image-bottom{
-    width: 100%;
-    padding: 0 0.5rem;
+.send-img .image-bottom {
+  width: 100%;
+  padding: 0 0.5rem;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.image-bottom svg{
-    color: white;
-    font-size: 1.5rem;
+.image-bottom svg {
+  font-size: 1.5rem;
+  color: var(--text-light);
 }
-
 
 .send-img .msg-time,
-.video-message  .msg-time{
-    align-self: center;
+.video-message .msg-time {
+  align-self: center;
 }

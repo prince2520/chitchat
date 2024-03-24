@@ -13,7 +13,6 @@ const SideBarIcon = () => {
       <Icon
         onClick={() => dispatch(OverlayActions.openSideMobileBarHandler())}
         icon="ic:round-menu"
-        color={"var(--text)"}
         fontSize={"2rem"}
       />
     </div>

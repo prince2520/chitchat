@@ -32,7 +32,7 @@ const ChatBoxTop = () => {
   const ref = useDetectClickOutside({ onTriggered: closeSettingHandler });
 
   return (
-    <div className="border cursor-btn chat-box__top">
+    <div className="border chat-box__top">
       <SideBar />
       <ImageContainer
         highResUrl={
@@ -49,12 +49,12 @@ const ChatBoxTop = () => {
         }
       />
       <div className="full-screen chat-box__description">
-        <h5>
+        <h5 className="color-text-light">
           {user.selectedType === categoryState[0]
             ? data.name
             : data.users.filter((user) => user._id !== authCtx.userId)[0].name}
         </h5>
-        <p>
+        <p className="color-text-light">
           {!(user.selectedType === categoryState[0])
             ? data.users.filter((user) => user._id !== authCtx.userId)[0].status
             : data.status}
@@ -66,7 +66,7 @@ const ChatBoxTop = () => {
         ref={ref}
         icon="gg:more-vertical-o"
         className="cursor-btn"
-        style={{ color: "var(--textX-light)", fontSize: "2.25rem" }}
+        style={{ fontSize: "2.25rem" }}
       />
       {showSetting && <ChatSettings data={data} />}
     </div>

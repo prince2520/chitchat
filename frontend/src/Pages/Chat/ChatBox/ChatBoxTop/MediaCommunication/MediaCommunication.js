@@ -45,13 +45,12 @@ const MediaCommunication = () => {
         }}
         icon="tabler:video"
         className="cursor-btn"
-        style={{ color: "var(--text-light)", fontSize: "2.25rem" }}
+        style={{ fontSize: "2.25rem" }}
       />
       <Icon
         icon="mi:call"
         className="cursor-btn"
         style={{
-          color: "var(--text-light)",
           fontSize: "2.25rem",
         }}
       />
