@@ -11,27 +11,26 @@
 
   --text: #ffffff;
   --text-light: #aba5a5;
-  --text-extra-light: #636262;
   --text-secondary: #dadada;
+  --text-extra-light: #636262;
   --text-primary: var(--primary);
 
-  --border: var(--text-extra-light);  
+  --border: var(--text-extra-light);
   --error: var(--primary);
-  --success: rgb(25, 129, 87, .5);
+  --success: rgb(25, 129, 87, 0.5);
 
   --link: #6598ea;
   --link-hover: #85b3fe;
 
-  --toastify-color-dark: var(--background)!important;
-  --toastify-color-success: var(--success)!important;
-  --toastify-color-error: var(--primary)!important;
-  --toastify-toast-bd-radius: 0!important;
+  --toastify-color-dark: var(--background) !important;
+  --toastify-color-success: var(--success) !important;
+  --toastify-color-error: var(--primary) !important;
+  --toastify-toast-bd-radius: 0 !important;
 }
 
-.Toastify__toast{
+.Toastify__toast {
   border-radius: 0rem;
   border: 1px solid var(--border);
-
 }
 
 .App {
@@ -56,7 +55,31 @@ p {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-@media screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
+  .authentication-page,
+  .chat-page {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .authentication-page,
+  .chat-page {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
   .authentication-page,
   .chat-page {
     width: 100%;

@@ -20,8 +20,8 @@
 .chat-tab {
   height: 100%;
   width: 100%;
-  border-right: 1px solid var(--border);
   z-index: 700;
+  border-right: 1px solid var(--border);
 }
 
 .input-icon {
@@ -104,4 +104,8 @@
   .chat-page .chat-tab-container {
     display: none;
   }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
 }

@@ -5,6 +5,7 @@ const { StatusCodes } = require("http-status-codes");
 
 // POST -> Sign Up
 exports.signup = async (req, res, next) => {
+  
   //User data
   const name = req.body.name;
   const email = req.body.email;
@@ -45,7 +46,7 @@ exports.signup = async (req, res, next) => {
     return res
       .status(StatusCodes.OK)
       .json({ success: true, message: "User Created" });
-      
+
   } catch (err) {
     next(err);
   }
