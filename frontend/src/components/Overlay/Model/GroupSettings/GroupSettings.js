@@ -268,7 +268,7 @@ const GroupSettings = () => {
           </p>
         ))}
       </div>
-      <div className="flex-center border hoverState group-settings-content">
+      <div className="flex-center border group-settings-content">
         {displaySettingOption()}
       </div>
       {!(selectedLinks === settingsLinks[2]) ? (

@@ -50,7 +50,7 @@ const VideoChat = () => {
             highResUrl={videoAudioCall.callData.data.user.highResUrl}
             lowResUrl={videoAudioCall.callData.data.user.lowResUrl}
           />
-          <h6>{videoAudioCall.callData.data.user.name}</h6>
+          <h6 className="color-text">{videoAudioCall.callData.data.user.name}</h6>
         </div>
         <video
           className="border my__video"

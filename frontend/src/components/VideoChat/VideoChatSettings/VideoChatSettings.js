@@ -19,29 +19,6 @@ const VideoChatSettings = ({ isReceivingCall = false }) => {
 
   return (
     <div className="flex-center video-chat-settings">
-      <div className={"flex-center video-chat-video-mute cursor-btn"}>
-        <div
-          className="setting-container flex-center"
-          onClick={() => {
-            isVideoMuted((prevState) => {
-              if (videoMuted) {
-                socketCtx.stream.getTracks().forEach(function (track) {
-                  track.stop();
-                });
-              } else {
-                getUserMedia()
-              }
-              return !prevState;
-            });
-          }}
-        >
-          <Icon
-            icon={
-              !videoMuted ? "ic:baseline-videocam" : "ic:sharp-videocam-off"
-            }
-          />
-        </div>
-      </div>
       <Button
         width={"fit-content"}
         onClick={() => {
@@ -63,25 +40,6 @@ const VideoChatSettings = ({ isReceivingCall = false }) => {
           <p className="color-text">Accept</p>
         </Button>
       )}
-      <div className="video-chat-audio-mute cursor-btn">
-        <div
-          className="setting-container flex-center"
-          onClick={() =>
-            isAudioMuted((prevState) => {
-              getUserMedia(videoMuted, !prevState);
-              return !prevState;
-            })
-          }
-        >
-          <Icon
-            icon={
-              !audioMuted
-                ? "ant-design:audio-muted-outlined"
-                : "ant-design:audio-outlined"
-            }
-          />
-        </div>
-      </div>
     </div>
   );
 };

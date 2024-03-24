@@ -25,8 +25,7 @@ const Overlay = () => {
         onClick={() => dispatch(OverlayActions.closeOverlayHandler())}
         className={"close-btn"}
         icon="iconamoon:close-bold"
-        color={"var(--white)"}
-        fontSize={"3rem"}
+        fontSize={"2.5rem"}
       />
     </div>
   );

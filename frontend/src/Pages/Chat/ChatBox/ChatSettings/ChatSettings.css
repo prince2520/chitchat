@@ -19,3 +19,12 @@
     column-gap: 0.5rem;
     margin-bottom: 0.15rem;
 }
+
+.chat-settings__option:hover h5,
+.chat-settings__option:active h5,
+.chat-settings__option:hover svg,
+.chat-settings__option:active svg
+{
+    color: var(--text);
+
+}
