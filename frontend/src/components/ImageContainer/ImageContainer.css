@@ -20,6 +20,8 @@
 
 .image-edit-container {
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .image-edit-container .edit-btn {

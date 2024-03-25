@@ -12,18 +12,19 @@ const NotFoundPage = () => {
 
   return (
     <div className="flex-center not-found-page">
+      
+      <div className="not-fount-page__image">
+        <ImageContainer
+         width="20rem"
+         highResUrl={NotFoundLarge} 
+         lowResUrl={NotFoundSmall} height="auto" circle={false}/>
+      </div>
       <div className="flex-center not-found-page__content">
         <h1> Page not found</h1>
         <h5>Unfortunately, the page you are looking for does not exit</h5>
         <Button width={"fit-content"} onClick={() => navigate("/")}>
           <h5 className="color-text">Go to home page</h5>
         </Button>
-      </div>
-      <div className="not-fount-page__image">
-        <ImageContainer
-         width="20rem"
-         highResUrl={NotFoundLarge} 
-         lowResUrl={NotFoundSmall} height="auto" circle={false}/>
       </div>
     </div>
   );
