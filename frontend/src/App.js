@@ -43,11 +43,12 @@ function App() {
           <Route path="" element={<Navigate to={"/auth/login"} />} />
         </Route>
         {authCtx?.isAuth && (
-          <Route  path="/chat" element={<Chat />}>
-            <Route path="" element={<GroupPrivateList />} />
+          <Route path="/chat" element={<Chat />}>
+            <Route path="home" element={<GroupPrivateList />} />
             <Route path="edit-profile" element={<EditProfile />} />
             <Route path="join-group" element={<JoinGroup />} />
             <Route path="create-group" element={<CreateGroup />} />
+            <Route path="" element={<GroupPrivateList />} />
           </Route>
         )}
         <Route

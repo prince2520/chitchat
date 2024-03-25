@@ -104,9 +104,3 @@
     display: none;
   }
 }
-
-
-.Toastify__toast {
-  border-radius: 0rem;
-  border: 1px solid var(--border);
-}

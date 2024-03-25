@@ -84,7 +84,6 @@ export const AuthContextProvider = (props) => {
     const remainingMilliseconds = new Date(localExpiryDate).getTime() - new Date().getTime();
     autoLogout(remainingMilliseconds);
     setIsAuth(true);
-    navigate('/chat')
   }, [autoLogout, logoutHandler, saveUserData]);
 
   const signUpHandler = useCallback((userName, email, password, confirmPassword, setLoading) => {
