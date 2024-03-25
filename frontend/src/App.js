@@ -5,20 +5,19 @@ import { ToastContainer } from "react-toastify";
 
 import Chat from "./pages/Chat/Chat";
 import AuthContext from "./context/authContext";
-import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
-import Login from "./pages/Authentication/AuthenticationLoginSignUp/AuthenticationLogin";
-import SignUp from "./pages/Authentication/AuthenticationLoginSignUp/AuthenticationSignUp";
 import JoinGroup from "./pages/Chat/ChatTab/JoinGroup";
-import Authentication from "./pages/Authentication/Authentication";
 import EditProfile from "./pages/Chat/ChatTab/EditProfile";
 import CreateGroup from "./pages/Chat/ChatTab/CreateGroup";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import Authentication from "./pages/Authentication/Authentication";
 import GroupPrivateList from "./pages/Chat/ChatTab/GroupPrivateList/GroupPrivateList";
+import Login from "./pages/Authentication/AuthenticationLoginSignUp/AuthenticationLogin";
+import SignUp from "./pages/Authentication/AuthenticationLoginSignUp/AuthenticationSignUp";
 
 import "./App.css";
 import "./assests/css/style.css";
-import "react-toastify/dist/ReactToastify.css";
 
-let time = null;
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const authCtx = useContext(AuthContext);
