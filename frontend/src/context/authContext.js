@@ -40,10 +40,10 @@ export const AuthContextProvider = (props) => {
   };
 
   const logoutHandler = useCallback(() => {
+    navigate("/auth/login");
     setToken(null);
     setIsAuth(false);
     localStorage.clear();
-    navigate("/auth/login");
   }, [navigate]);
 
   const autoLogout = useCallback(
@@ -73,6 +73,7 @@ export const AuthContextProvider = (props) => {
       logoutHandler();
       return;
     }
+
     fetchUser(localEmail, localToken)
       .then((result) => {
         joinGroup(result.user.groups);
@@ -83,6 +84,7 @@ export const AuthContextProvider = (props) => {
     const remainingMilliseconds = new Date(localExpiryDate).getTime() - new Date().getTime();
     autoLogout(remainingMilliseconds);
     setIsAuth(true);
+    navigate('/chat')
   }, [autoLogout, logoutHandler, saveUserData]);
 
   const signUpHandler = useCallback((userName, email, password, confirmPassword, setLoading) => {

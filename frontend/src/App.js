@@ -38,15 +38,13 @@ function App() {
         theme="dark"
       />
       <Routes>
-        {!authCtx.isAuth && (
-          <Route path="/auth" element={<Authentication />}>
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route path="" element={<Navigate to={"/auth/login"} />} />
-          </Route>
-        )}
+        <Route path="/auth" element={<Authentication />}>
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="" element={<Navigate to={"/auth/login"} />} />
+        </Route>
         {authCtx?.isAuth && (
-          <Route path="/chat" element={<Chat />}>
+          <Route  path="/chat" element={<Chat />}>
             <Route path="" element={<GroupPrivateList />} />
             <Route path="edit-profile" element={<EditProfile />} />
             <Route path="join-group" element={<JoinGroup />} />

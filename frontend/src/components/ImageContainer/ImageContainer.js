@@ -43,7 +43,7 @@ const ImageContainer = ({
         className={`flex-center image-container ${
           circle ? "image-circle" : ""
         }`}
-        style={{ width: width, height: height }}
+        style={{width: width, height: height}}
       >
         <img
           style={{

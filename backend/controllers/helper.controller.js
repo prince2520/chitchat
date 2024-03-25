@@ -4,6 +4,7 @@ exports.urlWebsiteData = async (req, res, next) => {
   const url = req.body.url;
  
   try {
+    
     const response = await fetch(url);
     const html = await response.text();
     const $ = cheerio.load(html);
