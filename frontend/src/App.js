@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { ToastContainer } from "react-toastify";
 
-import Chat from "./pages/Chat/Chat";
+import {Chat} from "./pages/Chat/Chat"
 import AuthContext from "./context/authContext";
 import JoinGroup from "./pages/Chat/ChatTab/JoinGroup";
 import EditProfile from "./pages/Chat/ChatTab/EditProfile";

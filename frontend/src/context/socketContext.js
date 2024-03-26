@@ -1,31 +1,27 @@
 import { useDispatch } from "react-redux";
 import React, { useEffect, useContext, useState, useRef } from "react";
 
+import Peer from "simple-peer";
+
 import {
   socketInitiate,
   socketDisconnect,
-  
   socketGetChatMessage,
   socketGetPrivateChat,
   socketGetRemoveChat,
   socketGetRemoveGroup,
   socketGetUpdatedGroup,
- 
   socketCall,
   socketGetCall,
-  
   socketCallAccepted,
   socketGetCallAccepted,
- 
   socketEndCall,
   socketGetEndCall,
- 
-  socketOffCallAccepted
+  socketOffCallAccepted,
 } from "../socket";
 
 import AuthContext from "./authContext";
 
-import Peer from "simple-peer";
 import { useSelector } from "react-redux";
 import { UserActions } from "../store/userSlice";
 import { OverlayActions } from "../store/overlaySlice";
@@ -86,6 +82,9 @@ export const SocketContextProvider = ({ children }) => {
     });
 
     socketGetEndCall((err, data) => {
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+      }
       dispatch(VideoAudioCallActions.callEndedHandler());
       dispatch(OverlayActions.closeOverlayHandler());
     });
@@ -107,7 +106,7 @@ export const SocketContextProvider = ({ children }) => {
   }, [dispatch, selectedId]);
 
   const getUserMedia = async (getCallingType) => {
-    const isOnVideo = (getCallingType === callingType[0]) ? true : false;
+    const isOnVideo = getCallingType === callingType[0] ? true : false;
 
     return new Promise(async (resolve, reject) => {
       try {
@@ -176,7 +175,6 @@ export const SocketContextProvider = ({ children }) => {
     });
 
     peer.on("close", () => {
-      console.log("peer closed");
       socketOffCallAccepted();
     });
 
@@ -208,6 +206,10 @@ export const SocketContextProvider = ({ children }) => {
     };
 
     connectionRef.current.destroy();
+
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+    }
 
     socketEndCall(data);
     socketOffCallAccepted();

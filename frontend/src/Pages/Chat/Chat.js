@@ -11,7 +11,7 @@ import { SocketContextProvider } from "../../context/socketContext";
 
 import "./Chat.css";
 
-const Chat = () => {
+export const Chat = () => {
   const isSelected = useSelector((state) => state.user.isSelected);
   const showOverlay = useSelector((state) => state.overlay?.showOverlay);
 
@@ -39,4 +39,3 @@ const Chat = () => {
     </SocketContextProvider>
   );
 };
-export default Chat;
