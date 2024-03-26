@@ -74,6 +74,7 @@ const VideoChat = () => {
           className="border my__video"
           playsInline
           autoPlay
+          muted
           ref={myVideo}
         />
         <video
