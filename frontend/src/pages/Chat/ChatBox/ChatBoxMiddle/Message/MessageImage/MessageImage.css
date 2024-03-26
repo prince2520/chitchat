@@ -1,0 +1,5 @@
+.send-img img{
+    min-height: 15rem;
+    object-fit: cover;
+    border: 1px solid var(--border);
+}

@@ -1,0 +1,22 @@
+.video-message{
+    max-width: 25rem;
+    width: 100%;
+
+    color: var(--border);
+}
+
+
+.video-message span{
+    margin-top: 0.1rem;
+}
+
+video {
+    border: 1px solid var(--border);
+}
+
+@media screen and (max-width: 800px) {
+    .video-message{
+        max-width: 20rem;
+        width: 100%;
+    }
+}

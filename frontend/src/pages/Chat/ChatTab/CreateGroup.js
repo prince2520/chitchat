@@ -1,0 +1,75 @@
+import { useContext} from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import AuthContext from "../../../context/authContext";
+import Button from "../../../components/Button/Button";
+import CustomInput from "../../../components/CustomInput/CustomInput";
+import CreateGroupLarge from "../../../assests/images/CreateGroupLarge.png";
+import CreateGroupSmall from "../../../assests/images/CreateGroupSmall.png";
+import ImageContainer from "../../../components/ImageContainer/ImageContainer";
+
+import { createGroup } from "../../../api/group";
+import { UserActions } from "../../../store/userSlice";
+
+const CreateGroup = () => {
+  const authCtx = useContext(AuthContext);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const createGroupHandler = async (data) => {
+    createGroup(authCtx?.token, data)
+      .then((data) => {
+        if (data.success) {
+          dispatch(UserActions.addGroup(data.data));
+          navigate("/chat");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    const name = event.target[0].value;
+    const status = event.target[1].value;
+    await createGroupHandler({
+      name,
+      status
+    });
+  };
+
+  return (
+    <form
+      className="flex-center create-group"
+      onSubmit={(event) => submitHandler(event)}
+    >
+      <h3 className="color-text-light">Create a Group</h3>
+      <ImageContainer
+        isEditable={false}
+        highResUrl={CreateGroupLarge}
+        lowResUrl={CreateGroupSmall}
+        width="11rem"
+        height="11rem"
+        circle={false}
+      />
+      <CustomInput
+        label={"Name"}
+        icon={"material-symbols:edit"}
+        width="90%"
+        maxWidth="20rem"
+      />
+      <CustomInput
+        label={"Description"}
+        icon={"material-symbols:edit"}
+        width="90%"
+        maxWidth="20rem"
+      />
+      <Button backgroundColor={"var(--primary)"} width="50%">
+        <p className="color-text">Create</p>
+      </Button>
+    </form>
+  );
+};
+
+export default CreateGroup;

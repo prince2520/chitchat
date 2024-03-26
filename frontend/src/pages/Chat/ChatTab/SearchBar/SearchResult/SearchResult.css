@@ -1,0 +1,31 @@
+.search-result__container{
+    position: absolute;
+    column-gap: 0.5rem;
+
+    bottom: -5.5rem;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    padding: 1.25rem 1rem 1rem;
+}
+
+.search-result__container .search-result__description{
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.search-result__container .search-result__join-btn{
+    position: relative;
+    bottom: -0.5rem;
+}
+
+.search-result__container .close-btn{
+    position: absolute;
+    top: 0.15rem;
+    right: 0.25rem;
+    font-size: 2rem;
+}

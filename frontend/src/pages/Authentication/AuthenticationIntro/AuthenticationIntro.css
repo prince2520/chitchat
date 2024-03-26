@@ -1,0 +1,47 @@
+.authentication-intro {
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 2rem;
+  flex-direction: column;
+}
+
+.authentication-intro h3 {
+  font-family: "Borel", cursive;
+  word-spacing: 0.25rem;
+}
+
+.authentication-intro__features {
+  width: 100%;
+
+  row-gap: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.authentication-intro__features >  .authentication-intro__features__feature{
+  width: 70%;
+  flex-direction: row;
+  align-self: flex-start;
+  column-gap: 0.75rem;
+  padding: 0.1rem 0.25rem;
+}
+
+.authentication-intro__features__feature:nth-child(2) {
+  border: none;
+  align-self: flex-end;
+  background-color: var(--white);
+}
+
+.authentication-intro__features__feature:nth-child(2) > p{
+  color: var(--primary);
+}
+
+.authentication-intro__features__feature__icon{
+  width: 4rem;
+}
+
+.authentication-intro .authentication-intro__img {
+  width: 80%;
+  max-width: 27rem;
+}
+
