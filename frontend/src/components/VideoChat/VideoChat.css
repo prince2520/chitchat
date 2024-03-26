@@ -14,6 +14,7 @@
 }
 
 .video-chat-container .video-chat-window{
+    width: 100%;
     position: relative;
 }
 

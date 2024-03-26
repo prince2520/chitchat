@@ -62,3 +62,6 @@ export const chatTopSettingOptions = [
     title: "Share",
   }
 ];
+
+export const callingType = ["Video", "Audio"];
+

@@ -30,6 +30,7 @@ import { useSelector } from "react-redux";
 import { UserActions } from "../store/userSlice";
 import { OverlayActions } from "../store/overlaySlice";
 import { VideoAudioCallActions } from "../store/videoAudioCallSlice";
+import { callingType } from "../constants/constants";
 
 const SocketContext = React.createContext({});
 
@@ -105,11 +106,13 @@ export const SocketContextProvider = ({ children }) => {
     });
   }, [dispatch, selectedId]);
 
-  const getUserMedia = async () => {
+  const getUserMedia = async (getCallingType) => {
+    const isOnVideo = (getCallingType === callingType[0]) ? true : false;
+
     return new Promise(async (resolve, reject) => {
       try {
         const mediaStream = await navigator.mediaDevices.getUserMedia({
-          video: true,
+          video: isOnVideo,
           audio: true,
         });
         myVideo.current.srcObject = mediaStream;
@@ -121,8 +124,8 @@ export const SocketContextProvider = ({ children }) => {
     });
   };
 
-  const callUser = async (chatId) => {
-    const mediaStream = await getUserMedia();
+  const callUser = async (chatId, getCallingType = callingType[0]) => {
+    const mediaStream = await getUserMedia(getCallingType);
 
     dispatch(OverlayActions.openVideoChatHandler());
 
@@ -141,6 +144,7 @@ export const SocketContextProvider = ({ children }) => {
     peer.on("signal", (data) => {
       const callData = {
         userToCall: chatId,
+        callingType: getCallingType,
         data: {
           user: user,
           signal: data,
@@ -162,8 +166,8 @@ export const SocketContextProvider = ({ children }) => {
     connectionRef.current = peer;
   };
 
-  const acceptCall = async () => {
-    const mediaStream = await getUserMedia();
+  const acceptCall = async (getCallingType) => {
+    const mediaStream = await getUserMedia(getCallingType);
 
     const peer = new Peer({
       initiator: false,

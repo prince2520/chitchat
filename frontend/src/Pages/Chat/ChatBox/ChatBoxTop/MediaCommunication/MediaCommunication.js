@@ -2,11 +2,11 @@ import { Icon } from "@iconify/react";
 import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { callingType } from "../../../../../constants/constants";
 import { OverlayActions } from "../../../../../store/overlaySlice";
 import { VideoAudioCallActions } from "../../../../../store/videoAudioCallSlice";
 
 import SocketContext from "../../../../../context/socketContext";
-
 
 const MediaCommunication = () => {
   const socketCtx = useContext(SocketContext);
@@ -18,7 +18,7 @@ const MediaCommunication = () => {
 
   const dispatch = useDispatch();
 
-  const handleCalling = () => {
+  const handleCalling = (type) => {
     const privateUserData = privateData.users.filter(
       (res) => res._id !== user._id
     )[0];
@@ -29,6 +29,7 @@ const MediaCommunication = () => {
         isReceivingCall: false,
         callData: {
           userToCall: privateUserData._id,
+          callingType: type,
           data: {
             user: privateUserData,
             signal: null,
@@ -36,7 +37,7 @@ const MediaCommunication = () => {
         },
       })
     );
-    socketCtx.callUser(privateUserData._id);
+    socketCtx.callUser(privateUserData._id, type);
 
     dispatch(OverlayActions.openVideoChatHandler());
   };
@@ -44,13 +45,14 @@ const MediaCommunication = () => {
   return (
     <React.Fragment>
       <Icon
-        onClick={() => handleCalling()}
+        onClick={() => handleCalling(callingType[0])}
         icon="tabler:video"
         className="cursor-btn"
         style={{ fontSize: "2.25rem" }}
       />
       <Icon
         icon="mi:call"
+        onClick={() => handleCalling(callingType[1])}
         className="cursor-btn"
         style={{
           fontSize: "2.25rem",

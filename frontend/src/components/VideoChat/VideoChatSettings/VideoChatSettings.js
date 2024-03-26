@@ -8,7 +8,7 @@ import SocketContext from "../../../context/socketContext";
 import "./VideoChatSettings.css";
 
 const VideoChatSettings = ({ isReceivingCall = false }) => {
-  
+
   const socketCtx = useContext(SocketContext);
   const videoAudioCall = useSelector((state) => state.videoAudioCall);
 
@@ -26,7 +26,7 @@ const VideoChatSettings = ({ isReceivingCall = false }) => {
       {isReceivingCall && !videoAudioCall.callAccepted && (
         <Button
           onClick={() => {
-            socketCtx.acceptCall();
+            socketCtx.acceptCall(videoAudioCall.callData.callingType);
           }}
           backgroundColor={"var(--success)"}
           width={"fit-content"}
