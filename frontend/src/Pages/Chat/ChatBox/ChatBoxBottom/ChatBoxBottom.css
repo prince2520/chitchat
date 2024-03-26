@@ -58,7 +58,7 @@
     color: var(--text);
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600px) {
   .chat-box__bottom__left .smile__icon {
     font-size: 1.5rem;
   }

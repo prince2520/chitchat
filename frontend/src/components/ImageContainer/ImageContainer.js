@@ -20,7 +20,7 @@ const ImageContainer = ({
   const [imageSrc, { blur }] = useProgressiveImg(lowResUrl, highResUrl);
   const [newHighResUrl, newLowResUrl, setData] = useCompressImg();
 
-  const widthInt = parseInt(width.replace ( /[^\d.]/g, '' ));
+  const widthInt = parseInt(width.replace(/[^\d.]/g, ""));
 
   useEffect(() => {
     if (newHighResUrl && newLowResUrl) {
@@ -36,7 +36,7 @@ const ImageContainer = ({
 
   useEffect(() => {
     editImageHandler(newHighResUrl, newLowResUrl);
-  }, [newHighResUrl, newLowResUrl]);
+  }, [newHighResUrl, newLowResUrl, editImageHandler]);
 
   return (
     <div className={"image-edit-container"}>
@@ -44,14 +44,14 @@ const ImageContainer = ({
         className={`flex-center image-container ${
           circle ? "image-circle" : ""
         }`}
-        style={{width: width, height: height}}
+        style={{ width: width, height: height }}
       >
         <img
           style={{
             filter: blur ? "blur(10px)" : "none",
             transition: blur ? "none" : "filter 0.3s ease-out",
           }}
-          alt={"progressive-image"}
+          alt={"progressive"}
           src={preview || imageSrc}
         />
       </div>
@@ -69,11 +69,11 @@ const ImageContainer = ({
           <div
             className={"flex-center cursor-btn edit-btn box-shadow"}
             onClick={() => imageRef.current?.click()}
-            style={{ right: `${widthInt*0.425}rem`}}
+            style={{ right: `${widthInt * 0.425}rem` }}
           >
             <Icon
               icon="material-symbols:edit"
-              fontSize={`${widthInt*0.1}rem`}
+              fontSize={`${widthInt * 0.1}rem`}
               color={`var(--primary)`}
             />
           </div>

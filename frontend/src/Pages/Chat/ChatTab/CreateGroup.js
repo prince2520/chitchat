@@ -19,7 +19,6 @@ const CreateGroup = () => {
   const navigate = useNavigate();
 
   const createGroupHandler = async (data) => {
-    console.log('createGroupHandler', data);
     createGroup(authCtx?.token, data)
       .then((data) => {
         if (data.success) {

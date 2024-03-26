@@ -2,19 +2,19 @@ import { useSelector } from "react-redux";
 import { useContext } from "react";
 
 import SocketContext from "../../context/socketContext";
+import Ringtone from "../../assests/audio/ringtone.mp3";
 import ImageConatainer from "../ImageContainer/ImageContainer";
+import OutgoingTone from "../../assests/audio/outgoing_tone.mp3";
 import VideoChatSettings from "./VideoChatSettings/VideoChatSettings";
 
-import OutgoingTone from "../../assests/audio/outgoing_tone.mp3";
-import Ringtone from "../../assests/audio/ringtone.mp3";
 
 import "./VideoChat.css";
 
-const CallUser = ({ callData }) => {
+const CallUser = () => {
   const videoAudioCall = useSelector((state) => state.videoAudioCall);
 
   return (
-    <div className="flex-center call-user" style={{flexDirection : 'column'}}>
+    <div className="flex-center call-user" style={{ flexDirection: "column" }}>
       <ImageConatainer
         width="6rem"
         height="6rem"
@@ -28,17 +28,18 @@ const CallUser = ({ callData }) => {
 };
 
 const VideoChat = () => {
-  const { myVideo, userVideo, stream, getUserMedia } =
-    useContext(SocketContext);
+  const { myVideo, userVideo } = useContext(SocketContext);
 
   const videoAudioCall = useSelector((state) => state.videoAudioCall);
 
   return (
     <div className="video-chat-container box-shadow border">
-      {!videoAudioCall.callAccepted && <CallUser
-        isCalling={videoAudioCall.isCalling}
-        callData={videoAudioCall.callData}
-      />}
+      {!videoAudioCall.callAccepted && (
+        <CallUser
+          isCalling={videoAudioCall.isCalling}
+          callData={videoAudioCall.callData}
+        />
+      )}
       <div
         className="video-chat-window"
         style={{ display: !videoAudioCall.callAccepted ? "none" : "block" }}
@@ -50,7 +51,9 @@ const VideoChat = () => {
             highResUrl={videoAudioCall.callData.data.user.highResUrl}
             lowResUrl={videoAudioCall.callData.data.user.lowResUrl}
           />
-          <h6 className="color-text">{videoAudioCall.callData.data.user.name}</h6>
+          <h6 className="color-text">
+            {videoAudioCall.callData.data.user.name}
+          </h6>
         </div>
         <video
           className="border my__video"

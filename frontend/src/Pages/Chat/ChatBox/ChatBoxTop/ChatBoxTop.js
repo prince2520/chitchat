@@ -1,29 +1,27 @@
-import { useSelector } from "react-redux";
-import { useState } from "react";
-
-import ChatSettings from "../ChatSettings/ChatSettings";
-import SideBar from "../../../../components/SideBar/SideBar";
-import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
-
-import AuthContext from "../../../../context/authContext";
-import { useContext } from "react";
 import { Icon } from "@iconify/react";
+import { useSelector } from "react-redux";
+import { useState, useContext } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
+
 import { categoryState } from "../../../../constants/constants";
 
+import ChatSettings from "../ChatSettings/ChatSettings";
+import AuthContext from "../../../../context/authContext";
+import SideBar from "../../../../components/SideBar/SideBar";
 import MediaCommunication from "./MediaCommunication/MediaCommunication";
+import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
 import "./ChatBoxTop.css";
 
 const ChatBoxTop = () => {
-  const user = useSelector((state) => state.user);
+  const [showSetting, setShowSetting] = useState(false);
+
   const authCtx = useContext(AuthContext);
+  const user = useSelector((state) => state.user);
 
   const data = (
     user?.selectedType === categoryState[0] ? user.groups : user.privates
   ).filter((res) => res._id === user.selectedId)[0];
-
-  const [showSetting, setShowSetting] = useState(false);
 
   const closeSettingHandler = () => {
     setShowSetting(false);

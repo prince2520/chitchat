@@ -1,16 +1,17 @@
+import { useState } from "react";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useDetectClickOutside } from "react-detect-click-outside";
 
 import Dropdown from "../../../../components/Dropdown/Dropdown";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
-import { useDetectClickOutside } from "react-detect-click-outside";
-
 import "./MyProfile.css";
 
 const MyProfile = () => {
+  
   const [showDropdown, setShowDropdown] = useState(false);
+
   const highResUrl = useSelector((state) => state.user.highResUrl);
   const lowResUrl = useSelector((state) => state.user.lowResUrl);
 

@@ -1,23 +1,26 @@
 import { useContext, useState } from "react";
-
-import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
-import ChangeCategory from "../../../../components/ChangeCategory/ChangeCategory";
 import { useDispatch, useSelector } from "react-redux";
+
 import { UserActions } from "../../../../store/userSlice";
-import AuthContext from "../../../../context/authContext";
 import { categoryState } from "../../../../constants/constants";
 import { getLastMessage } from "../../../../utils/GetLastMessage";
+
+import AuthContext from "../../../../context/authContext";
 import NoGroupPrivate from "./NoGroupPrivate/NoGroupPrivate";
+import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
+import ChangeCategory from "../../../../components/ChangeCategory/ChangeCategory";
 
 import "./GroupPrivateList.css";
 
 const GroupPrivateList = () => {
   const [isPrivate, setIsPrivate] = useState(false);
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const privates = user.privates;
+
   const authCtx = useContext(AuthContext);
+  const user = useSelector((state) => state.user);
+  const privates = user.privates;
   const groups = user.groups;
+
+  const dispatch = useDispatch();
 
   const selectedItem = (item) => {
     if (user.selectedId === item?._id) {

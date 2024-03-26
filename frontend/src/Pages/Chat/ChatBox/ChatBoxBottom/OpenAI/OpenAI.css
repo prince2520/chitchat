@@ -28,7 +28,7 @@
   color: var(--text);
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600) {
   .open-ai {
     font-size: 1rem;
   }

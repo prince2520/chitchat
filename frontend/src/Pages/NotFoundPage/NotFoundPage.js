@@ -1,12 +1,12 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Button from "../../components/Button/Button";
 import NotFoundLarge from "../../assests/images/404Large.png";
 import NotFoundSmall from "../../assests/images/404Small.png";
 import ImageContainer from "../../components/ImageContainer/ImageContainer";
 
-import { useNavigate } from "react-router-dom";
-
 import "./NotFoundPage.css";
-import { useEffect, useState } from "react";
 
 let timeOut = null;
 

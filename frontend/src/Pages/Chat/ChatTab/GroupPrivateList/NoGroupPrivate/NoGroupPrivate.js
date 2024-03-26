@@ -1,6 +1,5 @@
 import NoDataLargeImg from "../../../../../assests/images/NoDataLarge.png";
 import NoDataSmallImg from "../../../../../assests/images/NoDataSmall.png";
-
 import ImageContainer from "../../../../../components/ImageContainer/ImageContainer";
 
 import "./NoGroupPrivate.css";
@@ -10,7 +9,7 @@ const NoGroupPrivate = ({ isPrivate }) => {
     <div className="flex-center no-group-private">
       <ImageContainer
         circle={false}
-        width="80%"
+        width="100%"
         height="auto"
         highResUrl={NoDataLargeImg}
         lowResUrl={NoDataSmallImg}
