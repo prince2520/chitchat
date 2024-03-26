@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { UserActions } from "../store/userSlice";
-import { socketJoinGroup } from "../socket";
-import {login, signup } from "../api/auth";
-import {fetchUser } from "../api/user";
-import { toast } from "react-toastify";
 
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { UserActions } from "../store/userSlice";
+
+import { fetchUser } from "../api/user";
+import { login, signup } from "../api/auth";
+import { socketJoinGroup } from "../socket";
 
 const AuthContext = React.createContext({
   loginHandler: (email, password) => {},
@@ -16,13 +17,13 @@ const AuthContext = React.createContext({
   userId: "",
   userName: "",
   email: "",
-  isAuth: false
+  isAuth: false,
 });
 
 export const AuthContextProvider = (props) => {
-  const [token, setToken] = useState(null);
   const [email, setEmail] = useState("");
   const [userId, setUserId] = useState("");
+  const [token, setToken] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
 
   const navigate = useNavigate();
@@ -64,11 +65,11 @@ export const AuthContextProvider = (props) => {
     setEmail(localEmail);
     const localExpiryDate = localStorage.getItem("expiryDate");
 
-    if(!localExpiryDate){
+    if (!localExpiryDate) {
       return;
     }
 
-    if ((new Date(localExpiryDate) <= new Date())) {
+    if (new Date(localExpiryDate) <= new Date()) {
       setIsAuth(false);
       logoutHandler();
       return;
@@ -81,60 +82,73 @@ export const AuthContextProvider = (props) => {
       })
       .catch((err) => console.log(err));
 
-    const remainingMilliseconds = new Date(localExpiryDate).getTime() - new Date().getTime();
+    const remainingMilliseconds =
+      new Date(localExpiryDate).getTime() - new Date().getTime();
     autoLogout(remainingMilliseconds);
     setIsAuth(true);
   }, [autoLogout, logoutHandler, saveUserData]);
 
-  const signUpHandler = useCallback((userName, email, password, confirmPassword, setLoading) => {
-    setLoading(true);
-    signup(userName, email, password, confirmPassword).then((result) => {
-      if (result.success) {
-        toast.success(result.message);
-        navigate("/auth/login");
-      }else{
-        toast.error(result.message);
-      }
-    })
-    .catch((err)=> toast.success(err))
-    .finally(()=>{
-      setLoading(false);
-    });
-  },[navigate, dispatch]);
+  // Sign Up
+  const signUpHandler = useCallback(
+    (userName, email, password, confirmPassword, setLoading) => {
+      setLoading(true);
+      signup(userName, email, password, confirmPassword)
+        .then((result) => {
+          if (result.success) {
+            toast.success(result.message);
+            navigate("/auth/login");
+          } else {
+            toast.error(result.message);
+          }
+        })
+        .catch((err) => toast.success(err))
+        .finally(() => {
+          setLoading(false);
+        });
+    },
+    [navigate, dispatch]
+  );
 
-  const loginHandler = useCallback((email, password, setLoading) => {
-    setLoading(true);
-    login(email, password).then((result) => {
-      if (result.success) {
-        saveUserData(result.user);
+  // Login
+  const loginHandler = useCallback(
+    (email, password, setLoading) => {
+      setLoading(true);
+      login(email, password)
+        .then((result) => {
+          if (result.success) {
+            saveUserData(result.user);
 
-        joinGroup(result.user.groups);
+            joinGroup(result.user.groups);
 
-        setToken(result.token);
-        setUserId(result.user?._id);
-        setEmail(result.user?.email);
-        setIsAuth(true);
+            setToken(result.token);
+            setUserId(result.user?._id);
+            setEmail(result.user?.email);
+            setIsAuth(true);
 
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("userId", result.user._id);
-        localStorage.setItem("email", result.user?.email);
+            localStorage.setItem("token", result.token);
+            localStorage.setItem("userId", result.user._id);
+            localStorage.setItem("email", result.user?.email);
 
-        const remainingMilliseconds = 60 * 60 * 1000;
-        const expiryDate = new Date(
-          new Date().getTime() + remainingMilliseconds
-        );
-        localStorage.setItem("expiryDate", expiryDate.toISOString());
-        autoLogout(remainingMilliseconds);
-        navigate("/chat");
-      } else {
-        toast.error(result.message);
-      }
-    }).catch((err)=>{
-      toast.error(err);
-    }).finally(()=>{
-      setLoading(false);
-    });
-  },[autoLogout, dispatch, navigate, saveUserData]);
+            const remainingMilliseconds = 60 * 60 * 1000;
+            const expiryDate = new Date(
+              new Date().getTime() + remainingMilliseconds
+            );
+            localStorage.setItem("expiryDate", expiryDate.toISOString());
+            autoLogout(remainingMilliseconds);
+            navigate("/chat");
+          } else {
+            toast.error(result.message);
+          }
+        })
+        .catch((err) => {
+          toast.error(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    },
+    [autoLogout, dispatch, navigate, saveUserData]
+  );
 
   return (
     <AuthContext.Provider

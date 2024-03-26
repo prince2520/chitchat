@@ -1,10 +1,5 @@
 // POST -> create a new group
-export const createGroup = async (token, name) => {
-  console.log('createGroup', token, name);
-  let data = {
-    name: name
-  };
-
+export const createGroup = async (token, data) => {
   const result = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/group/create-group`,
     {
@@ -13,7 +8,7 @@ export const createGroup = async (token, name) => {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({...data}),
     }
   );
   return result.json();

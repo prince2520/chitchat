@@ -1,18 +1,16 @@
-import { Icon } from "@iconify/react";
-import { useNavigate } from "react-router-dom";
+import { useContext} from "react";
 import { useDispatch } from "react-redux";
-import { useContext, useEffect, useRef, useState } from "react";
-
-import Button from "../../../components/Button/Button";
-import CustomInput from "../../../components/CustomInput/CustomInput";
-import ImageContainer from "../../../components/ImageContainer/ImageContainer";
-import { createGroup } from "../../../api/group";
-import { UserActions } from "../../../store/userSlice";
+import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../../../context/authContext";
-
+import Button from "../../../components/Button/Button";
+import CustomInput from "../../../components/CustomInput/CustomInput";
 import CreateGroupLarge from "../../../assests/images/CreateGroupLarge.png";
 import CreateGroupSmall from "../../../assests/images/CreateGroupSmall.png";
+import ImageContainer from "../../../components/ImageContainer/ImageContainer";
+
+import { createGroup } from "../../../api/group";
+import { UserActions } from "../../../store/userSlice";
 
 const CreateGroup = () => {
   const authCtx = useContext(AuthContext);
@@ -20,11 +18,9 @@ const CreateGroup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const createGroupHandler = async (name) => {
-    createGroup(
-      authCtx?.token,
-      name     
-    )
+  const createGroupHandler = async (data) => {
+    console.log('createGroupHandler', data);
+    createGroup(authCtx?.token, data)
       .then((data) => {
         if (data.success) {
           dispatch(UserActions.addGroup(data.data));
@@ -37,7 +33,11 @@ const CreateGroup = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     const name = event.target[0].value;
-    await createGroupHandler(name);
+    const status = event.target[1].value;
+    await createGroupHandler({
+      name,
+      status
+    });
   };
 
   return (
@@ -47,14 +47,21 @@ const CreateGroup = () => {
     >
       <h3 className="color-text-light">Create a Group</h3>
       <ImageContainer
-        highResUrl={ CreateGroupLarge}
-        lowResUrl={ CreateGroupSmall}
+        isEditable={false}
+        highResUrl={CreateGroupLarge}
+        lowResUrl={CreateGroupSmall}
         width="11rem"
         height="11rem"
-        isEditable={false}
+        circle={false}
       />
       <CustomInput
         label={"Name"}
+        icon={"material-symbols:edit"}
+        width="90%"
+        maxWidth="20rem"
+      />
+      <CustomInput
+        label={"Description"}
         icon={"material-symbols:edit"}
         width="90%"
         maxWidth="20rem"

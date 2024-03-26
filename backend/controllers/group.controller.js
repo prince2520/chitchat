@@ -10,6 +10,10 @@ const Message = require("../models/message.model");
 exports.createGroup = async (req, res, next) => {
   // Group -> data
   const name = req.body.name;
+  const status = req.body.status;
+
+  console.log('create Group', req.body);
+
   const userId = mongoose.Types.ObjectId(req.userId);
 
   try {
@@ -23,6 +27,7 @@ exports.createGroup = async (req, res, next) => {
 
     const data = {
       name: name,
+      status: status,
       createdBy: userId,
       users: [userId],
     };

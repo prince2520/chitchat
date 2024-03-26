@@ -1,7 +1,8 @@
-import useProgressiveImg from "../../hooks/useProgressiveImg";
 import { Icon } from "@iconify/react";
-import useCompressImg from "../../hooks/useCompressImg";
 import { useRef, useEffect, useState } from "react";
+
+import useCompressImg from "../../hooks/useCompressImg";
+import useProgressiveImg from "../../hooks/useProgressiveImg";
 
 import "./ImageContainer.css";
 
