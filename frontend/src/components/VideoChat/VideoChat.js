@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import Lottie from "lottie-react";
 
@@ -9,6 +9,7 @@ import ImageConatainer from "../ImageContainer/ImageContainer";
 import OutgoingTone from "../../assests/audio/outgoing_tone.mp3";
 import VideoChatSettings from "./VideoChatSettings/VideoChatSettings";
 
+import { socketDisconnect } from "../../socket";
 import { callingType } from "../../constants/constants";
 
 import AudioWave from "../../assests/animations/AudioWave.json"
@@ -36,6 +37,16 @@ const VideoChat = () => {
   const { myVideo, userVideo } = useContext(SocketContext);
 
   const videoAudioCall = useSelector((state) => state.videoAudioCall);
+
+  const {endCall } = useContext(SocketContext);  
+
+  useEffect(() => {
+    return () => {
+      if (videoAudioCall.isCalling || videoAudioCall.isReceivingCall) {
+        endCall(videoAudioCall.callData.data.user._id);
+      }
+    };
+  }, []);
 
   return (
     <div className="flex-center video-chat-container box-shadow border">

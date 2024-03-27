@@ -50,6 +50,10 @@ export const SocketContextProvider = ({ children }) => {
     socketInitiate(authCtx?.userId);
     return () => {
       socketDisconnect(authCtx?.userId);
+      console.log("videoAudioCall", videoAudioCall);
+      if (videoAudioCall.isCalling || videoAudioCall.isReceivingCall) {
+        endCall(videoAudioCall.callData.userToCall);
+      }
     };
   }, [authCtx?.userId, dispatch]);
 
@@ -205,7 +209,9 @@ export const SocketContextProvider = ({ children }) => {
       userToCall: userToCall,
     };
 
-    connectionRef.current.destroy();
+    if(connectionRef?.current){
+      connectionRef.current.destroy();
+    }
 
     if (stream) {
       stream.getTracks().forEach((track) => track.stop());
