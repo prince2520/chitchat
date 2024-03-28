@@ -11,6 +11,7 @@ import "./Model.css";
 
 const Model = () => {
   const overlay = useSelector((state) => state.overlay);
+  
   return (
     <div
       className="model"

@@ -34,6 +34,12 @@ const OverlaySlice = createSlice({
       state.showOverlay = true;
     },
     openVideoChatHandler(state) {
+      state.showSideMobileBar = false;
+      state.showDragDrop = false;
+      state.showSettings = {
+        links : "Members",
+        value : false
+      };
       state.showVideoChat = true;
       state.showOverlay = true;
     },
