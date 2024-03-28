@@ -59,6 +59,11 @@ module.exports = (io) => {
       socket.to(data.groupId).emit("get_unblockUser", { data: data });
     });
 
+    // GROUP - unblock user from group
+    socket.on("addMember_group", function ({ data }) {
+      socket.to(data.groupId).emit("get_addMember_group", { data: data });
+    });
+
     // GROUP - leave Group
     socket.on("leave_group", function ({ groupId }) {
       socket.leave(groupId);
@@ -91,19 +96,16 @@ module.exports = (io) => {
     // VIDEO CALL (PRIVATE)
     // PRIVATE -> Call User
     socket.on("call", ({callData }) => {
-      console.log("call", callData);
       socket.in(callData.userToCall).emit("get_call", { callData });
     });
 
     // PRIVATE -> Call Accepted
     socket.on("callAccepted", ({data}) => {
-      console.log("callAccepted", data);
       socket.in(data.userToCall).emit("get_callAccepted", {data});
     });
 
     // PRIVATE -> END CALL
     socket.on("endCall", ({data}) => {
-      console.log("endCall", data);
       socket.in(data.userToCall).emit("get_endCall", {data});
     });
   });

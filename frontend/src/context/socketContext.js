@@ -19,7 +19,8 @@ import {
   socketGetEndCall,
   socketOffCallAccepted,
   socketGetUnblockUser,
-  socketGetBlockUser
+  socketGetBlockUser,
+  socketGetAddMemberGroup
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -77,6 +78,9 @@ export const SocketContextProvider = ({ children }) => {
     socketGetBlockUser((err, { data }) => {
       dispatch(UserActions.blockUserGroup(data));
     });
+    socketGetAddMemberGroup((err, { data }) => {
+      dispatch(UserActions.addMemberGroup(data));
+    })
   }, [dispatch]);
 
   useEffect(() => {
@@ -238,7 +242,7 @@ export const SocketContextProvider = ({ children }) => {
         stream,
         callUser,
         endCall,
-        acceptCall,
+        acceptCall
       }}
     >
       {children}

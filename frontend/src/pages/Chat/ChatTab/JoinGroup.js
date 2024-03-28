@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../../../components/Button/Button";
@@ -13,6 +13,7 @@ import { joinGroup } from "../../../api/group";
 
 import AuthContext from "../../../context/authContext";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
+import { socketAddMemberGroup } from "../../../socket";
 
 
 const JoinGroup = () => {
@@ -20,6 +21,7 @@ const JoinGroup = () => {
   const navigate = useNavigate();
 
   const authCtx = useContext(AuthContext);
+  const user = useSelector((state) => state.user);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -28,8 +30,12 @@ const JoinGroup = () => {
 
     joinGroup(authCtx?.token, groupId, authCtx?.userId)
       .then((res) => {
-        console.log('join group', res);
         if (res.success) {
+          const data = {
+            groupId : res.groupData._id,
+            user : user
+          };
+          socketAddMemberGroup(data);
           dispatch(UserActions.addGroup(res.groupData));
           navigate("/chat");
         }

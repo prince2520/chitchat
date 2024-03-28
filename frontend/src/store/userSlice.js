@@ -126,6 +126,20 @@ const UserSlice = createSlice({
 
       state.groups = temp;
     },
+    addMemberGroup(state, action) {
+      const groupId = action.payload.groupId;
+      const user = action.payload.user;
+
+
+      const temp = state.groups.concat().map((group) => {
+        if (group._id === groupId) {
+          group.users = [...group.users, user];
+        }
+        return group;
+      });
+
+      state.groups = temp;
+    },
     editGroup(state, action) {
       const groupId = action.payload.groupId;
       const name = action.payload.name;

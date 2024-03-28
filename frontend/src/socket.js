@@ -14,7 +14,7 @@ export const socketInitiate = (userId) => {
 };
 
 // USER - disconnect socket (Front -> Back)
-export const socketDisconnect= (userId) => {
+export const socketDisconnect = (userId) => {
   if (socket) {
     socket.disconnect(userId);
   }
@@ -143,16 +143,16 @@ export const socketGetEndCall = (cb) => {
 };
 
 export const socketOffCallAccepted = () => {
-  if(socket){
+  if (socket) {
     socket.off("get_callAccepted");
   }
-}
+};
 
 export const socketBlockUser = (data) => {
-  if(socket){
+  if (socket) {
     socket.emit("blockUser", { data });
   }
-}
+};
 
 export const socketGetBlockUser = (cb) => {
   if (socket) {
@@ -163,14 +163,28 @@ export const socketGetBlockUser = (cb) => {
 };
 
 export const socketUnblockUser = (data) => {
-  if(socket){
+  if (socket) {
     socket.emit("unblockUser", { data });
   }
-}
+};
 
 export const socketGetUnblockUser = (cb) => {
   if (socket) {
-    socket.on("get_unblockUser", ({ data }) => {
+    socket.on("get_addMember_group", ({ data }) => {
+      cb(null, { data });
+    });
+  }
+};
+
+export const socketAddMemberGroup = (data) => {
+  if (socket) {
+    socket.emit("addMember_group", { data });
+  }
+};
+
+export const socketGetAddMemberGroup = (cb) => {
+  if (socket) {
+    socket.on("get_addMember_group", ({ data }) => {
       cb(null, { data });
     });
   }
