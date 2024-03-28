@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useContext, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { removeUser } from "../../../../api/group";
+import { blockUser, removeUser, unBlockUser } from "../../../../api/group";
 import { categoryState } from "../../../../constants/constants";
 
 import Button from "../../../Button/Button";
@@ -13,13 +13,12 @@ import { uid } from "uid";
 
 import { editGroup } from "../../../../api/group";
 import { UserActions } from "../../../../store/userSlice";
-import { socketRemoveUserGroup, socketUpdatedGroup } from "../../../../socket";
+import { socketRemoveUserGroup, socketUnblockUser, socketUpdatedGroup, socketBlockUser } from "../../../../socket";
 
 import CustomInput from "../../../CustomInput/CustomInput";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
 
 import "./GroupSettings.css";
-
 
 const Share = ({ groupId }) => {
   return (
@@ -67,26 +66,40 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
   const authCtx = useContext(AuthContext);
   const dispatch = useDispatch();
 
-  const removeUserfromGroup = (removeUserId) => {
+  const handleRemoveUser = (removeUserId) => {
     const groupId = data._id;
     const token = authCtx.token;
 
     let removeData = {
       groupId,
-      token,
-      removeUserId,
+      token
     };
 
-    removeUser(removeData)
-      .then((res) => {
-        if (res.success) {
-          dispatch(UserActions.removeUserGroup(removeData));
-          socketRemoveUserGroup(removeData);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!isBlockList) {
+      removeData['removeUserId'] = removeUserId;
+      removeUser(removeData)
+        .then((res) => {
+          if (res.success) {
+            dispatch(UserActions.removeUserGroup(removeData));
+            socketRemoveUserGroup(removeData);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      removeData['blockUserId'] = removeUserId;
+      unBlockUser(removeData)
+        .then((res) => {
+          if (res.success) {
+            socketUnblockUser(removeData);
+            dispatch(UserActions.unblockUserGroup(removeData));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const isAdmin = () => {
@@ -100,10 +113,20 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
     let blockData = {
       groupId,
       token,
-      blockedUser,
+      blockUserId: blockedUser._id,
     };
 
-    dispatch(UserActions.blockUserGroup(blockData));
+    blockUser(blockData)
+      .then((res) => {
+        if (res.success) {
+          blockData["blockedUser"] = blockedUser;
+          socketBlockUser(blockData);
+          dispatch(UserActions.blockUserGroup(blockData));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -139,14 +162,16 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
                           width: "4rem",
                         }}
                       >
+                        {!isBlockList && (
+                          <Icon
+                            onClick={() => addUserToBlocklist(user)}
+                            className="color-text-light cursor-btn"
+                            fontSize={"1.25rem"}
+                            icon="streamline:inbox-block-solid"
+                          />
+                        )}
                         <Icon
-                          onClick={() => addUserToBlocklist(user)}
-                          className="color-text-light cursor-btn"
-                          fontSize={"1.25rem"}
-                          icon="streamline:inbox-block-solid"
-                        />
-                        <Icon
-                          onClick={() => removeUserfromGroup(user._id)}
+                          onClick={() => handleRemoveUser(user._id)}
                           icon="pajamas:remove"
                           className="color-text-light cursor-btn"
                           fontSize={"1.25rem"}
@@ -214,8 +239,14 @@ const GroupSettings = () => {
     const status = event.target[2].value;
     const token = authCtx.token;
 
-    const firebaseHighResUrl = await saveInFirebase(highResUrl, `groups/${data._id}/groupImg/highResImg-${data._id}`);
-    const firebaseLowResUrl = await saveInFirebase(lowResUrl, `groups/${data._id}/groupImg/lowResImg-${data._id}`);
+    const firebaseHighResUrl = await saveInFirebase(
+      highResUrl,
+      `groups/${data._id}/groupImg/highResImg-${data._id}`
+    );
+    const firebaseLowResUrl = await saveInFirebase(
+      lowResUrl,
+      `groups/${data._id}/groupImg/lowResImg-${data._id}`
+    );
 
     let saveData = {
       token,

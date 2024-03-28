@@ -113,6 +113,19 @@ const UserSlice = createSlice({
 
       state.groups = temp;
     },
+    unblockUserGroup(state, action) {
+      const blockUserId = action.payload.blockUserId;
+      const groupId = action.payload.groupId;
+
+      const temp = state.groups.concat().map((group) => {
+        if (group._id === groupId) {
+          group.blockList = group.blockList.concat().filter(user => user._id !== blockUserId);
+        }
+        return group;
+      });
+
+      state.groups = temp;
+    },
     editGroup(state, action) {
       const groupId = action.payload.groupId;
       const name = action.payload.name;

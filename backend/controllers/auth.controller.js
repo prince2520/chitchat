@@ -68,7 +68,9 @@ exports.login = async (req, res, next) => {
       })
       .populate({
         path: "groups",
-        populate: [{ path: "messages", populate: "user" }],
+        populate: [
+          { path: "blockList", populate: "user" },
+          { path: "messages", populate: "user" }]
       });
 
     if (!userFound) {

@@ -12,8 +12,6 @@ exports.createGroup = async (req, res, next) => {
   const name = req.body.name;
   const status = req.body.status;
 
-  console.log('create Group', req.body);
-
   const userId = mongoose.Types.ObjectId(req.userId);
 
   try {
@@ -155,6 +153,12 @@ exports.saveGroupMessage = async (req, res, next) => {
       throw error;
     }
 
+    if(groupFound.blockList.includes(userId)){
+      let error = new Error("You are blocked from these account.");
+      error.statusCode = StatusCodes.UNAUTHORIZED;
+      throw error;
+    }
+
     const newMessage = new Message({
       message,
       isOpenAIMsg,
@@ -213,7 +217,8 @@ exports.blockUser = async (req, res, next) => {
       throw error;
     }
 
-    if (groupFound.createdBy !== adminId) {
+
+    if ( groupFound.createdBy.toString() != adminId.toString()) {
       let error = new Error("You are not admin of this group!");
       error.statusCode = StatusCodes.UNAUTHORIZED;
       throw error;
@@ -226,6 +231,7 @@ exports.blockUser = async (req, res, next) => {
       success: true,
       message: "User blocked successfully!",
     });
+
   } catch (err) {
     next(err);
   }
@@ -248,7 +254,7 @@ exports.unBlockUser = async (req, res, next) => {
       throw error;
     }
 
-    if (groupFound.createdBy !== adminId) {
+    if (groupFound.createdBy.toString() !== adminId.toString()) {
       let error = new Error("You are not admin of this group!");
       error.statusCode = StatusCodes.UNAUTHORIZED;
       throw error;

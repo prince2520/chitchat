@@ -49,6 +49,16 @@ module.exports = (io) => {
       socket.to(data.groupId).emit("get_updated_group_detail", { data: data });
     });
 
+    // GROUP - block user from group 
+    socket.on("blockUser", function ({ data }) {
+      socket.to(data.groupId).emit("get_blockUser", { data: data });
+    });
+
+    // GROUP - unblock user from group
+    socket.on("unblockUser", function ({ data }) {
+      socket.to(data.groupId).emit("get_unblockUser", { data: data });
+    });
+
     // GROUP - leave Group
     socket.on("leave_group", function ({ groupId }) {
       socket.leave(groupId);

@@ -1,6 +1,5 @@
 const User = require("../models/user.model");
 const mongoose = require("mongoose");
-const log = require("npmlog");
 const { StatusCodes } = require("http-status-codes");
 
 // GET -> Fetch User
@@ -15,7 +14,9 @@ exports.fetchUser = async (req, res, next) => {
       })
       .populate({
         path: "groups",
-        populate: [{ path: "messages", populate: "user" }, "users"],
+        populate: [{ path: "messages", populate: "user" }, 
+        { path: "blockList", populate: "user" }
+        , "users"],
       })
       .lean();
 
@@ -72,7 +73,6 @@ exports.updateUser = async (req, res) => {
       success: true,
       message: "Profile Updated!",
     });
-    
   } catch (err) {
     next(err);
   }

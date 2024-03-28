@@ -18,6 +18,8 @@ import {
   socketEndCall,
   socketGetEndCall,
   socketOffCallAccepted,
+  socketGetUnblockUser,
+  socketGetBlockUser
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -50,7 +52,6 @@ export const SocketContextProvider = ({ children }) => {
     socketInitiate(authCtx?.userId);
     return () => {
       socketDisconnect(authCtx?.userId);
-      console.log("videoAudioCall", videoAudioCall);
       if (videoAudioCall.isCalling || videoAudioCall.isReceivingCall) {
         endCall(videoAudioCall.callData.userToCall);
       }
@@ -69,6 +70,12 @@ export const SocketContextProvider = ({ children }) => {
     });
     socketGetUpdatedGroup((err, { data }) => {
       dispatch(UserActions.editGroup(data));
+    });
+    socketGetUnblockUser((err, { data }) => {
+      dispatch(UserActions.unblockUserGroup(data));
+    });
+    socketGetBlockUser((err, { data }) => {
+      dispatch(UserActions.blockUserGroup(data));
     });
   }, [dispatch]);
 
@@ -139,7 +146,6 @@ export const SocketContextProvider = ({ children }) => {
     });
 
     peer.on("close", () => {
-      console.log("peer closed");
       socketOffCallAccepted();
     });
 

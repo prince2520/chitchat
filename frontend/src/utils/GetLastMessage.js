@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { isValidUrl } from "../utils/IsValidUrl";
+import { isValidUrl } from "./IsValidUrl";
 
 export const getLastMessage = (lastMsg) => {
   if (isValidUrl(lastMsg.message)) {

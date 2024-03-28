@@ -1,37 +1,36 @@
 import { Icon } from "@iconify/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useContext, useRef, useState } from "react";
+import { useDetectClickOutside } from "react-detect-click-outside";
 
-import OpenAI from "./OpenAI/OpenAI";
-import CustomEmoji from "./CustomEmoji/CustomEmoji";
-
+import { UserActions } from "../../../../store/userSlice";
+import { categoryState } from "../../../../constants/constants";
 import { messageHandler } from "../../../../utils/SendMessage";
 import { OverlayActions } from "../../../../store/overlaySlice";
 
+import OpenAI from "./OpenAI/OpenAI";
+import CustomEmoji from "./CustomEmoji/CustomEmoji";
 import AuthContext from "../../../../context/authContext";
-
-import { useSelector } from "react-redux";
-import { UserActions } from "../../../../store/userSlice";
-import { categoryState } from "../../../../constants/constants";
-import { useDetectClickOutside } from "react-detect-click-outside";
 
 import "./ChatBoxBottom.css";
 
-const ChatBoxBottom = () => {
+const ChatBoxBottom = () => {  
+  const [showEmojis, setShowEmojis] = useState(false);
+  const [isOpenAIMsg, setIsOpenAIMsg] = useState(false);
+
+
   const inputRef = useRef(null);
+  const authCtx = useContext(AuthContext);
+  const user = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
 
-  const authCtx = useContext(AuthContext);
-
-  const user = useSelector((state) => state.user);
   const data = (
     user?.selectedType === categoryState[0] ? user.groups : user.privates
   ).filter((res) => res._id === user.selectedId)[0];
 
-  const [showEmojis, setShowEmojis] = useState(false);
-  const [isOpenAIMsg, setIsOpenAIMsg] = useState(false);
-
   const saveMessage = (temp) => {
+    console.log('temp', temp);
     dispatch(UserActions.saveMessage(temp));
   };
 

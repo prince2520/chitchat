@@ -142,9 +142,36 @@ export const socketGetEndCall = (cb) => {
   }
 };
 
-
-export const socketOffCallAccepted = (cb) => {
+export const socketOffCallAccepted = () => {
   if(socket){
     socket.off("get_callAccepted");
   }
 }
+
+export const socketBlockUser = (data) => {
+  if(socket){
+    socket.emit("blockUser", { data });
+  }
+}
+
+export const socketGetBlockUser = (cb) => {
+  if (socket) {
+    socket.on("get_blockUser", ({ data }) => {
+      cb(null, { data });
+    });
+  }
+};
+
+export const socketUnblockUser = (data) => {
+  if(socket){
+    socket.emit("unblockUser", { data });
+  }
+}
+
+export const socketGetUnblockUser = (cb) => {
+  if (socket) {
+    socket.on("get_unblockUser", ({ data }) => {
+      cb(null, { data });
+    });
+  }
+};

@@ -114,3 +114,40 @@ export const editGroup = async (data) => {
 
   return result.json();
 };
+
+// PUT -> block user from group 
+export const blockUser = async (data) => {
+  
+  const result = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/group/block-user`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + data.token,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  return result.json();
+};
+
+
+// PUT -> unblock user from group 
+export const unBlockUser = async (data) => {
+  
+  const result = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/group/unblock-user`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + data.token,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  return result.json();
+};
