@@ -13,7 +13,7 @@ const initialUserState = {
 
   selectedId: null,
   selectedType: null,
-  isSelected: false,
+  isSelected: false
 };
 
 const UserSlice = createSlice({
@@ -58,7 +58,7 @@ const UserSlice = createSlice({
 
       state.groups = state.groups.filter((group) => {
         if (group._id === groupId) {
-          group.users = group.users.filter((user) => user._id === removeUserId);
+          group.users = group.users.filter((user) => user._id !== removeUserId);
         }
         return group;
       });
