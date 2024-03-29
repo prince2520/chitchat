@@ -273,9 +273,13 @@ const GroupSettings = () => {
           dispatch(UserActions.editGroup(saveData));
           delete saveData.token;
           socketUpdatedGroup(saveData);
+        }else{
+          toast.error(result.message);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err);
+      });
   };
 
   return (

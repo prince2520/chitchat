@@ -153,6 +153,12 @@ exports.saveGroupMessage = async (req, res, next) => {
       throw error;
     }
 
+    if (!groupFound.users.includes(userId)) {
+      let error = new Error("You have'nt joined this group!");
+      error.statusCode = StatusCodes.UNAUTHORIZED;
+      throw error;
+    }
+
     if(groupFound.blockList.includes(userId)){
       let error = new Error("You are blocked from these group.");
       error.statusCode = StatusCodes.UNAUTHORIZED;
@@ -226,7 +232,7 @@ exports.blockUser = async (req, res, next) => {
 
     if(groupFound.blockList.includes(blockUserId)){
       let error = new Error("You already block this user!");
-      error.statusCode = StatusCodes.UNAUTHORIZED;
+      error.statusCode = StatusCodes.CONFLICT;
       throw error;
     }
 
@@ -407,6 +413,7 @@ exports.editGroup = async (req, res, next) => {
   const status = req.body.status;
   const lowResUrl = req.body.lowResUrl;
   const highResUrl = req.body.highResUrl;
+  const adminUserId = mongoose.Types.ObjectId(req.userId);
 
   const groupId = mongoose.Types.ObjectId(req.body.groupId);
 
@@ -416,6 +423,12 @@ exports.editGroup = async (req, res, next) => {
     if (!groupFound) {
       let error = new Error("User not found!");
       error.statusCode = StatusCodes.NOT_FOUND;
+      throw error;
+    }
+
+    if (groupFound.createdBy != adminUserId) {
+      let error = new Error("You are not authorized to edit this group!");
+      error.statusCode = StatusCodes.UNAUTHORIZED;
       throw error;
     }
 
