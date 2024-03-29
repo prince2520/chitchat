@@ -1,25 +1,24 @@
+import { uid } from "uid";
 import { Icon } from "@iconify/react";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useContext, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { blockUser, removeUser, unBlockUser } from "../../../../api/group";
-import { categoryState } from "../../../../constants/constants";
-
-import Button from "../../../Button/Button";
-import AuthContext from "../../../../context/authContext";
-import ImageContainer from "../../../ImageContainer/ImageContainer";
-import { uid } from "uid";
-
 import { editGroup } from "../../../../api/group";
 import { UserActions } from "../../../../store/userSlice";
+import { categoryState } from "../../../../constants/constants";
+import { saveInFirebase } from "../../../../utils/SaveInFirebase";
+import { blockUser, removeUser, unBlockUser } from "../../../../api/group";
 import { socketRemoveUserGroup, socketUnblockUser, socketUpdatedGroup, socketBlockUser } from "../../../../socket";
 
+import Button from "../../../Button/Button";
 import CustomInput from "../../../CustomInput/CustomInput";
-import { saveInFirebase } from "../../../../utils/SaveInFirebase";
+import AuthContext from "../../../../context/authContext";
+import ImageContainer from "../../../ImageContainer/ImageContainer";
+
 
 import "./GroupSettings.css";
-import { toast } from "react-toastify";
 
 const Share = ({ groupId }) => {
   return (

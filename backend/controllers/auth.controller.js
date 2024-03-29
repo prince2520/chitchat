@@ -94,7 +94,7 @@ exports.login = async (req, res, next) => {
           userId: loadedUser._id.toString(),
         },
         process.env.JWT_SECRET_KEY,
-        { expiresIn: "1h" }
+        { expiresIn: "5h" }
       );
 
       return res.status(StatusCodes.OK).json({

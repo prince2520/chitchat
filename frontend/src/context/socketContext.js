@@ -20,7 +20,8 @@ import {
   socketOffCallAccepted,
   socketGetUnblockUser,
   socketGetBlockUser,
-  socketGetAddMemberGroup
+  socketGetAddMemberGroup,
+  socketGetLeaveMemberGroup
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -80,7 +81,10 @@ export const SocketContextProvider = ({ children }) => {
     });
     socketGetAddMemberGroup((err, { data }) => {
       dispatch(UserActions.addMemberGroup(data));
-    })
+    });
+    socketGetLeaveMemberGroup((err, { data }) => {
+      dispatch(UserActions.leaveMemberGroup(data));
+    });
   }, [dispatch]);
 
   useEffect(() => {

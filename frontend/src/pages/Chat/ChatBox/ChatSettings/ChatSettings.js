@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
-import { socketRemoveChat } from "../../../../socket";
+import { socketLeaveMemberGroup, socketRemoveChat } from "../../../../socket";
 import { deletePrivate } from "../../../../api/private";
 import { UserActions } from "../../../../store/userSlice";
 import { OverlayActions } from "../../../../store/overlaySlice";
@@ -73,9 +73,12 @@ const ChatSettings = () => {
   const handleDeleteChat = () => {
     const chatId = selectedId;
     const type = selectedType;
+    const userId = authCtx.userId;
+    const isUserAdmin = isAdmin();
+
 
     (selectedType === categoryState[0]
-      ? isAdmin()
+      ? isUserAdmin
         ? deleteGroup
         : leaveGroup
       : deletePrivate)({
@@ -84,15 +87,15 @@ const ChatSettings = () => {
     })
       .then(async (res) => {
         if (res.success) {
+
+          if(selectedType === categoryState[0] && !isUserAdmin ){
+            socketLeaveMemberGroup({
+              groupId: chatId,
+              userId: userId
+            });
+          }
           deleteAllUserChat(chatId, type);
           dispatchDeleteChat(chatId, type);
-          // if (isAdmin()) {
-          //   deleteInFirebase(
-          //     `${
-          //       selectedType === categoryState[0] ? "groups" : "privates"
-          //     }/${chatId}`
-          //   );
-          // }
           toast.success(res.message);
         } else {
           toast.error(res.message);

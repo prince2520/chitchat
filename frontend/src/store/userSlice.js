@@ -130,7 +130,6 @@ const UserSlice = createSlice({
       const groupId = action.payload.groupId;
       const user = action.payload.user;
 
-
       const temp = state.groups.concat().map((group) => {
         if (group._id === groupId) {
           group.users = [...group.users, user];
@@ -156,6 +155,17 @@ const UserSlice = createSlice({
             group.highResUrl = highResUrl;
             group.lowResUrl = lowResUrl;
           }
+        }
+        return group;
+      });
+    },
+    leaveMemberGroup(state, action) {
+      const groupId = action.payload.groupId;
+      const userId = action.payload.userId;
+
+      state.groups = state.groups.concat().map((group) => {
+        if (group._id === groupId) {
+          group.users = group.users.concat().filter(user => user._id !== userId);
         }
         return group;
       });

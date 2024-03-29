@@ -189,3 +189,18 @@ export const socketGetAddMemberGroup = (cb) => {
     });
   }
 };
+
+//
+export const socketLeaveMemberGroup = (data) => {
+  if (socket) {
+    socket.emit("leaveMember_group", { data });
+  }
+};
+
+export const socketGetLeaveMemberGroup = (cb) => {
+  if (socket) {
+    socket.on("get_leaveMember_group", ({ data }) => {
+      cb(null, { data });
+    });
+  }
+};
