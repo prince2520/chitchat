@@ -81,7 +81,7 @@ exports.login = async (req, res, next) => {
 
     loadedUser = userFound;
 
-    const isEqual = bcrypt.compare(password, userFound.password);
+    const isEqual = await bcrypt.compare(password, userFound.password);
 
     if (!isEqual) {
       let error = new Error("Password incorrect!");

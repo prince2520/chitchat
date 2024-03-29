@@ -62,9 +62,9 @@ const EditProfile = () => {
               lowResUrl: lowResUrlfirebaseUrl,
             })
           );
-          toast.success(result.msg);
+          toast.success(result.message);
         } else {
-          toast.error(result.msg);
+          toast.error(result.message);
         }
       })
       .catch((err) => toast.error(err));

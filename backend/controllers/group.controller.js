@@ -95,7 +95,7 @@ exports.joinGroup = async (req, res, next) => {
     }
 
     for (const userInGroup of groupFound.users) {
-      userInGroupFound = userInGroup.toString() === userId.toString();
+      userInGroupFound = userInGroup._id.toString() === userId.toString();
     }
 
     if (userInGroupFound) {
@@ -154,7 +154,7 @@ exports.saveGroupMessage = async (req, res, next) => {
     }
 
     if(groupFound.blockList.includes(userId)){
-      let error = new Error("You are blocked from these account.");
+      let error = new Error("You are blocked from these group.");
       error.statusCode = StatusCodes.UNAUTHORIZED;
       throw error;
     }

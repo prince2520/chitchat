@@ -1,19 +1,19 @@
 import { useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import JoinGroupLargeImg from "../../../assests/images/JoinGroup.png";
 import JoinGroupSmallImg from "../../../assests/images/JoinGroupSmall.png";
 
-
-import { UserActions } from "../../../store/userSlice";
 import { joinGroup } from "../../../api/group";
+import { UserActions } from "../../../store/userSlice";
+import { socketAddMemberGroup } from "../../../socket";
 
 import AuthContext from "../../../context/authContext";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
-import { socketAddMemberGroup } from "../../../socket";
 
 
 const JoinGroup = () => {
@@ -38,9 +38,14 @@ const JoinGroup = () => {
           socketAddMemberGroup(data);
           dispatch(UserActions.addGroup(res.groupData));
           navigate("/chat");
+          toast.success(res.message);
+        }else{
+          toast.error(res.message);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err);
+      });
   };
 
   return (

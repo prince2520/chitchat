@@ -1,4 +1,5 @@
-import { useContext} from "react";
+import { useContext } from "react";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -22,11 +23,16 @@ const CreateGroup = () => {
     createGroup(authCtx?.token, data)
       .then((data) => {
         if (data.success) {
+          toast.success(data.message);
           dispatch(UserActions.addGroup(data.data));
           navigate("/chat");
+        } else {
+          toast.error(data.message);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(data.message);
+      });
   };
 
   const submitHandler = async (event) => {
@@ -35,7 +41,7 @@ const CreateGroup = () => {
     const status = event.target[1].value;
     await createGroupHandler({
       name,
-      status
+      status,
     });
   };
 

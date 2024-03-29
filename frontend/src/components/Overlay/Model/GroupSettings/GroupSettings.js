@@ -19,6 +19,7 @@ import CustomInput from "../../../CustomInput/CustomInput";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
 
 import "./GroupSettings.css";
+import { toast } from "react-toastify";
 
 const Share = ({ groupId }) => {
   return (
@@ -82,10 +83,13 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
           if (res.success) {
             dispatch(UserActions.removeUserGroup(removeData));
             socketRemoveUserGroup(removeData);
+            toast.success(res.message);
+          }else{
+            toast.error(res.message);
           }
         })
         .catch((err) => {
-          console.log(err);
+          toast.error(err);
         });
     } else {
       removeData['blockUserId'] = removeUserId;
@@ -94,10 +98,13 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
           if (res.success) {
             socketUnblockUser(removeData);
             dispatch(UserActions.unblockUserGroup(removeData));
+            toast.success(res.message);
+          }else{
+            toast.error(res.message);
           }
         })
         .catch((err) => {
-          console.log(err);
+          toast.error(err);
         });
     }
   };
@@ -120,12 +127,15 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
       .then((res) => {
         if (res.success) {
           blockData["blockedUser"] = blockedUser;
+          toast.success(res.message);
           socketBlockUser(blockData);
           dispatch(UserActions.blockUserGroup(blockData));
+        }else{
+          toast.error(res.message);
         }
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err);
       });
   };
 
@@ -260,6 +270,7 @@ const GroupSettings = () => {
     editGroup(saveData)
       .then((result) => {
         if (result.success) {
+          toast.success(result.message);
           dispatch(UserActions.editGroup(saveData));
           delete saveData.token;
           socketUpdatedGroup(saveData);

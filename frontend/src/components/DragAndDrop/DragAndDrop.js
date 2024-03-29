@@ -1,9 +1,11 @@
+import { uid } from "uid";
 import { Icon } from "@iconify/react";
+import { toast } from "react-toastify";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { uid } from "uid";
 
 import Button from "../Button/Button";
+import AuthContext from "../../context/authContext";
 import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
 import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 
@@ -15,9 +17,6 @@ import { DragAndDropActions } from "../../store/dragAndDropSlice";
 
 import { getDropData } from "../../utils/GetDropData";
 import { UserActions } from "../../store/userSlice";
-
-import AuthContext from "../../context/authContext";
-
 
 import "./DragAndDrop.css";
 
@@ -64,6 +63,7 @@ const DragAndDrop = () => {
   };
 
   const saveMessage = (temp) => {
+    toast.success('Media uploaded successfully!')
     dispatch(UserActions.saveMessage(temp));
   };
 
