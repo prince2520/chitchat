@@ -170,7 +170,7 @@ export const socketUnblockUser = (data) => {
 
 export const socketGetUnblockUser = (cb) => {
   if (socket) {
-    socket.on("get_addMember_group", ({ data }) => {
+    socket.on("get_unblockUser", ({ data }) => {
       cb(null, { data });
     });
   }

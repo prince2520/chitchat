@@ -74,6 +74,7 @@ export const SocketContextProvider = ({ children }) => {
       dispatch(UserActions.editGroup(data));
     });
     socketGetUnblockUser((err, { data }) => {
+      console.log('socketGetUnblockUser', data)
       dispatch(UserActions.unblockUserGroup(data));
     });
     socketGetBlockUser((err, { data }) => {
