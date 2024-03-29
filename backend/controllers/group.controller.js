@@ -224,6 +224,12 @@ exports.blockUser = async (req, res, next) => {
       throw error;
     }
 
+    if(groupFound.blockList.includes(blockUserId)){
+      let error = new Error("You already block this user!");
+      error.statusCode = StatusCodes.UNAUTHORIZED;
+      throw error;
+    }
+
     groupFound.blockList.push(blockUserId);
     await groupFound.save();
 
