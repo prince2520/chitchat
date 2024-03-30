@@ -1,8 +1,8 @@
 import { uid } from "uid";
 import { Icon } from "@iconify/react";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
 import React, { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { editGroup } from "../../../../api/group";
@@ -10,13 +10,17 @@ import { UserActions } from "../../../../store/userSlice";
 import { categoryState } from "../../../../constants/constants";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
 import { blockUser, removeUser, unBlockUser } from "../../../../api/group";
-import { socketRemoveUserGroup, socketUnblockUser, socketUpdatedGroup, socketBlockUser } from "../../../../socket";
+import {
+  socketRemoveUserGroup,
+  socketUnblockUser,
+  socketUpdatedGroup,
+  socketBlockUser,
+} from "../../../../socket";
 
 import Button from "../../../Button/Button";
-import CustomInput from "../../../CustomInput/CustomInput";
 import AuthContext from "../../../../context/authContext";
+import CustomInput from "../../../CustomInput/CustomInput";
 import ImageContainer from "../../../ImageContainer/ImageContainer";
-
 
 import "./GroupSettings.css";
 
@@ -72,18 +76,18 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
 
     let removeData = {
       groupId,
-      token
+      token,
     };
 
     if (!isBlockList) {
-      removeData['removeUserId'] = removeUserId;
+      removeData["removeUserId"] = removeUserId;
       removeUser(removeData)
         .then((res) => {
           if (res.success) {
             dispatch(UserActions.removeUserGroup(removeData));
             socketRemoveUserGroup(removeData);
             toast.success(res.message);
-          }else{
+          } else {
             toast.error(res.message);
           }
         })
@@ -91,14 +95,14 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
           toast.error(err);
         });
     } else {
-      removeData['blockUserId'] = removeUserId;
+      removeData["blockUserId"] = removeUserId;
       unBlockUser(removeData)
         .then((res) => {
           if (res.success) {
             socketUnblockUser(removeData);
             dispatch(UserActions.unblockUserGroup(removeData));
             toast.success(res.message);
-          }else{
+          } else {
             toast.error(res.message);
           }
         })
@@ -129,7 +133,7 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
           toast.success(res.message);
           socketBlockUser(blockData);
           dispatch(UserActions.blockUserGroup(blockData));
-        }else{
+        } else {
           toast.error(res.message);
         }
       })
@@ -273,7 +277,7 @@ const GroupSettings = () => {
           dispatch(UserActions.editGroup(saveData));
           delete saveData.token;
           socketUpdatedGroup(saveData);
-        }else{
+        } else {
           toast.error(result.message);
         }
       })
@@ -302,16 +306,22 @@ const GroupSettings = () => {
         <h5>{data.name}</h5>
       </div>
       <div className="flex-center group-settings-links">
-        {settingsLinks.map((name) => (
-          <p
-            style={{ color: selectedLinks === name ? "var(--text)" : "" }}
-            key={uid(32)}
-            className="cursor-btn"
-            onClick={() => setSelectedLinks(name)}
-          >
-            {name}
-          </p>
-        ))}
+        {settingsLinks.map((name) => {
+          if (settingsLinks[2] === name && authCtx.userId !== data.createdBy) {
+            return;
+          }
+
+          return (
+            <p
+              style={{ color: selectedLinks === name ? "var(--text)" : "" }}
+              key={uid(32)}
+              className="cursor-btn"
+              onClick={() => setSelectedLinks(name)}
+            >
+              {name}
+            </p>
+          );
+        })}
       </div>
       <div className="flex-center border group-settings-content">
         {displaySettingOption()}

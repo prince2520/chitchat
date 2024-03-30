@@ -107,8 +107,11 @@ const ChatSettings = () => {
   return (
     <div className="flex-center box-shadow border chat-settings">
       {selectedType === categoryState[0] &&
-        chatTopSettingOptions.map((option) => (
-          <div
+        chatTopSettingOptions.map((option) => {
+          if(chatTopSettingOptions[2].title === option.title && ! (authCtx.userId === data.createdBy)){
+            return null;
+          }
+          return (<div
             key={uid(32)}
             className={"cursor-btn flex-center chat-settings__option"}
             onClick={() =>
@@ -122,8 +125,8 @@ const ChatSettings = () => {
           >
             <Icon className="color-text-light" icon={option.icon} />
             <h5 className="color-text-light">{option.title}</h5>
-          </div>
-        ))}
+          </div>)
+        })}
       <div
         className="cursor-btn flex-center chat-settings__option"
         onClick={() => handleDeleteChat()}

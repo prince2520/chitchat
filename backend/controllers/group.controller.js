@@ -426,7 +426,7 @@ exports.editGroup = async (req, res, next) => {
       throw error;
     }
 
-    if (groupFound.createdBy != adminUserId) {
+    if (groupFound.createdBy.toString() != adminUserId.toString()) {
       let error = new Error("You are not authorized to edit this group!");
       error.statusCode = StatusCodes.UNAUTHORIZED;
       throw error;
