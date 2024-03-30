@@ -20,6 +20,7 @@ import {
 import Button from "../../../Button/Button";
 import AuthContext from "../../../../context/authContext";
 import CustomInput from "../../../CustomInput/CustomInput";
+import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 import ImageContainer from "../../../ImageContainer/ImageContainer";
 
 import "./GroupSettings.css";
@@ -223,6 +224,8 @@ const GroupSettings = () => {
       : user.privates
   ).filter((res) => res._id === user.selectedId)[0];
 
+  const {handleDeleteChat} = useLeaveDeleteGroup();
+
   const displaySettingOption = () => {
     let displayData;
 
@@ -248,10 +251,13 @@ const GroupSettings = () => {
 
   const saveEditData = async (event) => {
     event.preventDefault();
-    const name = event.target[1].value;
-    const status = event.target[2].value;
+
+    const name = event?.target[1]?.value;
+    const status = event?.target[2]?.value;
     const token = authCtx.token;
 
+    if(!name || !status) return;
+    
     const firebaseHighResUrl = await saveInFirebase(
       highResUrl,
       `groups/${data._id}/groupImg/highResImg-${data._id}`
@@ -327,8 +333,8 @@ const GroupSettings = () => {
         {displaySettingOption()}
       </div>
       {!(selectedLinks === settingsLinks[2]) ? (
-        <Button backgroundColor={"var(--error)"} width={"50%"}>
-          <p className="color-text">Delete</p>
+        <Button type="click" onClick={()=>handleDeleteChat()} backgroundColor={"var(--error)"} width={"50%"}>
+          <p className="color-text">{authCtx.userId === data.createdBy ? "Delete": "Leave"}</p>
         </Button>
       ) : (
         <Button backgroundColor={"var(--success)"} width={"50%"}>
