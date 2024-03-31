@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,9 +19,13 @@ const CreateGroup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(null);
+
   const createGroupHandler = async (data) => {
+    setLoading(true);
     createGroup(authCtx?.token, data)
       .then((data) => {
+        setLoading(false);
         if (data.success) {
           toast.success(data.message);
           dispatch(UserActions.addGroup(data.data));
@@ -31,6 +35,7 @@ const CreateGroup = () => {
         }
       })
       .catch((err) => {
+        setLoading(false);
         toast.error(data.message);
       });
   };
@@ -71,8 +76,8 @@ const CreateGroup = () => {
         width="90%"
         maxWidth="20rem"
       />
-      <Button backgroundColor={"var(--primary)"} width="50%">
-        <p className="color-text">Create</p>
+      <Button loading={loading} backgroundColor={"var(--primary)"} width="50%">
+        <h5 className="color-text">Create</h5>
       </Button>
     </form>
   );

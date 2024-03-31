@@ -20,6 +20,8 @@ const EditProfile = () => {
   const [lowResUrl, setLowResUrl] = useState(null);
   const [highResUrl, setHighResUrl] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+
   const saveProfileBackend = (
     name,
     status,
@@ -43,8 +45,16 @@ const EditProfile = () => {
       return;
     }
 
-    const highResUrlfirebaseUrl = await saveInFirebase(highResUrl, `users/${authCtx.userId}/profileImg/highResImg-${authCtx.userId}`);
-    const lowResUrlfirebaseUrl = await saveInFirebase(lowResUrl,  `users/${authCtx.userId}/profileImg/lowResImg-${authCtx.userId}` );
+    const highResUrlfirebaseUrl = await saveInFirebase(
+      highResUrl,
+      `users/${authCtx.userId}/profileImg/highResImg-${authCtx.userId}`
+    );
+    const lowResUrlfirebaseUrl = await saveInFirebase(
+      lowResUrl,
+      `users/${authCtx.userId}/profileImg/lowResImg-${authCtx.userId}`
+    );
+
+    setLoading(true);
 
     saveProfileBackend(
       name,
@@ -53,6 +63,7 @@ const EditProfile = () => {
       lowResUrlfirebaseUrl
     )
       .then((result) => {
+        setLoading(false);
         if (result.success) {
           dispatch(
             UserActions.saveUserData({
@@ -67,7 +78,10 @@ const EditProfile = () => {
           toast.error(result.message);
         }
       })
-      .catch((err) => toast.error(err));
+      .catch((err) => {
+        setLoading(false);
+        toast.error(err);
+      });
   };
 
   const submitHandler = (event) => {
@@ -118,8 +132,8 @@ const EditProfile = () => {
         maxWidth="20rem"
       />
 
-      <Button width={"50%"} backgroundColor={"var(--primary)"}>
-        <p className="color-text">Save</p>
+      <Button loading={loading} width={"50%"} backgroundColor={"var(--primary)"}>
+        <h5 className="color-text">Save</h5>
       </Button>
     </form>
   );

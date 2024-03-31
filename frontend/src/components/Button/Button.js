@@ -32,7 +32,7 @@ const Button = ({
   backgroundColor,
   children,
   loading = (false),
-  maxWidth = "100%",
+  maxWidth = "100%"
 }) => {
   return (
     <CustomButton

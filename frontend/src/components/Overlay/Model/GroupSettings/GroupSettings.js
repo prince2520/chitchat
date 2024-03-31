@@ -214,6 +214,8 @@ const GroupSettings = () => {
 
   const [highResUrl, setHighResUrl] = useState(null);
   const [lowResUrl, setLowResUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
 
   const authCtx = useContext(AuthContext);
@@ -224,7 +226,7 @@ const GroupSettings = () => {
       : user.privates
   ).filter((res) => res._id === user.selectedId)[0];
 
-  const {handleDeleteChat} = useLeaveDeleteGroup();
+  const { handleDeleteChat, leaveDeleteloading } = useLeaveDeleteGroup();
 
   const displaySettingOption = () => {
     let displayData;
@@ -256,8 +258,8 @@ const GroupSettings = () => {
     const status = event?.target[2]?.value;
     const token = authCtx.token;
 
-    if(!name || !status) return;
-    
+    if (!name || !status) return;
+
     const firebaseHighResUrl = await saveInFirebase(
       highResUrl,
       `groups/${data._id}/groupImg/highResImg-${data._id}`
@@ -276,8 +278,11 @@ const GroupSettings = () => {
       lowResUrl: firebaseLowResUrl,
     };
 
+    setLoading(true);
+
     editGroup(saveData)
       .then((result) => {
+        setLoading(false);
         if (result.success) {
           toast.success(result.message);
           dispatch(UserActions.editGroup(saveData));
@@ -288,6 +293,7 @@ const GroupSettings = () => {
         }
       })
       .catch((err) => {
+        setLoading(false);
         toast.error(err);
       });
   };
@@ -333,12 +339,24 @@ const GroupSettings = () => {
         {displaySettingOption()}
       </div>
       {!(selectedLinks === settingsLinks[2]) ? (
-        <Button type="click" onClick={()=>handleDeleteChat()} backgroundColor={"var(--error)"} width={"50%"}>
-          <p className="color-text">{authCtx.userId === data.createdBy ? "Delete": "Leave"}</p>
+        <Button
+          loading={leaveDeleteloading}
+          type="click"
+          onClick={() => handleDeleteChat()}
+          backgroundColor={"var(--error)"}
+          width={"50%"}
+        >
+          <h5 className="color-text">
+            {authCtx.userId === data.createdBy ? "Delete" : "Leave"}
+          </h5>
         </Button>
       ) : (
-        <Button backgroundColor={"var(--success)"} width={"50%"}>
-          <p className="color-text">Save</p>
+        <Button
+          loading={loading}
+          backgroundColor={"var(--success)"}
+          width={"50%"}
+        >
+          <h5 className="color-text">Save</h5>
         </Button>
       )}
     </form>

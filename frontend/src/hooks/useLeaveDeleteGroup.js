@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserActions } from "../store/userSlice";
 import { toast } from "react-toastify";
@@ -14,7 +14,8 @@ import { OverlayActions } from "../store/overlaySlice";
 
 const useLeaveDeleteGroup = () => {
   const dispatch = useDispatch();
-  
+
+  const [leaveDeleteloading, setLeaveDeleteloading] = useState(false);
 
   const user = useSelector((state) => state.user);
   const selectedType = user.selectedType;
@@ -73,6 +74,8 @@ const useLeaveDeleteGroup = () => {
     const userId = authCtx.userId;
     const isUserAdmin = isAdmin();
 
+    setLeaveDeleteloading(true);
+
     (selectedType === categoryState[0]
       ? isUserAdmin
         ? deleteGroup
@@ -82,8 +85,9 @@ const useLeaveDeleteGroup = () => {
       chatId: chatId,
     })
       .then(async (res) => {
+        setLeaveDeleteloading(false);
         if (res.success) {
-          dispatch(OverlayActions.closeOverlayHandler())  
+          dispatch(OverlayActions.closeOverlayHandler());
           if (selectedType === categoryState[0] && !isUserAdmin) {
             socketLeaveMemberGroup({
               groupId: chatId,
@@ -94,13 +98,17 @@ const useLeaveDeleteGroup = () => {
           dispatchDeleteChat(chatId, type);
           toast.success(res.message);
         } else {
+          setLeaveDeleteloading(false);
           toast.error(res.message);
         }
       })
-      .catch((err) => toast.error(err.message));
+      .catch((err) => {
+        setLeaveDeleteloading(false);
+        toast.error(err.message);
+      });
   };
 
-  return { handleDeleteChat };
+  return { handleDeleteChat, leaveDeleteloading };
 };
 
 export default useLeaveDeleteGroup;

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,14 +22,18 @@ const JoinGroup = () => {
 
   const authCtx = useContext(AuthContext);
   const user = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
 
   const submitHandler = (event) => {
     event.preventDefault();
 
     let groupId = event.target[0].value;
 
+    setLoading(true);
+
     joinGroup(authCtx?.token, groupId, authCtx?.userId)
       .then((res) => {
+        setLoading(false);
         if (res.success) {
           const data = {
             groupId : res.groupData._id,
@@ -44,6 +48,7 @@ const JoinGroup = () => {
         }
       })
       .catch((err) => {
+        setLoading(false);
         toast.error(err);
       });
   };
@@ -59,8 +64,8 @@ const JoinGroup = () => {
         width="90%" maxWidth="20rem"
         label={"Group Id"}
         icon={"material-symbols:edit"} />
-      <Button backgroundColor={"var(--primary)"} width={"50%"}>
-        <p className="color-text">Join</p>
+      <Button loading={loading} backgroundColor={"var(--primary)"} width={"50%"}>
+        <h5 className="color-text">Join</h5>
       </Button>
     </form>
   );
