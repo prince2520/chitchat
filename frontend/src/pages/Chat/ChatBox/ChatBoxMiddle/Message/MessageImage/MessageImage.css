@@ -1,5 +1,6 @@
-.send-img img{
-    min-height: 15rem;
-    object-fit: cover;
-    border: 1px solid var(--border);
+.send-img img {
+  max-width: 15rem;
+  max-height: 22rem;
+  object-fit: cover;
+  border: 1px solid var(--border);
 }
