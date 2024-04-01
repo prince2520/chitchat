@@ -129,7 +129,7 @@ export const AuthContextProvider = (props) => {
             localStorage.setItem("userId", result.user._id);
             localStorage.setItem("email", result.user?.email);
 
-            const remainingMilliseconds = 60 * 60 * 1000;
+            const remainingMilliseconds = 5 * 60 * 60 * 1000;
             const expiryDate = new Date(
               new Date().getTime() + remainingMilliseconds
             );

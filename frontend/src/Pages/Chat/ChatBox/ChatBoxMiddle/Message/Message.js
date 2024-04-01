@@ -29,7 +29,7 @@ const Message = ({ myMsg, messageDetail }) => {
         message = <MessageString message={messageDetail.message} time={time} />;
         break;
       case "audio":
-        message = <MessageAudio url={messageDetail.url} />;
+        message = <MessageAudio url={messageDetail.url} time={time} />;
         break;
       case "image":
         message = (

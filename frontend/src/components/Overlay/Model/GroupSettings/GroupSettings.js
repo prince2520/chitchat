@@ -20,8 +20,8 @@ import {
 import Button from "../../../Button/Button";
 import AuthContext from "../../../../context/authContext";
 import CustomInput from "../../../CustomInput/CustomInput";
-import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 import ImageContainer from "../../../ImageContainer/ImageContainer";
+import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 
 import "./GroupSettings.css";
 

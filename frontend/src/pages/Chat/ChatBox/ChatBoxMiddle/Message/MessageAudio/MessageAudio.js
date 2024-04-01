@@ -1,10 +1,11 @@
 import React from "react";
 
 import './MessageAudio.css';
-const MessageAudio = ({url}) => {
+const MessageAudio = ({url, time}) => {
     return (
-        <div className={'message-audio'}>
+        <div className={'flex-center message-audio border'}>
             <audio src={url} controls/>
+            <h6 className="color-text-light">{time}</h6>
         </div>
     );
 };
