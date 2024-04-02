@@ -2,8 +2,8 @@ import React from "react";
 
 import { useSelector } from "react-redux";
 
-import VideoChat from "../../VideoChat/VideoChat";
-import DragAndDrop from "../../DragAndDrop/DragAndDrop";
+import VideoChat from "./VideoChat/VideoChat";
+import DragAndDrop from "./DragAndDrop/DragAndDrop";
 import GroupSettings from "./GroupSettings/GroupSettings";
 import ChatTab from "../../../pages/Chat/ChatTab/ChatTab";
 

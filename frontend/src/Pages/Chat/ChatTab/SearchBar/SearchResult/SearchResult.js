@@ -3,11 +3,10 @@ import { Icon } from "@iconify/react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
-import { useDetectClickOutside } from "react-detect-click-outside";
-
 import { socketAddPrivate } from "../../../../../socket";
 import { createPrivate } from "../../../../../api/private";
 import { UserActions } from "../../../../../store/userSlice";
+import { useDetectClickOutside } from "react-detect-click-outside";
 
 import AuthContext from "../../../../../context/authContext";
 import ImageContainer from "../../../../../components/ImageContainer/ImageContainer";

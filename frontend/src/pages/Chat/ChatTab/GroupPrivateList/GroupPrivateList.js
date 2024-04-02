@@ -64,12 +64,12 @@ const GroupPrivateList = () => {
           (isPrivate ? privates : groups).map((data) => (
             <div
               key={data._id}
-              className={`group-private-item ${
+              className={`group-private-list__item ${
                 data._id === user.selectedId && "group-selected"
               }  border`}
               onClick={() => selectedItem(data)}
             >
-              <div className="group-private-item-left">
+              <div className="group-private-list__item-left">
                 <ImageContainer
                   highResUrl={
                     isPrivate
@@ -87,7 +87,7 @@ const GroupPrivateList = () => {
                   }
                 />
               </div>
-              <div className="group-private-item-right">
+              <div className="group-private-list__item-right">
                 <h5>
                   {isPrivate
                     ? data.users.filter(

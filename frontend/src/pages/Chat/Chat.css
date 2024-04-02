@@ -9,7 +9,7 @@
   justify-content: normal;
 }
 
-.chat-page .chat-tab-container {
+.chat-page .chat-tab__container {
   position: relative;
   min-width: 20rem;
   width: 30%;
@@ -74,7 +74,7 @@
     max-width: 100%;
   }
 
-  .chat-page .chat-tab-container {
+  .chat-page .chat-tab__container {
     display: none;
   }
 }
@@ -87,7 +87,7 @@
     max-width: 100%;
   }
 
-  .chat-page .chat-tab-container {
+  .chat-page .chat-tab__container {
     display: none;
   }
 }
@@ -100,7 +100,7 @@
     max-width: 100%;
   }
 
-  .chat-page .chat-tab-container {
+  .chat-page .chat-tab__container {
     display: none;
   }
 }

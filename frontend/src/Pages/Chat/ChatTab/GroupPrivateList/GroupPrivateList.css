@@ -10,7 +10,7 @@
 }
 
 
-.group-private-item{
+.group-private-list__item{
     display: flex;
     column-gap: 1rem;
     padding: 0.35rem 0.75rem;
@@ -18,20 +18,20 @@
     cursor: pointer;
 }
 
-.group-private-item-right .group-name{
+.group-private-list__item-right .group-name{
     font-size: 1rem;
     font-weight: 600;
     color: var(--text);
 }
 
-.group-private-item .group-private-item-right{
+.group-private-list__item .group-private-list__item-right{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
 }
 
-.group-private-item-right .group-created{
+.group-private-list__item-right .group-created{
     font-size: 0.8rem;
     align-self: flex-end;
     font-weight: 500;

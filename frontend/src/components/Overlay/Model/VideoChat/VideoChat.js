@@ -3,16 +3,14 @@ import { useContext, useEffect } from "react";
 
 import Lottie from "lottie-react";
 
-import SocketContext from "../../context/socketContext";
-import Ringtone from "../../assests/audio/ringtone.mp3";
-import ImageConatainer from "../ImageContainer/ImageContainer";
-import OutgoingTone from "../../assests/audio/outgoing_tone.mp3";
+import { callingType } from "../../../../constants/constants";
+
+import SocketContext from "../../../../context/socketContext";
+import Ringtone from "../../../../assests/audio/ringtone.mp3";
+import AudioWave from "../../../../assests/animations/AudioWave.json"
+import ImageConatainer from "../../../ImageContainer/ImageContainer";
+import OutgoingTone from "../../../../assests/audio/outgoing_tone.mp3";
 import VideoChatSettings from "./VideoChatSettings/VideoChatSettings";
-
-import { socketDisconnect } from "../../socket";
-import { callingType } from "../../constants/constants";
-
-import AudioWave from "../../assests/animations/AudioWave.json"
 
 import "./VideoChat.css";
 

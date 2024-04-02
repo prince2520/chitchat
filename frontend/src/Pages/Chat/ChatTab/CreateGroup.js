@@ -3,6 +3,9 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { createGroup } from "../../../api/group";
+import { UserActions } from "../../../store/userSlice";
+
 import AuthContext from "../../../context/authContext";
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
@@ -10,16 +13,13 @@ import CreateGroupLarge from "../../../assests/images/CreateGroupLarge.png";
 import CreateGroupSmall from "../../../assests/images/CreateGroupSmall.png";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
 
-import { createGroup } from "../../../api/group";
-import { UserActions } from "../../../store/userSlice";
-
 const CreateGroup = () => {
-  const authCtx = useContext(AuthContext);
+  const [loading, setLoading] = useState(null);
 
+  const authCtx = useContext(AuthContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(null);
 
   const createGroupHandler = async (data) => {
     setLoading(true);

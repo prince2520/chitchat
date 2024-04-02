@@ -1,16 +1,15 @@
-import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
 
+import AuthContext from "../../../context/authContext";
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 
-import AuthContext from "../../../context/authContext";
-
 const SignUp = () => {
+  const [loading, setLoading] = useState(false);
+  
   const authCtx = useContext(AuthContext);
   
-  const [loading, setLoading] = useState(false);
-
   const submitHandler = (event) => {
     event.preventDefault();
 

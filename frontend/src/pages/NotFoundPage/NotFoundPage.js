@@ -19,7 +19,6 @@ const NotFoundPage = () => {
     if (timeOut) {
       clearTimeout(timeOut);
     }
-    
     timeOut =
       (() => {
         setShow(true);

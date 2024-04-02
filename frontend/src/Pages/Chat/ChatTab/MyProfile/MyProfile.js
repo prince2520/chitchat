@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
-import { useDetectClickOutside } from "react-detect-click-outside";
 
 import Dropdown from "../../../../components/Dropdown/Dropdown";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
@@ -19,7 +18,7 @@ const MyProfile = () => {
   };
 
   return (
-    <div className={"flex-center border my-profile-container "}>
+    <div className={"flex-center border my-profile__container "}>
       <ImageContainer highResUrl={highResUrl} lowResUrl={lowResUrl} />
       <span
         onClick={() =>

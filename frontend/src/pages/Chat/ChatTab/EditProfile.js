@@ -1,26 +1,24 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-
-import Button from "../../../components/Button/Button";
-import CustomInput from "../../../components/CustomInput/CustomInput";
-import ImageContainer from "../../../components/ImageContainer/ImageContainer";
+import { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { updateUser } from "../../../api/user";
 import { UserActions } from "../../../store/userSlice";
 import { saveInFirebase } from "../../../utils/SaveInFirebase";
 
 import AuthContext from "../../../context/authContext";
+import Button from "../../../components/Button/Button";
+import CustomInput from "../../../components/CustomInput/CustomInput";
+import ImageContainer from "../../../components/ImageContainer/ImageContainer";
 
 const EditProfile = () => {
-  const dispatch = useDispatch();
-  const authCtx = useContext(AuthContext);
-  const user = useSelector((state) => state.user);
-
+  const [loading, setLoading] = useState(false);
   const [lowResUrl, setLowResUrl] = useState(null);
   const [highResUrl, setHighResUrl] = useState(null);
 
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const authCtx = useContext(AuthContext);
+  const user = useSelector((state) => state.user);
 
   const saveProfileBackend = (
     name,

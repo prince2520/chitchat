@@ -4,19 +4,19 @@ import { toast } from "react-toastify";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Button from "../Button/Button";
-import AuthContext from "../../context/authContext";
+import Button from "../../../Button/Button";
+import AuthContext from "../../../../context/authContext";
 import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
 import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 
-import { categoryState } from "../../constants/constants";
-import { OverlayActions } from "../../store/overlaySlice";
-import { messageHandler } from "../../utils/SendMessage";
-import { saveInFirebase } from "../../utils/SaveInFirebase";
-import { DragAndDropActions } from "../../store/dragAndDropSlice";
+import { categoryState } from "../../../../constants/constants";
+import { OverlayActions } from "../../../../store/overlaySlice";
+import { messageHandler } from "../../../../utils/SendMessage";
+import { saveInFirebase } from "../../../../utils/SaveInFirebase";
+import { DragAndDropActions } from "../../../../store/dragAndDropSlice";
 
-import { getDropData } from "../../utils/GetDropData";
-import { UserActions } from "../../store/userSlice";
+import { getDropData } from "../../../../utils/GetDropData";
+import { UserActions } from "../../../../store/userSlice";
 
 import "./DragAndDrop.css";
 

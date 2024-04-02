@@ -2,13 +2,12 @@ import { useContext } from "react";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
 
-import Button from "../../Button/Button";
-import SocketContext from "../../../context/socketContext";
+import Button from "../../../../Button/Button";
+import SocketContext from "../../../../../context/socketContext";
 
 import "./VideoChatSettings.css";
 
 const VideoChatSettings = ({ isReceivingCall = false }) => {
-
   const socketCtx = useContext(SocketContext);
   const videoAudioCall = useSelector((state) => state.videoAudioCall);
 
