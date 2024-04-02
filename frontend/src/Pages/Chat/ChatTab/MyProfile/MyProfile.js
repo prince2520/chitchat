@@ -18,18 +18,21 @@ const MyProfile = () => {
     setShowDropdown(false);
   };
 
-
   return (
     <div className={"flex-center border my-profile-container "}>
       <ImageContainer highResUrl={highResUrl} lowResUrl={lowResUrl} />
       <span
-        onClick={() => {
-          setTimeout(()=>{
-            setShowDropdown((prevState) => !prevState)},[200])}}
+        onClick={() =>
+          setTimeout(() => {
+            setShowDropdown((prevState) => !prevState);
+          }, 50)
+        }
       >
         <Icon icon="gridicons:dropdown" style={{ fontSize: "3rem" }} />
       </span>
-      {showDropdown && <Dropdown closeDropdown={closeDropdown} />}
+      {showDropdown && (
+        <Dropdown showDropdown={showDropdown} closeDropdown={closeDropdown} />
+      )}
     </div>
   );
 };

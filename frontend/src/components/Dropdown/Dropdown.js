@@ -9,11 +9,13 @@ import AuthContext from "../../context/authContext";
 
 import "./Dropdown.css";
 
-const Dropdown = ({closeDropdown}) => {
+const Dropdown = ({closeDropdown, showDropdown}) => {
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
 
-  const ref = useDetectClickOutside({ onTriggered: closeDropdown });
+  const ref = useDetectClickOutside({ 
+    onTriggered: closeDropdown,
+  });
   
   return (
     <div ref={ref} className={"menu-container box-shadow"}>

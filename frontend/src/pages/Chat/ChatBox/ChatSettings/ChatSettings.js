@@ -2,17 +2,18 @@ import { uid } from "uid";
 import { useContext } from "react";
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDetectClickOutside } from "react-detect-click-outside";
 
 import { OverlayActions } from "../../../../store/overlaySlice";
 import { categoryState } from "../../../../constants/constants";
 import { chatTopSettingOptions } from "../../../../constants/constants";
 
 import AuthContext from "../../../../context/authContext";
-import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup"
+import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 
 import "./ChatSettings.css";
 
-const ChatSettings = () => {
+const ChatSettings = ({ closeSettingHandler }) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
@@ -20,11 +21,13 @@ const ChatSettings = () => {
 
   const authCtx = useContext(AuthContext);
 
-  const {handleDeleteChat} = useLeaveDeleteGroup();
+  const { handleDeleteChat } = useLeaveDeleteGroup();
 
   const data = (
     selectedType === categoryState[0] ? user.groups : user.privates
   ).filter((res) => res._id === user.selectedId)[0];
+
+  const ref = useDetectClickOutside({ onTriggered: closeSettingHandler });
 
   // check if user is admin of chat
   const isAdmin = () => {
@@ -32,29 +35,36 @@ const ChatSettings = () => {
     return authCtx.userId === data.createdBy;
   };
 
-
   return (
-    <div className="flex-center box-shadow border chat-settings">
+    <div ref={ref} className="flex-center box-shadow border chat-settings">
       {selectedType === categoryState[0] &&
         chatTopSettingOptions.map((option) => {
-          if(chatTopSettingOptions[2].title === option.title && ! (authCtx.userId === data.createdBy)){
+          if (
+            chatTopSettingOptions[2].title === option.title &&
+            !(authCtx.userId === data.createdBy)
+          ) {
             return null;
           }
-          return (<div
-            key={uid(32)}
-            className={"cursor-btn flex-center chat-settings__option"}
-            onClick={() =>
-              dispatch(
-                OverlayActions.openSettingsHandler({
-                  value: true,
-                  link: option.title,
-                })
-              )
-            }
-          >
-            <Icon className="color-text-light" icon={option.icon} />
-            <h5 className="color-text-light">{option.title}</h5>
-          </div>)
+          return (
+            <div
+              key={uid(32)}
+              className={"cursor-btn flex-center chat-settings__option"}
+              onClick={() => {
+                setTimeout(() => {
+                  closeSettingHandler();
+                  dispatch(
+                    OverlayActions.openSettingsHandler({
+                      value: true,
+                      link: option.title,
+                    })
+                  );
+                }, [50]);
+              }}
+            >
+              <Icon className="color-text-light" icon={option.icon} />
+              <h5 className="color-text-light">{option.title}</h5>
+            </div>
+          );
         })}
       <div
         className="cursor-btn flex-center chat-settings__option"

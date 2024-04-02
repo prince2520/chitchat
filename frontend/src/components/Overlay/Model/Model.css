@@ -1,13 +1,18 @@
 .model{
-  width: 100%;
+  width: 90%;
   z-index: 400;
   max-width: 30rem;
 }
 
 .model-chat-tab {
-  width: 100%;
-  height: 100vh;
+  width: 70%;
+  max-width: 25rem;
+  height: 100%;
   background: var(--container);
+
+  position: absolute;
+  top: 0; 
+
 }
 
 /* Extra small devices (phones, 600px and down) */

@@ -1,7 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
 import { useState, useContext } from "react";
-import { useDetectClickOutside } from "react-detect-click-outside";
 
 import { categoryState } from "../../../../constants/constants";
 
@@ -27,7 +26,6 @@ const ChatBoxTop = () => {
     setShowSetting(false);
   };
 
-  const ref = useDetectClickOutside({ onTriggered: closeSettingHandler });
 
   return (
     <div className="border chat-box__top">
@@ -60,13 +58,12 @@ const ChatBoxTop = () => {
       </div>
       {user?.selectedType === categoryState[1] && <MediaCommunication />}
       <Icon
-        onClick={() => setShowSetting((prevState) => !prevState)}
-        ref={ref}
+        onClick={() => setTimeout(()=>setShowSetting((prevState) => !prevState),[50])}
         icon="gg:more-vertical-o"
         className="cursor-btn"
         style={{ fontSize: "2.25rem" }}
       />
-      {showSetting && <ChatSettings data={data} />}
+      {showSetting && <ChatSettings closeSettingHandler={closeSettingHandler} data={data} />}
     </div>
   );
 };
