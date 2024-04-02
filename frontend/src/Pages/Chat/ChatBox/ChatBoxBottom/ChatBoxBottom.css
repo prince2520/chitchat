@@ -44,8 +44,17 @@
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  border: 1px solid var(--white);
-  background-color: var(--primary);
+  background-color: var(--text-extra-light);
+}
+
+.chat-box__bottom__right:hover, 
+.chat-box__bottom__right:active {
+  background-color:white;
+}
+
+.chat-box__bottom__right:hover svg, 
+.chat-box__bottom__right:active svg {
+  color: var(--text-extra-light);
 }
 
 .send-msg__button {
