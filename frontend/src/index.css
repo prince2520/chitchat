@@ -7,22 +7,22 @@
 
 :root {
   --background: #151617;
-  --model-container: rgb(21, 22, 23, 0.9);
-  --container: rgba(40, 40, 42);
+  --model-container: #151617e6;
+  --container: #28282a;
 
   --white: #ffff;
   --input: #ffff;
   --primary: #ea5455;
 
-  --text: #ffffff;
+  --text: white;
   --text-light: #aba5a5;
   --text-secondary: #dadada;
   --text-extra-light: #636262;
   --text-primary: var(--primary);
 
-  --border: var(--text-extra-light);
+  --border: #3d3d3d;
   --error: var(--primary);
-  --success: rgb(25, 129, 87, 0.5);
+  --success: #19815780;
 
   --link: #6598ea;
   --link-hover: #85b3fe;

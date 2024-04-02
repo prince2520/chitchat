@@ -5,7 +5,6 @@
     column-gap: 0.35rem;
     border-radius: 2rem ;
     border: 1px solid var(--border);
-    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 .change-category p{
     padding: 0.25rem 1rem;
