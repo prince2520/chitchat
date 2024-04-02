@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
-import { useDispatch, useSelector } from "react-redux";
 import { useContext, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 import { UserActions } from "../../../../store/userSlice";

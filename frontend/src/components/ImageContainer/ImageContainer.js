@@ -1,10 +1,36 @@
 import { Icon } from "@iconify/react";
+import styled from "styled-components";
 import { useRef, useEffect, useState } from "react";
 
 import useCompressImg from "../../hooks/useCompressImg";
 import useProgressiveImg from "../../hooks/useProgressiveImg";
 
 import "./ImageContainer.css";
+
+const CustomDiv = styled.div`
+  width: ${({ $width }) => `${$width}rem` || "100%"};
+  height: ${({ $height }) => `${$height}rem` || "100%"};
+
+  @media only screen and (max-width: 600px) {
+    width: ${({ $width }) => `${$width*0.6}rem` || "100%"};
+    height: ${({ $height }) => `${$height * 0.6}rem` || "100%"};
+  }
+
+  @media only screen and (min-width: 600px) and (max-width: 768px) {
+    width: ${({ $width }) => `${$width * 0.7}rem` || "100%"};
+    height: ${({ $height }) => `${$height * 0.7}rem` || "100%"};
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 992px) {
+    width: ${({ $width }) => `${$width * 0.8}rem` || "100%"};
+    height: ${({ $height }) => `${$height * 0.8}rem` || "100%"};
+  }
+
+  @media only screen and (min-width: 992px) and (max-width: 1200px) {
+    width: ${({ $width }) => `${$width * 0.9}rem` || "100%"};
+    height: ${({ $height }) => `${$height * 0.9}rem` || "100%"};
+  }
+`;
 
 const ImageContainer = ({
   highResUrl,
@@ -21,6 +47,7 @@ const ImageContainer = ({
   const [newHighResUrl, newLowResUrl, setData] = useCompressImg();
 
   const widthInt = parseInt(width.replace(/[^\d.]/g, ""));
+  const heightInt = parseInt(height.replace(/[^\d.]/g, ""));
 
   useEffect(() => {
     if (newHighResUrl && newLowResUrl) {
@@ -38,13 +65,16 @@ const ImageContainer = ({
     editImageHandler(newHighResUrl, newLowResUrl);
   }, [newHighResUrl, newLowResUrl, editImageHandler]);
 
+  console.log("widthInt", widthInt, "heightInt", heightInt);
+
   return (
     <div className={"image-edit-container"}>
-      <div
+      <CustomDiv
+        $width={widthInt}
+        $height={heightInt}
         className={`flex-center image-container ${
           circle ? "image-circle" : ""
         }`}
-        style={{ width: width, height: height }}
       >
         <img
           style={{
@@ -54,7 +84,7 @@ const ImageContainer = ({
           alt={"progressive"}
           src={preview || imageSrc}
         />
-      </div>
+      </CustomDiv>
       {isEditable ? (
         <>
           <input
