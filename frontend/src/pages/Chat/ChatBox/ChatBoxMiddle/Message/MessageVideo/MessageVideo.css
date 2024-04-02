@@ -17,7 +17,6 @@ video {
 
 @media screen and (max-width: 800px) {
     .video-message{
-        max-width: 20rem;
         width: 100%;
     }
 }

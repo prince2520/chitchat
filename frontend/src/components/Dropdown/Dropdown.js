@@ -2,17 +2,21 @@ import { useContext } from "react";
 import { Icon } from "@iconify/react";
 import { dropDownMenuOptions } from "../../constants/constants";
 import { useNavigate } from "react-router-dom";
+import { useDetectClickOutside } from "react-detect-click-outside";
+
 
 import AuthContext from "../../context/authContext";
 
 import "./Dropdown.css";
 
-const Dropdown = () => {
+const Dropdown = ({closeDropdown}) => {
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
+
+  const ref = useDetectClickOutside({ onTriggered: closeDropdown });
   
   return (
-    <div className={"menu-container box-shadow"}>
+    <div ref={ref} className={"menu-container box-shadow"}>
       {dropDownMenuOptions.map((value) => (
         <div
           key={value.icon}

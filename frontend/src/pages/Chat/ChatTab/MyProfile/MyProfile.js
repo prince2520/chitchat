@@ -9,7 +9,6 @@ import ImageContainer from "../../../../components/ImageContainer/ImageContainer
 import "./MyProfile.css";
 
 const MyProfile = () => {
-  
   const [showDropdown, setShowDropdown] = useState(false);
 
   const highResUrl = useSelector((state) => state.user.highResUrl);
@@ -19,20 +18,18 @@ const MyProfile = () => {
     setShowDropdown(false);
   };
 
-  const ref = useDetectClickOutside({ onTriggered: closeDropdown });
-
 
   return (
-    <div className={"flex-center my-profile-container border"}>
+    <div className={"flex-center border my-profile-container "}>
       <ImageContainer highResUrl={highResUrl} lowResUrl={lowResUrl} />
-      <span onClick={() => setShowDropdown((prevState) => !prevState)}>
-        <Icon
-          ref={ref}
-          icon="gridicons:dropdown"
-          style={{ fontSize: "3rem"}}
-        />
+      <span
+        onClick={() => {
+          setTimeout(()=>{
+            setShowDropdown((prevState) => !prevState)},[200])}}
+      >
+        <Icon icon="gridicons:dropdown" style={{ fontSize: "3rem" }} />
       </span>
-      {showDropdown && <Dropdown />}
+      {showDropdown && <Dropdown closeDropdown={closeDropdown} />}
     </div>
   );
 };
