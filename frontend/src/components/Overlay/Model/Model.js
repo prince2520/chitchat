@@ -15,7 +15,7 @@ const Model = () => {
   return (
     <div
       className="model"
-      style={{ width: overlay.showSideMobileBar ? "80%" : "100%" }}
+      style={{ width: overlay.showSideMobileBar ? "90%" : "100%" }}
     >
       {overlay.showSideMobileBar && (
         <div className={"model-chat-tab"}>
