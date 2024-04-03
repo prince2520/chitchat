@@ -32,7 +32,7 @@ const MessageVideo = ({ url, time }) => {
   return (
     <div
       ref={ref}
-      className="video-message chat-msg-background media-container"
+      className="video-message send-img chat-msg-background media-container"
       onMouseOver={() => showControlsHandler()}
       onMouseLeave={() => dontShowControlsHandler()}
     >

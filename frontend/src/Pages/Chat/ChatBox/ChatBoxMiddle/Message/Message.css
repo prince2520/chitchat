@@ -79,9 +79,9 @@
   color: black;
 }
 
-.message-box .send-img {
-  max-width: 80%;
-  width: 20rem;
+.message-box .send-img { 
+  width: 80%;
+  max-width: 30rem;
   align-self: flex-end;
 }
 

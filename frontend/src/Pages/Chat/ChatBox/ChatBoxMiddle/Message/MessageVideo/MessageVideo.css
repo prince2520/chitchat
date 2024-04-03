@@ -1,8 +1,5 @@
 .video-message{
-    max-width: 15rem;
-    max-height: 22rem;
     width: 100%;
-
     color: var(--border);
 }
 

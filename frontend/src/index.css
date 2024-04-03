@@ -8,7 +8,7 @@
 :root {
   --background: #151617;
   --model-container: #151617e6;
-  --container: #28282a;
+  --container: #27272a;
 
   --white: #ffff;
   --input: #ffff;
@@ -20,7 +20,7 @@
   --text-extra-light: #636262;
   --text-primary: var(--primary);
 
-  --border: #464646;
+  --border: #363636;
   --error: var(--primary);
   --success: #19815780;
 
