@@ -1,6 +1,6 @@
 .chat-box__top {
   position: relative;
-  padding: 0.35rem 1.5rem;
+  padding: 1rem 0.75rem;
   display: flex;
   flex-direction: row;
   column-gap: 1.5rem;
@@ -15,28 +15,28 @@
 
 @media only screen and (max-width: 600px) {
   .chat-box__top {
-    padding: 0.35rem 0.5rem;
+    padding: 0.80rem 0.55rem;
     column-gap: 0.5rem;
   }
 }
 
 @media only screen and (min-width: 600px) and (max-width: 768px) {
   .chat-box__top {
-    padding: 0.35rem 0.5rem;
+    padding: 0.85rem 0.6rem;
     column-gap: 0.5rem;
   }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 992px) {
   .chat-box__top {
-    padding: 0.35rem 0.5rem;
+    padding: 0.90rem 0.65rem;
     column-gap: 0.5rem;
   }
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
   .chat-box__top {
-    padding: 0.35rem 0.5rem;
+    padding: 0.95rem 0.70rem;
     column-gap: 0.5rem;
   }
 }

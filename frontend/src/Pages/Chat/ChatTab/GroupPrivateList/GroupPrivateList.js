@@ -85,6 +85,8 @@ const GroupPrivateList = () => {
                         )[0].lowResUrl
                       : data.lowResUrl
                   }
+                  height="3.5rem"
+                  width="3.5rem"
                 />
               </div>
               <div className="group-private-list__item-right">
