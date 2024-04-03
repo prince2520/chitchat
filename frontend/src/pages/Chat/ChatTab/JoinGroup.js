@@ -57,7 +57,7 @@ const JoinGroup = () => {
       onSubmit={(event) => submitHandler(event)}
       className="flex-center join-group"
     >
-      <h3 className="color-text-light">Join a Group</h3>
+      <h2 className="color-text-light">Join a Group</h2>
       <ImageContainer height="auto" src={JoinGroupLargeImg} highResUrl={JoinGroupLargeImg} lowResUrl={JoinGroupSmallImg}  width="15rem" circle={false}/>
       <CustomInput
         width="90%" maxWidth="20rem"

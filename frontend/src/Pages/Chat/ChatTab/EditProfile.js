@@ -98,8 +98,7 @@ const EditProfile = () => {
       className="flex-center edit-profile"
       onSubmit={(event) => submitHandler(event)}
     >
-      <h3 className="color-text-light">My Profile</h3>
-
+      <h2 className="color-text-light">My Profile</h2>
       <ImageContainer
         highResUrl={user?.highResUrl}
         lowResUrl={user.lowResUrl}

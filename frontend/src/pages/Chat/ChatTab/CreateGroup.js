@@ -55,7 +55,7 @@ const CreateGroup = () => {
       className="flex-center create-group"
       onSubmit={(event) => submitHandler(event)}
     >
-      <h3 className="color-text-light">Create a Group</h3>
+      <h2 className="color-text-light">Create a Group</h2>
       <ImageContainer
         isEditable={false}
         highResUrl={CreateGroupLarge}

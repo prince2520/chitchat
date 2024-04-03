@@ -11,7 +11,6 @@
 
 .chat-page .chat-tab__container {
   position: relative;
-  max-width: 20rem;
   width: 30%;
   height: 100%;
 }
