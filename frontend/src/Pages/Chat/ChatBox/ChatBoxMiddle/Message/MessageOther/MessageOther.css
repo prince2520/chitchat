@@ -1,21 +1,18 @@
 .message-other {
-    display: flex;
-
-    padding: 0.5rem 1rem;
-
-    align-items: center;
-
-    column-gap: 1rem;
+  display: flex;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  column-gap: 1rem;
 }
 
-.message-other .message-other-content{
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.5rem;
+.message-other .message-other-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
 }
 
-@media screen and (max-width: 800px) {     
-    .message-other .message-other-content{
-        row-gap: 0.15rem;
-    }
+@media screen and (max-width: 800px) {
+  .message-other .message-other-content {
+    row-gap: 0.15rem;
+  }
 }

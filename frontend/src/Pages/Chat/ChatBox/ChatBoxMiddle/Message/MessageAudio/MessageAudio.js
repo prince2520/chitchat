@@ -1,6 +1,7 @@
 import React from "react";
 
-import "./MessageAudio.css";
+import "./MessageAudio.css"
+
 const MessageAudio = ({ url, time }) => {
   return (
     <div className={"flex-center message-audio border"}>

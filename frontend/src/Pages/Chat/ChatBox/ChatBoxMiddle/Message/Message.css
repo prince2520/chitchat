@@ -1,17 +1,9 @@
-.message-container {
+.message {
   width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
   column-gap: 0.5rem;
 }
 
-.message-img-container .image-container {
-  width: 2.5rem;
-  height: 2.5rem;
-}
-
-.message-container .msg {
+.message .msg {
   width: 100%;
   max-width: 40rem;
 
@@ -22,19 +14,16 @@
   word-wrap: break-word;
 }
 
-.my-message {
-  justify-content: flex-end;
-}
-
-.msg .msg__time,
-.msg .msg__content {
-  color: var(--text-light);
-}
-
 .my-message .msg {
   background-color: var(--primary);
   border: none;
   color: white;
+}
+
+
+.msg .msg__time,
+.msg .msg__content {
+  color: var(--text-light);
 }
 
 .my-message .msg .msg__time,
@@ -42,31 +31,10 @@
   color: var(--text);
 }
 
-.message-container .message-box {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-}
-
-.my-message .message-box {
-  justify-self: flex-end;
-}
-
-.message-box .username {
-  color: var(--text-extra-light);
-  font-size: 0.8rem;
-  font-weight: 500;
-  text-align: left;
-}
-
 .open-ai-icon {
   background-color: #10a37f;
   padding: 0.1rem;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: white;
 }
 
@@ -79,17 +47,12 @@
   color: black;
 }
 
-.message-box .send-img { 
-  width: 80%;
-  max-width: 30rem;
-  align-self: flex-end;
-}
-
-.msg-time {
-  font-size: 0.65rem;
-  color: gray;
-  font-weight: 500;
-  align-self: flex-end;
+.message-box .message-image,
+.message-box .message-video
+{ 
+  overflow: hidden ;
+  width: 100%;
+  max-width: 25rem;
 }
 
 .chat-msg-background {
@@ -99,33 +62,15 @@
 }
 
 .media-container {
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
+  align-items: flex-end !important;
   row-gap: 0.25rem;
 }
 
-.my-message .msg-time {
-  color: var(--white);
-}
 
-.video-message .image-bottom,
-.send-img .image-bottom {
+.message-video .message-video__bottom,
+.message-image .message-image__bottom{
   width: 100%;
   padding: 0 0.5rem;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.image-bottom svg {
-  font-size: 1.5rem;
-  color: var(--text-light);
-}
-
-.send-img .msg-time,
-.video-message .msg-time {
-  align-self: center;
+  justify-content: space-between!important;
 }

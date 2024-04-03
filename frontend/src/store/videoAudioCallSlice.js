@@ -22,7 +22,6 @@ const VideoAudioCallSlice = createSlice({
   initialState: initialVideoAudioCallState,
   reducers: {
     callingHandler(state, action) {
-      console.log("calling handler action", action.payload);
       state.callData = action.payload.callData;
       state.isCalling = action.payload.isCalling;
       state.isReceivingCall = action.payload.isReceivingCall;

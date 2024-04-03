@@ -32,7 +32,7 @@ const MessageVideo = ({ url, time }) => {
   return (
     <div
       ref={ref}
-      className="video-message send-img chat-msg-background media-container"
+      className="flex-center message-video chat-msg-background media-container"
       onMouseOver={() => showControlsHandler()}
       onMouseLeave={() => dontShowControlsHandler()}
     >
@@ -43,7 +43,7 @@ const MessageVideo = ({ url, time }) => {
         url={url}
         controls={showControls}
       />
-      <div className={"image-bottom"}>
+      <div className={"flex-center message-video__bottom"}>
         <Icon icon="akar-icons:video" />
         <h6>{time}</h6>
       </div>

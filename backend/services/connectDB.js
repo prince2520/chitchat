@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const {MONGO_URL} = require('../constants/constants');
+const { MONGO_URL } = require("../constants/constants");
 
 module.exports.connectDB = (server) => {
   mongoose
@@ -9,7 +9,7 @@ module.exports.connectDB = (server) => {
       useUnifiedTopology: true,
       useFindAndModify: false,
     })
-    .then((done) => {
+    .then(() => {
       console.log("Connected");
       server.listen(process.env.PORT || 5000);
     });
