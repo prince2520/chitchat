@@ -11,16 +11,9 @@
 
 .chat-page .chat-tab__container {
   position: relative;
-  min-width: 20rem;
+  max-width: 20rem;
   width: 30%;
   height: 100%;
-}
-
-.chat-tab {
-  height: 100%;
-  width: 100%;
-  z-index: 700;
-  border-right: 1px solid var(--border);
 }
 
 .input-icon {

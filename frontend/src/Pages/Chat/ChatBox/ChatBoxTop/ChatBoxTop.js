@@ -13,10 +13,10 @@ import ImageContainer from "../../../../components/ImageContainer/ImageContainer
 import "./ChatBoxTop.css";
 
 const ChatBoxTop = () => {
-  const [showSetting, setShowSetting] = useState(false);
-
   const authCtx = useContext(AuthContext);
   const user = useSelector((state) => state.user);
+  
+  const [showSetting, setShowSetting] = useState(false);
 
   const data = (
     user?.selectedType === categoryState[0] ? user.groups : user.privates
