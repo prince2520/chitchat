@@ -9,6 +9,7 @@ import { categoryState } from "../../../../constants/constants";
 import { chatTopSettingOptions } from "../../../../constants/constants";
 
 import AuthContext from "../../../../context/authContext";
+import MediaCommunication from "../ChatBoxTop/MediaCommunication/MediaCommunication";
 import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 
 import "./ChatSettings.css";
@@ -66,6 +67,7 @@ const ChatSettings = ({ closeSettingHandler }) => {
             </div>
           );
         })}
+      {selectedType === categoryState[1] && <MediaCommunication />}
       <div
         className="cursor-btn flex-center chat-settings__option"
         onClick={() => handleDeleteChat()}

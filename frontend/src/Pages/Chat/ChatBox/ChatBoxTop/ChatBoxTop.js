@@ -7,7 +7,6 @@ import { categoryState } from "../../../../constants/constants";
 import ChatSettings from "../ChatSettings/ChatSettings";
 import AuthContext from "../../../../context/authContext";
 import SideBar from "../../../../components/SideBar/SideBar";
-import MediaCommunication from "./MediaCommunication/MediaCommunication";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
 import "./ChatBoxTop.css";
@@ -43,6 +42,8 @@ const ChatBoxTop = () => {
                 .lowResUrl
             : data.lowResUrl
         }
+        width="3.5rem"
+        height="3.5rem"
       />
       <div className="full-screen chat-box__description">
         <h5 className="color-text-light">
@@ -56,7 +57,6 @@ const ChatBoxTop = () => {
             : data.status}
         </p>
       </div>
-      {user?.selectedType === categoryState[1] && <MediaCommunication />}
       <Icon
         onClick={() => setTimeout(()=>setShowSetting((prevState) => !prevState),[50])}
         icon="gg:more-vertical-o"

@@ -7,6 +7,7 @@ import { OverlayActions } from "../../../../../store/overlaySlice";
 import { VideoAudioCallActions } from "../../../../../store/videoAudioCallSlice";
 
 import SocketContext from "../../../../../context/socketContext";
+import { uid } from "uid";
 
 const MediaCommunication = () => {
   const socketCtx = useContext(SocketContext);
@@ -44,20 +45,26 @@ const MediaCommunication = () => {
 
   return (
     <React.Fragment>
-      <Icon
-        onClick={() => handleCalling(callingType[0])}
-        icon="tabler:video"
-        className="cursor-btn"
-        style={{ fontSize: "2.25rem" }}
-      />
-      <Icon
-        icon="mi:call"
-        onClick={() => handleCalling(callingType[1])}
-        className="cursor-btn"
-        style={{
-          fontSize: "2.25rem",
+      <div
+        key={uid(32)}
+        className={"cursor-btn flex-center chat-settings__option"}
+        onClick={() => {
+          setTimeout(() => handleCalling(callingType[0]), [50]);
         }}
-      />
+      >
+        <Icon className="color-text-light" icon="tabler:video" />
+        <h5 className="color-text-light">Video Call</h5>
+      </div>
+      <div
+        key={uid(32)}
+        className={"cursor-btn flex-center chat-settings__option"}
+        onClick={() => {
+          setTimeout(() => handleCalling(callingType[1]), [50]);
+        }}
+      >
+        <Icon className="color-text-light" icon="mi:call" />
+        <h5 className="color-text-light">Audio Call</h5>
+      </div>
     </React.Fragment>
   );
 };
