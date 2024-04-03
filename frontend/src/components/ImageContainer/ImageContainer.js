@@ -12,18 +12,18 @@ const CustomDiv = styled.div`
   height: ${({ $height }) => `${$height}rem` || "100%"};
 
   @media only screen and (max-width: 600px) {
-    width: ${({ $width }) => `${$width*0.6}rem` || "100%"};
-    height: ${({ $height }) => `${$height * 0.6}rem` || "100%"};
+    width: ${({ $width }) => `${$width*0.8}rem` || "100%"};
+    height: ${({ $height }) => `${$height * 0.8}rem` || "100%"};
   }
 
   @media only screen and (min-width: 600px) and (max-width: 768px) {
-    width: ${({ $width }) => `${$width * 0.7}rem` || "100%"};
-    height: ${({ $height }) => `${$height * 0.7}rem` || "100%"};
+    width: ${({ $width }) => `${$width * 0.85}rem` || "100%"};
+    height: ${({ $height }) => `${$height * 0.85}rem` || "100%"};
   }
 
   @media only screen and (min-width: 768px) and (max-width: 992px) {
-    width: ${({ $width }) => `${$width * 0.8}rem` || "100%"};
-    height: ${({ $height }) => `${$height * 0.8}rem` || "100%"};
+    width: ${({ $width }) => `${$width * 0.875}rem` || "100%"};
+    height: ${({ $height }) => `${$height * 0.875}rem` || "100%"};
   }
 
   @media only screen and (min-width: 992px) and (max-width: 1200px) {
