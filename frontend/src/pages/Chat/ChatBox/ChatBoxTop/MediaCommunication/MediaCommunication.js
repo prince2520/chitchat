@@ -1,3 +1,4 @@
+import { uid } from "uid";
 import { Icon } from "@iconify/react";
 import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,9 +8,8 @@ import { OverlayActions } from "../../../../../store/overlaySlice";
 import { VideoAudioCallActions } from "../../../../../store/videoAudioCallSlice";
 
 import SocketContext from "../../../../../context/socketContext";
-import { uid } from "uid";
 
-const MediaCommunication = () => {
+const MediaCommunication = ({closeSettingHandler}) => {
   const socketCtx = useContext(SocketContext);
   const user = useSelector((state) => state.user);
 
@@ -20,6 +20,7 @@ const MediaCommunication = () => {
   const dispatch = useDispatch();
 
   const handleCalling = (type) => {
+    closeSettingHandler();
     const privateUserData = privateData.users.filter(
       (res) => res._id !== user._id
     )[0];

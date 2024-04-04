@@ -9,27 +9,27 @@ const {
   deleteGroup,
   leaveGroup,
   removeUser,
-  editGroup
+  editGroup,
 } = require("../controllers/group.controller");
 
 const isAuth = require("../middleware/isAuth.middleware");
-const { check } = require("express-validator");
+const { createGroupSchema } = require("../utils/validation");
+const { validationHandler } = require("../middleware/validation.middleware");
 
 const router = express.Router();
 
 router.post(
   "/create-group",
-  [
-    check("name")
-      .isLength({ min: 1 })
-      .withMessage("User name should be at least 5 character long.")
-      .trim(),
-  ],
+  validationHandler(createGroupSchema),
   isAuth,
   createGroup
 );
 
-router.put("/join-group", isAuth, joinGroup);
+router.put(
+  "/join-group",
+  isAuth,
+  joinGroup
+);
 
 router.put("/save-group-message", isAuth, saveGroupMessage);
 
