@@ -1,10 +1,9 @@
 import { Icon } from "@iconify/react";
-import { useDispatch } from "react-redux";
-
-import Model from "./Model/Model";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { OverlayActions } from "../../store/overlaySlice";
+
+import Model from "./Model/Model";
 
 import "./Overlay.css";
 

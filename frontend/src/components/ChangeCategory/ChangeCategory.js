@@ -1,3 +1,4 @@
+import { uid } from "uid";
 import { useState } from "react";
 
 import { categoryState } from "../../constants/constants"
@@ -9,9 +10,9 @@ const ChangeCategory = ({ setIsPrivate }) => {
 
   return (
     <div className="flex-center change-category">
-      {categoryState.map((name, idx) => (
+      {categoryState.map((name) => (
         <p
-          key={idx}
+          key={uid(32)}
           onClick={() => {
             name === categoryState[0]
               ? setIsPrivate(false)

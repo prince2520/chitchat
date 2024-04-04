@@ -1,31 +1,30 @@
-.menu-container{
-    border: 1px solid var(--border);
-    z-index: 1000;
+.menu-container {
+  border: 1px solid var(--border);
+  z-index: 1000;
 }
 
-.menu-container .menu-option{
-    opacity: 100%;
-    display: flex;
-    align-items: center;
-    column-gap: 0.75rem;
-    text-decoration: none;
+.menu-container .menu-option {
+  opacity: 100%;
+  display: flex;
+  align-items: center;
+  column-gap: 0.75rem;
+  text-decoration: none;
 }
 
-.menu-option svg{
-    color: var(--text-light);
+.menu-option svg {
+  color: var(--text-light);
 }
 
 .menu-option:hover svg,
 .menu-option:active svg,
 .menu-option:active h5,
-.menu-option:hover h5{
-    color : var(--text)
-
+.menu-option:hover h5 {
+  color: var(--text);
 }
 
-.menu-container .menu-close{
-    position: absolute;
-    font-size: 2.25rem;
-    right: 0.5rem;
-    top: 0.5rem;
+.menu-container .menu-close {
+  position: absolute;
+  font-size: 2.25rem;
+  right: 0.5rem;
+  top: 0.5rem;
 }

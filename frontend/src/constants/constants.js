@@ -65,3 +65,4 @@ export const chatTopSettingOptions = [
 
 export const callingType = ["Video", "Audio"];
 
+export const groupSettingsLinks = ["Members", "Block List", "Edit", "Share"];

@@ -1,19 +1,18 @@
 .change-category{
     width: fit-content;
-    padding: 0.25rem 0.5rem;
-
     column-gap: 0.35rem;
-    border-radius: 2rem ;
+    border-radius: 2rem;
+    padding: 0.25rem 0.5rem;
     border: 1px solid var(--border);
 }
+
 .change-category p{
     padding: 0.25rem 1rem;
 }
 
 .selected{
     border-radius: 1rem;
-    background: var(--primary);
     color: var(--white);
-
+    background: var(--primary);
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }

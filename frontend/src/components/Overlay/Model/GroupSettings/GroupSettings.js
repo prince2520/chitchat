@@ -9,6 +9,7 @@ import { editGroup } from "../../../../api/group";
 import { UserActions } from "../../../../store/userSlice";
 import { categoryState } from "../../../../constants/constants";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
+import { groupSettingsLinks } from "../../../../constants/constants";
 import { blockUser, removeUser, unBlockUser } from "../../../../api/group";
 import {
   socketRemoveUserGroup,
@@ -205,7 +206,6 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
   );
 };
 
-const settingsLinks = ["Members", "Block List", "Edit", "Share"];
 
 const GroupSettings = () => {
   const user = useSelector((state) => state.user);
@@ -232,14 +232,14 @@ const GroupSettings = () => {
     let displayData;
 
     const memberAndBlockCondition =
-      settingsLinks[0] === selectedLinks || settingsLinks[1] === selectedLinks;
-    const editCondition = settingsLinks[2] === selectedLinks;
+      groupSettingsLinks[0] === selectedLinks || groupSettingsLinks[1] === selectedLinks;
+    const editCondition = groupSettingsLinks[2] === selectedLinks;
 
     if (memberAndBlockCondition) {
       displayData = (
         <MembersAndBlockList
           data={data}
-          isBlockList={selectedLinks === settingsLinks[1]}
+          isBlockList={selectedLinks === groupSettingsLinks[1]}
         />
       );
     } else if (editCondition) {
@@ -309,7 +309,7 @@ const GroupSettings = () => {
           lowResUrl={data.lowResUrl}
           width="6rem"
           height="6rem"
-          isEditable={selectedLinks === settingsLinks[2]}
+          isEditable={selectedLinks === groupSettingsLinks[2]}
           editImageHandler={(newHighResUrl, newLowResUrl) => {
             setHighResUrl(newHighResUrl);
             setLowResUrl(newLowResUrl);
@@ -318,8 +318,8 @@ const GroupSettings = () => {
         <h5>{data.name}</h5>
       </div>
       <div className="flex-center group-settings-links">
-        {settingsLinks.map((name) => {
-          if (settingsLinks[2] === name && authCtx.userId !== data.createdBy) {
+        {groupSettingsLinks.map((name) => {
+          if (groupSettingsLinks[2] === name && authCtx.userId !== data.createdBy) {
             return;
           }
 
@@ -338,7 +338,7 @@ const GroupSettings = () => {
       <div className="flex-center border group-settings-content">
         {displaySettingOption()}
       </div>
-      {!(selectedLinks === settingsLinks[2]) ? (
+      {!(selectedLinks === groupSettingsLinks[2]) ? (
         <Button
           loading={leaveDeleteloading}
           type="click"

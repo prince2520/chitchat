@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Icon } from "@iconify/react";
-import { dropDownMenuOptions } from "../../constants/constants";
 import { useNavigate } from "react-router-dom";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
+import { dropDownMenuOptions } from "../../constants/constants";
 
 import AuthContext from "../../context/authContext";
 
