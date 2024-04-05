@@ -13,6 +13,7 @@ const MessageImage = ({ myMsg, imageSrc, time }) => {
         alignSelf: !myMsg && "flex-start",
       }}
     >
+
       <ModalImage
         small={imageSrc}
         medium={imageSrc}
