@@ -1,24 +1,23 @@
-/*
-USER - 
-GROUP - 
-PRIVATE -
-*/
+const { SOCKET_EVENT}  = require("../utils/socket_event")
 
 module.exports = (io) => {
   io.on("connection", function (socket) {
-    // USER - initiate the socket
-    socket.on("user_connect", (userId) => {
+   
+    // USER - initiate socket
+    socket.on(SOCKET_EVENT.USER_CONNECT, (userId) => {
       socket.join(userId);
-      io.emit("get_user_connected", userId);
+      io.emit(SOCKET_EVENT.GET_USER_CONNECTED, userId);
     });
 
-    // USER - disconnect the user
-    socket.on("disconnect", function (userId) {
+    // USER - disconnect socket
+    socket.on(SOCKET_EVENT.DISCONNECT, function (userId) {
       socket.leave(userId);
     });
 
-    // GROUP - join
-    socket.on("join_group", ({ groups }) => {
+    
+
+    // GROUP - join group
+    socket.on(SOCKET_EVENT.JOIN_GROUP, ({ groups }) => {
       groups?.map((group) => {
         if (group._id) {
           socket.join(group._id);
@@ -27,91 +26,95 @@ module.exports = (io) => {
       });
     });
 
-    // GROUP - remove
-    socket.on("remove_chat", ({ data }) => {
-      if (data.type === "Group") {
-        io.to(data.chatId).emit("received_remove_chat", { data });
-        socket.leave(data.chatId);
-      } else {
-        io.to(data.privatUserId).emit("received_remove_chat", { data });
-      }
-    });
-
-    // GROUP - remove user
-    socket.on("remove_user_group", function ({ data }) {
-      socket
-        .to(data.groupId)
-        .emit("recieved_remove_user_group", { data: data });
+    // GROUP - remove user from group
+    socket.on(SOCKET_EVENT.REMOVE_USER_GROUP, function ({ data }) {
+      socket.to(data.groupId).emit(SOCKET_EVENT.GET_REMOVE_USER_GROUP, { data: data });
     });
 
     // GROUP - update group detail
-    socket.on("updated_group_detail", function ({ data }) {
-      socket.to(data.groupId).emit("get_updated_group_detail", { data: data });
+    socket.on(SOCKET_EVENT.UPDATED_GROUP, function ({ data }) {
+      socket.to(data.groupId).emit(SOCKET_EVENT.GET_UPDATED_GROUP, { data: data });
     });
 
-    // GROUP - block user from group 
-    socket.on("blockUser", function ({ data }) {
-      socket.to(data.groupId).emit("get_blockUser", { data: data });
+    // GROUP - block user from group
+    socket.on(SOCKET_EVENT.BLOCK_USER, function ({ data }) {
+      socket.to(data.groupId).emit(SOCKET_EVENT.GET_BLOCK_USER, { data: data });
     });
 
     // GROUP - unblock user from group
-    socket.on("unblockUser", function ({ data }) {
-      socket.to(data.groupId).emit("get_unblockUser", { data: data });
+    socket.on(SOCKET_EVENT.UNBLOCK_USER, function ({ data }) {
+      socket.to(data.groupId).emit(SOCKET_EVENT.GET_UNBLOCK_USER, { data: data });
     });
 
     // GROUP - add member to group
-    socket.on("addMember_group", function ({ data }) {
-      socket.to(data.groupId).emit("get_addMember_group", { data: data });
+    socket.on(SOCKET_EVENT.ADD_MEMBER_GROUP, function ({ data }) {
+      socket.to(data.groupId).emit(SOCKET_EVENT.GET_ADD_MEMBER_GROUP, { data: data });
     });
 
-     // GROUP - leave member to group
-     socket.on("leaveMember_group", function ({ data }) {
-      socket.to(data.groupId).emit("get_leaveMember_group", { data: data });
+    // GROUP - leave member to group
+    socket.on(SOCKET_EVENT.LEAVE_MEMBER_GROUP, function ({ data }) {
+      socket.to(data.groupId).emit(SOCKET_EVENT.GET_LEAVE_MEMBER_GROUP, { data: data });
     });
 
     // GROUP - leave Group
-    socket.on("leave_group", function ({ groupId }) {
+    socket.on(SOCKET_EVENT.LEAVE_GROUP, function ({ groupId }) {
       socket.leave(groupId);
     });
 
     // PRIVATE - add private User
-    socket.on("add_private", ({ data }) => {
+    socket.on(SOCKET_EVENT.ADD_PRIVATE, ({ data }) => {
       data.private.users?.map((user) => {
         let userId = user._id;
         if (userId === data.userId) return;
-        socket.in(userId).emit("recived_private_user", { data: data });
+        socket.in(userId).emit(SOCKET_EVENT.GET_ADD_PRIVATE, { data: data });
       });
     });
 
-    // GROUP & PRIVATE - Send  message to receiver
-    socket.on("send_message", ({ data }) => {
+    
+
+    // VIDEO & AUDIO CALL (PRIVATE)
+
+    // PRIVATE -> Call
+    socket.on(SOCKET_EVENT.CALL, ({ callData }) => {
+      socket.in(callData.userToCall).emit(SOCKET_EVENT.GET_CALL, { callData });
+    });
+
+    // PRIVATE -> Call Accepted
+    socket.on(SOCKET_EVENT.CALL_ACCEPTED, ({ data }) => {
+      socket.in(data.userToCall).emit(SOCKET_EVENT.GET_CALL_ACCEPTED, { data });
+    });
+
+    // PRIVATE -> END CALL
+    socket.on(SOCKET_EVENT.END_CALL, ({ data }) => {
+      socket.in(data.userToCall).emit(SOCKET_EVENT.GET_END_CALL, { data });
+    });
+
+
+
+    // GROUP & PRIVATE - send message
+    socket.on(SOCKET_EVENT.SEND_MESSAGE, ({ data }) => {
       if (!data.users) return console.log("Users not defined");
 
       if (data.selectedType === "Group") {
-        socket.to(data.chatId).emit("received_message", { data: data });
+        socket.to(data.chatId).emit(SOCKET_EVENT.GET_SEND_MESSAGE, { data: data });
       } else {
         data.users.forEach((user) => {
           let userId = user._id;
           if (userId === data.data.userId) return;
-          socket.in(userId).emit("received_message", { data: data });
+          socket.in(userId).emit(SOCKET_EVENT.GET_SEND_MESSAGE, { data: data });
         });
       }
     });
 
-    // VIDEO CALL (PRIVATE)
-    // PRIVATE -> Call User
-    socket.on("call", ({callData }) => {
-      socket.in(callData.userToCall).emit("get_call", { callData });
+     // GROUP & PRIVATE - remove chat
+     socket.on(SOCKET_EVENT.REMOVE_CHAT, ({ data }) => {
+      if (data.type === "Group") {
+        io.to(data.chatId).emit(SOCKET_EVENT.GET_REMOVE_CHAT, { data });
+        socket.leave(data.chatId);
+      } else {
+        io.to(data.privatUserId).emit(SOCKET_EVENT.GET_REMOVE_CHAT, { data });
+      }
     });
 
-    // PRIVATE -> Call Accepted
-    socket.on("callAccepted", ({data}) => {
-      socket.in(data.userToCall).emit("get_callAccepted", {data});
-    });
-
-    // PRIVATE -> END CALL
-    socket.on("endCall", ({data}) => {
-      socket.in(data.userToCall).emit("get_endCall", {data});
-    });
   });
 };

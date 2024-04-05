@@ -6,10 +6,10 @@ import Peer from "simple-peer";
 import {
   socketInitiate,
   socketDisconnect,
-  socketGetChatMessage,
-  socketGetPrivateChat,
+  socketGetSendMessage,
+  socketGetAddPrivate,
   socketGetRemoveChat,
-  socketGetRemoveGroup,
+  socketGetRemoveUserGroup,
   socketGetUpdatedGroup,
   socketCall,
   socketGetCall,
@@ -61,13 +61,13 @@ export const SocketContextProvider = ({ children }) => {
   }, [authCtx?.userId, dispatch]);
 
   useEffect(() => {
-    socketGetChatMessage((err, { data }) => {
+    socketGetSendMessage((err, { data }) => {
       dispatch(UserActions.saveMessage(data));
     });
-    socketGetPrivateChat((err, { data }) => {
+    socketGetAddPrivate((err, { data }) => {
       dispatch(UserActions.addPrivate(data.private));
     });
-    socketGetRemoveGroup((err, { data }) => {
+    socketGetRemoveUserGroup((err, { data }) => {
       dispatch(UserActions.removeUserGroup(data));
     });
     socketGetUpdatedGroup((err, { data }) => {
