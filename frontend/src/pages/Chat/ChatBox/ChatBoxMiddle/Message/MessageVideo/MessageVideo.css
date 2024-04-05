@@ -1,4 +1,4 @@
-.video-message{
+.message--video{
     width: 100%;
     height: 100%;
     color: var(--border);
@@ -6,10 +6,4 @@
 
 video {
     border: 1px solid var(--border);
-}
-
-@media screen and (max-width: 800px) {
-    .video-message{
-        width: 100%;
-    }
 }

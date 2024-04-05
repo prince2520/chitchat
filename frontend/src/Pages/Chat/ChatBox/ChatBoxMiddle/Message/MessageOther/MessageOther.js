@@ -7,11 +7,11 @@ import "./MessageOther.css";
 const MessageOther = ({ messageDetail }) => {
   return (
     <div
-      className={"message-other rounded-corner"}
+      className={"message--other rounded-corner"}
       style={{ backgroundColor: "var(--background)" }}
     >
       <Icon icon="solar:folder-with-files-bold"  fontSize={"2.5rem"} />
-      <div className="message-other-content">
+      <div className="message--other__content">
         <h6>{messageDetail.message.slice(0,20)} {messageDetail.message.length > 20 && "..."}</h6>
       </div>
       <h6>{messageDetail.size.toFixed(3)} MB</h6>

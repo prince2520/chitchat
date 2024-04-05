@@ -20,7 +20,7 @@ const Message = ({ myMsg, messageDetail }) => {
       className={`flex-center message ${myMsg && "my-message"}`}
     >
       {!myMsg && !(selectedType === categoryState[1]) && (
-        <div className={`message-img-container`}>
+        <div className={`message__img`}>
           <ImageContainer
             highResUrl={messageDetail.user.highResUrl}
             lowResUrl={messageDetail.user.lowResUrl}
@@ -30,8 +30,8 @@ const Message = ({ myMsg, messageDetail }) => {
         </div>
       )}
       <div
-        className={`message-box ${
-          messageDetail.isOpenAIMsg && "open-ai-msg-box"
+        className={`message__container ${
+          messageDetail.isOpenAIMsg && "open-ai__message__container"
         }`}
       >
         <h6
@@ -44,11 +44,10 @@ const Message = ({ myMsg, messageDetail }) => {
         >
           {messageDetail.user.name}
         </h6>
-
         {printMessage(messageDetail, myMsg)}
       </div>
       {messageDetail.isOpenAIMsg && (
-        <div className={"flex-center open-ai-icon"}>
+        <div className={"flex-center open-ai__message__container__icon"}>
           <Icon className="color-text" icon="ri:openai-fill" />
         </div>
       )}

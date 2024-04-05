@@ -14,12 +14,12 @@ const MessageString = ({ message, time }) => {
 
   return (
     <>
-      <div className={`flex-center msg ${isUrl ? "msg-link" : ""}`}>
+      <div className={`flex-center message--string ${isUrl ? "message--link" : ""}`}>
         {!isUrl ? (
-          <p className="msg__content">{message}</p>
+          <p className="message__content">{message}</p>
         ) : (
-          <div className="flex-center msg-link__container">
-            <div className="flex-center msg-link__container__img">
+          <div className="flex-center message--link__container">
+            <div className="flex-center message--link__container__img">
               <a className="flex-center" href={message} target="_blank">
                 <img
                  src={linkData.icon || 'https://i.imgur.com/Up8N7lU.png'} 
@@ -32,10 +32,10 @@ const MessageString = ({ message, time }) => {
               </a>
             </div>
 
-            <div className="flex-center msg-link__container__content">
+            <div className="flex-center  message--link__container__content">
               {linkData?.title && (
                 <a
-                  className="msg-link__container__content__title"
+                  className="message--link__container__content__title"
                   target="_blank"
                   href={message}
                 >
@@ -48,7 +48,7 @@ const MessageString = ({ message, time }) => {
               )}
               <h6 style={{ width: "100%" }}>
                 <a
-                  className="msg-link__container__content__link"
+                  className="message--link__container__content__link"
                   target="_blank"
                   href={message}
                 >
@@ -59,7 +59,7 @@ const MessageString = ({ message, time }) => {
             </div>
           </div>
         )}
-        <h6 className="msg__time">{time}</h6>
+        <h6 className="message__time">{time}</h6>
       </div>
     </>
   );
