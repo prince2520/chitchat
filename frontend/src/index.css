@@ -47,3 +47,48 @@ body {
   font-family: "Inter", sans-serif;
   font-style: normal;
 }
+
+.Toastify__toast-body {
+  font-size: 0.8rem;
+} 
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and ((min-width: 480px) and (max-width: 600px)) {
+  .Toastify__toast-container{
+    transform: scale(0.8)!important;
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .Toastify__toast-body {
+    font-size: 0.6rem;
+  } 
+
+  .Toastify__toast-container{
+    transform: scale(0.85)!important;
+  }
+  
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .Toastify__toast-body {
+    font-size: 0.65rem;
+  } 
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .Toastify__toast-body {
+    font-size: 0.7rem;
+  } 
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .Toastify__toast-body {
+    font-size: 0.75rem;
+  } 
+}
+
