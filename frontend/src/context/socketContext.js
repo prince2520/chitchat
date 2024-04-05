@@ -128,7 +128,7 @@ export const SocketContextProvider = ({ children }) => {
   const getUserMedia = async (getCallingType) => {
     const isOnVideo = getCallingType === callingType[0] ? true : false;
 
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       try {
         const mediaStream = await navigator.mediaDevices.getUserMedia({
           video: isOnVideo,
@@ -138,12 +138,13 @@ export const SocketContextProvider = ({ children }) => {
         setStream(mediaStream);
         resolve(mediaStream);
       } catch (err) {
-        reject(err);
+        console.log(err);
       }
     });
   };
 
   const callUser = async (chatId, getCallingType = callingType[0]) => {
+
     const mediaStream = await getUserMedia(getCallingType);
 
     dispatch(OverlayActions.openVideoChatHandler());
