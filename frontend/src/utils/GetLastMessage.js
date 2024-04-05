@@ -2,18 +2,18 @@ import { Icon } from "@iconify/react";
 import { isValidUrl } from "./IsValidUrl";
 
 export const getLastMessage = (lastMsg) => {
-  if (isValidUrl(lastMsg.message)) {
-    return (
-      <>
-        <Icon icon="ph:link-fill"/> {lastMsg?.message.length > 0 && lastMsg.message.substr(0, 20)} {lastMsg?.message.length > 20 && "..."}
-      </>
-    );
-  }
-
   let msg = "";
   switch (lastMsg.type) {
     case "string":
-      msg = <>{lastMsg.message}</>;
+      msg = !isValidUrl(lastMsg.message) ? (
+        <>{lastMsg.message}</>
+      ) : (
+        <>
+          <Icon icon="ph:link-fill" />{" "}
+          {lastMsg?.message.length > 0 && lastMsg.message.substr(0, 20)}{" "}
+          {lastMsg?.message.length > 20 && "..."}
+        </>
+      );
       break;
     case "image":
       msg = (
