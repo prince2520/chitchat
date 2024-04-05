@@ -31,7 +31,7 @@ const Message = ({ myMsg, messageDetail }) => {
         }`}
       >
         {!myMsg && !(selectedType === categoryState[1]) && (
-          <span className={"username"}>{messageDetail.user.name}</span>
+          <h6 style={{width:"100%", textAlign:"right"}}>{messageDetail.user.name}</h6>
         )}
         {printMessage(messageDetail, myMsg)}
       </div>
