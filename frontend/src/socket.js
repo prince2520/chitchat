@@ -1,11 +1,12 @@
 import io from "socket.io-client";
+import { SOCKET_EVENT } from "./utils/SocketEvent";
 
 export let socket = null;
 
 // USER - initiate socket
 export const socketInitiate = (userId) => {
   socket = io(process.env.REACT_APP_SERVER_URL, { transports: ["websocket"] });
-  socket.emit("user_connect", userId);
+  socket.emit(SOCKET_EVENT.USER_CONNECT, userId);
 };
 
 // USER - disconnect socket
@@ -19,21 +20,21 @@ export const socketDisconnect = (userId) => {
 // GROUP - join group
 export const socketJoinGroup = (groups) => {
   if (socket) {
-    socket.emit("join_group", { groups });
+    socket.emit(SOCKET_EVENT.JOIN_GROUP, { groups });
   }
 };
 
 // GROUP - remove user from group
 export const socketRemoveUserGroup = (data) => {
   if (socket) {
-    socket.emit("remove_user_group", { data });
+    socket.emit(SOCKET_EVENT.REMOVE_USER_GROUP, { data });
   }
 };
 
 // GROUP - get remove user from group
 export const socketGetRemoveUserGroup = (cb) => {
   if (socket) {
-    socket.on("get_remove_user_group", ({ data }) => {
+    socket.on(SOCKET_EVENT.GET_REMOVE_USER_GROUP, ({ data }) => {
       cb(null, { data });
     });
   }
@@ -42,14 +43,14 @@ export const socketGetRemoveUserGroup = (cb) => {
 // GROUP - updated group
 export const socketUpdatedGroup = (data) => {
   if (socket) {
-    socket.emit("updated_group", { data });
+    socket.emit(SOCKET_EVENT.UPDATED_GROUP, { data });
   }
 };
 
 // GROUP - get updated group
 export const socketGetUpdatedGroup = (cb) => {
   if (socket) {
-    socket.on("get_updated_group", ({ data }) => {
+    socket.on(SOCKET_EVENT.GET_UPDATED_GROUP, ({ data }) => {
       cb(null, { data });
     });
   }
@@ -58,14 +59,14 @@ export const socketGetUpdatedGroup = (cb) => {
 // GROUP - block user from group
 export const socketBlockUser = (data) => {
   if (socket) {
-    socket.emit("blockUser", { data });
+    socket.emit(SOCKET_EVENT.BLOCK_USER, { data });
   }
 };
 
 // GROUP - get block user from group
 export const socketGetBlockUser = (cb) => {
   if (socket) {
-    socket.on("get_blockUser", ({ data }) => {
+    socket.on(SOCKET_EVENT.GET_BLOCK_USER, ({ data }) => {
       cb(null, { data });
     });
   }
@@ -74,14 +75,14 @@ export const socketGetBlockUser = (cb) => {
 // GROUP - unblock user from group
 export const socketUnblockUser = (data) => {
   if (socket) {
-    socket.emit("unblockUser", { data });
+    socket.emit(SOCKET_EVENT.UNBLOCK_USER, { data });
   }
 };
 
 // GROUP - get unblock user from group
 export const socketGetUnblockUser = (cb) => {
   if (socket) {
-    socket.on("get_unblockUser", ({ data }) => {
+    socket.on(SOCKET_EVENT.GET_UNBLOCK_USER, ({ data }) => {
       cb(null, { data });
     });
   }
@@ -90,14 +91,14 @@ export const socketGetUnblockUser = (cb) => {
 // GROUP - add member to group
 export const socketAddMemberGroup = (data) => {
   if (socket) {
-    socket.emit("addMember_group", { data });
+    socket.emit(SOCKET_EVENT.ADD_MEMBER_GROUP, { data });
   }
 };
 
 // GROUP - get add member to group
 export const socketGetAddMemberGroup = (cb) => {
   if (socket) {
-    socket.on("get_addMember_group", ({ data }) => {
+    socket.on(SOCKET_EVENT.GET_ADD_MEMBER_GROUP, ({ data }) => {
       cb(null, { data });
     });
   }
@@ -106,14 +107,14 @@ export const socketGetAddMemberGroup = (cb) => {
 // GROUP - leave member to group
 export const socketLeaveMemberGroup = (data) => {
   if (socket) {
-    socket.emit("leaveMember_group", { data });
+    socket.emit(SOCKET_EVENT.LEAVE_MEMBER_GROUP, { data });
   }
 };
 
 // GROUP - get leave member to group
 export const socketGetLeaveMemberGroup = (cb) => {
   if (socket) {
-    socket.on("get_leaveMember_group", ({ data }) => {
+    socket.on(SOCKET_EVENT.GET_LEAVE_MEMBER_GROUP, ({ data }) => {
       cb(null, { data });
     });
   }
@@ -123,14 +124,14 @@ export const socketGetLeaveMemberGroup = (cb) => {
 // PRIVATE - add private User
 export const socketAddPrivate = (data) => {
   if (socket) {
-    socket.emit("add_private", { data });
+    socket.emit(SOCKET_EVENT.ADD_PRIVATE, { data });
   }
 };
 
 // PRIVATE - get add private User
 export const socketGetAddPrivate = (cb) => {
   if (socket) {
-    socket.on("get_add_private", ({ data }) => {
+    socket.on(SOCKET_EVENT.GET_ADD_PRIVATE, ({ data }) => {
       return cb(null, { data });
     });
   }
@@ -140,12 +141,12 @@ export const socketGetAddPrivate = (cb) => {
 
 // PRIVATE -> Call
 export const socketCall = (callData) => {
-  socket.emit("call", { callData });
+  socket.emit(SOCKET_EVENT.CALL, { callData });
 };
 
 // PRIVATE -> Get Call
 export const socketGetCall = (cb) => {
-  socket.on("get_call", ({ callData }) => {
+  socket.on(SOCKET_EVENT.GET_CALL, ({ callData }) => {
     cb(null, { callData });
   });
 };
@@ -153,14 +154,14 @@ export const socketGetCall = (cb) => {
 // Private -> Call Accepted
 export const socketCallAccepted = (data) => {
   if (socket) {
-    socket.emit("callAccepted", { data });
+    socket.emit(SOCKET_EVENT.CALL_ACCEPTED, { data });
   }
 };
 
 // Private -> Get Call Accepted
 export const socketGetCallAccepted = (cb) => {
   if (socket) {
-    socket.on("get_callAccepted", ({ data }) => {
+    socket.on(SOCKET_EVENT.GET_CALL_ACCEPTED, ({ data }) => {
       cb(null, { data });
     });
   }
@@ -169,14 +170,14 @@ export const socketGetCallAccepted = (cb) => {
 // PRIVATE -> End Call
 export const socketEndCall = (data) => {
   if (socket) {
-    socket.emit("endCall", { data });
+    socket.emit(SOCKET_EVENT.END_CALL, { data });
   }
 };
 
 // PRIVATE -> Get End Call
 export const socketGetEndCall = (cb) => {
   if (socket) {
-    socket.on("get_endCall", ({ data }) => {
+    socket.on(SOCKET_EVENT.GET_END_CALL, ({ data }) => {
       cb(null, { data });
     });
   }
@@ -185,7 +186,7 @@ export const socketGetEndCall = (cb) => {
 // PRIVATE -> Off Call Accepted
 export const socketOffCallAccepted = () => {
   if (socket) {
-    socket.off("get_callAccepted");
+    socket.off(SOCKET_EVENT.GET_CALL_ACCEPTED);
   }
 };
 
@@ -194,14 +195,14 @@ export const socketOffCallAccepted = () => {
 // GROUP & PRIVATE - send message
 export const socketSendMessage = (data) => {
   if (socket) {
-    socket.emit("send_message", { data });
+    socket.emit(SOCKET_EVENT.SEND_MESSAGE, { data });
   }
 };
 
 // GROUP & PRIVATE - get send message
 export const socketGetSendMessage = (cb) => {
   if (socket) {
-    socket.on("get_send_message", ({ data }) => {
+    socket.on(SOCKET_EVENT.GET_SEND_MESSAGE, ({ data }) => {
       return cb(null, { data });
     });
   }
@@ -209,12 +210,12 @@ export const socketGetSendMessage = (cb) => {
 
 // GROUP & PRIVATE - remove chat
 export const socketRemoveChat = (data) => {
-  socket.emit("remove_chat", { data });
+  socket.emit(SOCKET_EVENT.REMOVE_CHAT, { data });
 };
 
 // GROUP & PRIVATE - get remove chat
 export const socketGetRemoveChat = (cb) => {
-  socket.on("get_remove_chat", ({ data }) => {
+  socket.on(SOCKET_EVENT.GET_REMOVE_CHAT, ({ data }) => {
     cb(data);
   });
 };
