@@ -13,8 +13,12 @@ const Message = ({ myMsg, messageDetail }) => {
   const selectedType = useSelector((state) => state.user.selectedType);
   return (
     <div
-    style={{justifyContent: myMsg ? "flex-end" : 'flex-start'}}
-    className={`flex-center message ${myMsg && "my-message"}`}>
+      style={{
+        justifyContent: !myMsg ? "flex-start" : "flex-end",
+        alignSelf: myMsg ? "flex-end" : "flex-start",
+      }}
+      className={`flex-center message ${myMsg && "my-message"}`}
+    >
       {!myMsg && !(selectedType === categoryState[1]) && (
         <div className={`message-img-container`}>
           <ImageContainer
@@ -30,9 +34,17 @@ const Message = ({ myMsg, messageDetail }) => {
           messageDetail.isOpenAIMsg && "open-ai-msg-box"
         }`}
       >
-        {!myMsg && !(selectedType === categoryState[1]) && (
-          <h6 style={{width:"100%", textAlign:"right"}}>{messageDetail.user.name}</h6>
-        )}
+        <h6
+          style={{
+            width: "100%",
+            textAlign: "right",
+            display:
+              !myMsg && !(selectedType === categoryState[1]) ? "block" : "none",
+          }}
+        >
+          {messageDetail.user.name}
+        </h6>
+
         {printMessage(messageDetail, myMsg)}
       </div>
       {messageDetail.isOpenAIMsg && (

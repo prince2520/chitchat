@@ -1,11 +1,11 @@
 .message {
-  width: 100%;
+  width: 50%;
+  max-width: 25rem;
   column-gap: 0.5rem;
 }
 
 .message .msg {
   width: 100%;
-  max-width: 40rem;
 
   padding: 0.25rem 0.5rem 0.25rem 1rem;
   border: 1px solid var(--border);
@@ -45,14 +45,6 @@
 .open-ai-msg-box .msg .msg__content,
 .open-ai-msg-box .msg .msg__time {
   color: black;
-}
-
-.message-box .message-image,
-.message-box .message-video
-{ 
-  overflow: hidden ;
-  width: 100%;
-  max-width: 25rem;
 }
 
 .chat-msg-background {
