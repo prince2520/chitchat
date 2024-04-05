@@ -20,17 +20,17 @@ const NotFoundPage = () => {
       clearTimeout(timeOut);
     }
     timeOut =
-      (() => {
+      setTimeout(() => {
         setShow(true);
       },
-      [1000]);
+      [100]);
   }, []);
 
   return (
     <>
       {show ? (
         <div className="flex-center not-found-page">
-          <div className="not-fount-page__image">
+          <div className="not-found-page__image">
             <ImageContainer
               width="20rem"
               highResUrl={NotFoundLarge}

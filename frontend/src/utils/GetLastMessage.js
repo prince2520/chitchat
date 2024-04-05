@@ -5,15 +5,14 @@ export const getLastMessage = (lastMsg) => {
   let msg = "";
   switch (lastMsg.type) {
     case "string":
-      msg = !isValidUrl(lastMsg.message) ? (
-        <>{lastMsg.message}</>
-      ) : (
+      msg = (
         <>
-          <Icon icon="ph:link-fill" />{" "}
+          {isValidUrl(lastMsg.message) ? <Icon icon="ph:link-fill" /> : null}{" "}
           {lastMsg?.message.length > 0 && lastMsg.message.substr(0, 20)}{" "}
           {lastMsg?.message.length > 20 && "..."}
         </>
       );
+
       break;
     case "image":
       msg = (
@@ -44,7 +43,6 @@ export const getLastMessage = (lastMsg) => {
           <Icon icon="ph:file-fill" /> Other
         </>
       );
-  }
-
+  };
   return msg;
 };

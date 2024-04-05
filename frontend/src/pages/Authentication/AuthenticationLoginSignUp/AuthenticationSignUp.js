@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useCallback, useContext, useState } from "react";
+import { useContext, useState } from "react";
 
 import AuthContext from "../../../context/authContext";
 import Button from "../../../components/Button/Button";
@@ -10,7 +10,7 @@ const SignUp = () => {
   
   const authCtx = useContext(AuthContext);
   
-  const submitHandler = useCallback((event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
 
     let username, email, password, confirmPassword;
@@ -21,7 +21,7 @@ const SignUp = () => {
     confirmPassword = event.target[3].value;
 
     authCtx?.signUpHandler(username, email, password, confirmPassword, setLoading);
-  },[]);
+  }
 
   return (
     <form className="flex-center login-form" onSubmit={(event) => submitHandler(event)}>

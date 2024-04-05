@@ -4,17 +4,20 @@ import useExtractLinkDetail from "../../../../../../hooks/useExtractLinkDetail";
 
 import "./MessageString.css";
 
-
 const MessageString = ({ message, time }) => {
-  const [isUrl , linkData, setMessage] = useExtractLinkDetail();
+  const [isUrl, linkData, setMessage] = useExtractLinkDetail();
 
-  useEffect(()=>{
+  useEffect(() => {
     setMessage(message);
-  },[message]);
+  }, [message]);
 
   return (
     <>
-      <div className={`flex-center message--string ${isUrl ? "message--link" : ""}`}>
+      <div
+        className={`flex-center message--string ${
+          isUrl ? "message--link" : ""
+        }`}
+      >
         {!isUrl ? (
           <p className="message__content">{message}</p>
         ) : (
@@ -22,38 +25,37 @@ const MessageString = ({ message, time }) => {
             <div className="flex-center message--link__container__img">
               <a className="flex-center" href={message} target="_blank">
                 <img
-                 src={linkData.icon || 'https://i.imgur.com/Up8N7lU.png'} 
-                 alt={linkData.title}
-                 onError={({ currentTarget }) => {
-                  currentTarget.onerror = null; // prevents looping
-                  currentTarget.src='https://i.imgur.com/Up8N7lU.png';
-                }}
-                 />
+                  src={linkData.icon || "https://i.imgur.com/Up8N7lU.png"}
+                  alt={linkData.title}
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src = "https://i.imgur.com/Up8N7lU.png";
+                  }}
+                />
               </a>
             </div>
 
             <div className="flex-center  message--link__container__content">
-              {linkData?.title && (
-                <a
-                  className="message--link__container__content__title"
-                  target="_blank"
-                  href={message}
-                >
-                  {linkData?.title?.slice(0, 50)}{" "}
-                  {linkData?.title?.length > 50 && "..."}
-                </a>
-              )}
-              {linkData.description && (
-                <h6>{linkData?.description}</h6>
-              )}
+              <p>
+                {linkData?.title && (
+                  <a
+                    className="message--link__container__content__title"
+                    target="_blank"
+                    href={message}
+                  >
+                    {linkData?.title?.slice(0, 50)}{" "}
+                    {linkData?.title?.length > 50 && "..."}
+                  </a>
+                )}
+              </p>
+              {linkData.description && <h6>{linkData?.description}</h6>}
               <h6 style={{ width: "100%" }}>
                 <a
                   className="message--link__container__content__link"
                   target="_blank"
                   href={message}
                 >
-                 {message?.slice(0, 100)}{" "}
-                  {message.length > 100 && "..."}
+                  {message?.slice(0, 100)} {message.length > 100 && "..."}
                 </a>
               </h6>
             </div>

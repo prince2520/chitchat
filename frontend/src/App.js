@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
+import { ToastContainer } from "react-toastify";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import { ToastContainer } from "react-toastify";
+import { Chat } from "./pages/Chat/Chat";
 
-import {Chat} from "./pages/Chat/Chat"
 import AuthContext from "./context/authContext";
 import JoinGroup from "./pages/Chat/ChatTab/JoinGroup";
 import EditProfile from "./pages/Chat/ChatTab/EditProfile";
@@ -55,7 +55,7 @@ function App() {
           path="/"
           element={<Navigate to={!authCtx.isAuth ? "/auth/login" : "/chat"} />}
         />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="*" element={<NotFoundPage />}/>
       </Routes>
     </div>
   );
