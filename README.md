@@ -186,6 +186,6 @@ Distributed under the MIT License. See [LICENSE](https://github.com/prince2520/c
 
 ## Project Links
 <p align="left">
-<a href="" target="_blank" rel="noreferrer"> <img src="https://github.com/prince2520/animesuper/assets/68547999/56ca3f30-2eb8-48fb-a669-2cadd5fc3297" alt="website" height="30"/> </a>
+<a href="https://github.com/prince2520/chitchat" target="_blank" rel="noreferrer"> <img src="https://github.com/prince2520/animesuper/assets/68547999/56ca3f30-2eb8-48fb-a669-2cadd5fc3297" alt="website" height="30"/> </a>
 <a href="" target="_blank" rel="noreferrer"> <img src="https://github.com/prince2520/animesuper/assets/68547999/fc73f01d-9043-4756-a8fd-b9b029b20c39" alt="hou"  height="30"/> </a>
-<a href="" target="_blank" rel="noreferrer"> <img src="https://github.com/prince2520/animesuper/assets/68547999/a973c973-0031-4712-a573-07189646f6d5" alt="figma" height="30"/></a>
+<a href="https://www.figma.com/file/bd0paKNg49My3fX5vHR9r4/ChitChat?type=design&node-id=0%3A1&mode=design&t=33lYqE1rsVVEVnTk-1" target="_blank" rel="noreferrer"> <img src="https://github.com/prince2520/animesuper/assets/68547999/a973c973-0031-4712-a573-07189646f6d5" alt="figma" height="30"/></a>
