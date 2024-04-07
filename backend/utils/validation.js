@@ -46,8 +46,6 @@ exports.loginSchema = Joi.object({
 // Validation - Create Group
 exports.createGroupSchema = Joi.object({
   name: Joi.string()
-    .alphanum()
-    .rule({ message: "Name should be only alphanumeric characters." })
     .min(5)
     .rule({ message: "Name should be minimum 5 characters." })
     .max(20)
@@ -58,5 +56,4 @@ exports.createGroupSchema = Joi.object({
     .rule({ message: "Status should be minimum 10 characters." })
     .max(20)
     .rule({ message: "Status should be maximum 20 characters." })
-    .required(),
 });
