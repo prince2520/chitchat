@@ -1,4 +1,4 @@
-![Github Cover](https://github.com/prince2520/chitchat/assets/68547999/6da70939-0f31-4cf3-88e5-61de0c740d23)
+![Github Cover](https://github.com/prince2520/chitchat/assets/68547999/f8294b0b-f530-4918-85be-c7011652704e)
 
 <p align = "center">
 ChitChat: Your vibrant hub for forging connections, fostering friendships, and seamlessly exchanging media through video calls and messages.
