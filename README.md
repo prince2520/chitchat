@@ -89,25 +89,25 @@ git clone https://github.com/prince2520/chitchat.git
 
 #### Frontend
 
-<p><b>Step 2 -</b> Change directory to frontend. </p>
+<p><b>Step 2 -</b> Change directory to frontend </p>
 
 ```
 cd frontend 
 ```
 
-<p><b>Step 3 -</b> Install the necessary dependencies. </p>
+<p><b>Step 3 -</b> Install the necessary dependencies </p>
 
 ```
 npm install 
 ```
 
-<p><b>Step 4 -</b> Add environment variables. </p>
+<p><b>Step 4 -</b> Add environment variables </p>
 
 ```
 # Create .env file and paste to src folder
 
 # Add the url of your server
-REACT_APP_SERVER_URL= http://127.0.0.1:5000 //By 
+REACT_APP_SERVER_URL= http://127.0.0.1:5000 //By Default Server
 
 # Add your firebase credentials here
 # firebase config (Add your config data)
