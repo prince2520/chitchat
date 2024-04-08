@@ -30,7 +30,6 @@ const ChatBoxBottom = () => {
   ).filter((res) => res._id === user.selectedId)[0];
 
   const saveMessage = (temp) => {
-    console.log('temp', temp);
     dispatch(UserActions.saveMessage(temp));
   };
 

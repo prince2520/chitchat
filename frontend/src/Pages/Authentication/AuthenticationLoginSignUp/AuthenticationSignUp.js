@@ -20,7 +20,7 @@ const SignUp = () => {
     password = event.target[2].value;
     confirmPassword = event.target[3].value;
 
-    authCtx?.signUpHandler(username, email, password, confirmPassword, setLoading);
+    authCtx?.(username, email, password, confirmPassword, setLoading);
   }
 
   return (

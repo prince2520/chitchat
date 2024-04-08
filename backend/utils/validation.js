@@ -54,6 +54,6 @@ exports.createGroupSchema = Joi.object({
   status: Joi.string()
     .min(10)
     .rule({ message: "Status should be minimum 10 characters." })
-    .max(20)
-    .rule({ message: "Status should be maximum 20 characters." })
+    .max(50)
+    .rule({ message: "Status should be maximum 50 characters." })
 });
