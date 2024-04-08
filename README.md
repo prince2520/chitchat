@@ -42,7 +42,8 @@ ChitChat: Your vibrant hub for forging connections, fostering friendships, and s
 
 
 ## About The Project
-![ChitChat](https://github.com/prince2520/chitchat/assets/68547999/333d5a56-8753-481d-8377-5ffb4c4a53c7)
+![ChitChat](https://github.com/prince2520/chitchat/assets/68547999/33f87002-83f3-41b3-8c5d-580130d29b72)
+
 
 <p align="left">
 ChitChat is ultimate destination for connecting, forging friendships, and unleashing the power of AI-driven conversations. Seamlessly blend video calls, media messages, and crystal-clear audio calls, all while your data stays secure on Firebase. With its built-in AI technology, your questions find answers effortlessly, making every interaction an experience to remember.
