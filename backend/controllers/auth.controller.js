@@ -5,7 +5,6 @@ const { StatusCodes } = require("http-status-codes");
 
 // POST -> Sign Up
 exports.signup = async (req, res, next) => {
-  
   //User data
   const name = req.body.name;
   const email = req.body.email;
@@ -46,7 +45,6 @@ exports.signup = async (req, res, next) => {
     return res
       .status(StatusCodes.OK)
       .json({ success: true, message: "User Created" });
-
   } catch (err) {
     next(err);
   }
@@ -54,32 +52,17 @@ exports.signup = async (req, res, next) => {
 
 // POST - Login
 exports.login = async (req, res, next) => {
-  // data
   const email = req.body.email;
   const password = req.body.password;
 
   try {
-    let loadedUser;
-
-    const userFound = await User.findOne({ email: email })
-      .populate({
-        path: "privates",
-        populate: [{ path: "messages", populate: "user" }, "users"],
-      })
-      .populate({
-        path: "groups",
-        populate: [
-          { path: "blockList", populate: "user" },
-          { path: "messages", populate: "user" }]
-      });
+    const userFound = await User.findOne({ email: email }).select("+password");
 
     if (!userFound) {
       let error = new Error("User not found!");
       error.statusCode = StatusCodes.NOT_FOUND;
       throw error;
     }
-
-    loadedUser = userFound;
 
     const isEqual = await bcrypt.compare(password, userFound.password);
 
@@ -88,6 +71,19 @@ exports.login = async (req, res, next) => {
       error.statusCode = StatusCodes.UNAUTHORIZED;
       throw error;
     } else {
+      const loadedUser = await User.findOne({ email: email })
+        .populate({
+          path: "privates",
+          populate: [{ path: "messages", populate: "user" }, "users"],
+        })
+        .populate({
+          path: "groups",
+          populate: [
+            { path: "blockList", populate: "user" },
+            { path: "messages", populate: "user" },
+          ],
+        });
+
       const token = jwt.sign(
         {
           email: loadedUser.email,

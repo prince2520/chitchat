@@ -115,6 +115,7 @@ export const AuthContextProvider = (props) => {
       setLoading(true);
       login(email, password)
         .then((result) => {
+          console.log('login', result);
           if (result.success) {
             saveUserData(result.user);
 

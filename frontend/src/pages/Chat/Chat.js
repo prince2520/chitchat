@@ -10,7 +10,6 @@ import Overlay from "../../components/Overlay/Overlay";
 import NotSelectedChat from "./NotSelectedChat/NotSelectedChat";
 
 import "./Chat.css";
-import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 export const Chat = () => {
   const isSelected = useSelector((state) => state.user.isSelected);

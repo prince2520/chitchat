@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 import { UserActions } from "../../../../store/userSlice";
-import { categoryState } from "../../../../constants/constants";
 import { messageHandler } from "../../../../utils/SendMessage";
+import { categoryState } from "../../../../constants/constants";
 import { OverlayActions } from "../../../../store/overlaySlice";
 
 import OpenAI from "./OpenAI/OpenAI";

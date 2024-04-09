@@ -65,8 +65,6 @@ const ImageContainer = ({
     editImageHandler(newHighResUrl, newLowResUrl);
   }, [newHighResUrl, newLowResUrl, editImageHandler]);
 
-  console.log("widthInt", widthInt, "heightInt", heightInt);
-
   return (
     <div className={"image-edit-container"}>
       <CustomDiv
