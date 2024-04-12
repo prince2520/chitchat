@@ -10,9 +10,19 @@ export const socketInitiate = (userId) => {
 };
 
 // USER - disconnect socket
-export const socketDisconnect = (userId) => {
+export const socketDisconnect = ({ userId }) => {
+  console.log(SOCKET_EVENT.DISCONNECT, userId);
   if (socket) {
-    socket.disconnect(userId);
+    socket.disconnect();
+  }
+};
+
+// USER - disconnect socket
+export const socketGetAutoLogout = (cb) => {
+  if (socket) {
+    socket.on(SOCKET_EVENT.GET_AUTO_LOGOUT, ({ userId, alreadyLogin }) => {
+      cb(null, { userId, alreadyLogin });
+    });
   }
 };
 
@@ -120,7 +130,7 @@ export const socketGetLeaveMemberGroup = (cb) => {
   }
 };
 
-// PRIVATE 
+// PRIVATE
 // PRIVATE - add private User
 export const socketAddPrivate = (data) => {
   if (socket) {

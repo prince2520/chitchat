@@ -2,12 +2,11 @@ import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { useCallback, useEffect, useRef } from "react";
 
-import Message from "./Message/Message";
-import DateLine from "./DateLine/DateLine";
-
 import { categoryState } from "../../../../constants/constants";
 import { getFormatDate } from ".././../../../utils/GetFormatDate";
 
+import Message from "./Message/Message";
+import DateLine from "./DateLine/DateLine";
 import AuthContext from "../../../../context/authContext";
 
 import "./ChatBoxMiddle.css";

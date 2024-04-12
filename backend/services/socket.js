@@ -1,17 +1,29 @@
-const { SOCKET_EVENT}  = require("../utils/socket_event")
+const { SOCKET_EVENT}  = require("../utils/socket_event");
+
+
+const users = new Map();
 
 module.exports = (io) => {
   io.on("connection", function (socket) {
    
     // USER - initiate socket
     socket.on(SOCKET_EVENT.USER_CONNECT, (userId) => {
+
+      if(users.has(userId)){
+        console.log('socketGetAutoLogout', users.get(userId))
+        users.delete(userId);
+        socket.to(userId).emit(SOCKET_EVENT.GET_AUTO_LOGOUT, { userId: userId,  alreadyLogin : true});
+      }
+
+      users.set(userId, socket.id);
       socket.join(userId);
+
       io.emit(SOCKET_EVENT.GET_USER_CONNECTED, userId);
     });
 
     // USER - disconnect socket
-    socket.on(SOCKET_EVENT.DISCONNECT, function (userId) {
-      socket.leave(userId);
+    socket.on(SOCKET_EVENT.DISCONNECT,() => {
+      socket.leave();
     });
 
     

@@ -1,11 +1,12 @@
 import { uid } from "uid";
 import { useState } from "react";
 
-import { categoryState } from "../../constants/constants"
+import { categoryState } from "../../constants/constants";
 
 import "./ChangeCategory.css";
 
 const ChangeCategory = ({ setIsPrivate }) => {
+  
   const [selectedChat, setSelectedChat] = useState(categoryState[0]);
 
   return (

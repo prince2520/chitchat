@@ -10,11 +10,12 @@ const {
   leaveGroup,
   removeUser,
   editGroup,
-} = require("../controllers/group.controller");
+} = require("../controllers/group.controller.js");
 
-const isAuth = require("../middleware/isAuth.middleware");
 const { createGroupSchema } = require("../utils/validation");
 const { validationHandler } = require("../middleware/validation.middleware");
+
+const isAuth = require("../middleware/isAuth.middleware");
 
 const router = express.Router();
 

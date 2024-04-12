@@ -3,6 +3,7 @@ exports.SOCKET_EVENT = Object.freeze({
     USER_CONNECT : "user_connect",
     GET_USER_CONNECTED : "get_user_connected",
     DISCONNECT : "disconnect",
+    GET_AUTO_LOGOUT : "get_auto_logout",
     
     // GROUP
     JOIN_GROUP : "join_group",

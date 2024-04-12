@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import React, { useEffect, useContext, useState, useRef } from "react";
-
+import {toast} from "react-toastify"
 import Peer from "simple-peer";
 
 import {
@@ -21,7 +21,8 @@ import {
   socketGetUnblockUser,
   socketGetBlockUser,
   socketGetAddMemberGroup,
-  socketGetLeaveMemberGroup
+  socketGetLeaveMemberGroup,
+  socketGetAutoLogout
 } from "../socket";
 
 import AuthContext from "./authContext";
@@ -49,11 +50,10 @@ export const SocketContextProvider = ({ children }) => {
   const myVideo = useRef(null);
   const connectionRef = useRef();
 
-  // Initiate Socket
   useEffect(() => {
     socketInitiate(authCtx?.userId);
     return () => {
-      socketDisconnect(authCtx?.userId);
+      socketDisconnect({userId: authCtx?.userId});
       if (videoAudioCall.isCalling || videoAudioCall.isReceivingCall) {
         endCall(videoAudioCall.callData.userToCall);
       }
@@ -86,6 +86,12 @@ export const SocketContextProvider = ({ children }) => {
     socketGetLeaveMemberGroup((err, { data }) => {
       dispatch(UserActions.leaveMemberGroup(data));
     });
+    socketGetAutoLogout((err, {userId, alreadyLogin}) => {
+      if(authCtx.userId === userId && alreadyLogin) {
+        toast.error('Someone login to your account!');
+        authCtx.logoutHandler();
+      }
+    })
   }, [dispatch]);
 
   useEffect(() => {

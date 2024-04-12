@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Button from "../../../components/Button/Button";
+import AuthContext from "../../../context/authContext";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 
-import AuthContext from "../../../context/authContext";
 
 const Login = () => {
   const authCtx = useContext(AuthContext);

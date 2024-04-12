@@ -34,30 +34,6 @@
   --toastify-toast-bd-radius: 0 !important;
 }
 
-.light {
-  --background: white;
-  --model-container: #151617e6;
-  --container: rgb(194, 192, 219);
-
-  --white: #ffff;
-  --input: #ffff;
-  --primary: #ea5455;
-
-  --text: black;
-  --text-light: #aba5a5;
-  --text-secondary: #dadada;
-  --text-extra-light: #636262;
-  --text-primary: var(--primary);
-
-  --border: #363636;
-  --error: var(--primary);
-  --success: #19815780;
-
-  --link: #6598ea;
-  --link-hover: #85b3fe;
-
-}
-
 html {
   width: 100%;
   height: 100%;

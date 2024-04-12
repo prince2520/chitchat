@@ -1,14 +1,11 @@
 const mongoose = require("mongoose");
 const { StatusCodes } = require("http-status-codes");
 
-// Import - Models
 const User = require("../models/user.model");
 const Group = require("../models/group.model");
 const Message = require("../models/message.model");
 
-// POST -> Create group
 exports.createGroup = async (req, res, next) => {
-  // Group -> data
   const name = req.body.name;
   const status = req.body.status;
 
