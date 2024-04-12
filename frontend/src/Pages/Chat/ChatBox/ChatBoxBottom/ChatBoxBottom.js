@@ -87,7 +87,7 @@ const ChatBoxBottom = () => {
           onClick={() => dispatch(OverlayActions.openDragDropHandler())}
           icon="tabler:files"
         />
-        <OpenAI isOpenAIHandler={isOpenAIHandler} />
+        {/*<OpenAI isOpenAIHandler={isOpenAIHandler} />*/}
       </div>
       <div
         className={" hoverState flex-center border chat-box__bottom__middle"}

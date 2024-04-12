@@ -133,7 +133,6 @@ exports.saveGroupMessage = async (req, res, next) => {
 
   chatId = mongoose.Types.ObjectId(req.body.chatId);
 
-  // Message Data
   message = req.body.data.message ? req.body.data.message : "";
   isOpenAIMsg = req.body.data.isOpenAIMsg;
   url = req.body.data.url ? req.body.data.url : "";
