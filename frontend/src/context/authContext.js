@@ -7,7 +7,7 @@ import { UserActions } from "../store/userSlice";
 
 import { fetchUser } from "../api/user";
 import { login, signup } from "../api/auth";
-import { socketJoinGroup } from "../socket";
+import { socketJoinGroup } from "../services/socket";
 
 const AuthContext = React.createContext({
   loginHandler: (email, password) => {},

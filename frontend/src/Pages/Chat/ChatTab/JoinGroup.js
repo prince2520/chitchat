@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { joinGroup } from "../../../api/group";
 import { UserActions } from "../../../store/userSlice";
-import { socketAddMemberGroup } from "../../../socket";
+import { socketAddMemberGroup } from "../../../services/socket";
 
 import Button from "../../../components/Button/Button";
 import AuthContext from "../../../context/authContext";

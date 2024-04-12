@@ -10,7 +10,6 @@ module.exports = (io) => {
     socket.on(SOCKET_EVENT.USER_CONNECT, (userId) => {
 
       if(users.has(userId)){
-        console.log('socketGetAutoLogout', users.get(userId))
         users.delete(userId);
         socket.to(userId).emit(SOCKET_EVENT.GET_AUTO_LOGOUT, { userId: userId,  alreadyLogin : true});
       }

@@ -1,6 +1,6 @@
 // import { openAIAnswer } from "../openai";
 import { categoryState } from "../constants/constants";
-import { socketSendMessage } from "../socket";
+import { socketSendMessage } from "../services/socket";
 import { saveGroupMessage } from "../api/group";
 import { savePrivateMessage } from "../api/private";
 

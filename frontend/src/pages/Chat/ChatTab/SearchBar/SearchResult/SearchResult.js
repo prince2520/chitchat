@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
-import { socketAddPrivate } from "../../../../../socket";
+import { socketAddPrivate } from "../../../../../services/socket";
 import { createPrivate } from "../../../../../api/private";
 import { UserActions } from "../../../../../store/userSlice";
 import { useDetectClickOutside } from "react-detect-click-outside";

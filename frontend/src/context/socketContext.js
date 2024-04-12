@@ -23,7 +23,7 @@ import {
   socketGetAddMemberGroup,
   socketGetLeaveMemberGroup,
   socketGetAutoLogout
-} from "../socket";
+} from "../services/socket";
 
 import AuthContext from "./authContext";
 

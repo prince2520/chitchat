@@ -16,7 +16,7 @@ import {
   socketUnblockUser,
   socketUpdatedGroup,
   socketBlockUser,
-} from "../../../../socket";
+} from "../../../../services/socket";
 
 import Button from "../../../Button/Button";
 import AuthContext from "../../../../context/authContext";

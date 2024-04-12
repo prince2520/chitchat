@@ -1,5 +1,5 @@
 import io from "socket.io-client";
-import { SOCKET_EVENT } from "./utils/SocketEvent";
+import { SOCKET_EVENT } from "../utils/SocketEvent";
 
 export let socket = null;
 
@@ -11,7 +11,6 @@ export const socketInitiate = (userId) => {
 
 // USER - disconnect socket
 export const socketDisconnect = ({ userId }) => {
-  console.log(SOCKET_EVENT.DISCONNECT, userId);
   if (socket) {
     socket.disconnect();
   }
