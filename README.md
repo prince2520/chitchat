@@ -46,8 +46,7 @@ ChitChat: Your vibrant hub for forging connections, fostering friendships, and s
 
 
 <p align="left">
-ChitChat is ultimate destination for connecting, forging friendships, and unleashing the power of AI-driven conversations. Seamlessly blend video calls, media messages, and crystal-clear audio calls, all while your data stays secure on Firebase. With its built-in AI technology, your questions find answers effortlessly, making every interaction an experience to remember.
-</p>
+ChitChat is ultimate destination for connecting, forging friendships. Seamlessly blend video calls, media messages, and crystal-clear audio calls
 
 ## Built With
 #### Frontend
