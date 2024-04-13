@@ -1,9 +1,0 @@
-.message--video{
-    width: 100%;
-    height: 100%;
-    color: var(--border);
-}
-
-video {
-    border: 1px solid var(--border);
-}

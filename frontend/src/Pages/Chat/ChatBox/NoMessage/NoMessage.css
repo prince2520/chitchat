@@ -1,8 +1,0 @@
-.noMessage{
-    flex-direction: column;
-    row-gap: 1rem;
-}
-
-.noMessage > .noMessage__imageContainer{
-    width: 20rem ;
-}
