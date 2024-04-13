@@ -1,14 +1,15 @@
 .search-result__container{
     position: absolute;
-    column-gap: 0.5rem;
+    column-gap: 1rem;
 
     bottom: -5.5rem;
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-direction: row;
 
-    padding: 1.25rem 1rem 1rem;
+    padding: 0.75rem 1rem 0.75rem !important;
 }
 
 .search-result__container .search-result__description{

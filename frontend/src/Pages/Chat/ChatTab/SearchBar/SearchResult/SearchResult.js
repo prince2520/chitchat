@@ -47,22 +47,17 @@ const SearchResult = ({ data, setShowResult, setData }) => {
 
   return (
     <div ref={ref} className={"border box-shadow search-result__container"}>
-      <div className={"close-btn"}>
-        <Icon
-          onClick={() => setShowResult(false)}
-          icon="iconamoon:close-fill"
-          style={{ fontSize: "1.5rem" }}
-        />
-      </div>
-      <div className={"search-result__image__container"}>
+      <div className={"flex-center search-result__image__container"}>
         <ImageContainer
           highResUrl={data.highResUrl}
           lowResUrl={data.lowResUrl}
+          height="3.5rem"
+          width="3.5rem"
         />
       </div>
       <div className={"flex-center search-result__description"}>
         <h5 className="color-text">{data.name}</h5>
-        <p className="color-text-light">{data.status}</p>
+        <h6 className="color-text-light">{data.status}</h6>
       </div>
       <div className={"flex-center search-result__join-btn"}>
         <Icon
