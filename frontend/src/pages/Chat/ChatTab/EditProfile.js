@@ -39,10 +39,6 @@ const EditProfile = () => {
   };
 
   const saveProfileDetail = async (name, status) => {
-    if (!highResUrl || !lowResUrl) {
-      return;
-    }
-
     const highResUrlfirebaseUrl = await saveInFirebase(
       highResUrl,
       `users/${authCtx.userId}/profileImg/highResImg-${authCtx.userId}`
@@ -63,13 +59,18 @@ const EditProfile = () => {
       .then((result) => {
         setLoading(false);
         if (result.success) {
+          let updatedUser = {
+            name: name,
+            status: status
+          }
+
+          if (highResUrl || lowResUrl) {
+            updatedUser['highResUrl'] = highResUrlfirebaseUrl;
+            updatedUser['lowResUrl'] = lowResUrlfirebaseUrl;
+          }
+
           dispatch(
-            UserActions.saveUserData({
-              name: name,
-              status: status,
-              highResUrl: highResUrlfirebaseUrl,
-              lowResUrl: lowResUrlfirebaseUrl,
-            })
+            UserActions.saveUserData(updatedUser)
           );
           toast.success(result.message);
         } else {
