@@ -120,7 +120,28 @@ const deleteChat = (state, action) => {
     state.selectedId = null;
     state.selectedType = null;
     state.isSelected = false;
+};
+
+const createMessage = (state, action) => {
+    const isGroup = action.payload.selectedType === categoryState[0];
+
+    if (isGroup) {
+        state.groups = state.groups.filter((chat) => {
+            if (chat._id === action.payload.chatId) {
+                chat.messages = [...chat.messages, action.payload.data];
+            }
+            return chat;
+        });
+    } {
+        state.privates = state.privates.filter((chat) => {
+            if (chat._id === action.payload.chatId) {
+                chat.messages = [...chat.messages, action.payload.data];
+            }
+            return chat;
+        });
+    }
 }
+
 
 
 const ChatSlice = createSlice({
@@ -136,6 +157,7 @@ const ChatSlice = createSlice({
         createPrivate,
         createGroup,
         deleteChat,
+        createMessage,
 
         addGroup(state, action) {
             state.groups = [...state.groups, action.payload];
@@ -269,14 +291,7 @@ const ChatSlice = createSlice({
     extraReducers: (builder) => {
 
         builder
-            .addCase(createGroupMessageThunk.fulfilled, (state, action) => {
-                state = state.groups.filter((chat) => {
-                    if (chat._id === action.payload.chatId) {
-                        chat.messages = [...chat.messages, action.payload.data];
-                    }
-                    return chat;
-                });
-            })
+            .addCase(createGroupMessageThunk.fulfilled, createMessage)
             .addCase(createGroupMessageThunk.rejected, (_, action) => {
                 toast(`${action.payload}`, {
                     type: "error"
@@ -284,14 +299,7 @@ const ChatSlice = createSlice({
             })
 
         builder
-            .addCase(createPrivateMessageThunk.fulfilled, (state, action) => {
-                state = state.privates.filter((chat) => {
-                    if (chat._id === action.payload.chatId) {
-                        chat.messages = [...chat.messages, action.payload.data];
-                    }
-                    return chat;
-                });
-            })
+            .addCase(createPrivateMessageThunk.fulfilled, createMessage)
             .addCase(createPrivateMessageThunk.rejected, (_, action) => {
                 toast(`${action.payload}`, {
                     type: "error"

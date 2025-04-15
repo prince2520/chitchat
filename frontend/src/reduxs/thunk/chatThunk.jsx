@@ -34,9 +34,9 @@ export const createPrivateMessageThunk = createAsyncThunk(
     async ({ data }, { rejectWithValue }) => {
         try {
             let response = await savePrivateMessage(data);
-            socketSendMessage({ ...data, data: response.data });
-            console.log("createPrivateMessage", response);
-            return response;
+            let msgData = { ... data, data: response.data };
+            socketSendMessage(msgData);
+            return msgData;
 
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -108,9 +108,9 @@ export const createGroupMessageThunk = createAsyncThunk(
     async ({ data }, { rejectWithValue }) => {
         try {
             let response = await saveGroupMessage(data);
-            socketSendMessage({ ...data, data: response.data });
-            console.log("createGroupMessage", response);
-            return response;
+            let msgData = { ... data, data: response.data };
+            socketSendMessage(msgData);
+            return msgData;
 
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");

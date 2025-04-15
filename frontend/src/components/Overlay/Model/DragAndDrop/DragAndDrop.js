@@ -1,7 +1,7 @@
 import { uid } from "uid";
 import { Icon } from "@iconify/react";
 import { toast } from "react-toastify";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../../Button/Button";
@@ -10,14 +10,13 @@ import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 
 import { categoryState } from "../../../../constants/constants";
 import { OverlayActions } from "../../../../reduxs/slice/overlaySlice";
-import { messageHandler } from "../../../../utils/SendMessage";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
 import { DragAndDropActions } from "../../../../reduxs/slice/dragAndDropSlice";
 
 import { getDropData } from "../../../../utils/GetDropData";
 
 import "./DragAndDrop.css";
-import { ChatActions } from "../../../../reduxs/slice/chatSlice";
+import { createGroupMessageThunk, createPrivateMessageThunk } from "../../../../reduxs/thunk/chatThunk";
 
 const DragAndDrop = () => {
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ const DragAndDrop = () => {
 
   const user = useSelector((state) => state.user);
   const chat = useSelector((state) => state.chat);
-  
+
   const [loading, setLoading] = useState(false);
 
   let data = (
@@ -61,18 +60,12 @@ const DragAndDrop = () => {
     handleDropHelper(event.dataTransfer.files[0]);
   };
 
-  const saveMessage = (temp) => {
-    toast.success('Media uploaded successfully!')
-    dispatch(ChatActions.saveMessage(temp));
-  };
-
   const sendMessage = (url, file) => {
     let msgData = {
       token: user.token,
       chatId: data._id,
       users: data.users,
       selectedType: chat.selectedType,
-      saveMessage: saveMessage,
       data: {
         message: file.name,
         isOpenAIMsg: false,
@@ -82,7 +75,12 @@ const DragAndDrop = () => {
         userId: user._id,
       }
     };
-    messageHandler(msgData, setLoading);
+
+    if (chat.selectedType === categoryState[0]) {
+      dispatch(createGroupMessageThunk({ data: msgData }))
+    } else {
+      dispatch(createPrivateMessageThunk({ data: msgData }))
+    }
   };
 
   const uploadHandler = (event) => {
@@ -93,7 +91,7 @@ const DragAndDrop = () => {
           sendMessage(url, file);
           dispatch(DragAndDropActions.removeSingleFile(file));
         })
-        .catch((err) => console.log(err)).finally(()=>{
+        .catch((err) => console.log(err)).finally(() => {
           setLoading(false);
         });
     });

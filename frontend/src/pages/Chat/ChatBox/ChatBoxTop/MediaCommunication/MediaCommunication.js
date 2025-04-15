@@ -12,9 +12,10 @@ import SocketContext from "../../../../../context/socketContext";
 const MediaCommunication = ({closeSettingHandler}) => {
   const socketCtx = useContext(SocketContext);
   const user = useSelector((state) => state.user);
+  const chat = useSelector((state) => state.chat);
 
-  const privateData = user.privates.filter(
-    (res) => res._id === user.selectedId
+  const privateData = chat.privates.filter(
+    (res) => res._id === chat.selectedId
   )[0];
 
   const dispatch = useDispatch();
