@@ -158,6 +158,7 @@ const ChatSlice = createSlice({
         deleteChat,
         createMessage,
         updateGroup,
+        blockUserGroup,
 
         addGroup(state, action) {
             state.groups = [...state.groups, action.payload];
@@ -216,19 +217,6 @@ const ChatSlice = createSlice({
                 }
                 return group;
             });
-        },
-        blockUserGroup(state, action) {
-            const blockedUser = action.payload.blockedUser;
-            const groupId = action.payload.groupId;
-
-            const temp = state.groups.concat().map((group) => {
-                if (group._id === groupId) {
-                    group.blockList = [...group.blockList.concat(), blockedUser];
-                }
-                return group;
-            });
-
-            state.groups = temp;
         },
         unblockUserGroup(state, action) {
             const blockUserId = action.payload.blockUserId;
@@ -338,7 +326,7 @@ const ChatSlice = createSlice({
             })
 
         builder
-            .addCase(blockUserGroupThunk.fulfilled, unblockUserGroup)
+            .addCase(blockUserGroupThunk.fulfilled, blockUserGroup)
             .addCase(blockUserGroupThunk.rejected, (_, action) => {
                 toast(`${action.payload}`, {
                     type: "error"

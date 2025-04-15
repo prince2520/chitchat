@@ -207,8 +207,7 @@ export const blockUserGroupThunk = createAsyncThunk(
             socketBlockUser(data);
             let response = await blockUserGroup(data);
             toast.success(response.message);
-            console.log("blockUserGroup", response);
-            return response;
+            return data;
         } catch (error) {
             toast.error(error);
             return rejectWithValue(error.message || "Something goes wrong!");

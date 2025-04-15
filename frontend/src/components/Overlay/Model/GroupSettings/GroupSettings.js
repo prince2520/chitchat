@@ -23,7 +23,7 @@ import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 
 import "./GroupSettings.css";
 import { ChatActions } from "../../../../reduxs/slice/chatSlice";
-import { updateGroupThunk } from "../../../../reduxs/thunk/chatThunk";
+import { blockUserGroupThunk, updateGroupThunk } from "../../../../reduxs/thunk/chatThunk";
 
 const Share = ({ groupId }) => {
   return (
@@ -125,22 +125,10 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
       groupId,
       token,
       blockUserId: blockedUser._id,
+      blockedUser : blockedUser
     };
 
-    blockUser(blockData)
-      .then((res) => {
-        if (res.success) {
-          blockData["blockedUser"] = blockedUser;
-          toast.success(res.message);
-          socketBlockUser(blockData);
-          dispatch(ChatActions.blockUserGroup(blockData));
-        } else {
-          toast.error(res.message);
-        }
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
+    dispatch(blockUserGroupThunk({data:blockData}));
   };
 
   return (
