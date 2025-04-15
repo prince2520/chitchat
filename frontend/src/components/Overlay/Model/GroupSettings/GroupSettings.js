@@ -19,7 +19,6 @@ import {
 } from "../../../../services/socket";
 
 import Button from "../../../Button/Button";
-import AuthContext from "../../../../context/authContext";
 import CustomInput from "../../../CustomInput/CustomInput";
 import ImageContainer from "../../../ImageContainer/ImageContainer";
 import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
@@ -69,12 +68,12 @@ const Edit = ({ data }) => {
 };
 
 const MembersAndBlockList = ({ data, isBlockList = false }) => {
-  const authCtx = useContext(AuthContext);
   const dispatch = useDispatch();
+  const user = useSelector(state=>state.user);
 
   const handleRemoveUser = (removeUserId) => {
     const groupId = data._id;
-    const token = authCtx.token;
+    const token = user.token;
 
     let removeData = {
       groupId,
@@ -115,12 +114,12 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
   };
 
   const isAdmin = () => {
-    return authCtx.userId === data.createdBy;
+    return user._id === data.createdBy;
   };
 
   const addUserToBlocklist = (blockedUser) => {
     const groupId = data._id;
-    const token = authCtx.token;
+    const token = user.token;
 
     let blockData = {
       groupId,
@@ -218,7 +217,6 @@ const GroupSettings = () => {
 
   const dispatch = useDispatch();
 
-  const authCtx = useContext(AuthContext);
 
   const data = (
     user?.selectedType !== null && user?.selectedType === categoryState[0]
@@ -256,7 +254,7 @@ const GroupSettings = () => {
 
     const name = event?.target[1]?.value;
     const status = event?.target[2]?.value;
-    const token = authCtx.token;
+    const token = user.token;
 
     if (!name || !status) return;
 
@@ -319,7 +317,7 @@ const GroupSettings = () => {
       </div>
       <div className="flex-center group-settings-links">
         {groupSettingsLinks.map((name) => {
-          if (groupSettingsLinks[2] === name && authCtx.userId !== data.createdBy) {
+          if (groupSettingsLinks[2] === name && user._id !== data.createdBy) {
             return;
           }
 
@@ -347,7 +345,7 @@ const GroupSettings = () => {
           width={"50%"}
         >
           <h5 className="color-text">
-            {authCtx.userId === data.createdBy ? "Delete" : "Leave"}
+            {user._id === data.createdBy ? "Delete" : "Leave"}
           </h5>
         </Button>
       ) : (

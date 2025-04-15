@@ -4,35 +4,26 @@ import { toast } from "react-toastify";
 import { getUserThunk, loginThunk, updateUserThunk } from "../thunk/userThunk";
 
 function updateUserState(state, action) {
-  const {
-    _id,
-    name,
-    status,
-    highResUrl,
-    lowResUrl,
-    email,
-  } = action.payload.user;
+    const {
+      _id,
+      name,
+      status,
+      highResUrl,
+      lowResUrl,
+      email,
+    } = action.payload.user;
+  
+    state._id = _id;
+    state.name = name;
+    state.status = status;
+    state.highResUrl = highResUrl
+    state.lowResUrl = lowResUrl
+    state.email = email;
+    state.token = action.payload.token; 
+    state.isAuth = true
+  }
 
-  state._id = _id;
-  state.name = name;
-  state.status = status;
-  state.highResUrl = highResUrl
-  state.lowResUrl = lowResUrl
-  state.email = email;
-  state.token = action.payload.token; 
-  state.isAuth = true
-}
-
-
-const initialUserState = {
-  _id: "",
-  name: "",
-  email: "",
-  status: "",
-  highResUrl: "",
-  lowResUrl: "",
-  token : "",
-  isAuth : false,
+const initialChatState = {
   // Chat
   groups: [],
   privates: [],
@@ -42,10 +33,19 @@ const initialUserState = {
   isSelected: false
 };
 
-const UserSlice = createSlice({
-  name: "user",
-  initialState: initialUserState,
+const ChatSlice = createSlice({
+  name: "chat",
+  initialState: initialChatState,
   reducers: {
+    saveChat(state, action){
+        const {groups, privates} = action.payload;
+
+        state.groups = groups;
+        state.privates = privates;
+    },
+
+
+
     updateIsAuth(state, action){
       state.isAuth = action.payload;
     },
@@ -230,5 +230,5 @@ const UserSlice = createSlice({
   }
 });
 
-export const UserActions = UserSlice.actions;
-export default UserSlice.reducer;
+export const ChatActions = ChatSlice.actions;
+export default ChatSlice.reducer;

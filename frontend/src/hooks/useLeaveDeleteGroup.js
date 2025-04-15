@@ -1,10 +1,9 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserActions } from "../reduxs/slice/userSlice";
 import { toast } from "react-toastify";
 import { socketLeaveMemberGroup } from "../services/socket";
 
-import AuthContext from "../context/authContext";
 import { deleteGroup } from "../api/group";
 import { deletePrivate } from "../api/private";
 import { leaveGroup } from "../api/group";
@@ -21,8 +20,6 @@ const useLeaveDeleteGroup = () => {
   const selectedType = user.selectedType;
   const selectedId = user.selectedId;
 
-  const authCtx = useContext(AuthContext);
-
   const data = (
     selectedType === categoryState[0] ? user.groups : user.privates
   ).filter((res) => res._id === user.selectedId)[0];
@@ -30,7 +27,7 @@ const useLeaveDeleteGroup = () => {
   // check if user is admin of chat
   const isAdmin = () => {
     if (selectedType === categoryState[1]) return true;
-    return authCtx.userId === data.createdBy;
+    return user._id === data.createdBy;
   };
 
   // delete this chat from all users using socket
@@ -42,7 +39,7 @@ const useLeaveDeleteGroup = () => {
       };
       if (selectedType === categoryState[1]) {
         const privateUserId = data.users.filter(
-          (user) => user._id !== authCtx.userId
+          (user) => user._id !== user._id
         )[0]._id;
         socketData["privatUserId"] = privateUserId;
       }
@@ -71,7 +68,7 @@ const useLeaveDeleteGroup = () => {
   const handleDeleteChat = () => {
     const chatId = selectedId;
     const type = selectedType;
-    const userId = authCtx.userId;
+    const userId = user._id;
     const isUserAdmin = isAdmin();
 
     setLeaveDeleteloading(true);
@@ -81,7 +78,7 @@ const useLeaveDeleteGroup = () => {
         ? deleteGroup
         : leaveGroup
       : deletePrivate)({
-      token: authCtx.token,
+      token: user.token,
       chatId: chatId,
     })
       .then(async (res) => {

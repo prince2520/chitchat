@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 
 import { urlWebsiteData } from "../api/helper";
 import { isValidUrl } from "../utils/IsValidUrl";
 
-import AuthContext from "../context/authContext";
+import { useSelector } from "react-redux";
 
 const useExtractLinkDetail = () => {
   const [isUrl, setIsUrl] = useState(false);
@@ -15,12 +15,11 @@ const useExtractLinkDetail = () => {
     description: undefined,
   });
 
-  const authCtx = useContext(AuthContext);
-
+  const token = useSelector(state=>state.user.token);
 
   const fetchUrlWebsiteData = async (url) => {
     const data = {
-      token: authCtx.token,
+      token: token,
       url: url,
     };
 

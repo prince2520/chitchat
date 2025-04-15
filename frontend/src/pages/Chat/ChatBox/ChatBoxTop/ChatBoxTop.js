@@ -5,14 +5,12 @@ import { useState, useContext } from "react";
 import { categoryState } from "../../../../constants/constants";
 
 import ChatSettings from "../ChatSettings/ChatSettings";
-import AuthContext from "../../../../context/authContext";
 import SideBar from "../../../../components/SideBar/SideBar";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 
 import "./ChatBoxTop.css";
 
 const ChatBoxTop = () => {
-  const authCtx = useContext(AuthContext);
   const user = useSelector((state) => state.user);
   
   const [showSetting, setShowSetting] = useState(false);
@@ -32,13 +30,13 @@ const ChatBoxTop = () => {
       <ImageContainer
         highResUrl={
           user.selectedType === categoryState[1]
-            ? data.users.filter((user) => user._id !== authCtx.userId)[0]
+            ? data.users.filter((user) => user._id !== user._id)[0]
                 .highResUrl
             : data.highResUrl
         }
         lowResUrl={
           user.selectedType === categoryState[1]
-            ? data.users.filter((user) => user._id !== authCtx.userId)[0]
+            ? data.users.filter((user) => user._id !==  user._id)[0]
                 .lowResUrl
             : data.lowResUrl
         }
@@ -49,11 +47,11 @@ const ChatBoxTop = () => {
         <h5 className="color-text-light">
           {user.selectedType === categoryState[0]
             ? data.name
-            : data.users.filter((user) => user._id !== authCtx.userId)[0].name}
+            : data.users.filter((user) => user._id !==  user._id)[0].name}
         </h5>
         <p className="color-text-light">
           {!(user.selectedType === categoryState[0])
-            ? data.users.filter((user) => user._id !== authCtx.userId)[0].status
+            ? data.users.filter((user) => user._id !==  user._id)[0].status
             : data.status}
         </p>
       </div>

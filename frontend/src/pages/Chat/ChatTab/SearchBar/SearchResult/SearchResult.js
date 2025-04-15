@@ -1,30 +1,28 @@
-import { useContext } from "react";
 import { Icon } from "@iconify/react";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { socketAddPrivate } from "../../../../../services/socket";
 import { createPrivate } from "../../../../../api/private";
 import { UserActions } from "../../../../../reduxs/slice/userSlice";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
-import AuthContext from "../../../../../context/authContext";
 import ImageContainer from "../../../../../components/ImageContainer/ImageContainer";
 
 import "./SearchResult.css";
 
 const SearchResult = ({ data, setShowResult, setData }) => {
   const dispatch = useDispatch();
-  const authCtx = useContext(AuthContext);
+  const user = useSelector(state=>state.user);
 
   // create private chat and save it to frontend
   const handleAddPrivate = () => {
-    createPrivate(authCtx?.token, authCtx?.userId, data._id)
+    createPrivate(user.token, user._id, data._id)
       .then((data) => {
         if (data.success) {
           dispatch(UserActions.addPrivate(data.data));
           socketAddPrivate({
-            userId: authCtx.userId,
+            userId: user._id,
             private: data.data,
           });
           toast.success(data.message);

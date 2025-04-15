@@ -7,12 +7,10 @@ import { getFormatDate } from ".././../../../utils/GetFormatDate";
 
 import Message from "./Message/Message";
 import DateLine from "./DateLine/DateLine";
-import AuthContext from "../../../../context/authContext";
 
 import "./ChatBoxMiddle.css";
 
 const ChatBoxMiddle = () => {
-  const authCtx = useContext(AuthContext);
   const user = useSelector(state=>state.user);
   const data = (user?.selectedType === categoryState[0]
     ? user.groups
@@ -50,7 +48,7 @@ const ChatBoxMiddle = () => {
           <Message
             key={idx}
             messageDetail={message}
-            myMsg={message.user._id === authCtx.userId}
+            myMsg={message.user._id === user._id}
           />
         </React.Fragment>
       ))}

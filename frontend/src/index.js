@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import store from "./reduxs/store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { AuthContextProvider } from "./context/authContext";
 
 import reportWebVitals from "./reportWebVitals";
 
@@ -23,9 +22,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <AuthContextProvider>
         <App />
-      </AuthContextProvider>
     </Provider>
   </BrowserRouter>
 );

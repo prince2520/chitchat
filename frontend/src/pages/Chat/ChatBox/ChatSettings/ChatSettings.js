@@ -8,7 +8,6 @@ import { OverlayActions } from "../../../../reduxs/slice/overlaySlice";
 import { categoryState } from "../../../../constants/constants";
 import { chatTopSettingOptions } from "../../../../constants/constants";
 
-import AuthContext from "../../../../context/authContext";
 import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 import MediaCommunication from "../ChatBoxTop/MediaCommunication/MediaCommunication";
 
@@ -20,7 +19,6 @@ const ChatSettings = ({ closeSettingHandler }) => {
   const user = useSelector((state) => state.user);
   const selectedType = user.selectedType;
 
-  const authCtx = useContext(AuthContext);
 
   const { handleDeleteChat } = useLeaveDeleteGroup();
 
@@ -33,7 +31,7 @@ const ChatSettings = ({ closeSettingHandler }) => {
   // check if user is admin of chat
   const isAdmin = () => {
     if (selectedType === categoryState[1]) return true;
-    return authCtx.userId === data.createdBy;
+    return user._id === data.createdBy;
   };
 
   return (
@@ -42,7 +40,7 @@ const ChatSettings = ({ closeSettingHandler }) => {
         chatTopSettingOptions.map((option) => {
           if (
             chatTopSettingOptions[2].title === option.title &&
-            !(authCtx.userId === data.createdBy)
+            !(user._id === data.createdBy)
           ) {
             return null;
           }

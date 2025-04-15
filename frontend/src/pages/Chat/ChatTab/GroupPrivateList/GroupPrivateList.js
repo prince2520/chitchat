@@ -5,7 +5,6 @@ import { UserActions } from "../../../../reduxs/slice/userSlice";
 import { categoryState } from "../../../../constants/constants";
 import { getLastMessage } from "../../../../utils/GetLastMessage";
 
-import AuthContext from "../../../../context/authContext";
 import NoGroupPrivate from "./NoGroupPrivate/NoGroupPrivate";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 import ChangeCategory from "../../../../components/ChangeCategory/ChangeCategory";
@@ -15,7 +14,6 @@ import "./GroupPrivateList.css";
 const GroupPrivateList = () => {
   const [isPrivate, setIsPrivate] = useState(false);
 
-  const authCtx = useContext(AuthContext);
   const user = useSelector((state) => state.user);
   const privates = user.privates;
   const groups = user.groups;
@@ -45,7 +43,7 @@ const GroupPrivateList = () => {
         {msgLength > 0 ? (
           <>
             <p className="flex-center">
-              {lastMsg.user._id === authCtx.userId ? "You" : lastMsg.user.name}{" "}
+              {lastMsg.user._id === user._id ? "You" : lastMsg.user.name}{" "}
               : {getLastMessage(lastMsg)}
             </p>
           </>
@@ -74,14 +72,14 @@ const GroupPrivateList = () => {
                   highResUrl={
                     isPrivate
                       ? data.users.filter(
-                          (user) => user._id !== authCtx.userId
+                          (user) => user._id !== user._id
                         )[0].highResUrl
                       : data.highResUrl
                   }
                   lowResUrl={
                     isPrivate
                       ? data.users.filter(
-                          (user) => user._id !== authCtx.userId
+                          (user) => user._id !== user._id
                         )[0].lowResUrl
                       : data.lowResUrl
                   }
@@ -93,7 +91,7 @@ const GroupPrivateList = () => {
                 <h5>
                   {isPrivate
                     ? data.users.filter(
-                        (user) => user._id !== authCtx.userId
+                        (user) => user._id !== user._id
                       )[0].name
                     : data.name}
                 </h5>

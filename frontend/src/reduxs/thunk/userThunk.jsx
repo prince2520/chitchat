@@ -8,11 +8,12 @@ import { socketJoinGroup } from "../../services/socket";
 // User - Get User
 export const getUserThunk = createAsyncThunk(
     'user/getUser',
-    async ({ email, token }, { getState, rejectWithValue }) => {
+    async ({ email, token }, {  rejectWithValue }) => {
         try {
-            const state = getState();
-            let response = await fetchUser(email, state.user.token);
+            let response = await fetchUser(email, token);
+            console.log("getUser", response)
             socketJoinGroup(response.user.groups);
+
             toast.success(response?.message);
             return { ...response, token };
         } catch (error) {

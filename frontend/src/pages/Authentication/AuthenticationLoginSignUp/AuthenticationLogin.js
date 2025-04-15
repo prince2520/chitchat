@@ -1,16 +1,14 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Button from "../../../components/Button/Button";
-import AuthContext from "../../../context/authContext";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import { useDispatch } from "react-redux";
 import { loginThunk } from "../../../reduxs/thunk/userThunk";
 import { useAuth } from "../../../hooks/useAuth";
-
+import { ChatActions } from "../../../reduxs/slice/chatSlice";
 
 const Login = () => {
-  const authCtx = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const {authTimer} = useAuth();
@@ -22,10 +20,13 @@ const Login = () => {
     const password = event.target[1].value;
 
     setLoading(true);
-    //authCtx?.loginHandler(email, password, setLoading);
     dispatch(loginThunk({email, password}))
     .unwrap()
     .then((res)=>{
+      dispatch(ChatActions.saveChat({
+        groups : res.user.groups,
+        privates : res.user.privates,
+      }))
       authTimer(res);
     })
     .finally(()=>{

@@ -4,20 +4,20 @@ import { useCallback, useContext, useState } from "react";
 import { fetchUser } from "../../../../api/user";
 
 import SearchResult from "./SearchResult/SearchResult";
-import AuthContext from "../../../../context/authContext";
 import CustomInput from "../../../../components/CustomInput/CustomInput";
+import { useSelector } from "react-redux";
 
 const SearchBar = () => {
-  const authCtx = useContext(AuthContext);
 
   const [data, setData] = useState(null);
+  const user = useSelector(state=>state.user);
   const [showResult, setShowResult] = useState(false);
 
   // fetch search user data
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
 
-    fetchUser(event.target[0].value, authCtx?.token)
+    fetchUser(event.target[0].value, user.token)
       .then((result) => {
         console.log(result);
         if (result?.success) {

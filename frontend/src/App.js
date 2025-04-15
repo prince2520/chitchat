@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { Chat } from "./pages/Chat/Chat";
-
-import AuthContext from "./context/authContext";
+import { UserActions } from "./reduxs/slice/userSlice";
 import JoinGroup from "./pages/Chat/ChatTab/JoinGroup";
 import EditProfile from "./pages/Chat/ChatTab/EditProfile";
 import CreateGroup from "./pages/Chat/ChatTab/CreateGroup";
@@ -18,9 +17,47 @@ import "./App.css";
 import "./assests/css/style.css";
 
 import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "./hooks/useAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserThunk } from "./reduxs/thunk/userThunk";
+import { ChatActions } from "./reduxs/slice/chatSlice";
 
 function App() {
-  const authCtx = useContext(AuthContext);
+  const { logout, autoLogout } = useAuth();
+  const dispatch = useDispatch();
+  const isAuth = useSelector(state => state.user.isAuth);
+
+
+  useEffect(() => {
+    const localToken = localStorage.getItem("token");
+    const localEmail = localStorage.getItem("email");
+    const localExpiryDate = localStorage.getItem("expiryDate");
+
+    if (!localExpiryDate) {
+      return;
+    }
+
+    if (new Date(localExpiryDate) <= new Date()) {
+      dispatch(UserActions.updateIsAuth(false));
+      logout();
+      return;
+    }
+
+    dispatch(getUserThunk({ email: localEmail, token: localToken }))
+    .unwrap()
+    .then((res) => {
+      dispatch(ChatActions.saveChat({
+        groups : res.user.groups,
+        privates : res.user.privates,
+      }))
+    });
+
+
+    const remainingMilliseconds =
+      new Date(localExpiryDate).getTime() - new Date().getTime();
+
+    autoLogout(remainingMilliseconds);
+  }, []);
 
   return (
     <div className="flex-center App">
@@ -42,7 +79,7 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route path="" element={<Navigate to={"/auth/login"} />} />
         </Route>
-        {authCtx?.isAuth && (
+        {isAuth && (
           <Route path="/chat" element={<Chat />}>
             <Route path="home" element={<GroupPrivateList />} />
             <Route path="edit-profile" element={<EditProfile />} />
@@ -53,9 +90,9 @@ function App() {
         )}
         <Route
           path="/"
-          element={<Navigate to={!authCtx.isAuth ? "/auth/login" : "/chat"} />}
+          element={<Navigate to={isAuth ? "/auth/login" : "/chat"} />}
         />
-        <Route path="*" element={<NotFoundPage />}/>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );

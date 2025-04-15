@@ -1,12 +1,11 @@
 import { toast } from "react-toastify";
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateUser } from "../../../api/user";
 import { UserActions } from "../../../reduxs/slice/userSlice";
 import { saveInFirebase } from "../../../utils/SaveInFirebase";
 
-import AuthContext from "../../../context/authContext";
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
@@ -17,7 +16,6 @@ const EditProfile = () => {
   const [highResUrl, setHighResUrl] = useState(null);
 
   const dispatch = useDispatch();
-  const authCtx = useContext(AuthContext);
   const user = useSelector((state) => state.user);
 
   const saveProfileBackend = (
@@ -27,7 +25,7 @@ const EditProfile = () => {
     lowResUrl = null
   ) => {
     let data = {
-      userId: authCtx.userId,
+      userId: user._id,
       name: name,
       status: status,
     };
@@ -35,17 +33,17 @@ const EditProfile = () => {
       data["highResUrl"] = highResUrl;
       data["lowResUrl"] = lowResUrl;
     }
-    return updateUser(authCtx.token, data);
+    return updateUser(user.token, data);
   };
 
   const saveProfileDetail = async (name, status) => {
     const highResUrlfirebaseUrl = await saveInFirebase(
       highResUrl,
-      `users/${authCtx.userId}/profileImg/highResImg-${authCtx.userId}`
+      `users/${user._id}/profileImg/highResImg-${user._id}`
     );
     const lowResUrlfirebaseUrl = await saveInFirebase(
       lowResUrl,
-      `users/${authCtx.userId}/profileImg/lowResImg-${authCtx.userId}`
+      `users/${user._id}/profileImg/lowResImg-${user._id}`
     );
 
     setLoading(true);

@@ -27,8 +27,6 @@ export function useAuth() {
 
         localStorage.setItem("expiryDate", expiryDate.toISOString());
         autoLogout(remainingMilliseconds);
-
-        navigate("/chat");
     }, []);
 
     const logout = useCallback(() => {
@@ -39,6 +37,8 @@ export function useAuth() {
     }, [dispatch]);
 
     const autoLogout = useCallback((milliseconds) => {
+        navigate("/chat");
+
         setTimeout(() => {
             logout();
         }, milliseconds);

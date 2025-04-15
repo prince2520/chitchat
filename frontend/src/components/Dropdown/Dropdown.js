@@ -1,17 +1,16 @@
-import { useContext } from "react";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 import { dropDownMenuOptions } from "../../constants/constants";
 
-import AuthContext from "../../context/authContext";
 
 import "./Dropdown.css";
+import { useAuth } from "../../hooks/useAuth";
 
-const Dropdown = ({closeDropdown, showDropdown}) => {
+const Dropdown = ({closeDropdown}) => {
   const navigate = useNavigate();
-  const authCtx = useContext(AuthContext);
+  const {logout} = useAuth();
 
   const ref = useDetectClickOutside({ 
     onTriggered: closeDropdown,
@@ -31,7 +30,7 @@ const Dropdown = ({closeDropdown, showDropdown}) => {
       ))}
       <div
         className={"cursor-btn menu-option"}
-        onClick={() => authCtx?.logoutHandler()}
+        onClick={() => logout()}
       >
         <Icon icon="material-symbols:logout" />
         <h5>Logout</h5>

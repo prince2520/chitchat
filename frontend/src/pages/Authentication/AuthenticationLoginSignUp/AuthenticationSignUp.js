@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import {  useState } from "react";
 
-import AuthContext from "../../../context/authContext";
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
+import { signup } from "../../../api/auth";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
-  
-  const authCtx = useContext(AuthContext);
-  
+    
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -20,7 +19,11 @@ const SignUp = () => {
     password = event.target[2].value;
     confirmPassword = event.target[3].value;
 
-    authCtx?.signUpHandler(username, email, password, confirmPassword, setLoading);
+    setLoading(true);
+    signup(username, email, password, confirmPassword)
+    .then((res)=>toast.success(res.message))
+    .catch((err)=>toast.error(err.message))
+    .finally(()=>setLoading(false));
   }
 
   return (

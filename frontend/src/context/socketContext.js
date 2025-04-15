@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import React, { useEffect, useContext, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {toast} from "react-toastify"
 import Peer from "simple-peer";
 
@@ -25,23 +25,22 @@ import {
   socketGetAutoLogout
 } from "../services/socket";
 
-import AuthContext from "./authContext";
 
 import { useSelector } from "react-redux";
 import { UserActions } from "../reduxs/slice/userSlice";
 import { OverlayActions } from "../reduxs/slice/overlaySlice";
 import { VideoAudioCallActions } from "../reduxs/slice/videoAudioCallSlice";
 import { callingType } from "../constants/constants";
+import { useAuth } from "../hooks/useAuth";
 
 const SocketContext = React.createContext({});
 
 export const SocketContextProvider = ({ children }) => {
   const dispatch = useDispatch();
-  const authCtx = useContext(AuthContext);
-
   const videoAudioCall = useSelector((state) => state.videoAudioCall);
 
   const [stream, setStream] = useState();
+  const {logout} = useAuth();
 
   const user = useSelector((state) => state.user);
   const selectedId = useSelector((state) => state.user.selectedId);
@@ -51,14 +50,14 @@ export const SocketContextProvider = ({ children }) => {
   const connectionRef = useRef();
 
   useEffect(() => {
-    socketInitiate(authCtx?.userId);
+    socketInitiate(user._id);
     return () => {
-      socketDisconnect({userId: authCtx?.userId});
+      socketDisconnect({userId: user._id});
       if (videoAudioCall.isCalling || videoAudioCall.isReceivingCall) {
         endCall(videoAudioCall.callData.userToCall);
       }
     };
-  }, [authCtx?.userId, dispatch]);
+  }, [user._id, dispatch]);
 
   useEffect(() => {
     socketGetSendMessage((err, { data }) => {
@@ -87,9 +86,9 @@ export const SocketContextProvider = ({ children }) => {
       dispatch(UserActions.leaveMemberGroup(data));
     });
     socketGetAutoLogout((err, {userId, alreadyLogin}) => {
-      if(authCtx.userId === userId && alreadyLogin) {
+      if(user._id === userId && alreadyLogin) {
         toast.error('Someone login to your account!');
-        authCtx.logoutHandler();
+        logout();
       }
     })
   }, [dispatch]);

@@ -10,7 +10,6 @@ import { OverlayActions } from "../../../../reduxs/slice/overlaySlice";
 
 import OpenAI from "./OpenAI/OpenAI";
 import CustomEmoji from "./CustomEmoji/CustomEmoji";
-import AuthContext from "../../../../context/authContext";
 
 import "./ChatBoxBottom.css";
 
@@ -20,7 +19,6 @@ const ChatBoxBottom = () => {
 
 
   const inputRef = useRef(null);
-  const authCtx = useContext(AuthContext);
   const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -42,7 +40,7 @@ const ChatBoxBottom = () => {
     if (message === "") return;
 
     let msgData = {
-      token: authCtx.token,
+      token: user.token,
       chatId: data._id,
       users: data.users,
       selectedType: user.selectedType,
@@ -53,7 +51,7 @@ const ChatBoxBottom = () => {
         url: "",
         size: 0,
         type: "string",
-        userId: authCtx.userId,
+        userId: user._id,
       },
     };
     messageHandler(msgData);

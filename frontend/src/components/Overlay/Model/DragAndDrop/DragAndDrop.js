@@ -5,7 +5,6 @@ import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../../Button/Button";
-import AuthContext from "../../../../context/authContext";
 import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
 import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 
@@ -23,7 +22,6 @@ import "./DragAndDrop.css";
 const DragAndDrop = () => {
   const dispatch = useDispatch();
 
-  const authCtx = useContext(AuthContext);
 
   const user = useSelector((state) => state.user);
   
@@ -69,7 +67,7 @@ const DragAndDrop = () => {
 
   const sendMessage = (url, file) => {
     let msgData = {
-      token: authCtx.token,
+      token: user.token,
       chatId: data._id,
       users: data.users,
       selectedType: user.selectedType,
@@ -80,7 +78,7 @@ const DragAndDrop = () => {
         url: url,
         size: file.size,
         type: file.type,
-        userId: authCtx.userId,
+        userId: user._id,
       }
     };
     messageHandler(msgData, setLoading);
@@ -89,7 +87,7 @@ const DragAndDrop = () => {
   const uploadHandler = (event) => {
     event.preventDefault();
     files.map((file) => {
-      saveInFirebase(file.fileData, `${categoryState[0] === data.selectedType ? 'groups' : 'privates'}/${user.selectedId}/media/${authCtx.userId}-${uid(32)}`)
+      saveInFirebase(file.fileData, `${categoryState[0] === data.selectedType ? 'groups' : 'privates'}/${user.selectedId}/media/${user._id}-${uid(32)}`)
         .then((url) => {
           sendMessage(url, file);
           dispatch(DragAndDropActions.removeSingleFile(file));

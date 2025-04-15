@@ -1,12 +1,11 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { createGroup } from "../../../api/group";
 import { UserActions } from "../../../reduxs/slice/userSlice";
 
-import AuthContext from "../../../context/authContext";
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import CreateGroupLarge from "../../../assests/images/CreateGroupLarge.png";
@@ -16,14 +15,14 @@ import ImageContainer from "../../../components/ImageContainer/ImageContainer";
 const CreateGroup = () => {
   const [loading, setLoading] = useState(null);
 
-  const authCtx = useContext(AuthContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector(state=>state.user);
 
 
   const createGroupHandler = async (data) => {
     setLoading(true);
-    createGroup(authCtx?.token, data)
+    createGroup(user.token, data)
       .then((data) => {
         setLoading(false);
         if (data.success) {

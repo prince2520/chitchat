@@ -8,7 +8,6 @@ import { UserActions } from "../../../reduxs/slice/userSlice";
 import { socketAddMemberGroup } from "../../../services/socket";
 
 import Button from "../../../components/Button/Button";
-import AuthContext from "../../../context/authContext";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import JoinGroupLargeImg from "../../../assests/images/JoinGroup.png";
 import JoinGroupSmallImg from "../../../assests/images/JoinGroupSmall.png";
@@ -19,7 +18,6 @@ const JoinGroup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const authCtx = useContext(AuthContext);
   const user = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +28,7 @@ const JoinGroup = () => {
 
     setLoading(true);
 
-    joinGroup(authCtx?.token, groupId, authCtx?.userId)
+    joinGroup(user?.token, groupId, user?._id)
       .then((res) => {
         setLoading(false);
         if (res.success) {
