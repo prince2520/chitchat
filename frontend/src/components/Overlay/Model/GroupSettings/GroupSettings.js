@@ -23,7 +23,7 @@ import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 
 import "./GroupSettings.css";
 import { ChatActions } from "../../../../reduxs/slice/chatSlice";
-import { blockUserGroupThunk, updateGroupThunk } from "../../../../reduxs/thunk/chatThunk";
+import { blockUserGroupThunk, removeUserGroupThunk, unblockUserGroupThunk, updateGroupThunk } from "../../../../reduxs/thunk/chatThunk";
 
 const Share = ({ groupId }) => {
   return (
@@ -82,34 +82,10 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
 
     if (!isBlockList) {
       removeData["removeUserId"] = removeUserId;
-      removeUser(removeData)
-        .then((res) => {
-          if (res.success) {
-            dispatch(ChatActions.removeUserGroup(removeData));
-            socketRemoveUserGroup(removeData);
-            toast.success(res.message);
-          } else {
-            toast.error(res.message);
-          }
-        })
-        .catch((err) => {
-          toast.error(err);
-        });
+      dispatch(removeUserGroupThunk({data: removeData}));
     } else {
       removeData["blockUserId"] = removeUserId;
-      unBlockUser(removeData)
-        .then((res) => {
-          if (res.success) {
-            socketUnblockUser(removeData);
-            dispatch(ChatActions.unblockUserGroup(removeData));
-            toast.success(res.message);
-          } else {
-            toast.error(res.message);
-          }
-        })
-        .catch((err) => {
-          toast.error(err);
-        });
+      dispatch(unblockUserGroupThunk({data: removeData}));
     }
   };
 

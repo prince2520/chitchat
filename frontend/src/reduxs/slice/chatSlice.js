@@ -23,23 +23,15 @@ const createPrivate = (state, action) => {
 }
 
 const removeUserGroup = (state, action) => {
-    const remove_id = action.payload.remove_id;
+    const removeUserId = action.payload.removeUserId;
     const groupId = action.payload.groupId;
 
     state.groups = state.groups.filter((group) => {
         if (group._id === groupId) {
-            group.users = group.users.filter((user) => user._id !== remove_id);
+            group.users = group.users.filter((user) => user._id !== removeUserId);
         }
         return group;
     });
-
-    if (state._id === remove_id) {
-        state.selectedId = null;
-        state.selectedType = null;
-        state.isSelected = false;
-
-        state.groups = state.groups.filter((group) => group._id !== groupId);
-    }
 }
 
 const leaveGroup = (state, action) => {
@@ -125,8 +117,8 @@ const createMessage = (state, action) => {
     }
 }
 
-const updateGroup = (state, action) =>{
-    const {groupId, name, status, highResUrl, lowResUrl} = action.payload;
+const updateGroup = (state, action) => {
+    const { groupId, name, status, highResUrl, lowResUrl } = action.payload;
 
     state.groups = state.groups.map((group) => {
         if (group._id === groupId) {
@@ -159,6 +151,8 @@ const ChatSlice = createSlice({
         createMessage,
         updateGroup,
         blockUserGroup,
+        removeUserGroup,
+        unblockUserGroup,
 
         addGroup(state, action) {
             state.groups = [...state.groups, action.payload];
@@ -170,25 +164,6 @@ const ChatSlice = createSlice({
             state.selectedType = action.payload.selectedType;
         },
 
-        removeUserGroup(state, action) {
-            const removeUserId = action.payload.removeUserId;
-            const groupId = action.payload.groupId;
-
-            state.groups = state.groups.filter((group) => {
-                if (group._id === groupId) {
-                    group.users = group.users.filter((user) => user._id !== removeUserId);
-                }
-                return group;
-            });
-
-            if (state._id === removeUserId) {
-                state.selectedId = null;
-                state.selectedType = null;
-                state.isSelected = false;
-
-                state.groups = state.groups.filter((group) => group._id !== groupId);
-            }
-        },
         saveMessage(state, action) {
             const isGroup = action.payload.selectedType === categoryState[0];
 
@@ -217,19 +192,6 @@ const ChatSlice = createSlice({
                 }
                 return group;
             });
-        },
-        unblockUserGroup(state, action) {
-            const blockUserId = action.payload.blockUserId;
-            const groupId = action.payload.groupId;
-
-            const temp = state.groups.concat().map((group) => {
-                if (group._id === groupId) {
-                    group.blockList = group.blockList.concat().filter(user => user._id !== blockUserId);
-                }
-                return group;
-            });
-
-            state.groups = temp;
         },
         addMemberGroup(state, action) {
             const groupId = action.payload.groupId;

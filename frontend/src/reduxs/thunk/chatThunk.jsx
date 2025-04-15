@@ -166,12 +166,12 @@ export const removeUserGroupThunk = createAsyncThunk(
     'chat/removeUserGroup',
     async ({ data }, { rejectWithValue }) => {
         try {
-            socketRemoveUserGroup(data);
             let response = await removeUserGroup(data);
-            toast.success(response.message);
-            console.log("removeUserGroup", response);
 
-            return response;
+            socketRemoveUserGroup(data);
+            toast.success(response.message);
+
+            return data;
 
         } catch (error) {
             toast.error(error);
@@ -220,13 +220,10 @@ export const unblockUserGroupThunk = createAsyncThunk(
     'chat/unblockUserGroup',
     async ({ data }, { rejectWithValue }) => {
         try {
-            socketUnblockUser(data);
             let response = await unblockUserGroup(data);
+            socketUnblockUser(data);
             toast.success(response.message);
-            console.log("unblockUserGroup", response);
-
-            return response;
-
+            return data;
         } catch (error) {
             toast.error(error);
             return rejectWithValue(error.message || "Something goes wrong!");
