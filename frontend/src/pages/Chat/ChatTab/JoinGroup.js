@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { joinGroup } from "../../../api/group";
-import { UserActions } from "../../../store/userSlice";
+import { UserActions } from "../../../reduxs/slice/userSlice";
 import { socketAddMemberGroup } from "../../../services/socket";
 
 import Button from "../../../components/Button/Button";

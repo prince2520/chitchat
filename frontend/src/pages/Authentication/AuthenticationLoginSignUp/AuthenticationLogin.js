@@ -4,11 +4,16 @@ import { Link } from "react-router-dom";
 import Button from "../../../components/Button/Button";
 import AuthContext from "../../../context/authContext";
 import CustomInput from "../../../components/CustomInput/CustomInput";
+import { useDispatch } from "react-redux";
+import { loginThunk } from "../../../reduxs/thunk/userThunk";
+import { useAuth } from "../../../hooks/useAuth";
 
 
 const Login = () => {
   const authCtx = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const {authTimer} = useAuth();
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -16,7 +21,16 @@ const Login = () => {
     const email = event.target[0].value;
     const password = event.target[1].value;
 
-    authCtx?.loginHandler(email, password, setLoading);
+    setLoading(true);
+    //authCtx?.loginHandler(email, password, setLoading);
+    dispatch(loginThunk({email, password}))
+    .unwrap()
+    .then((res)=>{
+      authTimer(res);
+    })
+    .finally(()=>{
+      setLoading(false);
+    });
   };
 
   return (

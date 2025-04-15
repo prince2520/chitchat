@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
-import { OverlayActions } from "../../../../store/overlaySlice";
+import { OverlayActions } from "../../../../reduxs/slice/overlaySlice";
 import { categoryState } from "../../../../constants/constants";
 import { chatTopSettingOptions } from "../../../../constants/constants";
 

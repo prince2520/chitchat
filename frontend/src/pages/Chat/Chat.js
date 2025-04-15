@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { UserActions } from "../../store/userSlice";
+import { UserActions } from "../../reduxs/slice/userSlice";
 import { SocketContextProvider } from "../../context/socketContext";
 
 import ChatTab from "./ChatTab/ChatTab";

@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import userReducer from "./userSlice";
-import overlayReducer from "./overlaySlice";
-import dragAndDropReducer from "./dragAndDropSlice";
-import videoAudioCallReducer from "./videoAudioCallSlice";
+import userReducer from "./slice/userSlice";
+import overlayReducer from "./slice/overlaySlice";
+import dragAndDropReducer from "./slice/dragAndDropSlice";
+import videoAudioCallReducer from "./slice/videoAudioCallSlice";
 
 const store = configureStore({
   reducer: {

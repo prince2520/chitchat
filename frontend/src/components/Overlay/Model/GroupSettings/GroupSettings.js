@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { editGroup } from "../../../../api/group";
-import { UserActions } from "../../../../store/userSlice";
+import { UserActions } from "../../../../reduxs/slice/userSlice";
 import { categoryState } from "../../../../constants/constants";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
 import { groupSettingsLinks } from "../../../../constants/constants";

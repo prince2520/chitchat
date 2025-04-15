@@ -28,9 +28,9 @@ import {
 import AuthContext from "./authContext";
 
 import { useSelector } from "react-redux";
-import { UserActions } from "../store/userSlice";
-import { OverlayActions } from "../store/overlaySlice";
-import { VideoAudioCallActions } from "../store/videoAudioCallSlice";
+import { UserActions } from "../reduxs/slice/userSlice";
+import { OverlayActions } from "../reduxs/slice/overlaySlice";
+import { VideoAudioCallActions } from "../reduxs/slice/videoAudioCallSlice";
 import { callingType } from "../constants/constants";
 
 const SocketContext = React.createContext({});

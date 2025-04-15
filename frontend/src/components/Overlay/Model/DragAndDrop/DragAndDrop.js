@@ -10,13 +10,13 @@ import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
 import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 
 import { categoryState } from "../../../../constants/constants";
-import { OverlayActions } from "../../../../store/overlaySlice";
+import { OverlayActions } from "../../../../reduxs/slice/overlaySlice";
 import { messageHandler } from "../../../../utils/SendMessage";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
-import { DragAndDropActions } from "../../../../store/dragAndDropSlice";
+import { DragAndDropActions } from "../../../../reduxs/slice/dragAndDropSlice";
 
 import { getDropData } from "../../../../utils/GetDropData";
-import { UserActions } from "../../../../store/userSlice";
+import { UserActions } from "../../../../reduxs/slice/userSlice";
 
 import "./DragAndDrop.css";
 

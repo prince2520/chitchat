@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateUser } from "../../../api/user";
-import { UserActions } from "../../../store/userSlice";
+import { UserActions } from "../../../reduxs/slice/userSlice";
 import { saveInFirebase } from "../../../utils/SaveInFirebase";
 
 import AuthContext from "../../../context/authContext";

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { UserActions } from "../store/userSlice";
+import { UserActions } from "../reduxs/slice/userSlice";
 
 import { fetchUser } from "../api/user";
 import { login, signup } from "../api/auth";

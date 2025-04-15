@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { UserActions } from "../store/userSlice";
+import { UserActions } from "../reduxs/slice/userSlice";
 import { toast } from "react-toastify";
 import { socketLeaveMemberGroup } from "../services/socket";
 
@@ -10,7 +10,7 @@ import { deletePrivate } from "../api/private";
 import { leaveGroup } from "../api/group";
 import { categoryState } from "../constants/constants";
 import { socketRemoveChat } from "../services/socket";
-import { OverlayActions } from "../store/overlaySlice";
+import { OverlayActions } from "../reduxs/slice/overlaySlice";
 
 const useLeaveDeleteGroup = () => {
   const dispatch = useDispatch();

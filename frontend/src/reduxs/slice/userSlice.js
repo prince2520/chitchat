@@ -1,5 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { categoryState } from "../constants/constants";
+import { categoryState } from "../../constants/constants";
+import { toast } from "react-toastify";
+import { getUserThunk, loginThunk, updateUserThunk } from "../thunk/userThunk";
+
+function updateUserState(state, action) {
+  const {
+    _id,
+    name,
+    status,
+    highResUrl,
+    lowResUrl,
+    email,
+  } = action.payload;
+
+  state = {
+    ...state,
+    _id,
+    name,
+    status,
+    highResUrl,
+    lowResUrl,
+    email,
+    isAuth: true
+  };
+}
+
 
 const initialUserState = {
   _id: "",
@@ -171,6 +196,31 @@ const UserSlice = createSlice({
       });
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getUserThunk.fulfilled, updateUserState)
+      .addCase(getUserThunk.rejected, (_, action) => {
+        toast(`${action.payload}`, {
+          type: "error"
+        });
+      })
+
+    builder
+      .addCase(updateUserThunk.fulfilled, updateUserState)
+      .addCase(updateUserThunk.rejected, (_, action) => {
+        toast(`${action.payload}`, {
+          type: "error"
+        });
+      })
+
+    builder
+      .addCase(loginThunk.fulfilled, updateUserState)
+      .addCase(loginThunk.rejected, (_, action) => {
+        toast(`${action.payload}`, {
+          type: "error"
+        });
+      })
+  }
 });
 
 export const UserActions = UserSlice.actions;

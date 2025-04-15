@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { createGroup } from "../../../api/group";
-import { UserActions } from "../../../store/userSlice";
+import { UserActions } from "../../../reduxs/slice/userSlice";
 
 import AuthContext from "../../../context/authContext";
 import Button from "../../../components/Button/Button";

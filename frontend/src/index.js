@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import store from "./store/store";
+import store from "./reduxs/store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/authContext";

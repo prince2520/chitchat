@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { socketAddPrivate } from "../../../../../services/socket";
 import { createPrivate } from "../../../../../api/private";
-import { UserActions } from "../../../../../store/userSlice";
+import { UserActions } from "../../../../../reduxs/slice/userSlice";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 import AuthContext from "../../../../../context/authContext";

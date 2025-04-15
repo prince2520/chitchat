@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { UserActions } from "../../../../store/userSlice";
+import { UserActions } from "../../../../reduxs/slice/userSlice";
 import { categoryState } from "../../../../constants/constants";
 import { getLastMessage } from "../../../../utils/GetLastMessage";
 
