@@ -20,7 +20,8 @@ const SearchResult = ({ data, setShowResult, setData }) => {
     createPrivate(user.token, user._id, data._id)
       .then((data) => {
         if (data.success) {
-          dispatch(ChatActions.addPrivate(data.data));
+          dispatch(ChatActions.createPrivate(data.data));
+
           socketAddPrivate({
             userId: user._id,
             private: data.data,

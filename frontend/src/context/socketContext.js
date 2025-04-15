@@ -64,7 +64,7 @@ export const SocketContextProvider = ({ children }) => {
       dispatch(ChatActions.saveMessage(data));
     });
     socketGetAddPrivate((err, { data }) => {
-      dispatch(ChatActions.addPrivate(data.private));
+      dispatch(ChatActions.createPrivate(data.private));
     });
     socketGetRemoveUserGroup((err, { data }) => {
       dispatch(ChatActions.removeUserGroup(data));

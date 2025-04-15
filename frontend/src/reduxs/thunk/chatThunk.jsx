@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import {  socketAddMemberGroup, socketAddPrivate, socketBlockUser, socketLeaveMemberGroup, socketRemoveUserGroup, socketSendMessage, socketUnblockUser, socketUpdatedGroup } from "../../services/socket";
+import { socketAddMemberGroup, socketAddPrivate, socketBlockUser, socketLeaveMemberGroup, socketRemoveUserGroup, socketSendMessage, socketUnblockUser, socketUpdatedGroup } from "../../services/socket";
 import { blockUserGroup, createGroup, deleteGroup, joinGroup, leaveGroup, removeUserGroup, saveGroupMessage, unblockUserGroup, updateGroup, createPrivate, deletePrivate, savePrivateMessage } from "../api/chat";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -18,7 +18,6 @@ export const createPrivateThunk = createAsyncThunk(
                 _id: state.user._id,
                 private: response.data
             })
-            console.log("createPrivate", response);
 
             toast.success(response.message);
             return response;
@@ -74,9 +73,7 @@ export const createGroupThunk = createAsyncThunk(
         try {
             const state = getState();
             let response = await createGroup(state.user.token, data);
-            console.log("createGroup", response);
-            return response;
-
+            return {...response.data};
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }
@@ -96,9 +93,7 @@ export const joinGroupThunk = createAsyncThunk(
                 user: state.user
             });
             toast.success(response.message);
-            console.log("joinGroup", response);
-            return response;
-
+            return {...response.groupData};
         } catch (error) {
             toast.error(error.message);
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -133,7 +128,6 @@ export const deleteGroupThunk = createAsyncThunk(
             let response = await deleteGroup(({
                 token: state.user.token, chatId
             }));
-            console.log("deleteGroup", response);
 
             return response;
 

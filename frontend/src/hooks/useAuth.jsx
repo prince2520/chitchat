@@ -12,8 +12,6 @@ export function useAuth() {
 
     const authTimer = useCallback((res) => {
 
-        socketJoinGroup(res.user.groups);
-
         // add new token in local storage and set expiry date
         localStorage.setItem("token", res.token);
         localStorage.setItem("_id", res.user._id);

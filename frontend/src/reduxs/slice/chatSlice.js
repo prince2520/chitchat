@@ -14,7 +14,9 @@ const initialChatState = {
     isSelected: false
 };
 
-
+const  createGroup = (state, action) => {
+    state.groups = [...state.groups, action.payload];
+}
 
 const createPrivate = (state, action) => {
     state.privates = [...state.privates, action.payload];
@@ -115,6 +117,9 @@ const ChatSlice = createSlice({
             state.groups = groups;
             state.privates = privates;
         },
+        createPrivate,
+        createGroup,
+
 
         deleteChat(state, action) {
             if (action.payload.type === categoryState[0]) {
@@ -131,14 +136,13 @@ const ChatSlice = createSlice({
         addGroup(state, action) {
             state.groups = [...state.groups, action.payload];
         },
-        addPrivate(state, action) {
-            state.privates = [...state.privates, action.payload];
-        },
+       
         selectedChat(state, action) {
             state.isSelected = action.payload.isSelected;
             state.selectedId = action.payload.selectedId;
             state.selectedType = action.payload.selectedType;
         },
+
         removeUserGroup(state, action) {
             const removeUserId = action.payload.removeUserId;
             const groupId = action.payload.groupId;
@@ -310,9 +314,7 @@ const ChatSlice = createSlice({
 
 
         builder
-            .addCase(createGroupThunk.fulfilled, (state, action) => {
-                state.groups = [...state.groups, action.payload];
-            })
+            .addCase(createGroupThunk.fulfilled, createGroup)
             .addCase(createGroupThunk.rejected, (_, action) => {
                 toast(`${action.payload}`, {
                     type: "error"
@@ -328,18 +330,7 @@ const ChatSlice = createSlice({
             })
 
         builder
-            .addCase(joinGroupThunk.fulfilled, (state, action) => {
-                const { groupId, user } = action.payload;
-
-                const temp = state.groups.concat().map((group) => {
-                    if (group._id === groupId) {
-                        group.users = [...group.users, user];
-                    }
-                    return group;
-                });
-
-                state.groups = temp;
-            })
+            .addCase(joinGroupThunk.fulfilled, createGroup)
             .addCase(joinGroupThunk.rejected, (_, action) => {
                 toast(`${action.payload}`, {
                     type: "error"

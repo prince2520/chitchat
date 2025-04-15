@@ -12,13 +12,13 @@ import JoinGroupLargeImg from "../../../assests/images/JoinGroup.png";
 import JoinGroupSmallImg from "../../../assests/images/JoinGroupSmall.png";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
 import { ChatActions } from "../../../reduxs/slice/chatSlice";
+import { joinGroupThunk } from "../../../reduxs/thunk/chatThunk";
 
 
 const JoinGroup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
 
   const submitHandler = (event) => {
@@ -28,26 +28,12 @@ const JoinGroup = () => {
 
     setLoading(true);
 
-    joinGroup(user?.token, groupId, user?._id)
-      .then((res) => {
-        setLoading(false);
-        if (res.success) {
-          const data = {
-            groupId : res.groupData._id,
-            user : user
-          };
-          socketAddMemberGroup(data);
-          dispatch(ChatActions.addGroup(res.groupData));
-          navigate("/chat");
-          toast.success(res.message);
-        }else{
-          toast.error(res.message);
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error(err);
-      });
+    dispatch(joinGroupThunk({groupId}))
+    .unwrap()
+    .then(()=>{
+      navigate("/chat");
+    })
+    .finally(()=>setLoading(false));
   };
 
   return (

@@ -1,52 +1,36 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import { createGroup } from "../../../api/group";
-
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import CreateGroupLarge from "../../../assests/images/CreateGroupLarge.png";
 import CreateGroupSmall from "../../../assests/images/CreateGroupSmall.png";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
-import { ChatActions } from "../../../reduxs/slice/chatSlice";
+import { createGroupThunk } from "../../../reduxs/thunk/chatThunk";
 
 const CreateGroup = () => {
   const [loading, setLoading] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(state=>state.user);
 
-
-  const createGroupHandler = async (data) => {
-    setLoading(true);
-    createGroup(user.token, data)
-      .then((data) => {
-        setLoading(false);
-        if (data.success) {
-          toast.success(data.message);
-          dispatch(ChatActions.addGroup(data.data));
-          navigate("/chat");
-        } else {
-          toast.error(data.message);
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error(data.message);
-      });
-  };
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const name = event.target[0].value;
-    const status = event.target[1].value;
-    await createGroupHandler({
-      name,
-      status,
-    });
+ 
+    let data = {
+      name: event.target[0].value,
+      status: event.target[1].value
+    }
+
+    setLoading(true);
+
+    dispatch(createGroupThunk({ data }))
+      .unwrap()
+      .then(() => {
+        navigate("/chat");
+      })
+      .finally(() => setLoading(false));
   };
 
   return (

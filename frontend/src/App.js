@@ -90,7 +90,7 @@ function App() {
         )}
         <Route
           path="/"
-          element={<Navigate to={isAuth ? "/auth/login" : "/chat"} />}
+          element={<Navigate to={!isAuth ? "/auth/login" : "/chat"} />}
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

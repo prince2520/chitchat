@@ -11,8 +11,8 @@ export const getUserThunk = createAsyncThunk(
     async ({ email, token }, {  rejectWithValue }) => {
         try {
             let response = await fetchUser(email, token);
+            console.log("getUSer", response)
             socketJoinGroup(response.user.groups);
-
             toast.success(response?.message);
             return { ...response, token };
         } catch (error) {
@@ -45,8 +45,7 @@ export const loginThunk = createAsyncThunk(
     async ({ email, password }, { rejectWithValue }) => {
         try {
             let response = await login(email, password);
-            console.log("login", response);
-
+            socketJoinGroup(response.user.groups);
             return response;
 
         } catch (error) {
