@@ -1,17 +1,12 @@
 import {  useState } from "react";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-import { joinGroup } from "../../../api/group";
-import { socketAddMemberGroup } from "../../../services/socket";
+import { useDispatch } from "react-redux";
 
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import JoinGroupLargeImg from "../../../assests/images/JoinGroup.png";
 import JoinGroupSmallImg from "../../../assests/images/JoinGroupSmall.png";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
-import { ChatActions } from "../../../reduxs/slice/chatSlice";
 import { joinGroupThunk } from "../../../reduxs/thunk/chatThunk";
 
 

@@ -11,7 +11,6 @@ export const getUserThunk = createAsyncThunk(
     async ({ email, token }, {  rejectWithValue }) => {
         try {
             let response = await fetchUser(email, token);
-            console.log("getUSer", response)
             socketJoinGroup(response.user.groups);
             toast.success(response?.message);
             return { ...response, token };
@@ -29,9 +28,9 @@ export const updateUserThunk = createAsyncThunk(
     async ({ data }, { getState, rejectWithValue }) => {
         try {
             const state = getState();
+            let token = state.user.token
             let response = await updateUser(state.user.token, data);
-
-            return response;
+            return {...response, token};
 
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");

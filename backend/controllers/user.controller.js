@@ -72,6 +72,7 @@ exports.updateUser = async (req, res) => {
     return res.status(StatusCodes.OK).json({
       success: true,
       message: "Profile Updated!",
+      user: saveUser
     });
   } catch (err) {
     next(err);
