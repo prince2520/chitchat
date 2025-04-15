@@ -42,23 +42,6 @@ const removeUserGroup = (state, action) => {
     }
 }
 
-const updateGroup = (state, action) => {
-    const { groupId, name, status, highResUrl, lowResUrl } = action.payload;
-
-    state.groups = state.groups.map((group) => {
-        if (group._id === groupId) {
-            group.name = name;
-            group.status = status;
-
-            if (highResUrl && lowResUrl) {
-                group.highResUrl = highResUrl;
-                group.lowResUrl = lowResUrl;
-            }
-        }
-        return group;
-    });
-}
-
 const leaveGroup = (state, action) => {
     const { groupId, _id } = action.payload;
 
@@ -142,6 +125,22 @@ const createMessage = (state, action) => {
     }
 }
 
+const updateGroup = (state, action) =>{
+    const {groupId, name, status, highResUrl, lowResUrl} = action.payload;
+
+    state.groups = state.groups.map((group) => {
+        if (group._id === groupId) {
+            group.name = name;
+            group.status = status;
+
+            if (highResUrl && lowResUrl) {
+                group.highResUrl = highResUrl;
+                group.lowResUrl = lowResUrl;
+            }
+        }
+        return group;
+    });
+}
 
 
 const ChatSlice = createSlice({
@@ -158,6 +157,7 @@ const ChatSlice = createSlice({
         createGroup,
         deleteChat,
         createMessage,
+        updateGroup,
 
         addGroup(state, action) {
             state.groups = [...state.groups, action.payload];
@@ -255,26 +255,6 @@ const ChatSlice = createSlice({
             });
 
             state.groups = temp;
-        },
-        editGroup(state, action) {
-            const groupId = action.payload.groupId;
-            const name = action.payload.name;
-            const status = action.payload.status;
-            const highResUrl = action.payload.highResUrl;
-            const lowResUrl = action.payload.lowResUrl;
-
-            state.groups = state.groups.map((group) => {
-                if (group._id === groupId) {
-                    group.name = name;
-                    group.status = status;
-
-                    if (highResUrl && lowResUrl) {
-                        group.highResUrl = highResUrl;
-                        group.lowResUrl = lowResUrl;
-                    }
-                }
-                return group;
-            });
         },
         leaveMemberGroup(state, action) {
             const groupId = action.payload.groupId;

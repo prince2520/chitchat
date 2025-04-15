@@ -190,8 +190,6 @@ export const updateGroupThunk = createAsyncThunk(
             let socketData = { ...data };
             delete socketData.token;
             socketUpdatedGroup(socketData);
-            console.log("updateGroup", response);
-
             return data;
 
         } catch (error) {

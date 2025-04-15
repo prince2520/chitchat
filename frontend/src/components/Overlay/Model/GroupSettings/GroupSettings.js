@@ -23,6 +23,7 @@ import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 
 import "./GroupSettings.css";
 import { ChatActions } from "../../../../reduxs/slice/chatSlice";
+import { updateGroupThunk } from "../../../../reduxs/thunk/chatThunk";
 
 const Share = ({ groupId }) => {
   return (
@@ -68,7 +69,7 @@ const Edit = ({ data }) => {
 
 const MembersAndBlockList = ({ data, isBlockList = false }) => {
   const dispatch = useDispatch();
-  const user = useSelector(state=>state.user);
+  const user = useSelector(state => state.user);
 
   const handleRemoveUser = (removeUserId) => {
     const groupId = data._id;
@@ -278,22 +279,9 @@ const GroupSettings = () => {
 
     setLoading(true);
 
-    editGroup(saveData)
-      .then((result) => {
-        setLoading(false);
-        if (result.success) {
-          toast.success(result.message);
-          dispatch(ChatActions.editGroup(saveData));
-          delete saveData.token;
-          socketUpdatedGroup(saveData);
-        } else {
-          toast.error(result.message);
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error(err);
-      });
+    dispatch(updateGroupThunk({ data: saveData }))
+    .unwrap()
+    .finally(()=>setLoading(true));
   };
 
   return (
