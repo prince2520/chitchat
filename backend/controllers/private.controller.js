@@ -152,7 +152,7 @@ exports.savePrivateMessage = async (req, res, next) => {
 };
 
 // DELETE -> private chat delete
-exports.deletePrivate = async (req, res) => {
+exports.deletePrivate = async (req, res, next) => {
   const userId = mongoose.Types.ObjectId(req.userId);
   const privateId = mongoose.Types.ObjectId(req.body.chatId);
 

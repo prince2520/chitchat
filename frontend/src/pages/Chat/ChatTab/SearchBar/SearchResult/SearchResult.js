@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { socketAddPrivate } from "../../../../../services/socket";
 import { createPrivate } from "../../../../../api/private";
-import { UserActions } from "../../../../../reduxs/slice/userSlice";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 import ImageContainer from "../../../../../components/ImageContainer/ImageContainer";
 
 import "./SearchResult.css";
+import { ChatActions } from "../../../../../reduxs/slice/chatSlice";
 
 const SearchResult = ({ data, setShowResult, setData }) => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const SearchResult = ({ data, setShowResult, setData }) => {
     createPrivate(user.token, user._id, data._id)
       .then((data) => {
         if (data.success) {
-          dispatch(UserActions.addPrivate(data.data));
+          dispatch(ChatActions.addPrivate(data.data));
           socketAddPrivate({
             userId: user._id,
             private: data.data,

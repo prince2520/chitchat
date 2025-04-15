@@ -11,7 +11,6 @@ export const getUserThunk = createAsyncThunk(
     async ({ email, token }, {  rejectWithValue }) => {
         try {
             let response = await fetchUser(email, token);
-            console.log("getUser", response)
             socketJoinGroup(response.user.groups);
 
             toast.success(response?.message);

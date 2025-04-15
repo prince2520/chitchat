@@ -12,10 +12,12 @@ import "./ChatBoxMiddle.css";
 
 const ChatBoxMiddle = () => {
   const user = useSelector(state=>state.user);
-  const data = (user?.selectedType === categoryState[0]
-    ? user.groups
-    : user.privates
-    ).filter(res => res._id === user.selectedId)[0];
+  const chat = useSelector(state=>state.chat);
+
+  const data = (chat?.selectedType === categoryState[0]
+    ? chat.groups
+    : chat.privates
+    ).filter(res => res._id === chat.selectedId)[0];
 
   const chatEndRef = useRef();
 

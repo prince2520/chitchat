@@ -1,10 +1,9 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { joinGroup } from "../../../api/group";
-import { UserActions } from "../../../reduxs/slice/userSlice";
 import { socketAddMemberGroup } from "../../../services/socket";
 
 import Button from "../../../components/Button/Button";
@@ -12,6 +11,7 @@ import CustomInput from "../../../components/CustomInput/CustomInput";
 import JoinGroupLargeImg from "../../../assests/images/JoinGroup.png";
 import JoinGroupSmallImg from "../../../assests/images/JoinGroupSmall.png";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
+import { ChatActions } from "../../../reduxs/slice/chatSlice";
 
 
 const JoinGroup = () => {
@@ -37,7 +37,7 @@ const JoinGroup = () => {
             user : user
           };
           socketAddMemberGroup(data);
-          dispatch(UserActions.addGroup(res.groupData));
+          dispatch(ChatActions.addGroup(res.groupData));
           navigate("/chat");
           toast.success(res.message);
         }else{

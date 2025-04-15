@@ -10,7 +10,7 @@ import ImageContainer from "../../../../../components/ImageContainer/ImageContai
 import "./Message.css";
 
 const Message = ({ myMsg, messageDetail }) => {
-  const selectedType = useSelector((state) => state.user.selectedType);
+  const selectedType = useSelector((state) => state.chat.selectedType);
   return (
     <div
       style={{

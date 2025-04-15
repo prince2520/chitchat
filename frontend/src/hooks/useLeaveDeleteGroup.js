@@ -1,6 +1,5 @@
 import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { UserActions } from "../reduxs/slice/userSlice";
 import { toast } from "react-toastify";
 import { socketLeaveMemberGroup } from "../services/socket";
 
@@ -10,6 +9,7 @@ import { leaveGroup } from "../api/group";
 import { categoryState } from "../constants/constants";
 import { socketRemoveChat } from "../services/socket";
 import { OverlayActions } from "../reduxs/slice/overlaySlice";
+import { ChatActions } from "../reduxs/slice/chatSlice";
 
 const useLeaveDeleteGroup = () => {
   const dispatch = useDispatch();
@@ -17,12 +17,14 @@ const useLeaveDeleteGroup = () => {
   const [leaveDeleteloading, setLeaveDeleteloading] = useState(false);
 
   const user = useSelector((state) => state.user);
-  const selectedType = user.selectedType;
-  const selectedId = user.selectedId;
+  const chat = useSelector((state) => state.chat);
+  
+  const selectedType = chat.selectedType;
+  const selectedId = chat.selectedId;
 
   const data = (
-    selectedType === categoryState[0] ? user.groups : user.privates
-  ).filter((res) => res._id === user.selectedId)[0];
+    selectedType === categoryState[0] ? chat.groups : chat.privates
+  ).filter((res) => res._id === chat.selectedId)[0];
 
   // check if user is admin of chat
   const isAdmin = () => {
@@ -50,14 +52,14 @@ const useLeaveDeleteGroup = () => {
   // dispatch delete chat and unselect the chat
   const dispatchDeleteChat = (chatId, type) => {
     dispatch(
-      UserActions.selectedChat({
+      ChatActions.selectedChat({
         selectedId: null,
         selectedType: null,
         isSelected: false,
       })
     );
     dispatch(
-      UserActions.deleteChat({
+      ChatActions.deleteChat({
         type: type,
         chatId: chatId,
       })

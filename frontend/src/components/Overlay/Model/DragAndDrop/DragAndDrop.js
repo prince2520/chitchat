@@ -1,7 +1,7 @@
 import { uid } from "uid";
 import { Icon } from "@iconify/react";
 import { toast } from "react-toastify";
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../../Button/Button";
@@ -15,21 +15,22 @@ import { saveInFirebase } from "../../../../utils/SaveInFirebase";
 import { DragAndDropActions } from "../../../../reduxs/slice/dragAndDropSlice";
 
 import { getDropData } from "../../../../utils/GetDropData";
-import { UserActions } from "../../../../reduxs/slice/userSlice";
 
 import "./DragAndDrop.css";
+import { ChatActions } from "../../../../reduxs/slice/chatSlice";
 
 const DragAndDrop = () => {
   const dispatch = useDispatch();
 
 
   const user = useSelector((state) => state.user);
+  const chat = useSelector((state) => state.chat);
   
   const [loading, setLoading] = useState(false);
 
   let data = (
-    user?.selectedType === categoryState[0] ? user.groups : user.privates
-  ).filter((res) => res._id === user.selectedId)[0];
+    chat.selectedType === categoryState[0] ? chat.groups : chat.privates
+  ).filter((res) => res._id === chat.selectedId)[0];
 
   const files = useSelector((state) => state.dragAndDrop.files);
 
@@ -62,7 +63,7 @@ const DragAndDrop = () => {
 
   const saveMessage = (temp) => {
     toast.success('Media uploaded successfully!')
-    dispatch(UserActions.saveMessage(temp));
+    dispatch(ChatActions.saveMessage(temp));
   };
 
   const sendMessage = (url, file) => {
@@ -70,7 +71,7 @@ const DragAndDrop = () => {
       token: user.token,
       chatId: data._id,
       users: data.users,
-      selectedType: user.selectedType,
+      selectedType: chat.selectedType,
       saveMessage: saveMessage,
       data: {
         message: file.name,
@@ -87,7 +88,7 @@ const DragAndDrop = () => {
   const uploadHandler = (event) => {
     event.preventDefault();
     files.map((file) => {
-      saveInFirebase(file.fileData, `${categoryState[0] === data.selectedType ? 'groups' : 'privates'}/${user.selectedId}/media/${user._id}-${uid(32)}`)
+      saveInFirebase(file.fileData, `${categoryState[0] === data.selectedType ? 'groups' : 'privates'}/${chat.selectedId}/media/${user._id}-${uid(32)}`)
         .then((url) => {
           sendMessage(url, file);
           dispatch(DragAndDropActions.removeSingleFile(file));

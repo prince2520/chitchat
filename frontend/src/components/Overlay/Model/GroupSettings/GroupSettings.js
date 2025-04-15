@@ -1,12 +1,10 @@
 import { uid } from "uid";
 import { Icon } from "@iconify/react";
 import { toast } from "react-toastify";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-
 import { editGroup } from "../../../../api/group";
-import { UserActions } from "../../../../reduxs/slice/userSlice";
 import { categoryState } from "../../../../constants/constants";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
 import { groupSettingsLinks } from "../../../../constants/constants";
@@ -24,6 +22,7 @@ import ImageContainer from "../../../ImageContainer/ImageContainer";
 import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 
 import "./GroupSettings.css";
+import { ChatActions } from "../../../../reduxs/slice/chatSlice";
 
 const Share = ({ groupId }) => {
   return (
@@ -85,7 +84,7 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
       removeUser(removeData)
         .then((res) => {
           if (res.success) {
-            dispatch(UserActions.removeUserGroup(removeData));
+            dispatch(ChatActions.removeUserGroup(removeData));
             socketRemoveUserGroup(removeData);
             toast.success(res.message);
           } else {
@@ -101,7 +100,7 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
         .then((res) => {
           if (res.success) {
             socketUnblockUser(removeData);
-            dispatch(UserActions.unblockUserGroup(removeData));
+            dispatch(ChatActions.unblockUserGroup(removeData));
             toast.success(res.message);
           } else {
             toast.error(res.message);
@@ -133,7 +132,7 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
           blockData["blockedUser"] = blockedUser;
           toast.success(res.message);
           socketBlockUser(blockData);
-          dispatch(UserActions.blockUserGroup(blockData));
+          dispatch(ChatActions.blockUserGroup(blockData));
         } else {
           toast.error(res.message);
         }
@@ -208,6 +207,7 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
 
 const GroupSettings = () => {
   const user = useSelector((state) => state.user);
+  const chat = useSelector((state) => state.chat);
   const link = useSelector((state) => state.overlay.showSettings.link);
   const [selectedLinks, setSelectedLinks] = useState(link);
 
@@ -219,10 +219,10 @@ const GroupSettings = () => {
 
 
   const data = (
-    user?.selectedType !== null && user?.selectedType === categoryState[0]
-      ? user.groups
-      : user.privates
-  ).filter((res) => res._id === user.selectedId)[0];
+    chat.selectedType !== null && chat.selectedType === categoryState[0]
+      ? chat.groups
+      : chat.privates
+  ).filter((res) => res._id === chat.selectedId)[0];
 
   const { handleDeleteChat, leaveDeleteloading } = useLeaveDeleteGroup();
 
@@ -283,7 +283,7 @@ const GroupSettings = () => {
         setLoading(false);
         if (result.success) {
           toast.success(result.message);
-          dispatch(UserActions.editGroup(saveData));
+          dispatch(ChatActions.editGroup(saveData));
           delete saveData.token;
           socketUpdatedGroup(saveData);
         } else {

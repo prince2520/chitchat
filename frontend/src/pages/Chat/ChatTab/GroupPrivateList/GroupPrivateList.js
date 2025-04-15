@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { UserActions } from "../../../../reduxs/slice/userSlice";
 import { categoryState } from "../../../../constants/constants";
 import { getLastMessage } from "../../../../utils/GetLastMessage";
 
@@ -10,18 +9,19 @@ import ImageContainer from "../../../../components/ImageContainer/ImageContainer
 import ChangeCategory from "../../../../components/ChangeCategory/ChangeCategory";
 
 import "./GroupPrivateList.css";
+import { ChatActions } from "../../../../reduxs/slice/chatSlice";
 
 const GroupPrivateList = () => {
   const [isPrivate, setIsPrivate] = useState(false);
 
   const user = useSelector((state) => state.user);
-  const privates = user.privates;
-  const groups = user.groups;
+  const chat = useSelector((state) => state.chat);
+ 
 
   const dispatch = useDispatch();
 
   const selectedItem = (item) => {
-    if (user.selectedId === item?._id) {
+    if (chat.selectedId === item?._id) {
       return;
     }
     let data = {
@@ -31,7 +31,7 @@ const GroupPrivateList = () => {
     };
 
     if (item) {
-      dispatch(UserActions.selectedChat(data));
+      dispatch(ChatActions.selectedChat(data));
     }
   };
 
@@ -58,12 +58,12 @@ const GroupPrivateList = () => {
     <>
       <ChangeCategory setIsPrivate={setIsPrivate} />
       <div className="group-private-list">
-        {(isPrivate ? privates : groups).length > 0 ? (
-          (isPrivate ? privates : groups).map((data) => (
+        {(isPrivate ? chat.privates : chat.groups).length > 0 ? (
+          (isPrivate ? chat.privates : chat.groups).map((data) => (
             <div
               key={data._id}
               className={`group-private-list__item ${
-                data._id === user.selectedId && "group-selected"
+                data._id === chat.selectedId && "group-selected"
               }  border`}
               onClick={() => selectedItem(data)}
             >
@@ -72,14 +72,14 @@ const GroupPrivateList = () => {
                   highResUrl={
                     isPrivate
                       ? data.users.filter(
-                          (user) => user._id !== user._id
+                          (u) => u._id !== user._id
                         )[0].highResUrl
                       : data.highResUrl
                   }
                   lowResUrl={
                     isPrivate
                       ? data.users.filter(
-                          (user) => user._id !== user._id
+                          (u) => u._id !== user._id
                         )[0].lowResUrl
                       : data.lowResUrl
                   }
@@ -91,7 +91,7 @@ const GroupPrivateList = () => {
                 <h5>
                   {isPrivate
                     ? data.users.filter(
-                        (user) => user._id !== user._id
+                        (u) => u._id !== user._id
                       )[0].name
                     : data.name}
                 </h5>

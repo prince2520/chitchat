@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { createGroup } from "../../../api/group";
-import { UserActions } from "../../../reduxs/slice/userSlice";
 
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import CreateGroupLarge from "../../../assests/images/CreateGroupLarge.png";
 import CreateGroupSmall from "../../../assests/images/CreateGroupSmall.png";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
+import { ChatActions } from "../../../reduxs/slice/chatSlice";
 
 const CreateGroup = () => {
   const [loading, setLoading] = useState(null);
@@ -27,7 +27,7 @@ const CreateGroup = () => {
         setLoading(false);
         if (data.success) {
           toast.success(data.message);
-          dispatch(UserActions.addGroup(data.data));
+          dispatch(ChatActions.addGroup(data.data));
           navigate("/chat");
         } else {
           toast.error(data.message);

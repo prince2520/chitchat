@@ -27,11 +27,11 @@ import {
 
 
 import { useSelector } from "react-redux";
-import { UserActions } from "../reduxs/slice/userSlice";
 import { OverlayActions } from "../reduxs/slice/overlaySlice";
 import { VideoAudioCallActions } from "../reduxs/slice/videoAudioCallSlice";
 import { callingType } from "../constants/constants";
 import { useAuth } from "../hooks/useAuth";
+import { ChatActions } from "../reduxs/slice/chatSlice";
 
 const SocketContext = React.createContext({});
 
@@ -43,7 +43,7 @@ export const SocketContextProvider = ({ children }) => {
   const {logout} = useAuth();
 
   const user = useSelector((state) => state.user);
-  const selectedId = useSelector((state) => state.user.selectedId);
+  const selectedId = useSelector((state) => state.chat.selectedId);
 
   const userVideo = useRef(null);
   const myVideo = useRef(null);
@@ -61,29 +61,29 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     socketGetSendMessage((err, { data }) => {
-      dispatch(UserActions.saveMessage(data));
+      dispatch(ChatActions.saveMessage(data));
     });
     socketGetAddPrivate((err, { data }) => {
-      dispatch(UserActions.addPrivate(data.private));
+      dispatch(ChatActions.addPrivate(data.private));
     });
     socketGetRemoveUserGroup((err, { data }) => {
-      dispatch(UserActions.removeUserGroup(data));
+      dispatch(ChatActions.removeUserGroup(data));
     });
     socketGetUpdatedGroup((err, { data }) => {
-      dispatch(UserActions.editGroup(data));
+      dispatch(ChatActions.editGroup(data));
     });
     socketGetUnblockUser((err, { data }) => {
       console.log('socketGetUnblockUser', data)
-      dispatch(UserActions.unblockUserGroup(data));
+      dispatch(ChatActions.unblockUserGroup(data));
     });
     socketGetBlockUser((err, { data }) => {
-      dispatch(UserActions.blockUserGroup(data));
+      dispatch(ChatActions.blockUserGroup(data));
     });
     socketGetAddMemberGroup((err, { data }) => {
-      dispatch(UserActions.addMemberGroup(data));
+      dispatch(ChatActions.addMemberGroup(data));
     });
     socketGetLeaveMemberGroup((err, { data }) => {
-      dispatch(UserActions.leaveMemberGroup(data));
+      dispatch(ChatActions.leaveMemberGroup(data));
     });
     socketGetAutoLogout((err, {userId, alreadyLogin}) => {
       if(user._id === userId && alreadyLogin) {
@@ -119,14 +119,14 @@ export const SocketContextProvider = ({ children }) => {
     socketGetRemoveChat((data) => {
       if (selectedId === data.chatId) {
         dispatch(
-          UserActions.selectedChat({
+          ChatActions.selectedChat({
             selectedId: null,
             selectedType: null,
             isSelected: false,
           })
         );
       }
-      dispatch(UserActions.deleteChat(data));
+      dispatch(ChatActions.deleteChat(data));
     });
   }, [dispatch, selectedId]);
 

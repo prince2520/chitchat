@@ -17,14 +17,15 @@ const ChatSettings = ({ closeSettingHandler }) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  const selectedType = user.selectedType;
+  const chat = useSelector((state) => state.chat);
+  const selectedType = chat.selectedType;
 
 
   const { handleDeleteChat } = useLeaveDeleteGroup();
 
   const data = (
-    selectedType === categoryState[0] ? user.groups : user.privates
-  ).filter((res) => res._id === user.selectedId)[0];
+    selectedType === categoryState[0] ? chat.groups : chat.privates
+  ).filter((res) => res._id === chat.selectedId)[0];
 
   const ref = useDetectClickOutside({ onTriggered: closeSettingHandler });
 

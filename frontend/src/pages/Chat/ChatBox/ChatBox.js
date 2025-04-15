@@ -11,11 +11,11 @@ import ChatBoxMiddle from "./ChatBoxMiddle/ChatBoxMiddle";
 import "./ChatBox.css";
 
 const ChatBox = () => {
-  const user = useSelector((state) => state.user);
+  const chat = useSelector((state) => state.chat);
 
   let data = (
-    user?.selectedType === categoryState[0] ? user.groups : user.privates
-  ).filter((res) => res._id === user.selectedId)[0];
+    chat.selectedType === categoryState[0] ? chat.groups : chat.privates
+  ).filter((res) => res._id === chat.selectedId)[0];
 
   return (
     <div className="chat-box">

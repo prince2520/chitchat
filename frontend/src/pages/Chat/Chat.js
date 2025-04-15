@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { UserActions } from "../../reduxs/slice/userSlice";
 import { SocketContextProvider } from "../../context/socketContext";
 
 import ChatTab from "./ChatTab/ChatTab";
@@ -10,9 +9,10 @@ import Overlay from "../../components/Overlay/Overlay";
 import NotSelectedChat from "./NotSelectedChat/NotSelectedChat";
 
 import "./Chat.css";
+import { ChatActions } from "../../reduxs/slice/chatSlice";
 
 export const Chat = () => {
-  const isSelected = useSelector((state) => state.user.isSelected);
+  const isSelected = useSelector((state) => state.chat.isSelected);
   const showOverlay = useSelector((state) => state.overlay?.showOverlay);
 
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ export const Chat = () => {
   useEffect(() => {
     return () => {
       dispatch(
-        UserActions.selectedChat({
+        ChatActions.selectedChat({
           isSelected: false,
           selectedId: null,
           selectedType: null,

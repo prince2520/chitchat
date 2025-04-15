@@ -12,12 +12,13 @@ import "./ChatBoxTop.css";
 
 const ChatBoxTop = () => {
   const user = useSelector((state) => state.user);
+  const chat = useSelector((state) => state.chat);
   
   const [showSetting, setShowSetting] = useState(false);
 
   const data = (
-    user?.selectedType === categoryState[0] ? user.groups : user.privates
-  ).filter((res) => res._id === user.selectedId)[0];
+    chat?.selectedType === categoryState[0] ? chat.groups : chat.privates
+  ).filter((res) => res._id === chat.selectedId)[0];
 
   const closeSettingHandler = () => {
     setShowSetting(false);
@@ -29,14 +30,14 @@ const ChatBoxTop = () => {
       <SideBar />
       <ImageContainer
         highResUrl={
-          user.selectedType === categoryState[1]
-            ? data.users.filter((user) => user._id !== user._id)[0]
+          chat.selectedType === categoryState[1]
+            ? data.users.filter((u) => u._id !== user._id)[0]
                 .highResUrl
             : data.highResUrl
         }
         lowResUrl={
-          user.selectedType === categoryState[1]
-            ? data.users.filter((user) => user._id !==  user._id)[0]
+          chat.selectedType === categoryState[1]
+            ? data.users.filter((u) => u._id !==  user._id)[0]
                 .lowResUrl
             : data.lowResUrl
         }
@@ -45,13 +46,13 @@ const ChatBoxTop = () => {
       />
       <div className="full-screen chat-box__description">
         <h5 className="color-text-light">
-          {user.selectedType === categoryState[0]
+          {chat.selectedType === categoryState[0]
             ? data.name
-            : data.users.filter((user) => user._id !==  user._id)[0].name}
+            : data.users.filter((u) => u._id !==  user._id)[0].name}
         </h5>
         <p className="color-text-light">
-          {!(user.selectedType === categoryState[0])
-            ? data.users.filter((user) => user._id !==  user._id)[0].status
+          {!(chat.selectedType === categoryState[0])
+            ? data.users.filter((u) => u._id !==  user._id)[0].status
             : data.status}
         </p>
       </div>

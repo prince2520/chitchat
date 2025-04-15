@@ -3,15 +3,14 @@ import { useContext, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
-import { UserActions } from "../../../../reduxs/slice/userSlice";
 import { messageHandler } from "../../../../utils/SendMessage";
 import { categoryState } from "../../../../constants/constants";
 import { OverlayActions } from "../../../../reduxs/slice/overlaySlice";
 
-import OpenAI from "./OpenAI/OpenAI";
 import CustomEmoji from "./CustomEmoji/CustomEmoji";
 
 import "./ChatBoxBottom.css";
+import { ChatActions } from "../../../../reduxs/slice/chatSlice";
 
 const ChatBoxBottom = () => {  
   const [showEmojis, setShowEmojis] = useState(false);
@@ -20,15 +19,16 @@ const ChatBoxBottom = () => {
 
   const inputRef = useRef(null);
   const user = useSelector((state) => state.user);
+  const chat = useSelector((state) => state.chat);
 
   const dispatch = useDispatch();
 
   const data = (
-    user?.selectedType === categoryState[0] ? user.groups : user.privates
-  ).filter((res) => res._id === user.selectedId)[0];
+    chat.selectedType === categoryState[0] ? chat.groups : chat.privates
+  ).filter((res) => res._id === chat.selectedId)[0];
 
   const saveMessage = (temp) => {
-    dispatch(UserActions.saveMessage(temp));
+    dispatch(ChatActions.saveMessage(temp));
   };
 
   const sendMessage = (event) => {
@@ -43,7 +43,7 @@ const ChatBoxBottom = () => {
       token: user.token,
       chatId: data._id,
       users: data.users,
-      selectedType: user.selectedType,
+      selectedType: chat.selectedType,
       saveMessage: saveMessage,
       data: {
         message: message,
