@@ -14,7 +14,7 @@ const initialChatState = {
     isSelected: false
 };
 
-const  createGroup = (state, action) => {
+const createGroup = (state, action) => {
     state.groups = [...state.groups, action.payload];
 }
 
@@ -106,6 +106,22 @@ const unblockUserGroup = (state, action) => {
     state.groups = temp;
 }
 
+const deleteChat = (state, action) => {
+    if (action.payload.chatType === categoryState[0]) {
+        state.groups = state.groups.filter((group) => {
+            return group._id !== action.payload.chatId;
+        });
+    } else {
+        state.privates = state.privates.filter((data) => {
+            return data._id !== action.payload.chatId;
+        });
+    }
+
+    state.selectedId = null;
+    state.selectedType = null;
+    state.isSelected = false;
+}
+
 
 const ChatSlice = createSlice({
     name: "chat",
@@ -119,24 +135,12 @@ const ChatSlice = createSlice({
         },
         createPrivate,
         createGroup,
-
-
-        deleteChat(state, action) {
-            if (action.payload.type === categoryState[0]) {
-                state.groups = state.groups.filter((group) => {
-                    return group._id !== action.payload.chatId;
-                });
-            } else {
-                state.privates = state.privates.filter((data) => {
-                    return data._id !== action.payload.chatId;
-                });
-            }
-        },
+        deleteChat,
 
         addGroup(state, action) {
             state.groups = [...state.groups, action.payload];
         },
-       
+
         selectedChat(state, action) {
             state.isSelected = action.payload.isSelected;
             state.selectedId = action.payload.selectedId;
@@ -295,17 +299,7 @@ const ChatSlice = createSlice({
             })
 
         builder
-            .addCase(deleteGroupThunk.fulfilled, (state, action) => {
-                state = {
-                    ...state,
-                    isSelected: false,
-                    selectedType: null,
-                    selectedId: null
-                }
-                state.groups = state.groups.filter((group) => {
-                    return group._id !== action.payload.chatId;
-                });
-            })
+            .addCase(deleteGroupThunk.fulfilled, deleteChat)
             .addCase(deleteGroupThunk.rejected, (_, action) => {
                 toast(`${action.payload}`, {
                     type: "error"
@@ -365,7 +359,7 @@ const ChatSlice = createSlice({
 
 
         builder
-            .addCase(leaveGroupThunk.fulfilled, leaveGroup)
+            .addCase(leaveGroupThunk.fulfilled, deleteChat)
             .addCase(leaveGroupThunk.rejected, (_, action) => {
                 toast(`${action.payload}`, {
                     type: "error"
@@ -373,18 +367,7 @@ const ChatSlice = createSlice({
             })
 
         builder
-            .addCase(deletePrivateThunk.fulfilled, (state, action) => {
-                state = {
-                    ...state,
-                    isSelected: false,
-                    selectedType: null,
-                    selectedId: null
-                }
-
-                state.privates = state.privates.filter((data) => {
-                    return data._id !== action.payload.chatId;
-                });
-            })
+            .addCase(deletePrivateThunk.fulfilled, deleteChat)
             .addCase(deletePrivateThunk.rejected, (_, action) => {
                 toast(`${action.payload}`, {
                     type: "error"

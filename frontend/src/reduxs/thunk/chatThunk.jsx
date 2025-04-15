@@ -47,15 +47,15 @@ export const createPrivateMessageThunk = createAsyncThunk(
 // Private - create a private chat
 export const deletePrivateThunk = createAsyncThunk(
     'chat/deletePrivate',
-    async ({ chatId }, { getState, rejectWithValue }) => {
+    async ({ chatId, chatType }, { getState, rejectWithValue }) => {
         try {
             const state = getState();
-            let response = await deletePrivate({
+            
+            await deletePrivate({
                 token: state.user.token, chatId
             });
-            console.log("deletePrivate", response);
 
-            return response;
+            return {chatId, chatType};
 
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -121,15 +121,15 @@ export const createGroupMessageThunk = createAsyncThunk(
 
 export const deleteGroupThunk = createAsyncThunk(
     'chat/deleteGroup',
-    async ({ chatId }, { getState, rejectWithValue }) => {
+    async ({ chatId, chatType }, { getState, rejectWithValue }) => {
         try {
             const state = getState();
 
-            let response = await deleteGroup(({
+            await deleteGroup(({
                 token: state.user.token, chatId
             }));
 
-            return response;
+            return {chatId, chatType};
 
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -140,10 +140,11 @@ export const deleteGroupThunk = createAsyncThunk(
 
 export const leaveGroupThunk = createAsyncThunk(
     'chat/leaveGroup',
-    async ({ chatId }, { getState, rejectWithValue }) => {
+    async ({ chatId,chatType }, { getState, rejectWithValue }) => {
         try {
             const state = getState();
-            let response = await leaveGroup(({
+            
+            await leaveGroup(({
                 token: state.user.token, chatId
             }));
 
@@ -151,9 +152,8 @@ export const leaveGroupThunk = createAsyncThunk(
                 groupId: chatId,
                 _id: state.user._id,
             });
-            console.log("leaveGroup", response);
 
-            return response;
+            return {chatId, chatType};
 
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
