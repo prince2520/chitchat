@@ -9,7 +9,7 @@ import ImageContainer from "../../../../components/ImageContainer/ImageContainer
 import ChangeCategory from "../../../../components/ChangeCategory/ChangeCategory";
 
 import "./GroupPrivateList.css";
-import { ChatActions } from "../../../../reduxs/slice/chatSlice";
+import { ChatActions } from "../../../../redux/slice/chatSlice";
 
 const GroupPrivateList = () => {
   const [isPrivate, setIsPrivate] = useState(false);

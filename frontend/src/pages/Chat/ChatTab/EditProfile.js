@@ -5,7 +5,7 @@ import { saveInFirebase } from "../../../utils/SaveInFirebase";
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
-import { updateUserThunk } from "../../../reduxs/thunk/userThunk";
+import { updateUserThunk } from "../../../redux/thunk/userThunk";
 
 const EditProfile = () => {
   const [loading, setLoading] = useState(false);

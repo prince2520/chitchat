@@ -1,20 +1,11 @@
 import { uid } from "uid";
 import { Icon } from "@iconify/react";
-import { toast } from "react-toastify";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { editGroup } from "../../../../api/group";
 import { categoryState } from "../../../../constants/constants";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
 import { groupSettingsLinks } from "../../../../constants/constants";
-import { blockUser, removeUser, unBlockUser } from "../../../../api/group";
-import {
-  socketRemoveUserGroup,
-  socketUnblockUser,
-  socketUpdatedGroup,
-  socketBlockUser,
-} from "../../../../services/socket";
 
 import Button from "../../../Button/Button";
 import CustomInput from "../../../CustomInput/CustomInput";
@@ -22,8 +13,7 @@ import ImageContainer from "../../../ImageContainer/ImageContainer";
 import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 
 import "./GroupSettings.css";
-import { ChatActions } from "../../../../reduxs/slice/chatSlice";
-import { blockUserGroupThunk, removeUserGroupThunk, unblockUserGroupThunk, updateGroupThunk } from "../../../../reduxs/thunk/chatThunk";
+import { blockUserGroupThunk, removeUserGroupThunk, unblockUserGroupThunk, updateGroupThunk } from "../../../../redux/thunk/chatThunk";
 
 const Share = ({ groupId }) => {
   return (

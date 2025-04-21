@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { Chat } from "./pages/Chat/Chat";
-import { UserActions } from "./reduxs/slice/userSlice";
+import { UserActions } from "./redux/slice/userSlice";
 import JoinGroup from "./pages/Chat/ChatTab/JoinGroup";
 import EditProfile from "./pages/Chat/ChatTab/EditProfile";
 import CreateGroup from "./pages/Chat/ChatTab/CreateGroup";
@@ -19,8 +19,9 @@ import "./assests/css/style.css";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "./hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserThunk } from "./reduxs/thunk/userThunk";
-import { ChatActions } from "./reduxs/slice/chatSlice";
+import { getUserThunk } from "./redux/thunk/userThunk";
+import { ChatActions } from "./redux/slice/chatSlice";
+import { socketJoinGroup } from "./services/socket";
 
 function App() {
   const { logout, autoLogout } = useAuth();
@@ -46,13 +47,13 @@ function App() {
     dispatch(getUserThunk({ email: localEmail, token: localToken }))
     .unwrap()
     .then((res) => {
+      
+      socketJoinGroup(res.user.groups);
       dispatch(ChatActions.saveChat({
         groups : res.user.groups,
         privates : res.user.privates,
       }))
     });
-
-
     const remainingMilliseconds =
       new Date(localExpiryDate).getTime() - new Date().getTime();
 

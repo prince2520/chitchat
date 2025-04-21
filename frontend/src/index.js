@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import store from "./reduxs/store";
+import store from "./redux/store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
@@ -20,9 +20,14 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 
 root.render(
-  <BrowserRouter>
+  <BrowserRouter
+    future={{
+      v7_startTransition: true,
+      v7_relativeSplatPath: true,
+    }}
+  >
     <Provider store={store}>
-        <App />
+      <App />
     </Provider>
   </BrowserRouter>
 );

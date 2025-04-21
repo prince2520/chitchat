@@ -12,6 +12,7 @@ function updateUserState(state, action) {
     email,
   } = action.payload.user;
 
+  toast.success(`${action.payload.message}`);
   state._id = _id;
   state.name = name;
   state.status = status;
@@ -59,25 +60,19 @@ const UserSlice = createSlice({
     builder
       .addCase(getUserThunk.fulfilled, updateUserState)
       .addCase(getUserThunk.rejected, (_, action) => {
-        toast(`${action.payload}`, {
-          type: "error"
-        });
+        toast.error(`${action.payload}`);
       })
 
     builder
       .addCase(updateUserThunk.fulfilled, updateUserState)
       .addCase(updateUserThunk.rejected, (_, action) => {
-        toast(`${action.payload}`, {
-          type: "error"
-        });
+        toast.error(`${action.payload}`);
       })
 
     builder
       .addCase(loginThunk.fulfilled, updateUserState)
       .addCase(loginThunk.rejected, (_, action) => {
-        toast(`${action.payload}`, {
-          type: "error"
-        });
+        toast.error(`${action.payload}`);
       })
   }
 });

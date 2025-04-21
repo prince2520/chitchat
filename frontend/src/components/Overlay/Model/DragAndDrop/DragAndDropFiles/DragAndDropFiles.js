@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useDispatch } from "react-redux";
 
-import { DragAndDropActions } from "../../../../../reduxs/slice/dragAndDropSlice";
+import { DragAndDropActions } from "../../../../../redux/slice/dragAndDropSlice";
 
 import "./DragAndDropFiles.css";
 

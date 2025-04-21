@@ -1,40 +1,16 @@
 import { Icon } from "@iconify/react";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { socketAddPrivate } from "../../../../../services/socket";
-import { createPrivate } from "../../../../../api/private";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 import ImageContainer from "../../../../../components/ImageContainer/ImageContainer";
 
 import "./SearchResult.css";
-import { ChatActions } from "../../../../../reduxs/slice/chatSlice";
+import { createPrivateThunk } from "../../../../../redux/thunk/chatThunk";
 
 const SearchResult = ({ data, setShowResult, setData }) => {
   const dispatch = useDispatch();
-  const user = useSelector(state=>state.user);
 
-  // create private chat and save it to frontend
-  const handleAddPrivate = () => {
-    createPrivate(user.token, user._id, data._id)
-      .then((data) => {
-        if (data.success) {
-          dispatch(ChatActions.createPrivate(data.data));
-
-          socketAddPrivate({
-            userId: user._id,
-            private: data.data,
-          });
-          toast.success(data.message);
-        } else {
-          toast.error(data.message);
-        }
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
-  };
 
   // close search result
   const handleCloseSearch = () => {
@@ -60,7 +36,7 @@ const SearchResult = ({ data, setShowResult, setData }) => {
       </div>
       <div className={"flex-center search-result__join-btn"}>
         <Icon
-          onClick={() => handleAddPrivate()}
+          onClick={() => dispatch(createPrivateThunk({ chatId: data._id }))}
           style={{ fontSize: "1.75rem", cursor: "pointer" }}
           icon="subway:add"
         />

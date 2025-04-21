@@ -1,29 +1,33 @@
-// GET -> fetch user data
-export const fetchUser = async (email, token) => {
-  const result = await fetch(
-    `${process.env.REACT_APP_SERVER_URL}/user/fetch-user?email=${email}`,
-    {
-      method : 'GET',  
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    }
-  );
-  return result.json();
+import { throwError } from "../redux/api/throwError";
+
+export const signup = async (name, email, password, confirmPassword) => {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword
+    })
+  });
+  const result = throwError(response);
+  return result;
 };
 
-// PUT -> update profile details 
-export const updateUser = async (token, data) => {
-  const result = await fetch(
-    `${process.env.REACT_APP_SERVER_URL}/user/update-user`,
+
+export const fetchUser = async (email, token) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/user/fetch-user?email=${email}`,
     {
-      method: "PUT",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       },
-      body: JSON.stringify(data),
     }
   );
-  return result.json();
-};
+  const result = throwError(response);
+  return result;
+}

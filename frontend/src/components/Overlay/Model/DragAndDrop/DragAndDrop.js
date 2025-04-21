@@ -1,6 +1,5 @@
 import { uid } from "uid";
 import { Icon } from "@iconify/react";
-import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,14 +8,14 @@ import DragAndDropFiles from "./DragAndDropFiles/DragAndDropFiles";
 import DragAndDropNoFiles from "./DragAndDropNoFiles/DragAndDropNoFiles";
 
 import { categoryState } from "../../../../constants/constants";
-import { OverlayActions } from "../../../../reduxs/slice/overlaySlice";
+import { OverlayActions } from "../../../../redux/slice/overlaySlice";
 import { saveInFirebase } from "../../../../utils/SaveInFirebase";
-import { DragAndDropActions } from "../../../../reduxs/slice/dragAndDropSlice";
+import { DragAndDropActions } from "../../../../redux/slice/dragAndDropSlice";
 
 import { getDropData } from "../../../../utils/GetDropData";
 
 import "./DragAndDrop.css";
-import { createGroupMessageThunk, createPrivateMessageThunk } from "../../../../reduxs/thunk/chatThunk";
+import { createGroupMessageThunk, createPrivateMessageThunk } from "../../../../redux/thunk/chatThunk";
 
 const DragAndDrop = () => {
   const dispatch = useDispatch();

@@ -16,10 +16,14 @@ const initialChatState = {
 
 const createGroup = (state, action) => {
     state.groups = [...state.groups, action.payload];
+
+    toast.success(action.payload.message);
 }
 
 const createPrivate = (state, action) => {
     state.privates = [...state.privates, action.payload];
+
+    toast.success(action.payload.message);
 }
 
 const removeUserGroup = (state, action) => {
@@ -32,26 +36,10 @@ const removeUserGroup = (state, action) => {
         }
         return group;
     });
+
+    toast.success(action.payload.message);
 }
 
-const leaveGroup = (state, action) => {
-    const { groupId, _id } = action.payload;
-
-    state = {
-        ...state,
-        isSelected: false,
-        selectedType: null,
-        selectedId: null
-    };
-
-    state.groups = state.groups.concat().map((group) => {
-        if (group._id === groupId) {
-            group.users = group.users.concat().filter(user => user._id !== _id);
-        }
-        return group;
-    });
-
-};
 
 const blockUserGroup = (state, action) => {
     const blockedUser = action.payload.blockedUser;
@@ -65,6 +53,8 @@ const blockUserGroup = (state, action) => {
     });
 
     state.groups = temp;
+
+    toast.success(action.payload.message);
 };
 
 const unblockUserGroup = (state, action) => {
@@ -79,22 +69,25 @@ const unblockUserGroup = (state, action) => {
     });
 
     state.groups = temp;
+    toast.success(action.payload.message);
 }
 
 const deleteChat = (state, action) => {
-    if (action.payload.chatType === categoryState[0]) {
+    if (action.payload.chatType === categoryState[0])
         state.groups = state.groups.filter((group) => {
             return group._id !== action.payload.chatId;
         });
-    } else {
+    else
         state.privates = state.privates.filter((data) => {
             return data._id !== action.payload.chatId;
         });
-    }
+
 
     state.selectedId = null;
     state.selectedType = null;
     state.isSelected = false;
+
+    toast.success(action.payload.message);
 };
 
 const createMessage = (state, action) => {
@@ -107,7 +100,7 @@ const createMessage = (state, action) => {
             }
             return chat;
         });
-    } {
+    } else {
         state.privates = state.privates.filter((chat) => {
             if (chat._id === action.payload.chatId) {
                 chat.messages = [...chat.messages, action.payload.data];
@@ -115,6 +108,8 @@ const createMessage = (state, action) => {
             return chat;
         });
     }
+
+    toast.success(action.payload.message);
 }
 
 const updateGroup = (state, action) => {
@@ -132,6 +127,8 @@ const updateGroup = (state, action) => {
         }
         return group;
     });
+
+    toast.success(action.payload.message);
 }
 
 
@@ -223,101 +220,75 @@ const ChatSlice = createSlice({
         builder
             .addCase(createGroupMessageThunk.fulfilled, createMessage)
             .addCase(createGroupMessageThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
 
         builder
             .addCase(createPrivateMessageThunk.fulfilled, createMessage)
             .addCase(createPrivateMessageThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
 
         builder
             .addCase(deleteGroupThunk.fulfilled, deleteChat)
             .addCase(deleteGroupThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
 
 
         builder
             .addCase(createGroupThunk.fulfilled, createGroup)
             .addCase(createGroupThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
 
         builder
             .addCase(removeUserGroupThunk.fulfilled, removeUserGroup)
             .addCase(removeUserGroupThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
 
         builder
             .addCase(joinGroupThunk.fulfilled, createGroup)
             .addCase(joinGroupThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
-
-
 
         builder
             .addCase(updateGroupThunk.fulfilled, updateGroup)
             .addCase(updateGroupThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
 
         builder
             .addCase(unblockUserGroupThunk.fulfilled, unblockUserGroup)
             .addCase(unblockUserGroupThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
 
         builder
             .addCase(blockUserGroupThunk.fulfilled, blockUserGroup)
             .addCase(blockUserGroupThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
 
 
         builder
             .addCase(leaveGroupThunk.fulfilled, deleteChat)
             .addCase(leaveGroupThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
 
         builder
             .addCase(deletePrivateThunk.fulfilled, deleteChat)
             .addCase(deletePrivateThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
 
         builder
             .addCase(createPrivateThunk.fulfilled, createPrivate)
             .addCase(createPrivateThunk.rejected, (_, action) => {
-                toast(`${action.payload}`, {
-                    type: "error"
-                });
+                toast.error(`${action.payload}`);
             })
 
     }

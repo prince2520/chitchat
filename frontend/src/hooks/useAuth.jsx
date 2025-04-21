@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { socketJoinGroup } from "../services/socket";
 import { useCallback } from "react";
 
 export function useAuth() {

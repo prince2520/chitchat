@@ -5,6 +5,7 @@ import { chatFeatures } from "../../../constants/constants";
 import HomepageAnimation from "../../../assests/animations/Homepage.json";
 
 import "./AuthenticationIntro.css";
+import { uid } from "uid";
 
 const AuthenticationIntro = () => {
   return (
@@ -13,6 +14,7 @@ const AuthenticationIntro = () => {
       <div className={"flex-center authentication-intro__features"}>
         {chatFeatures.map((feature, index) => (
           <div
+            key={uid(8)}
             className={
               "flex-center border authentication-intro__features__feature"
             }

@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { fetchUser } from "../../../../api/user";
 
@@ -19,7 +19,6 @@ const SearchBar = () => {
 
     fetchUser(event.target[0].value, user.token)
       .then((result) => {
-        console.log(result);
         if (result?.success) {
           setData(result?.user);
           setShowResult(result?.success);
@@ -31,7 +30,7 @@ const SearchBar = () => {
       .catch((err) => {
         toast.success(err);
       });
-  }, []);
+  }, [user.token]);
 
   return (
     <form

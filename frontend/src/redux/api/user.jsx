@@ -1,20 +1,23 @@
+import { throwError } from "./throwError";
+
 // GET -> fetch user data
 export const fetchUser = async (email, token) => {
-  const result = await fetch(
+  const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/user/fetch-user?email=${email}`,
     {
-      method : 'GET',  
+      method: 'GET',
       headers: {
         Authorization: "Bearer " + token,
       },
     }
   );
-  return result.json();
+  const result =  await throwError(response);
+  return result;
 };
 
 // PUT -> update profile details 
 export const updateUser = async (token, data) => {
-  const result = await fetch(
+  const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/user/update-user`,
     {
       method: "PUT",
@@ -25,13 +28,14 @@ export const updateUser = async (token, data) => {
       body: JSON.stringify(data),
     }
   );
-  return result.json();
+  const result = await throwError(response);
+  return result;
 };
 
 // Auth
 // POST -> Sign up
 export const signup = async (name, email, password, confirmPassword) => {
-  const result = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -43,12 +47,13 @@ export const signup = async (name, email, password, confirmPassword) => {
       confirmPassword: confirmPassword
     })
   });
-  return result.json();
+  const result = await throwError(response);
+  return result;
 };
 
 // POST -> Login
 export const login = async (email, password) => {
-  const result = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -58,5 +63,6 @@ export const login = async (email, password) => {
       password: password
     }),
   });
-  return result.json();
+  const result = await throwError(response);
+  return result;
 };

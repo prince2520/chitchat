@@ -2,8 +2,8 @@ import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { categoryState } from "../constants/constants";
 import { socketRemoveChat } from "../services/socket";
-import { OverlayActions } from "../reduxs/slice/overlaySlice";
-import { deleteGroupThunk, deletePrivateThunk, leaveGroupThunk } from "../reduxs/thunk/chatThunk";
+import { OverlayActions } from "../redux/slice/overlaySlice";
+import { deleteGroupThunk, deletePrivateThunk, leaveGroupThunk } from "../redux/thunk/chatThunk";
 
 const useLeaveDeleteGroup = () => {
   const dispatch = useDispatch();

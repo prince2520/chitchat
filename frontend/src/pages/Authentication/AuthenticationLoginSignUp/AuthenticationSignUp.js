@@ -3,7 +3,7 @@ import {  useState } from "react";
 
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
-import { signup } from "../../../api/auth";
+import { signup } from "../../../api/user";
 import { toast } from "react-toastify";
 
 const SignUp = () => {
@@ -20,6 +20,7 @@ const SignUp = () => {
     confirmPassword = event.target[3].value;
 
     setLoading(true);
+    
     signup(username, email, password, confirmPassword)
     .then((res)=>toast.success(res.message))
     .catch((err)=>toast.error(err.message))

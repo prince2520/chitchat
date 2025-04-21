@@ -9,21 +9,20 @@ const MessageString = ({ message, time }) => {
 
   useEffect(() => {
     setMessage(message);
-  }, [message]);
+  }, [message, setMessage]);
 
   return (
     <>
       <div
-        className={`flex-center message--string ${
-          isUrl ? "message--link" : ""
-        }`}
+        className={`flex-center message--string ${isUrl ? "message--link" : ""
+          }`}
       >
         {!isUrl ? (
           <p className="message__content">{message}</p>
         ) : (
           <div className="flex-center message--link__container">
             <div className="flex-center message--link__container__img">
-              <a className="flex-center" href={message} target="_blank">
+              <a className="flex-center" href={message} target="_blank" rel="noreferrer">
                 <img
                   src={linkData.icon || "https://i.imgur.com/Up8N7lU.png"}
                   alt={linkData.title}
@@ -41,6 +40,7 @@ const MessageString = ({ message, time }) => {
                   <a
                     className="message--link__container__content__title"
                     target="_blank"
+                    rel="noreferrer"
                     href={message}
                   >
                     {linkData?.title?.slice(0, 50)}{" "}
@@ -51,6 +51,7 @@ const MessageString = ({ message, time }) => {
               {linkData.description && <h6>{linkData?.description}</h6>}
               <h6 style={{ width: "100%" }}>
                 <a
+                  rel="noreferrer"
                   className="message--link__container__content__link"
                   target="_blank"
                   href={message}

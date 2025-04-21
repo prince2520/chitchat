@@ -1,17 +1,20 @@
 import { Icon } from "@iconify/react";
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
 import { categoryState } from "../../../../constants/constants";
-import { OverlayActions } from "../../../../reduxs/slice/overlaySlice";
+import { OverlayActions } from "../../../../redux/slice/overlaySlice";
 
 import CustomEmoji from "./CustomEmoji/CustomEmoji";
 
 import "./ChatBoxBottom.css";
-import { createGroupMessageThunk, createPrivateMessageThunk } from "../../../../reduxs/thunk/chatThunk";
+import { createGroupMessageThunk, createPrivateMessageThunk } from "../../../../redux/thunk/chatThunk";
+import { getAIAnswer } from "../../../../geminiai";
+import { toast } from "react-toastify";
+import OpenAI from "./OpenAI/OpenAI";
 
-const ChatBoxBottom = () => {  
+const ChatBoxBottom = () => {
   const [showEmojis, setShowEmojis] = useState(false);
   const [isOpenAIMsg, setIsOpenAIMsg] = useState(false);
 
@@ -26,6 +29,13 @@ const ChatBoxBottom = () => {
     chat.selectedType === categoryState[0] ? chat.groups : chat.privates
   ).filter((res) => res._id === chat.selectedId)[0];
 
+  const createMessageHandler = (selectedType, msgData) => {
+    if (selectedType === categoryState[0]) {
+      dispatch(createGroupMessageThunk({ data: msgData }));
+    } else {
+      dispatch(createPrivateMessageThunk({ data: msgData }))
+    }
+  }
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -50,14 +60,22 @@ const ChatBoxBottom = () => {
       },
     };
 
-    if(chat.selectedType === categoryState[0]){
-      dispatch(createGroupMessageThunk({data: msgData}))
-    }else{
-      dispatch(createPrivateMessageThunk({data: msgData}))
-    }
+    createMessageHandler(chat.selectedType, msgData);
 
     inputRef.current.value = "";
-  };
+
+    if(isOpenAIMsg){
+      getAIAnswer(message).then(res=>{
+        let temp = {...msgData};
+
+        temp.data.message = res.text;
+        temp.data.isOpenAIMsg = true;
+
+        createMessageHandler(temp.selectedType, temp);
+
+        }).catch(err=>toast.error(err));
+    }
+  }
 
   const isOpenAIHandler = (openAICond) => setIsOpenAIMsg(openAICond);
 
@@ -86,7 +104,7 @@ const ChatBoxBottom = () => {
           onClick={() => dispatch(OverlayActions.openDragDropHandler())}
           icon="tabler:files"
         />
-        {/*<OpenAI isOpenAIHandler={isOpenAIHandler} />*/}
+        <OpenAI isOpenAIHandler={isOpenAIHandler} />
       </div>
       <div
         className={" hoverState flex-center border chat-box__bottom__middle"}

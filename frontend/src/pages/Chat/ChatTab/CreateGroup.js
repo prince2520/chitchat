@@ -6,7 +6,7 @@ import CustomInput from "../../../components/CustomInput/CustomInput";
 import CreateGroupLarge from "../../../assests/images/CreateGroupLarge.png";
 import CreateGroupSmall from "../../../assests/images/CreateGroupSmall.png";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
-import { createGroupThunk } from "../../../reduxs/thunk/chatThunk";
+import { createGroupThunk } from "../../../redux/thunk/chatThunk";
 
 const CreateGroup = () => {
   const [loading, setLoading] = useState(null);

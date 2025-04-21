@@ -2,16 +2,17 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Button from "../../../components/Button/Button";
-import CustomInput from "../../../components/CustomInput/CustomInput";
 import { useDispatch } from "react-redux";
-import { loginThunk } from "../../../reduxs/thunk/userThunk";
+import CustomInput from "../../../components/CustomInput/CustomInput";
+import { loginThunk } from "../../../redux/thunk/userThunk";
 import { useAuth } from "../../../hooks/useAuth";
-import { ChatActions } from "../../../reduxs/slice/chatSlice";
+import { ChatActions } from "../../../redux/slice/chatSlice";
+import { socketJoinGroup } from "../../../services/socket";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const {authTimer} = useAuth();
+  const { authTimer } = useAuth();
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -20,18 +21,21 @@ const Login = () => {
     const password = event.target[1].value;
 
     setLoading(true);
-    dispatch(loginThunk({email, password}))
-    .unwrap()
-    .then((res)=>{
-      dispatch(ChatActions.saveChat({
-        groups : res.user.groups,
-        privates : res.user.privates,
-      }))
-      authTimer(res);
-    })
-    .finally(()=>{
-      setLoading(false);
-    });
+
+    dispatch(loginThunk({ email, password }))
+      .unwrap()
+      .then((res) => {
+        socketJoinGroup(res.user.groups);
+        dispatch(ChatActions.saveChat({
+          groups: res.user.groups,
+          privates: res.user.privates,
+        }))
+        authTimer(res);
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -45,7 +49,7 @@ const Login = () => {
         icon={"material-symbols:lock"}
       />
       <Button
-        loading ={ loading}
+        loading={loading}
         backgroundColor="var(--primary)"
         color="var(--text)"
         width={"60%"}

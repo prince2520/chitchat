@@ -1,6 +1,8 @@
+import { throwError } from "../redux/api/throwError";
+
 // POST -> url website data
 export const urlWebsiteData = async (data) => {
-  const result = await fetch(
+  const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/helper/url-website-data`,
     {
       method: "POST",
@@ -11,5 +13,6 @@ export const urlWebsiteData = async (data) => {
       body: JSON.stringify(data),
     }
   );
-  return result.json();
+  const result = throwError(response);
+  return result;
 };

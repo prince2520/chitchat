@@ -1,7 +1,10 @@
 // PRIVATE
+
+import { throwError } from "./throwError";
+
 // POST -> create a new group
 export const createGroup = async (token, data) => {
-    const result = await fetch(
+    const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/group/create-group`,
         {
             method: "POST",
@@ -12,12 +15,14 @@ export const createGroup = async (token, data) => {
             body: JSON.stringify({ ...data }),
         }
     );
-    return result.json();
+    const result = await throwError(response);
+    return result;
+
 };
 
 // PUT -> join a group
 export const joinGroup = async (token, groupId, _id) => {
-    let result = await fetch(
+    let response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/group/join-group`,
         {
             method: "PUT",
@@ -31,12 +36,13 @@ export const joinGroup = async (token, groupId, _id) => {
             }),
         }
     );
-    return result.json();
+    const result = await throwError(response);
+    return result;
 };
 
 // PUT -> save group message
 export const saveGroupMessage = async (data) => {
-    const result = await fetch(
+    const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/group/save-group-message`,
         {
             method: "PUT",
@@ -47,13 +53,14 @@ export const saveGroupMessage = async (data) => {
             body: JSON.stringify(data),
         }
     );
-    return result.json();
+    const result = await throwError(response);
+    return result;
 };
 
 
 // DELETE -> leave group 
 export const leaveGroup = async (data) => {
-    const result = await fetch(
+    const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/group/leave-group`,
         {
             method: "DELETE",
@@ -64,13 +71,14 @@ export const leaveGroup = async (data) => {
             body: JSON.stringify(data),
         }
     );
-    return result.json();
+    const result = await throwError(response);
+    return result;
 };
 
 
 // DELETE -> delete a group
 export const deleteGroup = async (data) => {
-    const result = await fetch(
+    const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/group/delete-group`,
         {
             method: "DELETE",
@@ -81,12 +89,13 @@ export const deleteGroup = async (data) => {
             body: JSON.stringify(data),
         }
     );
-    return result.json();
+    const result = await throwError(response);
+    return result;
 };
 
 // DELETE -> remove user from group
 export const removeUserGroup = async (data) => {
-    const result = await fetch(
+    const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/group/remove-user`,
         {
             method: "DELETE",
@@ -97,13 +106,14 @@ export const removeUserGroup = async (data) => {
             body: JSON.stringify(data),
         }
     );
-    return result.json();
+    const result = await throwError(response);
+    return result;
 };
 
 // PUT -> edit a group 
 export const updateGroup = async (data) => {
 
-    const result = await fetch(
+    const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/group/edit-group`,
         {
             method: "PUT",
@@ -115,13 +125,14 @@ export const updateGroup = async (data) => {
         }
     );
 
-    return result.json();
+    const result = await throwError(response);
+    return result;
 };
 
 // PUT -> block user from group 
 export const blockUserGroup = async (data) => {
 
-    const result = await fetch(
+    const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/group/block-user`,
         {
             method: "PUT",
@@ -133,14 +144,15 @@ export const blockUserGroup = async (data) => {
         }
     );
 
-    return result.json();
+    const result = await throwError(response);
+    return result;
 };
 
 
 // PUT -> unblock user from group 
 export const unblockUserGroup = async (data) => {
 
-    const result = await fetch(
+    const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/group/unblock-user`,
         {
             method: "PUT",
@@ -152,7 +164,8 @@ export const unblockUserGroup = async (data) => {
         }
     );
 
-    return result.json();
+    const result = await throwError(response);
+    return result;
 };
 
 
@@ -176,13 +189,14 @@ export const createPrivate = async (token, _id, chatId) => {
             })
         }
     );
-    return response.json();
+    const result = await throwError(response);
+    return result;
 };
 
 
 // PUT -> save private message
 export const savePrivateMessage = async (data) => {
-    const result = await fetch(
+    const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/private/save-private-message`,
         {
             method: "PUT",
@@ -193,13 +207,14 @@ export const savePrivateMessage = async (data) => {
             body: JSON.stringify(data)
         }
     );
-    return result.json();
+    const result = await throwError(response);
+    return result;
 };
 
 
 // DELETE -> delete private 
 export const deletePrivate = async (data) => {
-    const result = await fetch(
+    const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/private/delete-private`,
         {
             method: "DELETE",
@@ -210,5 +225,6 @@ export const deletePrivate = async (data) => {
             body: JSON.stringify(data)
         }
     );
-    return result.json();
+    const result = await throwError(response);
+    return result;
 }

@@ -12,17 +12,14 @@ export const createPrivateThunk = createAsyncThunk(
     async ({ chatId }, { getState, rejectWithValue }) => {
         try {
             const state = getState();
-
             let response = await createPrivate(state.user.token, state.user._id, chatId);
+
             socketAddPrivate({
-                _id: state.user._id,
+                userId: state.user._id,
                 private: response.data
             })
-
-            toast.success(response.message);
-            return response;
+            return response.data;
         } catch (error) {
-            toast.error(error.message);
             return rejectWithValue(error.message || "Something goes wrong!");
         }
     }
@@ -34,7 +31,8 @@ export const createPrivateMessageThunk = createAsyncThunk(
     async ({ data }, { rejectWithValue }) => {
         try {
             let response = await savePrivateMessage(data);
-            let msgData = { ... data, data: response.data };
+            
+            let msgData = { ...data, data: response.data };
             socketSendMessage(msgData);
             return msgData;
 
@@ -50,12 +48,12 @@ export const deletePrivateThunk = createAsyncThunk(
     async ({ chatId, chatType }, { getState, rejectWithValue }) => {
         try {
             const state = getState();
-            
+
             await deletePrivate({
                 token: state.user.token, chatId
             });
 
-            return {chatId, chatType};
+            return { chatId, chatType };
 
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -73,7 +71,7 @@ export const createGroupThunk = createAsyncThunk(
         try {
             const state = getState();
             let response = await createGroup(state.user.token, data);
-            return {...response.data};
+            return { ...response.data };
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }
@@ -92,10 +90,8 @@ export const joinGroupThunk = createAsyncThunk(
                 groupId: response.groupData._id,
                 user: state.user
             });
-            toast.success(response.message);
-            return {...response.groupData};
+            return { ...response.groupData };
         } catch (error) {
-            toast.error(error.message);
             return rejectWithValue(error.message || "Something goes wrong!");
         }
     }
@@ -108,7 +104,7 @@ export const createGroupMessageThunk = createAsyncThunk(
     async ({ data }, { rejectWithValue }) => {
         try {
             let response = await saveGroupMessage(data);
-            let msgData = { ... data, data: response.data };
+            let msgData = { ...data, data: response.data };
             socketSendMessage(msgData);
             return msgData;
 
@@ -129,7 +125,7 @@ export const deleteGroupThunk = createAsyncThunk(
                 token: state.user.token, chatId
             }));
 
-            return {chatId, chatType};
+            return { chatId, chatType };
 
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -140,10 +136,10 @@ export const deleteGroupThunk = createAsyncThunk(
 
 export const leaveGroupThunk = createAsyncThunk(
     'chat/leaveGroup',
-    async ({ chatId,chatType }, { getState, rejectWithValue }) => {
+    async ({ chatId, chatType }, { getState, rejectWithValue }) => {
         try {
             const state = getState();
-            
+
             await leaveGroup(({
                 token: state.user.token, chatId
             }));
@@ -153,7 +149,7 @@ export const leaveGroupThunk = createAsyncThunk(
                 _id: state.user._id,
             });
 
-            return {chatId, chatType};
+            return { chatId, chatType };
 
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -174,7 +170,7 @@ export const removeUserGroupThunk = createAsyncThunk(
             return data;
 
         } catch (error) {
-            toast.error(error);
+            console.log("Error", error.message)
             return rejectWithValue(error.message || "Something goes wrong!");
         }
     }
@@ -191,9 +187,7 @@ export const updateGroupThunk = createAsyncThunk(
             delete socketData.token;
             socketUpdatedGroup(socketData);
             return data;
-
         } catch (error) {
-            toast.error(error);
             return rejectWithValue(error.message || "Something goes wrong!");
         }
     }
@@ -205,11 +199,9 @@ export const blockUserGroupThunk = createAsyncThunk(
     async ({ data }, { rejectWithValue }) => {
         try {
             socketBlockUser(data);
-            let response = await blockUserGroup(data);
-            toast.success(response.message);
+            await blockUserGroup(data);
             return data;
         } catch (error) {
-            toast.error(error);
             return rejectWithValue(error.message || "Something goes wrong!");
         }
     }
@@ -220,12 +212,10 @@ export const unblockUserGroupThunk = createAsyncThunk(
     'chat/unblockUserGroup',
     async ({ data }, { rejectWithValue }) => {
         try {
-            let response = await unblockUserGroup(data);
+            await unblockUserGroup(data);
             socketUnblockUser(data);
-            toast.success(response.message);
             return data;
         } catch (error) {
-            toast.error(error);
             return rejectWithValue(error.message || "Something goes wrong!");
         }
     }

@@ -4,8 +4,8 @@ import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { callingType } from "../../../../../constants/constants";
-import { OverlayActions } from "../../../../../reduxs/slice/overlaySlice";
-import { VideoAudioCallActions } from "../../../../../reduxs/slice/videoAudioCallSlice";
+import { OverlayActions } from "../../../../../redux/slice/overlaySlice";
+import { VideoAudioCallActions } from "../../../../../redux/slice/videoAudioCallSlice";
 
 import SocketContext from "../../../../../context/socketContext";
 

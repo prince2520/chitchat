@@ -5,8 +5,11 @@ export let socket = null;
 
 // USER - initiate socket
 export const socketInitiate = (userId) => {
+  console.log(userId);
   socket = io(process.env.REACT_APP_SERVER_URL, { transports: ["websocket"] });
+  console.log("sock", socket);
   socket.emit(SOCKET_EVENT.USER_CONNECT, userId);
+  
 };
 
 // USER - disconnect socket

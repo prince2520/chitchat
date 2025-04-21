@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import React, { useEffect, useState, useRef } from "react";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify"
 import Peer from "simple-peer";
 
 import {
@@ -27,11 +27,11 @@ import {
 
 
 import { useSelector } from "react-redux";
-import { OverlayActions } from "../reduxs/slice/overlaySlice";
-import { VideoAudioCallActions } from "../reduxs/slice/videoAudioCallSlice";
+import { OverlayActions } from "../redux/slice/overlaySlice";
+import { VideoAudioCallActions } from "../redux/slice/videoAudioCallSlice";
 import { callingType } from "../constants/constants";
 import { useAuth } from "../hooks/useAuth";
-import { ChatActions } from "../reduxs/slice/chatSlice";
+import { ChatActions } from "../redux/slice/chatSlice";
 
 const SocketContext = React.createContext({});
 
@@ -40,7 +40,7 @@ export const SocketContextProvider = ({ children }) => {
   const videoAudioCall = useSelector((state) => state.videoAudioCall);
 
   const [stream, setStream] = useState();
-  const {logout} = useAuth();
+  const { logout } = useAuth();
 
   const user = useSelector((state) => state.user);
   const selectedId = useSelector((state) => state.chat.selectedId);
@@ -52,7 +52,7 @@ export const SocketContextProvider = ({ children }) => {
   useEffect(() => {
     socketInitiate(user._id);
     return () => {
-      socketDisconnect({userId: user._id});
+      socketDisconnect({ userId: user._id });
       if (videoAudioCall.isCalling || videoAudioCall.isReceivingCall) {
         endCall(videoAudioCall.callData.userToCall);
       }
@@ -85,8 +85,8 @@ export const SocketContextProvider = ({ children }) => {
     socketGetLeaveMemberGroup((err, { data }) => {
       dispatch(ChatActions.leaveMemberGroup(data));
     });
-    socketGetAutoLogout((err, {userId, alreadyLogin}) => {
-      if(user._id === userId && alreadyLogin) {
+    socketGetAutoLogout((err, { userId, alreadyLogin }) => {
+      if (user._id === userId && alreadyLogin) {
         toast.error('Someone login to your account!');
         logout();
       }
@@ -107,9 +107,23 @@ export const SocketContextProvider = ({ children }) => {
     });
 
     socketGetEndCall((err, data) => {
+      if (connectionRef?.current) {
+        connectionRef.current.destroy();
+        connectionRef.current = null;
+      }
+
       if (stream) {
         stream.getTracks().forEach((track) => track.stop());
+        setStream(null);
       }
+
+      if (myVideo.current) {
+        myVideo.current.srcObject = null;
+      }
+      if (userVideo.current) {
+        userVideo.current.srcObject = null;
+      }
+
       dispatch(VideoAudioCallActions.callEndedHandler());
       dispatch(OverlayActions.closeOverlayHandler());
     });
@@ -229,18 +243,34 @@ export const SocketContextProvider = ({ children }) => {
       callEnded: true,
       userToCall: userToCall,
     };
-
-    if(connectionRef?.current){
+  
+    // Destroy peer connection
+    if (connectionRef?.current) {
       connectionRef.current.destroy();
+      connectionRef.current = null; // <-- clear reference
     }
-
+  
+    // Stop media tracks
     if (stream) {
-      stream.getTracks().forEach((track) => track.stop());
+      stream.getTracks().forEach((track) => {
+        track.stop();
+      });
+      setStream(null); // <-- clear the state
     }
-
+  
+    // Clear video elements
+    if (myVideo.current) {
+      myVideo.current.srcObject = null;
+    }
+    if (userVideo.current) {
+      userVideo.current.srcObject = null;
+    }
+  
+    // Socket cleanup
     socketEndCall(data);
     socketOffCallAccepted();
-
+  
+    // UI cleanup
     dispatch(OverlayActions.closeOverlayHandler());
   };
 

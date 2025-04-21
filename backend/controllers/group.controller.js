@@ -65,9 +65,9 @@ exports.joinGroup = async (req, res, next) => {
     const MAX_USER_IN_GROUP = 20;
 
     const groupFound = await Group.findOne({ _id: groupId }).populate([
-      "users",
-      "messages",
-    ]);
+      { path: "blockList", populate: "user" },
+      { path: "messages", populate: "user" }
+    ])
 
     if (!groupFound) {
       let error = new Error("Group not found!");
@@ -120,7 +120,7 @@ exports.joinGroup = async (req, res, next) => {
 
     return res.status(202).json({
       success: true,
-      message: "Group join successfully!",
+      message: `"${groupFound.name}" joined successfully!`,
       groupData: groupFound,
     });
   } catch (err) {
@@ -133,10 +133,10 @@ exports.saveGroupMessage = async (req, res, next) => {
 
   chatId = mongoose.Types.ObjectId(req.body.chatId);
 
-  message = req.body.data.message ? req.body.data.message : "";
+  message = req.body.data.message ?? "";
   isOpenAIMsg = req.body.data.isOpenAIMsg;
-  url = req.body.data.url ? req.body.data.url : "";
-  size = req.body.data.size ? req.body.data.size : 0;
+  url = req.body.data.url ?? "";
+  size = req.body.data.size ?? 0;
   type = req.body.data.type;
   userId = mongoose.Types.ObjectId(req.userId);
 
@@ -237,7 +237,7 @@ exports.blockUser = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json({
       success: true,
-      message: "User blocked successfully!",
+      message: `User blocked successfully!`,
     });
 
   } catch (err) {

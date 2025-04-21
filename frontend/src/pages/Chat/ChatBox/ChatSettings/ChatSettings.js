@@ -1,10 +1,9 @@
 import { uid } from "uid";
-import { useContext } from "react";
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
-import { OverlayActions } from "../../../../reduxs/slice/overlaySlice";
+import { OverlayActions } from "../../../../redux/slice/overlaySlice";
 import { categoryState } from "../../../../constants/constants";
 import { chatTopSettingOptions } from "../../../../constants/constants";
 
