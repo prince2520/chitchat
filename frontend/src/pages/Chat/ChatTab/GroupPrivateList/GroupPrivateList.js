@@ -36,7 +36,7 @@ const GroupPrivateList = () => {
   };
 
   const showLastMsg = (data) => {
-    let msgLength = data?.messages.length;
+    let msgLength = data?.messages?.length;
     let lastMsg = data?.messages[msgLength - 1];
     return (
       <>
@@ -58,7 +58,7 @@ const GroupPrivateList = () => {
     <>
       <ChangeCategory setIsPrivate={setIsPrivate} />
       <div className="group-private-list">
-        {(isPrivate ? chat.privates : chat.groups).length > 0 ? (
+        {(isPrivate ? chat.privates : chat.groups)?.length > 0 ? (
           (isPrivate ? chat.privates : chat.groups).map((data) => (
             <div
               key={data._id}

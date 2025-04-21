@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { socketAddMemberGroup, socketAddPrivate, socketBlockUser, socketLeaveMemberGroup, socketRemoveUserGroup, socketSendMessage, socketUnblockUser, socketUpdatedGroup } from "../../services/socket";
+import { socketAddMemberGroup, socketAddPrivate, socketBlockUser, socketJoinGroup, socketLeaveMemberGroup, socketRemoveUserGroup, socketSendMessage, socketUnblockUser, socketUpdatedGroup } from "../../services/socket";
 import { blockUserGroup, createGroup, deleteGroup, joinGroup, leaveGroup, removeUserGroup, saveGroupMessage, unblockUserGroup, updateGroup, createPrivate, deletePrivate, savePrivateMessage } from "../api/chat";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -18,6 +18,7 @@ export const createPrivateThunk = createAsyncThunk(
                 userId: state.user._id,
                 private: response.data
             })
+
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -31,7 +32,7 @@ export const createPrivateMessageThunk = createAsyncThunk(
     async ({ data }, { rejectWithValue }) => {
         try {
             let response = await savePrivateMessage(data);
-            
+
             let msgData = { ...data, data: response.data };
             socketSendMessage(msgData);
             return msgData;
@@ -71,6 +72,7 @@ export const createGroupThunk = createAsyncThunk(
         try {
             const state = getState();
             let response = await createGroup(state.user.token, data);
+            console.log("thunk create group ", response)
             return { ...response.data };
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -166,11 +168,9 @@ export const removeUserGroupThunk = createAsyncThunk(
 
             socketRemoveUserGroup(data);
             toast.success(response.message);
-
             return data;
 
         } catch (error) {
-            console.log("Error", error.message)
             return rejectWithValue(error.message || "Something goes wrong!");
         }
     }

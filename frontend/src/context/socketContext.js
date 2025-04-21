@@ -22,7 +22,8 @@ import {
   socketGetBlockUser,
   socketGetAddMemberGroup,
   socketGetLeaveMemberGroup,
-  socketGetAutoLogout
+  socketGetAutoLogout,
+  socketJoinGroups
 } from "../services/socket";
 
 
@@ -44,13 +45,15 @@ export const SocketContextProvider = ({ children }) => {
 
   const user = useSelector((state) => state.user);
   const selectedId = useSelector((state) => state.chat.selectedId);
+  const chat = useSelector(state=>state.chat);
+
 
   const userVideo = useRef(null);
   const myVideo = useRef(null);
   const connectionRef = useRef();
 
   useEffect(() => {
-    socketInitiate(user._id);
+    socketInitiate(user._id); 
     return () => {
       socketDisconnect({ userId: user._id });
       if (videoAudioCall.isCalling || videoAudioCall.isReceivingCall) {
@@ -58,6 +61,10 @@ export const SocketContextProvider = ({ children }) => {
       }
     };
   }, [user._id, dispatch]);
+
+  useEffect(()=>{
+    socketJoinGroups(chat.groups);
+  },[chat.groups])
 
   useEffect(() => {
     socketGetSendMessage((err, { data }) => {
@@ -67,13 +74,12 @@ export const SocketContextProvider = ({ children }) => {
       dispatch(ChatActions.createPrivate(data.private));
     });
     socketGetRemoveUserGroup((err, { data }) => {
-      dispatch(ChatActions.removeUserGroup(data));
+      dispatch(ChatActions.deleteChat(data));
     });
     socketGetUpdatedGroup((err, { data }) => {
-      dispatch(ChatActions.editGroup(data));
+      dispatch(ChatActions.updateGroup(data));
     });
     socketGetUnblockUser((err, { data }) => {
-      console.log('socketGetUnblockUser', data)
       dispatch(ChatActions.unblockUserGroup(data));
     });
     socketGetBlockUser((err, { data }) => {
@@ -83,6 +89,7 @@ export const SocketContextProvider = ({ children }) => {
       dispatch(ChatActions.addMemberGroup(data));
     });
     socketGetLeaveMemberGroup((err, { data }) => {
+      console.log("leaveMember", data)
       dispatch(ChatActions.leaveMemberGroup(data));
     });
     socketGetAutoLogout((err, { userId, alreadyLogin }) => {
@@ -131,15 +138,6 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     socketGetRemoveChat((data) => {
-      if (selectedId === data.chatId) {
-        dispatch(
-          ChatActions.selectedChat({
-            selectedId: null,
-            selectedType: null,
-            isSelected: false,
-          })
-        );
-      }
       dispatch(ChatActions.deleteChat(data));
     });
   }, [dispatch, selectedId]);

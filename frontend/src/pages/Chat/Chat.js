@@ -15,6 +15,7 @@ import "./Chat.css";
 export const Chat = () => {
   const isSelected = useSelector((state) => state.chat.isSelected);
   const showOverlay = useSelector((state) => state.overlay?.showOverlay);
+  const chat = useSelector(state => state.user);
 
   const dispatch = useDispatch();
 
@@ -28,7 +29,7 @@ export const Chat = () => {
         })
       );
     };
-  }, [dispatch]);
+  }, [dispatch, chat.groups]);
 
   return (
     <SocketContextProvider>

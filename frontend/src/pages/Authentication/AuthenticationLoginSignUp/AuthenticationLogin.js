@@ -7,7 +7,6 @@ import CustomInput from "../../../components/CustomInput/CustomInput";
 import { loginThunk } from "../../../redux/thunk/userThunk";
 import { useAuth } from "../../../hooks/useAuth";
 import { ChatActions } from "../../../redux/slice/chatSlice";
-import { socketJoinGroup } from "../../../services/socket";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -25,7 +24,6 @@ const Login = () => {
     dispatch(loginThunk({ email, password }))
       .unwrap()
       .then((res) => {
-        socketJoinGroup(res.user.groups);
         dispatch(ChatActions.saveChat({
           groups: res.user.groups,
           privates: res.user.privates,

@@ -17,7 +17,7 @@ const CreateGroup = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
- 
+
     let data = {
       name: event.target[0].value,
       status: event.target[1].value
@@ -30,6 +30,7 @@ const CreateGroup = () => {
       .then(() => {
         navigate("/chat");
       })
+      .catch(err => console.log(err))
       .finally(() => setLoading(false));
   };
 

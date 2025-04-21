@@ -7,7 +7,6 @@ export let socket = null;
 export const socketInitiate = (userId) => {
   console.log(userId);
   socket = io(process.env.REACT_APP_SERVER_URL, { transports: ["websocket"] });
-  console.log("sock", socket);
   socket.emit(SOCKET_EVENT.USER_CONNECT, userId);
   
 };
@@ -29,12 +28,21 @@ export const socketGetAutoLogout = (cb) => {
 };
 
 // GROUP
-// GROUP - join group
-export const socketJoinGroup = (groups) => {
+// GROUP - multiple join group
+export const socketJoinGroups = (groups) => {
   if (socket) {
-    socket.emit(SOCKET_EVENT.JOIN_GROUP, { groups });
+    socket.emit(SOCKET_EVENT.JOIN_GROUPS, { groups });
   }
 };
+
+// GROUP - single join group
+export const socketJoinGroup = (groupId) => {
+  console.log(groupId);
+  if (socket) {
+    socket.emit(SOCKET_EVENT.JOIN_GROUP, { groupId });
+  }
+};
+
 
 // GROUP - remove user from group
 export const socketRemoveUserGroup = (data) => {

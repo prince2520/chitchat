@@ -47,10 +47,17 @@ exports.createGroup = async (req, res, next) => {
       throw error;
     }
 
+    const group = await Group.findOne({ _id: saveGroup._id })
+    .populate([
+      { path: "messages", populate: "user" },
+      { path: "blockList", populate: "user" },
+      "users"
+    ]);
+
     return res.status(StatusCodes.OK).json({
       success: true,
       message: "Group created successfully.",
-      data: saveGroup,
+      data: group,
     });
   } catch (err) {
     next(err);
@@ -116,12 +123,20 @@ exports.joinGroup = async (req, res, next) => {
       let error = new Error("User not added to group!");
       error.statusCode = StatusCodes.NOT_FOUND;
       throw error;
-    }
+    };
+
+    const group = await Group.findOne({ _id: groupFound._id })
+    .populate([
+      { path: "messages", populate: "user" },
+      { path: "blockList", populate: "user" },
+      "users"
+    ]);
+    
 
     return res.status(202).json({
       success: true,
       message: `"${groupFound.name}" joined successfully!`,
-      groupData: groupFound,
+      groupData: group
     });
   } catch (err) {
     next(err);
@@ -155,7 +170,7 @@ exports.saveGroupMessage = async (req, res, next) => {
       throw error;
     }
 
-    if(groupFound.blockList.includes(userId)){
+    if (groupFound.blockList.includes(userId)) {
       let error = new Error("You are blocked from these group.");
       error.statusCode = StatusCodes.UNAUTHORIZED;
       throw error;
@@ -186,7 +201,7 @@ exports.saveGroupMessage = async (req, res, next) => {
 
     const saveGroup = await groupFound.save();
 
-    if(!saveGroup){
+    if (!saveGroup) {
       let error = new Error("Message not added to group!");
       error.statusCode = StatusCodes.NOT_FOUND;
       throw error;
@@ -220,13 +235,13 @@ exports.blockUser = async (req, res, next) => {
     }
 
 
-    if ( groupFound.createdBy.toString() != adminId.toString()) {
+    if (groupFound.createdBy.toString() != adminId.toString()) {
       let error = new Error("You are not admin of this group!");
       error.statusCode = StatusCodes.UNAUTHORIZED;
       throw error;
     }
 
-    if(groupFound.blockList.includes(blockUserId)){
+    if (groupFound.blockList.includes(blockUserId)) {
       let error = new Error("You already block this user!");
       error.statusCode = StatusCodes.CONFLICT;
       throw error;

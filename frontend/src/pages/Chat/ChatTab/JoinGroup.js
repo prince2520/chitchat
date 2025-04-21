@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -23,12 +23,12 @@ const JoinGroup = () => {
 
     setLoading(true);
 
-    dispatch(joinGroupThunk({groupId}))
-    .unwrap()
-    .then(()=>{
-      navigate("/chat");
-    })
-    .finally(()=>setLoading(false));
+    dispatch(joinGroupThunk({ groupId }))
+      .unwrap()
+      .then(() => {
+        navigate("/chat");
+      }).catch(err => { console.log(err) })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -37,7 +37,7 @@ const JoinGroup = () => {
       className="flex-center join-group"
     >
       <h2 className="color-text-light">Join a Group</h2>
-      <ImageContainer height="auto" src={JoinGroupLargeImg} highResUrl={JoinGroupLargeImg} lowResUrl={JoinGroupSmallImg}  width="15rem" circle={false}/>
+      <ImageContainer height="auto" src={JoinGroupLargeImg} highResUrl={JoinGroupLargeImg} lowResUrl={JoinGroupSmallImg} width="15rem" circle={false} />
       <CustomInput
         width="90%" maxWidth="20rem"
         label={"Group Id"}

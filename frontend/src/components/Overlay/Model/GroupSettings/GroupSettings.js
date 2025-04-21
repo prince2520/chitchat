@@ -68,6 +68,8 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
     let removeData = {
       groupId,
       token,
+      chatType: categoryState[0],
+      chatId: groupId
     };
 
     if (!isBlockList) {

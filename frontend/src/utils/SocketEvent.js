@@ -7,6 +7,7 @@ export const SOCKET_EVENT = Object.freeze({
     
     // GROUP
     JOIN_GROUP : "join_group",
+    JOIN_GROUPS : "join_groups",
     REMOVE_USER_GROUP: "remove_user_group",
     GET_REMOVE_USER_GROUP: "get_remove_user_group",
     UPDATED_GROUP: "updated_group",

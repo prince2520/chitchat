@@ -1,17 +1,17 @@
-const { SOCKET_EVENT}  = require("../utils/socket_event");
+const { SOCKET_EVENT } = require("../utils/socket_event");
 
 
 const users = new Map();
 
 module.exports = (io) => {
   io.on("connection", function (socket) {
-   
+
     // USER - initiate socket
     socket.on(SOCKET_EVENT.USER_CONNECT, (userId) => {
 
-      if(users.has(userId)){
+      if (users.has(userId)) {
         users.delete(userId);
-        socket.to(userId).emit(SOCKET_EVENT.GET_AUTO_LOGOUT, { userId: userId,  alreadyLogin : true});
+        socket.to(userId).emit(SOCKET_EVENT.GET_AUTO_LOGOUT, { userId: userId, alreadyLogin: true });
       }
 
       users.set(userId, socket.id);
@@ -21,14 +21,14 @@ module.exports = (io) => {
     });
 
     // USER - disconnect socket
-    socket.on(SOCKET_EVENT.DISCONNECT,() => {
+    socket.on(SOCKET_EVENT.DISCONNECT, () => {
       socket.leave();
     });
 
-    
 
-    // GROUP - join group
-    socket.on(SOCKET_EVENT.JOIN_GROUP, ({ groups }) => {
+
+    // GROUP - multiple join groups
+    socket.on(SOCKET_EVENT.JOIN_GROUPS, ({ groups }) => {
       groups?.map((group) => {
         if (group._id) {
           socket.join(group._id);
@@ -36,6 +36,11 @@ module.exports = (io) => {
         return group;
       });
     });
+
+    // Group - single group join 
+    socket.on(SOCKET_EVENT.JOIN_GROUP, ({ groupId }) => {
+      socket.join(groupId);
+    })
 
     // GROUP - remove user from group
     socket.on(SOCKET_EVENT.REMOVE_USER_GROUP, function ({ data }) {
@@ -81,7 +86,7 @@ module.exports = (io) => {
       });
     });
 
-    
+
 
     // VIDEO & AUDIO CALL (PRIVATE)
 
@@ -117,8 +122,8 @@ module.exports = (io) => {
       }
     });
 
-     // GROUP & PRIVATE - remove chat
-     socket.on(SOCKET_EVENT.REMOVE_CHAT, ({ data }) => {
+    // GROUP & PRIVATE - remove chat
+    socket.on(SOCKET_EVENT.REMOVE_CHAT, ({ data }) => {
       if (data.type === "Group") {
         io.to(data.chatId).emit(SOCKET_EVENT.GET_REMOVE_CHAT, { data });
         socket.leave(data.chatId);

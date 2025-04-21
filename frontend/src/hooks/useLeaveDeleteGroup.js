@@ -31,7 +31,7 @@ const useLeaveDeleteGroup = () => {
    const deleteChatToAllUser = (chatId, chatType, isAdmin) => {
     if (isAdmin) {
       let socketData = {
-        type: chatType,
+        chatType: chatType,
         chatId: chatId,
       };
       

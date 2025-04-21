@@ -21,7 +21,7 @@ import { useAuth } from "./hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserThunk } from "./redux/thunk/userThunk";
 import { ChatActions } from "./redux/slice/chatSlice";
-import { socketJoinGroup } from "./services/socket";
+import {socketJoinGroups } from "./services/socket";
 
 function App() {
   const { logout, autoLogout } = useAuth();
@@ -47,12 +47,10 @@ function App() {
     dispatch(getUserThunk({ email: localEmail, token: localToken }))
     .unwrap()
     .then((res) => {
-      
-      socketJoinGroup(res.user.groups);
       dispatch(ChatActions.saveChat({
         groups : res.user.groups,
         privates : res.user.privates,
-      }))
+      }));
     });
     const remainingMilliseconds =
       new Date(localExpiryDate).getTime() - new Date().getTime();

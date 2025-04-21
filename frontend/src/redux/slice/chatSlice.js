@@ -15,6 +15,7 @@ const initialChatState = {
 };
 
 const createGroup = (state, action) => {
+    console.log('createGroup', action.payload);
     state.groups = [...state.groups, action.payload];
 
     toast.success(action.payload.message);
@@ -75,19 +76,25 @@ const unblockUserGroup = (state, action) => {
 const deleteChat = (state, action) => {
     if (action.payload.chatType === categoryState[0])
         state.groups = state.groups.filter((group) => {
+            if(group._id === action.payload.chatId){
+                toast(`"${group.name}" admin deleted group chat`)
+            }
             return group._id !== action.payload.chatId;
         });
     else
         state.privates = state.privates.filter((data) => {
+            if(data._id === action.payload.chatId){
+                toast(`${data.name} removed from private chats!`)
+            }
             return data._id !== action.payload.chatId;
         });
 
 
-    state.selectedId = null;
-    state.selectedType = null;
-    state.isSelected = false;
-
-    toast.success(action.payload.message);
+    if (state.selectedId === action.payload.chatId) {
+        state.selectedId = null;
+        state.selectedType = null;
+        state.isSelected = false;
+    }
 };
 
 const createMessage = (state, action) => {
@@ -205,7 +212,7 @@ const ChatSlice = createSlice({
         },
         leaveMemberGroup(state, action) {
             const groupId = action.payload.groupId;
-            const userId = action.payload.userId;
+            const userId = action.payload._id;
 
             state.groups = state.groups.concat().map((group) => {
                 if (group._id === groupId) {
