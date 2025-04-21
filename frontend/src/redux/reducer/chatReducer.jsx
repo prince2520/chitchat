@@ -62,6 +62,11 @@ export const unblockUserGroup = (state, action) => {
 }
 
 export const deleteChat = (state, action) => {
+    if (state.selectedId === action.payload.chatId) {
+        state.selectedId = null;
+        state.selectedType = null;
+        state.isSelected = false;
+    }
     if (action.payload.chatType === categoryState[0])
         state.groups = state.groups.filter((group) => {
             if (group._id === action.payload.chatId) {
@@ -78,11 +83,7 @@ export const deleteChat = (state, action) => {
         });
 
 
-    if (state.selectedId === action.payload.chatId) {
-        state.selectedId = null;
-        state.selectedType = null;
-        state.isSelected = false;
-    }
+   
 
     toast.success(action.payload.message);
 };

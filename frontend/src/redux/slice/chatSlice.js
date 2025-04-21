@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { categoryState } from "../../constants/constants";
 import { toast } from "react-toastify";
 import { blockUserGroupThunk, createGroupMessageThunk, createGroupThunk, createPrivateMessageThunk, createPrivateThunk, deleteGroupThunk, deletePrivateThunk, joinGroupThunk, leaveGroupThunk, removeUserGroupThunk, unblockUserGroupThunk, updateGroupThunk } from "../thunk/chatThunk";
 import { addMemberGroup, addUserGroup, blockUserGroup, createGroup, createMessage, createPrivate, deleteChat, leaveMemberGroup, removeUserGroup, saveChat, saveMessage, selectedChat, unblockUserGroup, updateGroup } from "../reducer/chatReducer";

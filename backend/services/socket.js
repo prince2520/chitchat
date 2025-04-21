@@ -124,13 +124,12 @@ module.exports = (io) => {
 
     // GROUP & PRIVATE - remove chat
     socket.on(SOCKET_EVENT.REMOVE_CHAT, ({ data }) => {
-      if (data.type === "Group") {
+      if (data.chatType === "Group") {
         io.to(data.chatId).emit(SOCKET_EVENT.GET_REMOVE_CHAT, { data });
         socket.leave(data.chatId);
       } else {
         io.to(data.privatUserId).emit(SOCKET_EVENT.GET_REMOVE_CHAT, { data });
       }
     });
-
   });
 };

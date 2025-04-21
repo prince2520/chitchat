@@ -14,6 +14,7 @@ import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 
 import "./GroupSettings.css";
 import { blockUserGroupThunk, removeUserGroupThunk, unblockUserGroupThunk, updateGroupThunk } from "../../../../redux/thunk/chatThunk";
+import { OverlayActions } from "../../../../redux/slice/overlaySlice";
 
 const Share = ({ groupId }) => {
   return (
@@ -74,10 +75,10 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
 
     if (!isBlockList) {
       removeData["removeUserId"] = removeUserId;
-      dispatch(removeUserGroupThunk({data: removeData}));
+      dispatch(removeUserGroupThunk({ data: removeData }));
     } else {
       removeData["blockUserId"] = removeUserId;
-      dispatch(unblockUserGroupThunk({data: removeData}));
+      dispatch(unblockUserGroupThunk({ data: removeData }));
     }
   };
 
@@ -93,10 +94,10 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
       groupId,
       token,
       blockUserId: blockedUser._id,
-      blockedUser : blockedUser
+      blockedUser: blockedUser
     };
 
-    dispatch(blockUserGroupThunk({data:blockData}));
+    dispatch(blockUserGroupThunk({ data: blockData }));
   };
 
   return (
@@ -236,8 +237,8 @@ const GroupSettings = () => {
     setLoading(true);
 
     dispatch(updateGroupThunk({ data: saveData }))
-    .unwrap()
-    .finally(()=>setLoading(true));
+      .unwrap()
+      .finally(() => setLoading(true));
   };
 
   return (
@@ -284,7 +285,10 @@ const GroupSettings = () => {
         <Button
           loading={leaveDeleteloading}
           type="click"
-          onClick={() => handleDeleteChat()}
+          onClick={() => {
+            dispatch(OverlayActions.closeOverlayHandler());
+            handleDeleteChat()
+          }}
           backgroundColor={"var(--error)"}
           width={"50%"}
         >

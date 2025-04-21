@@ -61,7 +61,6 @@ const useLeaveDeleteGroup = () => {
         return dispatch(deletePrivateThunk({ chatId, chatType }));
     })().unwrap()
       .finally(() => {
-        dispatch(OverlayActions.closeOverlayHandler());
         setLeaveDeleteloading(false);
 
         // Using Socket

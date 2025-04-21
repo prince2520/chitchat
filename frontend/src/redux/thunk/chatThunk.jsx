@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { socketAddMemberGroup, socketAddPrivate, socketBlockUser, socketLeaveMemberGroup, socketRemoveUserGroup, socketSendMessage, socketUnblockUser, socketUpdatedGroup } from "../../services/socket";
+import { socketAddMemberGroup, socketAddPrivate, socketBlockUser, socketLeaveMemberGroup, socketRemoveChat, socketRemoveUserGroup, socketSendMessage, socketUnblockUser, socketUpdatedGroup } from "../../services/socket";
 import { blockUserGroup, createGroup, deleteGroup, joinGroup, leaveGroup, removeUserGroup, saveGroupMessage, unblockUserGroup, updateGroup, createPrivate, deletePrivate, savePrivateMessage } from "../api/chat";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -123,8 +123,7 @@ export const deleteGroupThunk = createAsyncThunk(
             await deleteGroup(({
                 token: state.user.token, chatId
             }));
-
-            return { chatId, chatType };
+            return { chatId, chatType, message: "Group Deleted Successfully!" };
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }

@@ -89,7 +89,6 @@ export const SocketContextProvider = ({ children }) => {
       dispatch(ChatActions.addMemberGroup(data));
     });
     socketGetLeaveMemberGroup((err, { data }) => {
-      console.log("leaveMember", data)
       dispatch(ChatActions.leaveMemberGroup(data));
     });
     socketGetAutoLogout((err, { userId, alreadyLogin }) => {
@@ -138,6 +137,7 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     socketGetRemoveChat((data) => {
+      console.log("socket delete chat", data)
       dispatch(ChatActions.deleteChat(data));
     });
   }, [dispatch, selectedId]);
