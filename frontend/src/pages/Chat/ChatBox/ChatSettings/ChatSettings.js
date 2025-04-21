@@ -3,12 +3,12 @@ import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
-import { OverlayActions } from "../../../../redux/slice/overlaySlice";
-import { categoryState } from "../../../../constants/constants";
-import { chatTopSettingOptions } from "../../../../constants/constants";
-
 import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 import MediaCommunication from "../ChatBoxTop/MediaCommunication/MediaCommunication";
+
+import { categoryState } from "../../../../constants/constants";
+import { OverlayActions } from "../../../../redux/slice/overlaySlice";
+import { chatTopSettingOptions } from "../../../../constants/constants";
 
 import "./ChatSettings.css";
 

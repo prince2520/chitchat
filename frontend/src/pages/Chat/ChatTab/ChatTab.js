@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Outlet } from "react-router-dom";
-
 import MyProfile from "./MyProfile/MyProfile";
 import SearchBar from "./SearchBar/SearchBar";
+
+import { Outlet } from "react-router-dom";
 
 import "./ChatTab.css";
 

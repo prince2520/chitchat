@@ -5,8 +5,9 @@ import { useDetectClickOutside } from "react-detect-click-outside";
 
 import ImageContainer from "../../../../../components/ImageContainer/ImageContainer";
 
-import "./SearchResult.css";
 import { createPrivateThunk } from "../../../../../redux/thunk/chatThunk";
+
+import "./SearchResult.css";
 
 const SearchResult = ({ data, setShowResult, setData }) => {
   const dispatch = useDispatch();

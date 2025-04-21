@@ -1,15 +1,15 @@
 import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { categoryState } from "../../../../constants/constants";
-import { getLastMessage } from "../../../../utils/GetLastMessage";
-
 import NoGroupPrivate from "./NoGroupPrivate/NoGroupPrivate";
 import ImageContainer from "../../../../components/ImageContainer/ImageContainer";
 import ChangeCategory from "../../../../components/ChangeCategory/ChangeCategory";
 
-import "./GroupPrivateList.css";
 import { ChatActions } from "../../../../redux/slice/chatSlice";
+import { categoryState } from "../../../../constants/constants";
+import { getLastMessage } from "../../../../utils/GetLastMessage";
+
+import "./GroupPrivateList.css";
 
 const GroupPrivateList = () => {
   const [isPrivate, setIsPrivate] = useState(false);

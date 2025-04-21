@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { createSlice } from "@reduxjs/toolkit";
 import { getUserThunk, loginThunk, updateUserThunk } from "../thunk/userThunk";
 
 function updateUserState(state, action) {
@@ -12,7 +12,7 @@ function updateUserState(state, action) {
     email,
   } = action.payload.user;
 
-  toast.success(`${action.payload.message}`);
+  
   state._id = _id;
   state.name = name;
   state.status = status;
@@ -20,7 +20,9 @@ function updateUserState(state, action) {
   state.lowResUrl = lowResUrl
   state.email = email;
   state.token = action.payload.token; 
-  state.isAuth = true
+  state.isAuth = true;
+
+  toast.success(`${action.payload.message}`);
 }
 
 
@@ -44,17 +46,7 @@ const UserSlice = createSlice({
     },
     updateToken(state,action){
       state.token = action.payload;
-    },
-    saveUserData(state, action) {
-      state._id = action.payload._id ? action.payload._id : state._id;
-      state.name = action.payload.name;
-      state.status = action.payload.status;
-      state.highResUrl = action.payload.highResUrl || state.highResUrl;
-      state.lowResUrl = action.payload.lowResUrl || state.lowResUrl;
-      state.email = action.payload.email || state.email;
-      state.groups = action.payload.groups || state.groups;
-      state.privates = action.payload.privates || state.privates;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder

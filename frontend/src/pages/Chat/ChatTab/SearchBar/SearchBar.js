@@ -1,11 +1,11 @@
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import { useCallback, useState } from "react";
-
-import { fetchUser } from "../../../../api/user";
 
 import SearchResult from "./SearchResult/SearchResult";
 import CustomInput from "../../../../components/CustomInput/CustomInput";
-import { useSelector } from "react-redux";
+
+import { fetchUser } from "../../../../api/user";
 
 const SearchBar = () => {
 

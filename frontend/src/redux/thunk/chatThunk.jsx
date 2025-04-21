@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { socketAddMemberGroup, socketAddPrivate, socketBlockUser, socketJoinGroup, socketLeaveMemberGroup, socketRemoveUserGroup, socketSendMessage, socketUnblockUser, socketUpdatedGroup } from "../../services/socket";
+import { socketAddMemberGroup, socketAddPrivate, socketBlockUser, socketLeaveMemberGroup, socketRemoveUserGroup, socketSendMessage, socketUnblockUser, socketUpdatedGroup } from "../../services/socket";
 import { blockUserGroup, createGroup, deleteGroup, joinGroup, leaveGroup, removeUserGroup, saveGroupMessage, unblockUserGroup, updateGroup, createPrivate, deletePrivate, savePrivateMessage } from "../api/chat";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -18,8 +18,8 @@ export const createPrivateThunk = createAsyncThunk(
                 userId: state.user._id,
                 private: response.data
             })
-
-            return response.data;
+            const privateUser = response.data.users.find((user)=> user._id!==state.user._id);
+            return {...response.data, message: `${privateUser.name} added to private chat.`};
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }
@@ -35,8 +35,7 @@ export const createPrivateMessageThunk = createAsyncThunk(
 
             let msgData = { ...data, data: response.data };
             socketSendMessage(msgData);
-            return msgData;
-
+            return {...msgData};
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }
@@ -72,8 +71,7 @@ export const createGroupThunk = createAsyncThunk(
         try {
             const state = getState();
             let response = await createGroup(state.user.token, data);
-            console.log("thunk create group ", response)
-            return { ...response.data };
+            return { ...response.data , message : `"${response.data.name}" new group created!` };
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }
@@ -92,7 +90,7 @@ export const joinGroupThunk = createAsyncThunk(
                 groupId: response.groupData._id,
                 user: state.user
             });
-            return { ...response.groupData };
+            return { ...response.groupData , message: `You joined group "${response.groupData.name}" successfully!`};
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }
@@ -109,7 +107,6 @@ export const createGroupMessageThunk = createAsyncThunk(
             let msgData = { ...data, data: response.data };
             socketSendMessage(msgData);
             return msgData;
-
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }
@@ -128,7 +125,6 @@ export const deleteGroupThunk = createAsyncThunk(
             }));
 
             return { chatId, chatType };
-
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }
@@ -181,8 +177,7 @@ export const updateGroupThunk = createAsyncThunk(
     'chat/updateGroup',
     async ({ data }, { rejectWithValue }) => {
         try {
-            let response = await updateGroup(data);
-            toast.success(response.message);
+             await updateGroup(data);
             let socketData = { ...data };
             delete socketData.token;
             socketUpdatedGroup(socketData);

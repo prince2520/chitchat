@@ -7,6 +7,7 @@ import CustomInput from "../../../components/CustomInput/CustomInput";
 import JoinGroupLargeImg from "../../../assests/images/JoinGroup.png";
 import JoinGroupSmallImg from "../../../assests/images/JoinGroupSmall.png";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
+
 import { joinGroupThunk } from "../../../redux/thunk/chatThunk";
 
 

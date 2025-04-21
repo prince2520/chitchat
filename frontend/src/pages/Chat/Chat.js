@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { SocketContextProvider } from "../../context/socketContext";
 
 import ChatTab from "./ChatTab/ChatTab";
 import ChatBox from "./ChatBox/ChatBox";
 import Overlay from "../../components/Overlay/Overlay";
-import { ChatActions } from "../../redux/slice/chatSlice";
 import NotSelectedChat from "./NotSelectedChat/NotSelectedChat";
+
+import { ChatActions } from "../../redux/slice/chatSlice";
+import { SocketContextProvider } from "../../context/socketContext";
 
 import "./Chat.css";
 
@@ -15,7 +16,6 @@ import "./Chat.css";
 export const Chat = () => {
   const isSelected = useSelector((state) => state.chat.isSelected);
   const showOverlay = useSelector((state) => state.overlay?.showOverlay);
-  const chat = useSelector(state => state.user);
 
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ export const Chat = () => {
         })
       );
     };
-  }, [dispatch, chat.groups]);
+  }, [dispatch]);
 
   return (
     <SocketContextProvider>

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveInFirebase } from "../../../utils/SaveInFirebase";
 
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import ImageContainer from "../../../components/ImageContainer/ImageContainer";
+
+import { saveInFirebase } from "../../../utils/SaveInFirebase";
 import { updateUserThunk } from "../../../redux/thunk/userThunk";
 
 const EditProfile = () => {

@@ -8,7 +8,7 @@ export const getUserThunk = createAsyncThunk(
     async ({ email, token }, {  rejectWithValue }) => {
         try {
             let response = await fetchUser(email, token);
-            return { ...response, token };
+            return { ...response, token, message: `${response.user.name} data fetch successfully!` };
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }
@@ -24,7 +24,7 @@ export const updateUserThunk = createAsyncThunk(
             const state = getState();
             let token = state.user.token
             let response = await updateUser(state.user.token, data);
-            return {...response, token};
+            return {...response, token,  message: `${response.user.name} profile edited successfully!`};
 
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -38,7 +38,7 @@ export const loginThunk = createAsyncThunk(
     async ({ email, password }, { rejectWithValue }) => {
         try {
             let response = await login(email, password);
-            return response;
+            return {...response, message: `${response.user.name} has login successfully!`};
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }

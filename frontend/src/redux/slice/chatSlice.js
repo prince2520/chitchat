@@ -5,7 +5,6 @@ import { blockUserGroupThunk, createGroupMessageThunk, createGroupThunk, createP
 
 
 const initialChatState = {
-    // Chat
     groups: [],
     privates: [],
 
@@ -15,7 +14,6 @@ const initialChatState = {
 };
 
 const createGroup = (state, action) => {
-    console.log('createGroup', action.payload);
     state.groups = [...state.groups, action.payload];
 
     toast.success(action.payload.message);
@@ -76,14 +74,14 @@ const unblockUserGroup = (state, action) => {
 const deleteChat = (state, action) => {
     if (action.payload.chatType === categoryState[0])
         state.groups = state.groups.filter((group) => {
-            if(group._id === action.payload.chatId){
+            if (group._id === action.payload.chatId) {
                 toast(`"${group.name}" admin deleted group chat`)
             }
             return group._id !== action.payload.chatId;
         });
     else
         state.privates = state.privates.filter((data) => {
-            if(data._id === action.payload.chatId){
+            if (data._id === action.payload.chatId) {
                 toast(`${data.name} removed from private chats!`)
             }
             return data._id !== action.payload.chatId;
@@ -95,6 +93,8 @@ const deleteChat = (state, action) => {
         state.selectedType = null;
         state.isSelected = false;
     }
+
+    toast.success(action.payload.message);
 };
 
 const createMessage = (state, action) => {
@@ -143,12 +143,6 @@ const ChatSlice = createSlice({
     name: "chat",
     initialState: initialChatState,
     reducers: {
-        saveChat(state, action) {
-            const { groups, privates } = action.payload;
-
-            state.groups = groups;
-            state.privates = privates;
-        },
         createPrivate,
         createGroup,
         deleteChat,
@@ -157,9 +151,12 @@ const ChatSlice = createSlice({
         blockUserGroup,
         removeUserGroup,
         unblockUserGroup,
+        
+        saveChat(state, action) {
+            const { groups, privates } = action.payload;
 
-        addGroup(state, action) {
-            state.groups = [...state.groups, action.payload];
+            state.groups = groups;
+            state.privates = privates;
         },
 
         selectedChat(state, action) {
