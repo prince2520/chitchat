@@ -1,30 +1,7 @@
 import { toast } from "react-toastify";
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserThunk, loginThunk, updateUserThunk } from "../thunk/userThunk";
-
-function updateUserState(state, action) {
-  const {
-    _id,
-    name,
-    status,
-    highResUrl,
-    lowResUrl,
-    email,
-  } = action.payload.user;
-
-  
-  state._id = _id;
-  state.name = name;
-  state.status = status;
-  state.highResUrl = highResUrl
-  state.lowResUrl = lowResUrl
-  state.email = email;
-  state.token = action.payload.token; 
-  state.isAuth = true;
-
-  toast.success(`${action.payload.message}`);
-}
-
+import { updateIsAuth, updateToken, updateUserState } from "../reducer/userReducer";
 
 const initialUserState = {
   _id: "",
@@ -41,12 +18,8 @@ const UserSlice = createSlice({
   name: "user",
   initialState: initialUserState,
   reducers: {
-    updateIsAuth(state, action){
-      state.isAuth = action.payload;
-    },
-    updateToken(state,action){
-      state.token = action.payload;
-    }
+    updateIsAuth,
+    updateToken
   },
   extraReducers: (builder) => {
     builder

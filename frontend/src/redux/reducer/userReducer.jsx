@@ -1,4 +1,7 @@
-const updateUserReducer = (state, action) => {
+import { toast } from "react-toastify";
+
+
+export const updateUserState = (state, action) => {
     const {
         _id,
         name,
@@ -19,13 +22,14 @@ const updateUserReducer = (state, action) => {
     state.isAuth = true;
 
     toast.success(`${action.payload.message}`);
-}
+};
 
 
-const updateIsAuthReducer = (state, action) => {
+export const updateIsAuth = (state, action) => {
     state.isAuth = action.payload;
 };
 
-const updateTokenReducer = (state, action) => {
+
+export const updateToken = (state, action) => {
     state.token = action.payload;
-}
+};

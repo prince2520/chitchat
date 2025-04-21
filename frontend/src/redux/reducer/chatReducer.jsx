@@ -1,21 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { categoryState } from "../../constants/constants";
 import { toast } from "react-toastify";
 
+import { categoryState } from "../../constants/constants";
 
-export const createGroupReducer = (state, action) => {
+
+export const createGroup = (state, action) => {
     state.groups = [...state.groups, action.payload];
 
     toast.success(action.payload.message);
 }
 
-export const createPrivateReducer = (state, action) => {
+export const createPrivate = (state, action) => {
     state.privates = [...state.privates, action.payload];
 
     toast.success(action.payload.message);
 }
 
-export const removeUserGroupReducer = (state, action) => {
+export const removeUserGroup = (state, action) => {
     const removeUserId = action.payload.removeUserId;
     const groupId = action.payload.groupId;
 
@@ -30,7 +30,7 @@ export const removeUserGroupReducer = (state, action) => {
 }
 
 
-export const blockUserGroupReducer = (state, action) => {
+export const blockUserGroup = (state, action) => {
     const blockedUser = action.payload.blockedUser;
     const groupId = action.payload.groupId;
 
@@ -46,7 +46,7 @@ export const blockUserGroupReducer = (state, action) => {
     toast.success(action.payload.message);
 };
 
-export const unblockUserGroupReducer = (state, action) => {
+export const unblockUserGroup = (state, action) => {
     const blockUserId = action.payload.blockUserId;
     const groupId = action.payload.groupId;
 
@@ -61,7 +61,7 @@ export const unblockUserGroupReducer = (state, action) => {
     toast.success(action.payload.message);
 }
 
-export const deleteChatReducer = (state, action) => {
+export const deleteChat = (state, action) => {
     if (action.payload.chatType === categoryState[0])
         state.groups = state.groups.filter((group) => {
             if (group._id === action.payload.chatId) {
@@ -87,7 +87,7 @@ export const deleteChatReducer = (state, action) => {
     toast.success(action.payload.message);
 };
 
-export const createMessageReducer = (state, action) => {
+export const createMessage = (state, action) => {
     const isGroup = action.payload.selectedType === categoryState[0];
 
     if (isGroup) {
@@ -109,7 +109,7 @@ export const createMessageReducer = (state, action) => {
     toast.success(action.payload.message);
 }
 
-export const updateGroupReducer = (state, action) => {
+export const updateGroup = (state, action) => {
     const { groupId, name, status, highResUrl, lowResUrl } = action.payload;
 
     state.groups = state.groups.map((group) => {
@@ -128,20 +128,25 @@ export const updateGroupReducer = (state, action) => {
     toast.success(action.payload.message);
 }
 
-export const saveChatReducer = (state, action) => {
+
+
+
+
+export const saveChat = (state, action) => {
     const { groups, privates } = action.payload;
 
     state.groups = groups;
     state.privates = privates;
-}
+};
 
-export const selectedChatReducer = (state, action) => {
+export const selectedChat = (state, action) => {
     state.isSelected = action.payload.isSelected;
     state.selectedId = action.payload.selectedId;
     state.selectedType = action.payload.selectedType;
-}
+};
 
-export const saveMessageReducer = (state, action) => {
+
+export const saveMessage = (state, action) =>  {
     const isGroup = action.payload.selectedType === categoryState[0];
 
     const saveChatMessage = (state) => {
@@ -160,7 +165,7 @@ export const saveMessageReducer = (state, action) => {
     }
 };
 
-export const addUserGroupReducer = (state, action) => {
+export const addUserGroup = (state, action) => {
     const removeUserId = action.payload.addUserId;
     const groupId = action.payload.groupId;
 
@@ -172,8 +177,7 @@ export const addUserGroupReducer = (state, action) => {
     });
 };
 
-
-export const addMemberGroupReducer = (state, action) => {
+export const addMemberGroup = (state, action) =>  {
     const groupId = action.payload.groupId;
     const user = action.payload.user;
 
@@ -187,8 +191,7 @@ export const addMemberGroupReducer = (state, action) => {
     state.groups = temp;
 };
 
-
-export const leaveMemberGroupReducer = (state, action) => {
+export const leaveMemberGroup = (state, action) =>  {
     const groupId = action.payload.groupId;
     const userId = action.payload._id;
 
@@ -198,43 +201,4 @@ export const leaveMemberGroupReducer = (state, action) => {
         }
         return group;
     });
-},
-
-
-
-
-const ChatSlice = createSlice({
-    name: "chat",
-    initialState: initialChatState,
-    reducers: {
-        createPrivateReducer,
-        createGroupReducer,
-        deleteChatReducer,
-        createMessageReducer,
-        updateGroupReducer,
-        blockUserGroupReducer,
-        removeUserGroupReducer,
-        unblockUserGroupReducer,
-        saveChatReducer,
-        selectedChatReducer,
-        saveMessageReducer,
-        addUserGroupReducer,
-        addMemberGroupReducer,
-        leaveMemberGroupReducer
-
-    }
-});
-
-export const ChatActions = ChatSlice.actions;
-export default ChatSlice.reducer;
-
-
-
-
-
-
-
-
-
-
-
+};

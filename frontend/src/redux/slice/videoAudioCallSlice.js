@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { callAcceptedHandler, callEndedHandler, callingHandler, receivingCallHandler } from "../reducer/videoAudioCallReducer";
 
 const initialVideoAudioCallState = {
   isCalling: false,
@@ -21,28 +22,10 @@ const VideoAudioCallSlice = createSlice({
   name: "videoAudioCall",
   initialState: initialVideoAudioCallState,
   reducers: {
-    callingHandler(state, action) {
-      state.callData = action.payload.callData;
-      state.isCalling = action.payload.isCalling;
-      state.isReceivingCall = action.payload.isReceivingCall;
-    },
-
-    callAcceptedHandler(state) {
-      state.callAccepted = true;
-    },
-
-    receivingCallHandler(state, action) {
-      state.isReceivingCall = action.payload.isReceivingCall;
-      state.receivingCallDetails = action.payload.receivingCallDetails;
-    },
-
-    callEndedHandler(state) {
-      state.isReceivingCall = false;
-      state.callAccepted = false;
-      state.receivingCallDetails = null;
-      state.callingDetails = null;
-      state.callEnded = true;
-    },
+    callingHandler,
+    callAcceptedHandler,
+    receivingCallHandler,
+    callEndedHandler,
   },
 });
 

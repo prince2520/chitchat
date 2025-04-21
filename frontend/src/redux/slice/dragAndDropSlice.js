@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { addFileHandler, removeAllFiles, removeSingleFile } from "../reducer/dragAndDropReducer";
 
 const initialDragAndDropState = {
   showDragAndDrop: false,
@@ -9,18 +10,10 @@ const DragAndDropSlice = createSlice({
   name: "dragAndDrop",
   initialState: initialDragAndDropState,
   reducers: {
-    addFileHandler(state, action) {
-      state.files = [...state.files, action.payload];
-    },
-    removeAllFiles(state, action) {
-      state.files = [];
-    },
-    removeSingleFile(state, action) {
-      state.files = state.files.filter(
-        (file) => file.name !== action.payload.name
-      );
-    },
-  },
+    addFileHandler,
+    removeAllFiles,
+    removeSingleFile
+  }
 });
 
 export const DragAndDropActions = DragAndDropSlice.actions;
