@@ -2,11 +2,10 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import { useDetectClickOutside } from "react-detect-click-outside";
 
+import { useAuth } from "../../hooks/useAuth";
 import { dropDownMenuOptions } from "../../constants/constants";
 
-
 import "./Dropdown.css";
-import { useAuth } from "../../hooks/useAuth";
 
 const Dropdown = ({closeDropdown}) => {
   const navigate = useNavigate();

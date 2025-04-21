@@ -74,16 +74,16 @@ export const SocketContextProvider = ({ children }) => {
       dispatch(ChatActions.createPrivateReducer(data.private));
     });
     socketGetRemoveUserGroup((err, { data }) => {
-      dispatch(ChatActions.deleteChatReducer(data));
+      dispatch(ChatActions.deleteChatReducer({...data}));
     });
     socketGetUpdatedGroup((err, { data }) => {
-      dispatch(ChatActions.updateGroupReducer(data));
+      dispatch(ChatActions.updateGroupReducer({...data}));
     });
     socketGetUnblockUser((err, { data }) => {
-      dispatch(ChatActions.unblockUserGroupReducer(data));
+      dispatch(ChatActions.unblockUserGroupReducer({...data}));
     });
     socketGetBlockUser((err, { data }) => {
-      dispatch(ChatActions.blockUserGroupReducer(data));
+      dispatch(ChatActions.blockUserGroupReducer({...data}));
     });
     socketGetAddMemberGroup((err, { data }) => {
       dispatch(ChatActions.addMemberGroupReducer(data));
@@ -140,10 +140,10 @@ export const SocketContextProvider = ({ children }) => {
       if (showSettings) {
         dispatch(OverlayActions.closeOverlayReducer());
       }
-      dispatch(ChatActions.deleteChatReducer(data));
+      dispatch(ChatActions.deleteChatReducer({...data}));
 
     });
-  }, [dispatch, selectedId]);
+  }, [dispatch, showSettings ]);
 
   const getUserMedia = async (getCallingType) => {
     const isOnVideo = getCallingType === callingType[0] ? true : false;

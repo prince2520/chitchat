@@ -12,9 +12,10 @@ import CustomInput from "../../../CustomInput/CustomInput";
 import ImageContainer from "../../../ImageContainer/ImageContainer";
 import useLeaveDeleteGroup from "../../../../hooks/useLeaveDeleteGroup";
 
-import "./GroupSettings.css";
 import { blockUserGroupThunk, removeUserGroupThunk, unblockUserGroupThunk, updateGroupThunk } from "../../../../redux/thunk/chatThunk";
 import { OverlayActions } from "../../../../redux/slice/overlaySlice";
+import "./GroupSettings.css";
+
 
 const Share = ({ groupId }) => {
   return (
@@ -68,6 +69,7 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
 
     let removeData = {
       groupId,
+      name: data.name,
       token,
       chatType: categoryState[0],
       chatId: groupId
@@ -93,6 +95,7 @@ const MembersAndBlockList = ({ data, isBlockList = false }) => {
     let blockData = {
       groupId,
       token,
+      name: data.name,
       blockUserId: blockedUser._id,
       blockedUser: blockedUser
     };

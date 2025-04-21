@@ -50,6 +50,7 @@ const ChatBoxBottom = () => {
       chatId: data._id,
       users: data.users,
       selectedType: chat.selectedType,
+      name: data.name,
       data: {
         message: message,
         isOpenAIMsg: isOpenAIMsg,

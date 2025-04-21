@@ -116,7 +116,7 @@ export const createGroupMessageThunk = createAsyncThunk(
 
 export const deleteGroupThunk = createAsyncThunk(
     'chat/deleteGroup',
-    async ({ chatId, chatType }, { getState, rejectWithValue }) => {
+    async ({ chatId, chatType, name }, { getState, rejectWithValue }) => {
         try {
             const state = getState();
 

@@ -65,6 +65,7 @@ const DragAndDrop = () => {
       chatId: data._id,
       users: data.users,
       selectedType: chat.selectedType,
+      name: data.name,
       data: {
         message: file.name,
         isOpenAIMsg: false,

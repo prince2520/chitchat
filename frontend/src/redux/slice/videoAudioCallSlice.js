@@ -25,7 +25,7 @@ const VideoAudioCallSlice = createSlice({
     callingReducer,
     callAcceptedReducer,
     receivingCallReducer,
-    callEndedReducer,
+    callEndedReducer
   },
 });
 

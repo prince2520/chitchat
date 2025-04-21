@@ -24,7 +24,7 @@ const Login = () => {
     dispatch(loginThunk({ email, password }))
       .unwrap()
       .then((res) => {
-        dispatch(ChatActions.saveChat({
+        dispatch(ChatActions.saveChatReducer({
           groups: res.user.groups,
           privates: res.user.privates,
         }))

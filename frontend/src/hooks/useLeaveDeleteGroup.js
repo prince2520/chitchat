@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { categoryState } from "../constants/constants";
 import { socketRemoveChat } from "../services/socket";
@@ -12,7 +12,7 @@ const useLeaveDeleteGroup = () => {
 
   const user = useSelector((state) => state.user);
   const chat = useSelector((state) => state.chat);
-  
+
   const selectedType = chat.selectedType;
   const selectedId = chat.selectedId;
 
@@ -27,14 +27,15 @@ const useLeaveDeleteGroup = () => {
   };
 
 
-   // delete this chat from all users using socket
-   const deleteChatToAllUser = (chatId, chatType, isAdmin) => {
+  // delete this chat from all users using socket
+  const deleteChatToAllUser = (chatId, chatType, isAdmin) => {
     if (isAdmin) {
       let socketData = {
         chatType: chatType,
         chatId: chatId,
+
       };
-      
+
       // get other person Id
       if (chatType === categoryState[1]) {
         const otherPrivateUserId = data.users.filter(
@@ -69,7 +70,7 @@ const useLeaveDeleteGroup = () => {
 
     return { handleDeleteChat, leaveDeleteloading };
   }
-  
+
   return { handleDeleteChat, leaveDeleteloading };
 };
 

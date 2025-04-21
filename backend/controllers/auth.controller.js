@@ -71,17 +71,17 @@ exports.login = async (req, res, next) => {
       throw error;
     } else {
       const loadedUser = await User.findOne({ email: email })
-        .populate({
-          path: "privates",
-          populate: [{ path: "messages", populate: "user" }, "users"],
-        })
-        .populate({
-          path: "groups",
-          populate: [
-            { path: "blockList", populate: "user" },
-            { path: "messages", populate: "user" },
-          ],
-        });
+            .populate({
+              path: "privates",
+              populate: [{ path: "messages", populate: "user" }, "users"],
+            })
+            .populate({
+              path: "groups",
+              populate: [{ path: "messages", populate: "user" }, 
+              { path: "blockList", populate: "user" }
+              , "users"],
+            })
+            .lean();
 
       const token = jwt.sign(
         {
