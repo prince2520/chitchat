@@ -1,12 +1,12 @@
-export const addFileHandler = (state, action) => {
+export const addFileReducer = (state, action) => {
     state.files = [...state.files, action.payload];
 };
 
-export const removeAllFiles = (state, action) => {
+export const removeAllFilesReducer = (state, action) => {
     state.files = [];
 };
 
-export const removeSingleFile = (state, action) => {
+export const removeSingleFileReducer = (state, action) => {
     state.files = state.files.filter(
         (file) => file.name !== action.payload.name
     );

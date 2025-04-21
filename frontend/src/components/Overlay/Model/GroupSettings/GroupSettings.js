@@ -286,7 +286,7 @@ const GroupSettings = () => {
           loading={leaveDeleteloading}
           type="click"
           onClick={() => {
-            dispatch(OverlayActions.closeOverlayHandler());
+            dispatch(OverlayActions.closeOverlayReducer());
             handleDeleteChat()
           }}
           backgroundColor={"var(--error)"}

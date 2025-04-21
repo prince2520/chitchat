@@ -3,8 +3,8 @@ import {  useState } from "react";
 
 import Button from "../../../components/Button/Button";
 import CustomInput from "../../../components/CustomInput/CustomInput";
-import { signup } from "../../../api/user";
 import { toast } from "react-toastify";
+import { signupAPI } from "../../../api/userAPI";
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ const SignUp = () => {
 
     setLoading(true);
     
-    signup(username, email, password, confirmPassword)
+    signupAPI(username, email, password, confirmPassword)
     .then((res)=>toast.success(res.message))
     .catch((err)=>toast.error(err.message))
     .finally(()=>setLoading(false));

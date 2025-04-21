@@ -1,19 +1,19 @@
-export const callingHandler = (state, action) => {
+export const callingReducer = (state, action) => {
     state.callData = action.payload.callData;
     state.isCalling = action.payload.isCalling;
     state.isReceivingCall = action.payload.isReceivingCall;
 };
 
-export const callAcceptedHandler = (state) => {
+export const callAcceptedReducer = (state) => {
     state.callAccepted = true;
 };
 
-export const receivingCallHandler = (state, action) => {
+export const receivingCallReducer = (state, action) => {
     state.isReceivingCall = action.payload.isReceivingCall;
     state.receivingCallDetails = action.payload.receivingCallDetails;
 };
 
-export const callEndedHandler = (state) =>  {
+export const callEndedReducer = (state) =>  {
     state.isReceivingCall = false;
     state.callAccepted = false;
     state.receivingCallDetails = null;

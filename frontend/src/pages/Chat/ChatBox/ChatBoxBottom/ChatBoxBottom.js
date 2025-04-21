@@ -101,7 +101,7 @@ const ChatBoxBottom = () => {
         />
         <Icon
           className={"cursor-btn files__icon"}
-          onClick={() => dispatch(OverlayActions.openDragDropHandler())}
+          onClick={() => dispatch(OverlayActions.openDragDropReducer())}
           icon="tabler:files"
         />
         <OpenAI isOpenAIHandler={isOpenAIHandler} />

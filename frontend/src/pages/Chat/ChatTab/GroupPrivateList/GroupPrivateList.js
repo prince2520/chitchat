@@ -31,7 +31,7 @@ const GroupPrivateList = () => {
     };
 
     if (item) {
-      dispatch(ChatActions.selectedChat(data));
+      dispatch(ChatActions.selectedChatReducer(data));
     }
   };
 

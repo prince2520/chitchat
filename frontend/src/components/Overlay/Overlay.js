@@ -17,11 +17,11 @@ const Overlay = () => {
     style={{justifyContent: overlay.showSideMobileBar ? 'flex-start' : 'center'}}>
       <div
         className={"full-screen overlay-container"}
-        onClick={() => dispatch(OverlayActions.closeOverlayHandler())}
+        onClick={() => dispatch(OverlayActions.closeOverlayReducer())}
       />
       <Model />
       <Icon
-        onClick={() => dispatch(OverlayActions.closeOverlayHandler())}
+        onClick={() => dispatch(OverlayActions.closeOverlayReducer())}
         className={"close-btn"}
         icon="iconamoon:close-bold"
         fontSize={"2.5rem"}

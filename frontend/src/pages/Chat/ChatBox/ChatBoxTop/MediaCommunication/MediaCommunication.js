@@ -27,7 +27,7 @@ const MediaCommunication = ({closeSettingHandler}) => {
     )[0];
 
     dispatch(
-      VideoAudioCallActions.callingHandler({
+      VideoAudioCallActions.callingReducer({
         isCalling: true,
         isReceivingCall: false,
         callData: {
@@ -42,7 +42,7 @@ const MediaCommunication = ({closeSettingHandler}) => {
     );
     socketCtx.callUser(privateUserData._id, type);
 
-    dispatch(OverlayActions.openVideoChatHandler());
+    dispatch(OverlayActions.openVideoChatReducer());
   };
 
   return (

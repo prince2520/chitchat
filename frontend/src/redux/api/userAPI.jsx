@@ -1,7 +1,7 @@
 import { throwError } from "./throwError";
 
 // GET -> fetch user data
-export const fetchUser = async (email, token) => {
+export const fetchUserAPI = async (email, token) => {
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/user/fetch-user?email=${email}`,
     {
@@ -16,7 +16,7 @@ export const fetchUser = async (email, token) => {
 };
 
 // PUT -> update profile details 
-export const updateUser = async (token, data) => {
+export const updateUserAPI = async (token, data) => {
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/user/update-user`,
     {
@@ -34,7 +34,7 @@ export const updateUser = async (token, data) => {
 
 // Auth
 // POST -> Sign up
-export const signup = async (name, email, password, confirmPassword) => {
+export const signupAPI = async (name, email, password, confirmPassword) => {
   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, {
     method: "POST",
     headers: {
@@ -52,7 +52,7 @@ export const signup = async (name, email, password, confirmPassword) => {
 };
 
 // POST -> Login
-export const login = async (email, password) => {
+export const loginAPI = async (email, password) => {
   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
     method: "POST",
     headers: {

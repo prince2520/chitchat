@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserThunk, loginThunk, updateUserThunk } from "../thunk/userThunk";
-import { updateIsAuth, updateToken, updateUserState } from "../reducer/userReducer";
+import { updateIsAuthReducer, updateTokenReducer, updateUserReducer } from "../reducer/userReducer";
 
 const initialUserState = {
   _id: "",
@@ -18,24 +18,24 @@ const UserSlice = createSlice({
   name: "user",
   initialState: initialUserState,
   reducers: {
-    updateIsAuth,
-    updateToken
+    updateIsAuthReducer,
+    updateTokenReducer
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getUserThunk.fulfilled, updateUserState)
+      .addCase(getUserThunk.fulfilled, updateUserReducer)
       .addCase(getUserThunk.rejected, (_, action) => {
         toast.error(`${action.payload}`);
       })
 
     builder
-      .addCase(updateUserThunk.fulfilled, updateUserState)
+      .addCase(updateUserThunk.fulfilled, updateUserReducer)
       .addCase(updateUserThunk.rejected, (_, action) => {
         toast.error(`${action.payload}`);
       })
 
     builder
-      .addCase(loginThunk.fulfilled, updateUserState)
+      .addCase(loginThunk.fulfilled, updateUserReducer)
       .addCase(loginThunk.rejected, (_, action) => {
         toast.error(`${action.payload}`);
       })

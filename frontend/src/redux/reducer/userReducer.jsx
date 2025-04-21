@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 
-export const updateUserState = (state, action) => {
+export const updateUserReducer = (state, action) => {
     const {
         _id,
         name,
@@ -25,11 +25,11 @@ export const updateUserState = (state, action) => {
 };
 
 
-export const updateIsAuth = (state, action) => {
+export const updateIsAuthReducer = (state, action) => {
     state.isAuth = action.payload;
 };
 
 
-export const updateToken = (state, action) => {
+export const updateTokenReducer = (state, action) => {
     state.token = action.payload;
 };

@@ -22,7 +22,7 @@ export const Chat = () => {
   useEffect(() => {
     return () => {
       dispatch(
-        ChatActions.selectedChat({
+        ChatActions.selectedChatReducer({
           isSelected: false,
           selectedId: null,
           selectedType: null,

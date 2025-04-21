@@ -3,19 +3,19 @@ import { toast } from "react-toastify";
 import { categoryState } from "../../constants/constants";
 
 
-export const createGroup = (state, action) => {
+export const createGroupReducer = (state, action) => {
     state.groups = [...state.groups, action.payload];
 
     toast.success(action.payload.message);
 }
 
-export const createPrivate = (state, action) => {
+export const createPrivateReducer = (state, action) => {
     state.privates = [...state.privates, action.payload];
 
     toast.success(action.payload.message);
 }
 
-export const removeUserGroup = (state, action) => {
+export const removeUserGroupReducer = (state, action) => {
     const removeUserId = action.payload.removeUserId;
     const groupId = action.payload.groupId;
 
@@ -30,7 +30,7 @@ export const removeUserGroup = (state, action) => {
 }
 
 
-export const blockUserGroup = (state, action) => {
+export const blockUserGroupReducer = (state, action) => {
     const blockedUser = action.payload.blockedUser;
     const groupId = action.payload.groupId;
 
@@ -46,7 +46,7 @@ export const blockUserGroup = (state, action) => {
     toast.success(action.payload.message);
 };
 
-export const unblockUserGroup = (state, action) => {
+export const unblockUserGroupReducer = (state, action) => {
     const blockUserId = action.payload.blockUserId;
     const groupId = action.payload.groupId;
 
@@ -61,34 +61,26 @@ export const unblockUserGroup = (state, action) => {
     toast.success(action.payload.message);
 }
 
-export const deleteChat = (state, action) => {
+export const deleteChatReducer = (state, action) => {
     if (state.selectedId === action.payload.chatId) {
         state.selectedId = null;
         state.selectedType = null;
         state.isSelected = false;
     }
+
     if (action.payload.chatType === categoryState[0])
         state.groups = state.groups.filter((group) => {
-            if (group._id === action.payload.chatId) {
-                toast(`"${group.name}" admin deleted group chat`)
-            }
             return group._id !== action.payload.chatId;
         });
     else
         state.privates = state.privates.filter((data) => {
-            if (data._id === action.payload.chatId) {
-                toast(`${data.name} removed from private chats!`)
-            }
             return data._id !== action.payload.chatId;
         });
-
-
-   
 
     toast.success(action.payload.message);
 };
 
-export const createMessage = (state, action) => {
+export const createMessageReducer = (state, action) => {
     const isGroup = action.payload.selectedType === categoryState[0];
 
     if (isGroup) {
@@ -110,7 +102,7 @@ export const createMessage = (state, action) => {
     toast.success(action.payload.message);
 }
 
-export const updateGroup = (state, action) => {
+export const updateGroupReducer = (state, action) => {
     const { groupId, name, status, highResUrl, lowResUrl } = action.payload;
 
     state.groups = state.groups.map((group) => {
@@ -133,21 +125,21 @@ export const updateGroup = (state, action) => {
 
 
 
-export const saveChat = (state, action) => {
+export const saveChatReducer = (state, action) => {
     const { groups, privates } = action.payload;
 
     state.groups = groups;
     state.privates = privates;
 };
 
-export const selectedChat = (state, action) => {
+export const selectedChatReducer = (state, action) => {
     state.isSelected = action.payload.isSelected;
     state.selectedId = action.payload.selectedId;
     state.selectedType = action.payload.selectedType;
 };
 
 
-export const saveMessage = (state, action) =>  {
+export const saveMessageReducer = (state, action) =>  {
     const isGroup = action.payload.selectedType === categoryState[0];
 
     const saveChatMessage = (state) => {
@@ -166,7 +158,7 @@ export const saveMessage = (state, action) =>  {
     }
 };
 
-export const addUserGroup = (state, action) => {
+export const addUserGroupReducer = (state, action) => {
     const removeUserId = action.payload.addUserId;
     const groupId = action.payload.groupId;
 
@@ -178,7 +170,7 @@ export const addUserGroup = (state, action) => {
     });
 };
 
-export const addMemberGroup = (state, action) =>  {
+export const addMemberGroupReducer = (state, action) =>  {
     const groupId = action.payload.groupId;
     const user = action.payload.user;
 
@@ -192,7 +184,7 @@ export const addMemberGroup = (state, action) =>  {
     state.groups = temp;
 };
 
-export const leaveMemberGroup = (state, action) =>  {
+export const leaveMemberGroupReducer = (state, action) =>  {
     const groupId = action.payload.groupId;
     const userId = action.payload._id;
 
@@ -202,4 +194,6 @@ export const leaveMemberGroup = (state, action) =>  {
         }
         return group;
     });
+
+    
 };

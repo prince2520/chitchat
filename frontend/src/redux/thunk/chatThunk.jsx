@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import { socketAddMemberGroup, socketAddPrivate, socketBlockUser, socketLeaveMemberGroup, socketRemoveChat, socketRemoveUserGroup, socketSendMessage, socketUnblockUser, socketUpdatedGroup } from "../../services/socket";
-import { blockUserGroup, createGroup, deleteGroup, joinGroup, leaveGroup, removeUserGroup, saveGroupMessage, unblockUserGroup, updateGroup, createPrivate, deletePrivate, savePrivateMessage } from "../api/chat";
+import { socketAddMemberGroup, socketAddPrivate, socketBlockUser, socketLeaveMemberGroup, socketRemoveUserGroup, socketSendMessage, socketUnblockUser, socketUpdatedGroup } from "../../services/socket";
+import { blockUserGroupAPI, createGroupAPI, deleteGroupAPI, joinGroupAPI, leaveGroupAPI, removeUserGroupAPI, saveGroupMessageAPI, unblockUserGroupAPI, updateGroupAPI, createPrivateAPI, deletePrivateAPI, savePrivateMessageAPI } from "../api/chatAPI";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 // CHAT THUNK
@@ -12,7 +12,7 @@ export const createPrivateThunk = createAsyncThunk(
     async ({ chatId }, { getState, rejectWithValue }) => {
         try {
             const state = getState();
-            let response = await createPrivate(state.user.token, state.user._id, chatId);
+            let response = await createPrivateAPI(state.user.token, state.user._id, chatId);
 
             socketAddPrivate({
                 userId: state.user._id,
@@ -31,7 +31,7 @@ export const createPrivateMessageThunk = createAsyncThunk(
     'chat/createPrivateMessage',
     async ({ data }, { rejectWithValue }) => {
         try {
-            let response = await savePrivateMessage(data);
+            let response = await savePrivateMessageAPI(data);
 
             let msgData = { ...data, data: response.data };
             socketSendMessage(msgData);
@@ -49,7 +49,7 @@ export const deletePrivateThunk = createAsyncThunk(
         try {
             const state = getState();
 
-            await deletePrivate({
+            await deletePrivateAPI({
                 token: state.user.token, chatId
             });
 
@@ -70,7 +70,7 @@ export const createGroupThunk = createAsyncThunk(
     async ({ data }, { getState, rejectWithValue }) => {
         try {
             const state = getState();
-            let response = await createGroup(state.user.token, data);
+            let response = await createGroupAPI(state.user.token, data);
             return { ...response.data , message : `"${response.data.name}" new group created!` };
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -85,7 +85,7 @@ export const joinGroupThunk = createAsyncThunk(
     async ({ groupId }, { getState, rejectWithValue }) => {
         try {
             const state = getState();
-            let response = await joinGroup(state.user.token, groupId, state.user._id);
+            let response = await joinGroupAPI(state.user.token, groupId, state.user._id);
             socketAddMemberGroup({
                 groupId: response.groupData._id,
                 user: state.user
@@ -103,7 +103,7 @@ export const createGroupMessageThunk = createAsyncThunk(
     'chat/createGroupMessage',
     async ({ data }, { rejectWithValue }) => {
         try {
-            let response = await saveGroupMessage(data);
+            let response = await saveGroupMessageAPI(data);
             let msgData = { ...data, data: response.data };
             socketSendMessage(msgData);
             return msgData;
@@ -120,7 +120,7 @@ export const deleteGroupThunk = createAsyncThunk(
         try {
             const state = getState();
 
-            await deleteGroup(({
+            await deleteGroupAPI(({
                 token: state.user.token, chatId
             }));
             return { chatId, chatType, message: "Group Deleted Successfully!" };
@@ -137,7 +137,7 @@ export const leaveGroupThunk = createAsyncThunk(
         try {
             const state = getState();
 
-            await leaveGroup(({
+            await leaveGroupAPI(({
                 token: state.user.token, chatId
             }));
 
@@ -159,7 +159,7 @@ export const removeUserGroupThunk = createAsyncThunk(
     'chat/removeUserGroup',
     async ({ data }, { rejectWithValue }) => {
         try {
-            let response = await removeUserGroup(data);
+            let response = await removeUserGroupAPI(data);
 
             socketRemoveUserGroup(data);
             toast.success(response.message);
@@ -176,7 +176,7 @@ export const updateGroupThunk = createAsyncThunk(
     'chat/updateGroup',
     async ({ data }, { rejectWithValue }) => {
         try {
-             await updateGroup(data);
+             await updateGroupAPI(data);
             let socketData = { ...data };
             delete socketData.token;
             socketUpdatedGroup(socketData);
@@ -193,7 +193,7 @@ export const blockUserGroupThunk = createAsyncThunk(
     async ({ data }, { rejectWithValue }) => {
         try {
             socketBlockUser(data);
-            await blockUserGroup(data);
+            await blockUserGroupAPI(data);
             return data;
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -206,7 +206,7 @@ export const unblockUserGroupThunk = createAsyncThunk(
     'chat/unblockUserGroup',
     async ({ data }, { rejectWithValue }) => {
         try {
-            await unblockUserGroup(data);
+            await unblockUserGroupAPI(data);
             socketUnblockUser(data);
             return data;
         } catch (error) {

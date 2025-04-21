@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 import SearchResult from "./SearchResult/SearchResult";
 import CustomInput from "../../../../components/CustomInput/CustomInput";
 
-import { fetchUser } from "../../../../api/user";
+import { fetchUserAPI } from "../../../../api/userAPI";
 
 const SearchBar = () => {
 
@@ -17,7 +17,7 @@ const SearchBar = () => {
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
 
-    fetchUser(event.target[0].value, user.token)
+    fetchUserAPI(event.target[0].value, user.token)
       .then((result) => {
         if (result?.success) {
           setData(result?.user);

@@ -1,6 +1,6 @@
 import { throwError } from "../redux/api/throwError";
 
-export const signup = async (name, email, password, confirmPassword) => {
+export const signupAPI = async (name, email, password, confirmPassword) => {
   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, {
     method: "POST",
     headers: {
@@ -18,7 +18,7 @@ export const signup = async (name, email, password, confirmPassword) => {
 };
 
 
-export const fetchUser = async (email, token) => {
+export const fetchUserAPI = async (email, token) => {
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/user/fetch-user?email=${email}`,
     {

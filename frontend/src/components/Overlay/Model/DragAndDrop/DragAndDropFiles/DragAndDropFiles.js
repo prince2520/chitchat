@@ -28,7 +28,7 @@ const DragAndDropFiles = ({ data }) => {
           fontSize={'1.5rem'}
           className="color-text-light"
           icon="mingcute:close-fill"
-          onClick={() => dispatch(DragAndDropActions.removeSingleFile(data))}
+          onClick={() => dispatch(DragAndDropActions.removeSingleFileReducer(data))}
         />
       </div>
     </div>

@@ -45,15 +45,15 @@ export const SocketContextProvider = ({ children }) => {
 
   const user = useSelector((state) => state.user);
   const selectedId = useSelector((state) => state.chat.selectedId);
-  const chat = useSelector(state=>state.chat);
-
+  const chat = useSelector(state => state.chat);
+  const showSettings = useSelector((state) => state.overlay.showSettings);
 
   const userVideo = useRef(null);
   const myVideo = useRef(null);
   const connectionRef = useRef();
 
   useEffect(() => {
-    socketInitiate(user._id); 
+    socketInitiate(user._id);
     return () => {
       socketDisconnect({ userId: user._id });
       if (videoAudioCall.isCalling || videoAudioCall.isReceivingCall) {
@@ -62,34 +62,34 @@ export const SocketContextProvider = ({ children }) => {
     };
   }, [user._id, dispatch]);
 
-  useEffect(()=>{
+  useEffect(() => {
     socketJoinGroups(chat.groups);
-  },[chat.groups])
+  }, [chat.groups])
 
   useEffect(() => {
     socketGetSendMessage((err, { data }) => {
-      dispatch(ChatActions.saveMessage(data));
+      dispatch(ChatActions.saveMessageReducer(data));
     });
     socketGetAddPrivate((err, { data }) => {
-      dispatch(ChatActions.createPrivate(data.private));
+      dispatch(ChatActions.createPrivateReducer(data.private));
     });
     socketGetRemoveUserGroup((err, { data }) => {
-      dispatch(ChatActions.deleteChat(data));
+      dispatch(ChatActions.deleteChatReducer(data));
     });
     socketGetUpdatedGroup((err, { data }) => {
-      dispatch(ChatActions.updateGroup(data));
+      dispatch(ChatActions.updateGroupReducer(data));
     });
     socketGetUnblockUser((err, { data }) => {
-      dispatch(ChatActions.unblockUserGroup(data));
+      dispatch(ChatActions.unblockUserGroupReducer(data));
     });
     socketGetBlockUser((err, { data }) => {
-      dispatch(ChatActions.blockUserGroup(data));
+      dispatch(ChatActions.blockUserGroupReducer(data));
     });
     socketGetAddMemberGroup((err, { data }) => {
-      dispatch(ChatActions.addMemberGroup(data));
+      dispatch(ChatActions.addMemberGroupReducer(data));
     });
     socketGetLeaveMemberGroup((err, { data }) => {
-      dispatch(ChatActions.leaveMemberGroup(data));
+      dispatch(ChatActions.leaveMemberGroupReducer(data));
     });
     socketGetAutoLogout((err, { userId, alreadyLogin }) => {
       if (user._id === userId && alreadyLogin) {
@@ -103,13 +103,13 @@ export const SocketContextProvider = ({ children }) => {
     // B ( Save 'A' Signal)
     socketGetCall((err, { callData }) => {
       dispatch(
-        VideoAudioCallActions.callingHandler({
+        VideoAudioCallActions.callingReducer({
           isCalling: false,
           isReceivingCall: true,
           callData: callData,
         })
       );
-      dispatch(OverlayActions.openVideoChatHandler());
+      dispatch(OverlayActions.openVideoChatReducer());
     });
 
     socketGetEndCall((err, data) => {
@@ -130,15 +130,18 @@ export const SocketContextProvider = ({ children }) => {
         userVideo.current.srcObject = null;
       }
 
-      dispatch(VideoAudioCallActions.callEndedHandler());
-      dispatch(OverlayActions.closeOverlayHandler());
+      dispatch(VideoAudioCallActions.callEndedReducer());
+      dispatch(OverlayActions.closeOverlayReducer());
     });
   }, []);
 
   useEffect(() => {
     socketGetRemoveChat((data) => {
-      console.log("socket delete chat", data)
-      dispatch(ChatActions.deleteChat(data));
+      if (showSettings) {
+        dispatch(OverlayActions.closeOverlayReducer());
+      }
+      dispatch(ChatActions.deleteChatReducer(data));
+
     });
   }, [dispatch, selectedId]);
 
@@ -164,7 +167,7 @@ export const SocketContextProvider = ({ children }) => {
 
     const mediaStream = await getUserMedia(getCallingType);
 
-    dispatch(OverlayActions.openVideoChatHandler());
+    dispatch(OverlayActions.openVideoChatReducer());
 
     const peer = new Peer({
       initiator: true,
@@ -196,7 +199,7 @@ export const SocketContextProvider = ({ children }) => {
     // B -> A ( B Signal )
     socketGetCallAccepted((err, { data }) => {
       peer.signal(data.signal);
-      dispatch(VideoAudioCallActions.callAcceptedHandler());
+      dispatch(VideoAudioCallActions.callAcceptedReducer());
     });
 
     connectionRef.current = peer;
@@ -229,25 +232,25 @@ export const SocketContextProvider = ({ children }) => {
 
     peer.signal(videoAudioCall.callData.data.signal);
 
-    dispatch(VideoAudioCallActions.callAcceptedHandler());
+    dispatch(VideoAudioCallActions.callAcceptedReducer());
 
     connectionRef.current = peer;
   };
 
   const endCall = (userToCall) => {
-    dispatch(VideoAudioCallActions.callEndedHandler());
+    dispatch(VideoAudioCallActions.callEndedReducer());
 
     const data = {
       callEnded: true,
       userToCall: userToCall,
     };
-  
+
     // Destroy peer connection
     if (connectionRef?.current) {
       connectionRef.current.destroy();
       connectionRef.current = null; // <-- clear reference
     }
-  
+
     // Stop media tracks
     if (stream) {
       stream.getTracks().forEach((track) => {
@@ -255,7 +258,7 @@ export const SocketContextProvider = ({ children }) => {
       });
       setStream(null); // <-- clear the state
     }
-  
+
     // Clear video elements
     if (myVideo.current) {
       myVideo.current.srcObject = null;
@@ -263,13 +266,13 @@ export const SocketContextProvider = ({ children }) => {
     if (userVideo.current) {
       userVideo.current.srcObject = null;
     }
-  
+
     // Socket cleanup
     socketEndCall(data);
     socketOffCallAccepted();
-  
+
     // UI cleanup
-    dispatch(OverlayActions.closeOverlayHandler());
+    dispatch(OverlayActions.closeOverlayReducer());
   };
 
   return (

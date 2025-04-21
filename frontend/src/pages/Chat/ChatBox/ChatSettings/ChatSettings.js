@@ -52,7 +52,7 @@ const ChatSettings = ({ closeSettingHandler }) => {
                 setTimeout(() => {
                   closeSettingHandler();
                   dispatch(
-                    OverlayActions.openSettingsHandler({
+                    OverlayActions.openSettingsReducer({
                       value: true,
                       link: option.title,
                     })

@@ -39,7 +39,7 @@ function App() {
     }
 
     if (new Date(localExpiryDate) <= new Date()) {
-      dispatch(UserActions.updateIsAuth(false));
+      dispatch(UserActions.updateIsAuthReducer(false));
       logout();
       return;
     }
@@ -47,7 +47,7 @@ function App() {
     dispatch(getUserThunk({ email: localEmail, token: localToken }))
     .unwrap()
     .then((res) => {
-      dispatch(ChatActions.saveChat({
+      dispatch(ChatActions.saveChatReducer({
         groups : res.user.groups,
         privates : res.user.privates,
       }));

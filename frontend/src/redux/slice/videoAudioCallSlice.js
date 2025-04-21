@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { callAcceptedHandler, callEndedHandler, callingHandler, receivingCallHandler } from "../reducer/videoAudioCallReducer";
+import { callAcceptedReducer, callEndedReducer, callingReducer, receivingCallReducer } from "../reducer/videoAudioCallReducer";
 
 const initialVideoAudioCallState = {
   isCalling: false,
@@ -22,10 +22,10 @@ const VideoAudioCallSlice = createSlice({
   name: "videoAudioCall",
   initialState: initialVideoAudioCallState,
   reducers: {
-    callingHandler,
-    callAcceptedHandler,
-    receivingCallHandler,
-    callEndedHandler,
+    callingReducer,
+    callAcceptedReducer,
+    receivingCallReducer,
+    callEndedReducer,
   },
 });
 

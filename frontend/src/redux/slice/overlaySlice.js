@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { closeOverlayHandler, openDragDropHandler, openSettingsHandler, openSideMobileBarHandler, openVideoChatHandler } from "../reducer/overlayReducer";
+import { closeOverlayReducer, openDragDropReducer, openSettingsReducer, openSideMobileBarReducer, openVideoChatReducer } from "../reducer/overlayReducer";
 
 const initialOverlayState = {
   showOverlay: false,
@@ -17,11 +17,11 @@ const OverlaySlice = createSlice({
   name: "overlay",
   initialState: initialOverlayState,
   reducers: {
-    closeOverlayHandler,
-    openSideMobileBarHandler,
-    openDragDropHandler,
-    openVideoChatHandler,
-    openSettingsHandler
+    closeOverlayReducer,
+    openSideMobileBarReducer,
+    openDragDropReducer,
+    openVideoChatReducer,
+    openSettingsReducer
   },
 });
 

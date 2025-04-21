@@ -34,7 +34,7 @@ const DragAndDrop = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(DragAndDropActions.removeAllFiles());
+      dispatch(DragAndDropActions.removeAllFilesReducer());
     };
   }, []);
 
@@ -51,7 +51,7 @@ const DragAndDrop = () => {
       data.size <= 20 &&
       data.type
     )
-      dispatch(DragAndDropActions.addFileHandler(data));
+      dispatch(DragAndDropActions.addFileReducer(data));
   };
 
   const handleDrop = (event) => {
@@ -88,7 +88,7 @@ const DragAndDrop = () => {
       saveInFirebase(file.fileData, `${categoryState[0] === data.selectedType ? 'groups' : 'privates'}/${chat.selectedId}/media/${user._id}-${uid(32)}`)
         .then((url) => {
           sendMessage(url, file);
-          dispatch(DragAndDropActions.removeSingleFile(file));
+          dispatch(DragAndDropActions.removeSingleFileReducer(file));
         })
         .catch((err) => console.log(err)).finally(() => {
           setLoading(false);
@@ -104,7 +104,7 @@ const DragAndDrop = () => {
       <div className={"close-btn"}>
         <Icon
           icon="mingcute:close-fill"
-          onClick={() => dispatch(OverlayActions.closeOverlayHandler())}
+          onClick={() => dispatch(OverlayActions.closeOverlayReducer())}
         />
       </div>
       <h3>Uploads</h3>

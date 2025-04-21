@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchUser, login, updateUser } from "../api/user";
+import { fetchUserAPI, loginAPI, updateUserAPI } from "../api/userAPI";
 
 
 // User - Get User
@@ -7,7 +7,7 @@ export const getUserThunk = createAsyncThunk(
     'user/getUser',
     async ({ email, token }, {  rejectWithValue }) => {
         try {
-            let response = await fetchUser(email, token);
+            let response = await fetchUserAPI(email, token);
             return { ...response, token, message: `${response.user.name} data fetch successfully!` };
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -23,7 +23,7 @@ export const updateUserThunk = createAsyncThunk(
         try {
             const state = getState();
             let token = state.user.token
-            let response = await updateUser(state.user.token, data);
+            let response = await updateUserAPI(state.user.token, data);
             return {...response, token,  message: `${response.user.name} profile edited successfully!`};
 
         } catch (error) {
@@ -37,7 +37,7 @@ export const loginThunk = createAsyncThunk(
     'user/login',
     async ({ email, password }, { rejectWithValue }) => {
         try {
-            let response = await login(email, password);
+            let response = await loginAPI(email, password);
             return {...response, message: `${response.user.name} has login successfully!`};
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");

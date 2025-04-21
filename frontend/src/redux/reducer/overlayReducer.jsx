@@ -1,4 +1,4 @@
-export const closeOverlayHandler = (state) => {
+export const closeOverlayReducer = (state) => {
     state.showVideoChat = false;
     state.showSideMobileBar = false;
     state.showDragDrop = false;
@@ -9,18 +9,18 @@ export const closeOverlayHandler = (state) => {
     state.showOverlay = false;
 };
 
-export const openSideMobileBarHandler = (state) => {
+export const openSideMobileBarReducer = (state) => {
     state.showSideMobileBar = true;
     state.showOverlay = true;
 };
 
-export const openDragDropHandler = (state) => {
+export const openDragDropReducer = (state) => {
     state.showDragDrop = true;
     state.showOverlay = true;
 };
 
 
-export const openVideoChatHandler = (state) => {
+export const openVideoChatReducer = (state) => {
     state.showSideMobileBar = false;
     state.showDragDrop = false;
     state.showSettings = {
@@ -31,7 +31,7 @@ export const openVideoChatHandler = (state) => {
     state.showOverlay = true;
 };
 
-export const openSettingsHandler = (state, action) => {
+export const openSettingsReducer = (state, action) => {
     state.showSettings = action.payload;
     state.showOverlay = true;
 };

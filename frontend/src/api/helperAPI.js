@@ -1,7 +1,7 @@
 import { throwError } from "../redux/api/throwError";
 
 // POST -> url website data
-export const urlWebsiteData = async (data) => {
+export const urlWebsiteDataAPI = async (data) => {
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/helper/url-website-data`,
     {

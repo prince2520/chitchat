@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-import { urlWebsiteData } from "../api/helper";
+import { urlWebsiteDataAPI } from "../api/helperAPI";
 import { isValidUrl } from "../utils/IsValidUrl";
 
 import { useSelector } from "react-redux";
@@ -23,7 +23,7 @@ const useExtractLinkDetail = () => {
       url: url,
     };
 
-    urlWebsiteData(data)
+    urlWebsiteDataAPI(data)
       .then((res) => {
         if (res.success) {
           setLinkData(res.data);
