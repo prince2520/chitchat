@@ -17,7 +17,6 @@ const GroupPrivateList = () => {
   const user = useSelector((state) => state.user);
   const chat = useSelector((state) => state.chat);
  
-
   const dispatch = useDispatch();
 
   const selectedItem = (item) => {

@@ -24,10 +24,6 @@ const Login = () => {
     dispatch(loginThunk({ email, password }))
       .unwrap()
       .then((res) => {
-        dispatch(ChatActions.saveChatReducer({
-          groups: res.user.groups,
-          privates: res.user.privates,
-        }))
         authTimer(res);
       })
       .catch(err => console.log(err))

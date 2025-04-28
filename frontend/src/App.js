@@ -20,8 +20,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "./hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserThunk } from "./redux/thunk/userThunk";
-import { ChatActions } from "./redux/slice/chatSlice";
-import {socketJoinGroups } from "./services/socket";
 
 function App() {
   const { logout, autoLogout } = useAuth();
@@ -45,13 +43,7 @@ function App() {
     }
 
     dispatch(getUserThunk({ email: localEmail, token: localToken }))
-    .unwrap()
-    .then((res) => {
-      dispatch(ChatActions.saveChatReducer({
-        groups : res.user.groups,
-        privates : res.user.privates,
-      }));
-    });
+
     const remainingMilliseconds =
       new Date(localExpiryDate).getTime() - new Date().getTime();
 
@@ -91,7 +83,7 @@ function App() {
           path="/"
           element={<Navigate to={!isAuth ? "/auth/login" : "/chat"} />}
         />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="*"  element={<NotFoundPage />} />
       </Routes>
     </div>
   );

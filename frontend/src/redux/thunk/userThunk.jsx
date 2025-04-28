@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchUserAPI, loginAPI, updateUserAPI } from "../api/userAPI";
+import { ChatActions } from "../slice/chatSlice";
 
 
 // User - Get User
@@ -24,7 +25,7 @@ export const updateUserThunk = createAsyncThunk(
             const state = getState();
             let token = state.user.token
             let response = await updateUserAPI(state.user.token, data);
-            return {...response, token,  message: `${response.user.name} profile edited successfully!`};
+            return { ...response, token, message: `${response.user.name} profile edited successfully!` };
 
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
@@ -35,10 +36,14 @@ export const updateUserThunk = createAsyncThunk(
 // Auth - Login
 export const loginThunk = createAsyncThunk(
     'user/login',
-    async ({ email, password }, { rejectWithValue }) => {
+    async ({ email, password }, {dispatch, rejectWithValue }) => {
         try {
             let response = await loginAPI(email, password);
-            return {...response, message: `${response.user.name} has login successfully!`};
+            dispatch(ChatActions.saveChatReducer({
+                groups: response.user.groups,
+                privates: response.user.privates,
+            }))
+            return { ...response, message: `${response.user.name} has login successfully!` };
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
         }

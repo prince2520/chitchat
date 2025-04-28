@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 
+let logoutTimer = null;
+
 export function useAuth() {
 
     const dispatch = useDispatch();
@@ -11,7 +13,6 @@ export function useAuth() {
 
     const authTimer = useCallback((res) => {
 
-        // add new token in local storage and set expiry date
         localStorage.setItem("token", res.token);
         localStorage.setItem("_id", res.user._id);
         localStorage.setItem("email", res.user?.email);
@@ -29,16 +30,21 @@ export function useAuth() {
     const logout = useCallback(() => {
         localStorage.clear();
         navigate("/auth/login");
-//        dispatch(resetState());
         toast.success("Successfully Logout!");
     }, [dispatch]);
 
     const autoLogout = useCallback((milliseconds) => {
-        navigate("/chat");
+        if (logoutTimer != null) {
+            clearTimeout(logoutTimer);
+            logoutTimer = null;
+        }
 
-        setTimeout(() => {
+        logoutTimer = setTimeout(() => {
             logout();
         }, milliseconds);
+
+        navigate("/chat");
+
     }, [logout]);
 
     return { logout, autoLogout, authTimer };

@@ -21,7 +21,7 @@ const NotFoundPage = () => {
     }
     timeOut = setTimeout(() => {
       setShow(true);
-    }, [100]);
+    }, [2000]);
   }, []);
 
   return (
