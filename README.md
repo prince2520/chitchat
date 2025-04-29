@@ -132,6 +132,8 @@ REACT_APP_storageBucket=*****
 REACT_APP_messagingSenderId=*****
 REACT_APP_appId=*****
 REACT_APP_measurementId=*****
+
+REACT_APP_GEMINI_KEY=****
 ```
 <p><b>Step 5 -</b> Run frontend server locally.</p>
 
