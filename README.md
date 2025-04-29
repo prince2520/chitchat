@@ -64,21 +64,26 @@ ChitChat is a feature-packed, real-time messaging and communication platform bui
 ## Built With
 #### Frontend
 * [React](https://react.dev/)
-* [Figma](https://www.figma.com/)
-* [Iconify](https://iconify.design/)
-* [LottieFiles](https://lottiefiles.com/)
+* [React Router](https://reactrouter.com/)
+* [React Redux](https://react-redux.js.org/)
+* [React Thunk](https://redux.js.org/usage/writing-logic-thunks) 
 * [Redux Toolkit](https://redux-toolkit.js.org/)
 * [React Image File Resizer](https://www.npmjs.com/package/react-image-file-resizer)
-* [Firebase](https://firebase.google.com/)
-* [Simple Peer](https://www.npmjs.com/package/simple-peer)
+* [Firebase Storage](https://firebase.google.com/)
 * [Socket Client](https://socket.io/docs/v4/client-api/)
+* [Simple Peer](https://www.npmjs.com/package/simple-peer)
+* [WebRTC](https://webrtc.org/)
+* [Gemini AI](https://gemini.google.com/app?hl=en-IN)
+* [React Toastify](https://www.npmjs.com/package/react-toastify)
+  * [Figma](https://www.figma.com/)
 
 #### Backend
+* [Node.js](https://nodejs.org/en)
 * [Express.js](https://expressjs.com/)
 * [Joi](https://joi.dev/)
-* [Jwt](https://jwt.io/)
-* [Node.js](https://nodejs.org/en)
+* [JsonWebToken](https://jwt.io/)
 * [MongoDB](https://mongodb.com/)
+* [Mongoose](https://mongoosejs.com/)
 * [Socket](https://www.npmjs.com/package/socket.io)
 
 ## Getting Started  
