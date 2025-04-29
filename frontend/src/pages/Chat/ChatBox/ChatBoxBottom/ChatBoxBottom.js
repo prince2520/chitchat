@@ -8,11 +8,13 @@ import { OverlayActions } from "../../../../redux/slice/overlaySlice";
 
 import CustomEmoji from "./CustomEmoji/CustomEmoji";
 
-import "./ChatBoxBottom.css";
 import { createGroupMessageThunk, createPrivateMessageThunk } from "../../../../redux/thunk/chatThunk";
 import { getAIAnswer } from "../../../../geminiai";
 import { toast } from "react-toastify";
-import OpenAI from "./OpenAI/OpenAI";
+import GeminiAI from "./GeminiAI/GeminiAI";
+
+import "./ChatBoxBottom.css";
+
 
 const ChatBoxBottom = () => {
   const [showEmojis, setShowEmojis] = useState(false);
@@ -78,7 +80,7 @@ const ChatBoxBottom = () => {
     }
   }
 
-  const isOpenAIHandler = (openAICond) => setIsOpenAIMsg(openAICond);
+  const isGeminiAIHandler = (openAICond) => setIsOpenAIMsg(openAICond);
 
   const closeEmojiHandler = () => {
     setShowEmojis(false);
@@ -105,7 +107,7 @@ const ChatBoxBottom = () => {
           onClick={() => dispatch(OverlayActions.openDragDropReducer())}
           icon="tabler:files"
         />
-        <OpenAI isOpenAIHandler={isOpenAIHandler} />
+        <GeminiAI isGeminiAIHandler={isGeminiAIHandler} />
       </div>
       <div
         className={" hoverState flex-center border chat-box__bottom__middle"}

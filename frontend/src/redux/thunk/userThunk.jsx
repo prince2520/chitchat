@@ -6,9 +6,13 @@ import { ChatActions } from "../slice/chatSlice";
 // User - Get User
 export const getUserThunk = createAsyncThunk(
     'user/getUser',
-    async ({ email, token }, {  rejectWithValue }) => {
+    async ({ email, token }, { dispatch,  rejectWithValue }) => {
         try {
             let response = await fetchUserAPI(email, token);
+            dispatch(ChatActions.saveChatReducer({
+                groups: response.user.groups,
+                privates: response.user.privates,
+            }))
             return { ...response, token, message: `${response.user.name} data fetch successfully!` };
         } catch (error) {
             return rejectWithValue(error.message || "Something goes wrong!");
