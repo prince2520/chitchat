@@ -1,7 +1,7 @@
 ![Github Cover](https://github.com/prince2520/chitchat/assets/68547999/f8294b0b-f530-4918-85be-c7011652704e)
 
 <p align = "center">
-ChitChat: Your vibrant hub for forging connections, fostering friendships, and seamlessly exchanging media through video calls and messages.
+ChitChat: A Real-Time Messaging Platform with Video Calls, Media Sharing, and AI Integration.
 </p>
 
 
@@ -31,6 +31,7 @@ ChitChat: Your vibrant hub for forging connections, fostering friendships, and s
 
 ## Table Of Contents
 * [About the Project](#about-the-project)
+* [Features](#features)
 * [Built With](#built-with)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
@@ -46,8 +47,20 @@ ChitChat: Your vibrant hub for forging connections, fostering friendships, and s
 
 
 <p align="left">
-ChitChat is ultimate destination for connecting, forging friendships. Seamlessly blend video calls, media messages, and crystal-clear audio calls
+ChitChat is a feature-packed, real-time messaging and communication platform built to provide users with a seamless chat experience. This platform integrates several advanced features, including media sharing, group and private chats, video/audio calls, and intelligent AI integration. Whether you want to chat, create groups, or call someone, ChitChat offers all the essential tools you need.
 
+## Features 
+
+- 🔐 **Private & Group Chats**: Easily create or join secure private and group chats.
+- 🎥 **Video & Audio Calls**: High-quality real-time calls powered by WebRTC and Simple Peer.
+- 💬 **Text & Media Sharing**: Send text messages and share media files like images and videos.
+- 🖼️ **Profile Photos & Media Storage**: Profile photos and media are securely stored on Firebase.
+- 🤖 **Smart AI Replies**: AI-powered smart replies for quick and intelligent responses.
+- 🔒 **Secure Authentication**: JWT authentication for user security.
+- 🗃️ **MongoDB for Data Storage**: User data and chat histories are securely stored in MongoDB.
+
+
+ 
 ## Built With
 #### Frontend
 * [React](https://react.dev/)
