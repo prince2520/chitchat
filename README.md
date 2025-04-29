@@ -51,15 +51,13 @@ ChitChat is a feature-packed, real-time messaging and communication platform bui
 
 ## Features 
 
-- 🔐 **Private and Group Chats**: Easily create or join private and group chats to communicate securely with friends or teams.
-- 🎥 **Video and Audio Calls**: Enjoy high-quality video and audio calls in real time, powered by **WebRTC** and **Simple Peer** for peer-to-peer connections.
-- 💬 **Text Messaging and Media Sharing**: Send text messages and share images, videos, and other media files in your chats.
-- 🌐 **Link Previews**: Automatically generate rich previews for shared links, displaying the title, description, and icon.
-- 🖼️ **Profile Photos and Media Storage**: User profile photos and media are securely uploaded and stored on **Firebase**.
-- 🤖 **Smart AI Replies**: **ChitChat** features AI-powered smart replies, providing users with quick, intelligent responses in chats, similar to WhatsApp.
-- ⚡ **Real-Time Communication**: Powered by **Socket.io**, ensuring smooth and instant messaging and call signaling.
-- 🔒 **Secure Authentication**: **JWT authentication** ensures that only authorized users can access private chats and personal data.
-- 🗃️ **MongoDB for Data Storage**: User data, chat histories, and essential information are securely stored and managed in **MongoDB**.
+- 🔐 **Private & Group Chats**: Easily create or join secure private and group chats.
+- 🎥 **Video & Audio Calls**: High-quality real-time calls powered by WebRTC and Simple Peer.
+- 💬 **Text & Media Sharing**: Send text messages and share media files like images and videos.
+- 🖼️ **Profile Photos & Media Storage**: Profile photos and media are securely stored on Firebase.
+- 🤖 **Smart AI Replies**: AI-powered smart replies for quick and intelligent responses.
+- 🔒 **Secure Authentication**: JWT authentication for user security.
+- 🗃️ **MongoDB for Data Storage**: User data and chat histories are securely stored in MongoDB.
 
 
  
