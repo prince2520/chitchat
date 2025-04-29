@@ -1,7 +1,7 @@
 ![Github Cover](https://github.com/prince2520/chitchat/assets/68547999/f8294b0b-f530-4918-85be-c7011652704e)
 
 <p align = "center">
-ChitChat: Your vibrant hub for forging connections, fostering friendships, and seamlessly exchanging media through video calls and messages.
+ChitChat: A Real-Time Messaging Platform with Video Calls, Media Sharing, and AI Integration.
 </p>
 
 
@@ -31,6 +31,7 @@ ChitChat: Your vibrant hub for forging connections, fostering friendships, and s
 
 ## Table Of Contents
 * [About the Project](#about-the-project)
+* [Features](#features)
 * [Built With](#built-with)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
@@ -46,8 +47,22 @@ ChitChat: Your vibrant hub for forging connections, fostering friendships, and s
 
 
 <p align="left">
-ChitChat is ultimate destination for connecting, forging friendships. Seamlessly blend video calls, media messages, and crystal-clear audio calls
+ChitChat is a feature-packed, real-time messaging and communication platform built to provide users with a seamless chat experience. This platform integrates several advanced features, including media sharing, group and private chats, video/audio calls, and intelligent AI integration. Whether you want to chat, create groups, or call someone, ChitChat offers all the essential tools you need.
 
+## Features 
+
+- 🔐 **Private and Group Chats**: Easily create or join private and group chats to communicate securely with friends or teams.
+- 🎥 **Video and Audio Calls**: Enjoy high-quality video and audio calls in real time, powered by **WebRTC** and **Simple Peer** for peer-to-peer connections.
+- 💬 **Text Messaging and Media Sharing**: Send text messages and share images, videos, and other media files in your chats.
+- 🌐 **Link Previews**: Automatically generate rich previews for shared links, displaying the title, description, and icon.
+- 🖼️ **Profile Photos and Media Storage**: User profile photos and media are securely uploaded and stored on **Firebase**.
+- 🤖 **Smart AI Replies**: **ChitChat** features AI-powered smart replies, providing users with quick, intelligent responses in chats, similar to WhatsApp.
+- ⚡ **Real-Time Communication**: Powered by **Socket.io**, ensuring smooth and instant messaging and call signaling.
+- 🔒 **Secure Authentication**: **JWT authentication** ensures that only authorized users can access private chats and personal data.
+- 🗃️ **MongoDB for Data Storage**: User data, chat histories, and essential information are securely stored and managed in **MongoDB**.
+
+
+ 
 ## Built With
 #### Frontend
 * [React](https://react.dev/)
