@@ -72,7 +72,7 @@ ChitChat is a feature-packed, real-time messaging and communication platform bui
 * [WebRTC](https://webrtc.org/)
 * [Gemini AI](https://gemini.google.com/app?hl=en-IN)
 * [React Toastify](https://www.npmjs.com/package/react-toastify)
-  * [Figma](https://www.figma.com/)
+* [Figma](https://www.figma.com/)
 
 #### Backend
 * [Node.js](https://nodejs.org/en)
