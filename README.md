@@ -62,8 +62,8 @@ ChitChat is a feature-packed, real-time messaging and communication platform bui
 #### Frontend
 * [React](https://react.dev/)
 * [React Router](https://reactrouter.com/)
-* [React Redux](https://react-redux.js.org/)
-* [React Thunk](https://redux.js.org/usage/writing-logic-thunks) 
+* [Redux](https://react-redux.js.org/)
+* [Redux Thunk](https://redux.js.org/usage/writing-logic-thunks) 
 * [Redux Toolkit](https://redux-toolkit.js.org/)
 * [React Image File Resizer](https://www.npmjs.com/package/react-image-file-resizer)
 * [Firebase Storage](https://firebase.google.com/)
